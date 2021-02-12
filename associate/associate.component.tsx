@@ -2,10 +2,10 @@
 import React from 'react';
 import 'react-native';
 import { View } from 'react-native';
-import { associate, qcFeedback } from './associate.service';
+import { Associate, qcFeedback } from './associate.service';
 
 interface AssociateProps {
-    assoc: associate;
+    assoc: Associate;
     qcFB: qcFeedback; 
 }
 

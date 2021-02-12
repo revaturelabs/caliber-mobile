@@ -7,9 +7,11 @@ import 'jest-enzyme';
 import '@testing-library/jest-dom';
 import Enzyme from 'enzyme';
 import 'enzyme-adapter-react-16';
+import axios from 'axios';
+
 
 import AssociateComponent from '../associate.component';
-import { associate, qcFeedback } from '../associate.service';
+import associateService, { Associate, qcFeedback } from '../associate.service';
 
 const testFeedback = new qcFeedback();
 testFeedback.associateId = 'testId';
@@ -18,7 +20,7 @@ testFeedback.weekId = 1;
 testFeedback.qcTechnicalStatus = 2;
 testFeedback.qcNote = 'testNote';
 
-const testAssociate = new associate();
+const testAssociate = new Associate();
 testAssociate.associateId = testFeedback.associateId;
 testAssociate.firstName = 'testFN';
 testAssociate.lastName = 'testLN';
