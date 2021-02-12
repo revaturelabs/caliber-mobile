@@ -1,0 +1,1 @@
+//Shows associate name, technical status, note (editable)
