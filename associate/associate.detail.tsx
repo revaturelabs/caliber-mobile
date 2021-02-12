@@ -9,10 +9,10 @@ interface AssociateProps {
     qcFB: qcFeedback; 
 }
 
-function AssociateComponent(props: AssociateProps) {
+function AssociateDetail(props: AssociateProps) {
     return (
         <View></View>
     );
 }
 
-export default AssociateComponent;
+export default AssociateDetail;
