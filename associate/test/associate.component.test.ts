@@ -1,12 +1,15 @@
 /**
  * @jest-environment jsdom
  */
-import AssociateComponent from '../associate.component';
-import { associate, qcFeedback } from '../associate.service';
+import React from 'react';
 import 'react-native';
 import 'jest-enzyme';
 import '@testing-library/jest-dom';
 import Enzyme from 'enzyme';
+import 'enzyme-adapter-react-16';
+
+import AssociateComponent from '../associate.component';
+import { associate, qcFeedback } from '../associate.service';
 
 const testFeedback = new qcFeedback();
 testFeedback.associateId = 'testId';
@@ -23,7 +26,7 @@ testAssociate.lastName = 'testLN';
 test('That the associate\'s name displays', () => {
 
     const wrapper = Enzyme.mount(
-        <AssociateComponent associate={testAssociate} qcFeedback={testFeedback}/>
+        <AssociateComponent/>
     );
 
     const firstName = wrapper.findWhere((node) => {
