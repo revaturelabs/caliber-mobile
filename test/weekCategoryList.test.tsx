@@ -26,19 +26,13 @@ describe('tests for weekCategoryList', () => {
         const cat1 = new Category(1, 'React', true);
         const cat2 = new Category(2, 'TypeScript', true);
         const testList = [cat1, cat2];
-        const testState = { isVisible: false};
+
         
 
         //Mount component for testing
         const wrapper = Enzyme.mount(
             <WeekCategoryList data = {testList}></WeekCategoryList>
         );
-        wrapper.setState(testState);
-
-        //There is an item with id button and when clicked, state changes
-        const button = wrapper.findWhere((node) => node.prop('testID') == 'button').first();
-        button.simulate('click');
-        expect(wrapper.state('isVisible')).toBe(true);
 
         //flatList gets data from props
         const flatList = wrapper.find(FlatList)
