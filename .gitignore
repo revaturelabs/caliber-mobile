@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+node_modules/**/*
+=======
+=======
+>>>>>>> e61215a6507f357c56fc5ccba5114765b9c31a04
 **/node_modules/
 **/coverage/
 **/*.log
@@ -20,3 +26,7 @@ web-build/
 
 # macOS
 .DS_Store
+<<<<<<< HEAD
+>>>>>>> 92aaeec8999a82f657ab1f50bbca03a86b11e0d6
+=======
+>>>>>>> e61215a6507f357c56fc5ccba5114765b9c31a04
