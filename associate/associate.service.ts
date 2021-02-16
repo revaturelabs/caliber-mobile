@@ -2,7 +2,28 @@
 //     to get qc feedback for individual associates
 // also sends axios calls to the mock data api, to get associate's name
 
-export class QCFeedback {
+class AssociateService {
+    private URI: string;
+    constructor() {
+        // URL of the express server
+        this.URI = 'PLACEHOLDER URI';
+    }
+
+    async getAssociate():Promise<Associate> {
+        let x = new Associate();
+        return x;
+    }
+    async replaceAssociate():Promise<Associate> {
+        let x = new Associate();
+        return x;
+    }
+    async updateAssociate():Promise<Associate> {
+        let x = new Associate();
+        return x;
+    }
+}
+export default new AssociateService();
+export class qcFeedback {
     batchId: string = '';
     weekId: number = 0;
     associateId: string = '';
