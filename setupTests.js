@@ -1,4 +1,3 @@
-
 import 'react-native';
 import 'jest-enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -9,3 +8,5 @@ import Enzyme from 'enzyme';
  * and inspect the DOM in tests.
  */
 Enzyme.configure({ adapter: new Adapter() });
+
+//export  jsdom = require('jsdom').jsdom;

@@ -1,3 +1,12 @@
+**/node_modules/
+**/coverage/
+**/*.log
+**/build/**
+**/.vscode
+**/.env
+**/.eslintcache
+.vscode/
+
 node_modules/**/*
 .expo/*
 npm-debug.*
