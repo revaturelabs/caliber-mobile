@@ -3,9 +3,13 @@ import { View, Button, TextInput } from 'react-native';
 
 
 function AddNoteComponent(){
+
+    function handleChange(){
+
+    }
     return (
         <View>
-            <TextInput>Overall Note: </TextInput>
+            Overall Note: <TextInput onChangeText={()=>{}}> </TextInput>
             <Button title='Add Overall Note' onPress={()=>''}></Button>
         </View>
     )
