@@ -1,14 +1,11 @@
-import React from 'react';
 import 'react-native';
 import 'jest-enzyme';
 import '@testing-library/jest-dom';
-import Enzyme from 'enzyme';
 import 'enzyme-adapter-react-16';
 import axios from 'axios';
 
 
-import AssociateComponent from '../associate.component';
-import associateService, { Associate, qcFeedback } from '../associate.service';
+import associateService from '../associate.service';
 
 
 test('Test Axios request to GET associate singular', async ()=>{
