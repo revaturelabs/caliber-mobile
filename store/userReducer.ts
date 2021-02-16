@@ -4,7 +4,7 @@ import { CaliberState } from './store';
 
 export const initialState: CaliberState = {
     user: new UserInfo(),
-    loginUser: new UserInput(),
+    userLogin: new UserInput(),
 }
 
 const userReducer = (state: CaliberState = initialState, action: Actions.AppAction): CaliberState => {
@@ -13,10 +13,10 @@ const userReducer = (state: CaliberState = initialState, action: Actions.AppActi
     switch (action.type) {    
         case Actions.UserActions.GetUser:
             newState.user = action.payload as UserInfo;
-            newState.loginUser = new UserInput();
+            newState.userLogin = new UserInput();
             return newState;
         case Actions.UserActions.LoginChange:
-            newState.loginUser = action.payload as UserInput;
+            newState.userLogin = action.payload as UserInput;
             return newState;
         default: 
             return state;

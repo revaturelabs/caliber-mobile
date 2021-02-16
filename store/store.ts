@@ -5,7 +5,7 @@ import {UserInput, UserInfo} from '../user/user'
 
 export interface UserState {
     user: UserInfo;
-    loginUser: UserInput;
+    userLogin: UserInput;
 }
 export interface CaliberState extends UserState {}
 // <> is generics: Generic arguments allow us to define the type of a thing at runtime instead of when we write it,

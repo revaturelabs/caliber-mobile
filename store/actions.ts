@@ -15,6 +15,7 @@ export interface UserAction<P> extends AppAction {
     payload: P;
 }
 
+//info of the user that is logged in
 export function getUser(user: UserInfo): UserAction<UserInfo> {
     const action: UserAction<UserInfo> = {
         type: UserActions.GetUser,
@@ -23,6 +24,7 @@ export function getUser(user: UserInfo): UserAction<UserInfo> {
     return action;
 }
 
+//user input
 export function loginChange(user: UserInput): UserAction<UserInput> {
     const action: UserAction<UserInput> = {
         type: UserActions.LoginChange,
