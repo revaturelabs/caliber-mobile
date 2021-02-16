@@ -6,7 +6,6 @@
 **/.env
 **/.eslintcache
 .vscode/
-.env
 
 node_modules/**/*
 .expo/*
