@@ -105,8 +105,11 @@
 =======
     "@babel/core": "~7.9.0",
     "@types/enzyme": "^3.10.8",
+<<<<<<< HEAD
     "@types/enzyme-adapter-react-16": "^1.0.6",
 >>>>>>> e61215a6507f357c56fc5ccba5114765b9c31a04
+=======
+>>>>>>> 3d8653eeb6a10884a6b02d3238e9d7329246b134
     "@babel/preset-env": "^7.12.11",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
