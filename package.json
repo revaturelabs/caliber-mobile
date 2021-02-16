@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 {
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
@@ -88,4 +86,3 @@
   },
   "private": true
 }
->>>>>>> 7fd909face07e16a34ce2de4b251f40c83d4065b
