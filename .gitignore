@@ -1,1 +1,22 @@
+**/node_modules/
+**/coverage/
+**/*.log
+**/build/**
+**/.vscode
+**/.env
+**/.eslintcache
+.vscode/
+
 node_modules/**/*
+.expo/*
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+
+# macOS
+.DS_Store

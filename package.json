@@ -1,10 +1,25 @@
 {
-  "name": "caliber-mobile",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "react-native",
+    "setupFiles": [
+      "./node_modules/react-native-gesture-handler/jestSetup.js"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>setupTests.js"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/assetsTransformer.js",
+      "\\.(css|less)$": "<rootDir>/assetsTransformer.js"
+    }
   },
   "repository": {
     "type": "git",
@@ -15,7 +30,11 @@
   "bugs": {
     "url": "https://github.com/913-RichardOrr/caliber-mobile/issues"
   },
+  "homepage": "https://github.com/913-RichardOrr/caliber-mobile#readme",
   "dependencies": {
+    "enzyme": "^3.11.0",
+    "firebase": "^8.2.7",
+    "jest": "^26.6.3",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/native": "^5.8.10",
     "@react-navigation/stack": "^5.12.8",
@@ -36,19 +55,20 @@
     "react-native-reanimated": "~1.13.0",
     "react-native-safe-area-context": "3.1.9",
     "react-native-screens": "~2.15.0",
-    "react-native-web": "~0.13.12",
+    "react-native-web": "^0.15.0",
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.6",
+    "@babel/core": "~7.9.0",
+    "@types/enzyme": "^3.10.8",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
     "@babel/preset-env": "^7.12.11",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.0",
     "@types/axios": "^0.14.0",
-    "@types/enzyme": "^3.10.8",
     "@types/jest": "^26.0.20",
     "@types/react": "~16.9.35",
     "@types/react-dom": "~16.9.8",
@@ -64,5 +84,5 @@
     "jsdom": "^16.4.0",
     "typescript": "~4.0.0"
   },
-  "homepage": "https://github.com/913-RichardOrr/caliber-mobile#readme"
+  "private": true
 }
