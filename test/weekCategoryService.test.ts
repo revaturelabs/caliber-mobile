@@ -19,7 +19,7 @@ describe('tests for adding, deleting, and retrieving categories for a week', asy
         });
         expect(axios.delete).toHaveBeenCalledTimes(1);
         expect(returnValues).toBe(obj);
-        expect(axios.delete).toHaveBeenCalledWith('');
+        expect(axios.delete).toHaveBeenCalledWith('enter url');
     });
     test('that deleteCategory returns an error when the function is passed incorrect data', async () => {
 
@@ -32,7 +32,7 @@ describe('tests for adding, deleting, and retrieving categories for a week', asy
         });
         expect(axios.delete).toHaveBeenCalledTimes(1);
         expect(returnValues).toBe(obj.error);
-        expect(axios.delete).toHaveBeenCalledWith('');
+        expect(axios.delete).toHaveBeenCalledWith('enter url');
     });
 
     //Note: getCategories either returns an empty array or an array with categories inside of
