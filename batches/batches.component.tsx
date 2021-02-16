@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
-import { useDispatch,, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FlatList } from 'react-native-gesture-handler';
 import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native';
