@@ -1,5 +1,5 @@
 import axios from 'axios';
-import weekCategoryService from '../weekCategory/weekCategory.service
+import weekCategoryService from '../weekCategory/weekCategory.service';
 
 
 describe('tests for adding, deleting, and retrieving categories for a week', () => {
@@ -8,11 +8,11 @@ describe('tests for adding, deleting, and retrieving categories for a week', () 
 
     });
 
-    test('that deleteCategory returns eturns an error when the function is passed incorrect data', async () => {
+    test('that deleteCategory returns an error when the function is passed incorrect data', async () => {
 
     });
 
-    //Note: getCategories either returns an empty array or an array with categories inside of it
+    //Note: getCategories either returns an empty array or an array with categories inside of
     test('that getCategories returns a promise with data in it', async () => {
         let returnValues;
         let obj = { data: [] };
@@ -30,7 +30,7 @@ describe('tests for adding, deleting, and retrieving categories for a week', () 
 
     });
 
-    test('that addCategory  returns an error when the function is passed incorrect data', async () => {
+    test('that addCategory returns an error when the function is passed incorrect data', async () => {
 
     });
 });
