@@ -27,10 +27,30 @@ describe('tests for adding, deleting, and retrieving categories for a week', () 
 
 
     test('that addCategory returns a promise with data in it when the function is passed correct data', async () => {
+        let returnValues;
+        let skill = 'skill'
+        let active = true;
+        let obj = {data: []};
+        axios.post = jest.fn().mockResolvedValue(obj);
+        await weekCategoryService.addCategory(skill, active).then((result)=>{
+            returnValues = result;
+        });
+        expect(axios.post).toHaveBeenCalledTimes(1);
+        expect(returnValues).toBe(obj.data);
 
     });
 
     test('that addCategory  returns an error when the function is passed incorrect data', async () => {
+        let returnValues;
+        let skill = 'skill'
+        let active = true;
+        let obj = {data: []};
+        axios.post = jest.fn().mockResolvedValue(obj);
+        await weekCategoryService.addCategory(skill, active).then((result)=>{
+            returnValues = result;
+        });
+        expect(axios.post).toHaveBeenCalledTimes(1);
+        expect(returnValues).toBe(obj.data);
 
     });
 });
