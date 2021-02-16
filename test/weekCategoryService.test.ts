@@ -12,7 +12,8 @@ describe('tests for adding, deleting, and retrieving categories for a week', () 
 
     });
 
-    test('that getCategories returns a promise with data in it when the function is passed correct data', async () => {
+    //Note: getCategories either returns an empty array or an array with categories inside of it
+    test('that getCategories returns a promise with data in it', async () => {
         let returnValues;
         let obj = { data: [] };
         axios.get = jest.fn().mockReturnValue(obj);
@@ -24,19 +25,6 @@ describe('tests for adding, deleting, and retrieving categories for a week', () 
         expect(axios.get).toHaveBeenCalledWith('enter url');
     });
 
-    test('that getCategories returns an error when the function is passed incorrect data', async () => {
-        let returnValues;
-        let err = new Error();
-        axios.get = jest.fn().mockRejectedValue(err)
-        await weekCategoryService.getCategories().then((arr: any) => {
-            returnValues = arr;
-
-        });
-        expect(axios.get).toHaveBeenCalledTimes(1);
-        expect(returnValues).toBe(err);
-        expect(axios.get).toHaveBeenCalledWith('enter url');
-
-    });
 
     test('that addCategory returns a promise with data in it when the function is passed correct data', async () => {
 
