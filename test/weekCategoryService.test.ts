@@ -12,6 +12,7 @@ describe('tests for adding, deleting, and retrieving categories for a week', ()=
     })
 
     test('that getCategories returns a promise with data in it when the function is passed correct data', async()=>{
+        
 
     })
 
