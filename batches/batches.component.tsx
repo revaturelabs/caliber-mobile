@@ -21,7 +21,12 @@ export default function BatchesComponent() {
     const batchPreview = (params: any) => {
         return (
             <View>
-                <Text>params.item.name</Text>
+                <Text>{params.item.name}</Text>
+                <Text>{params.item.skill}</Text>
+                <Text>{params.item.type}</Text>
+                <Text>{params.item.location}</Text>
+                <Text>{params.item.startDate}</Text>
+                <Text>{params.item.endDate}</Text>
             </View>
         )
     }
@@ -51,7 +56,7 @@ export default function BatchesComponent() {
                                 selectedValue={filter}
                                 onValueChange={handleFilter}>
                                 <Picker.Item
-                                    label='No Filter'
+                                    label='None'
                                     value=''/>
                                 {batches.length > 0 && batches.map((batch) => {
                                     return <Picker.Item
@@ -61,9 +66,15 @@ export default function BatchesComponent() {
                                 })}
                             </Picker>
                             {(() => {
-                                ((batches[0])) ? 
-                                    <FlatList data={filter == '' ? batches : list} renderItem={batchPreview} keyExtractor={keyExtractor}/>
-                                : <ActivityIndicator/>
+                                if (batches[0]) {
+                                    return (
+                                        <FlatList data={filter == '' ? null : list} renderItem={batchPreview} keyExtractor={keyExtractor}/>
+                                    )
+                                } else {
+                                    return (
+                                        <ActivityIndicator/>
+                                    )
+                                }
                             })()}
                         </View>
                     )
