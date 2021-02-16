@@ -21,13 +21,11 @@ describe('tests for weekCategoryList', () => {
 
     });
 
-    test('that the button changes the state', () => {
+    test('that the flatList gets its items from props', () => {
         //Set up
         const cat1 = new Category(1, 'React', true);
         const cat2 = new Category(2, 'TypeScript', true);
         const testList = [cat1, cat2];
-
-        
 
         //Mount component for testing
         const wrapper = Enzyme.mount(
@@ -37,6 +35,7 @@ describe('tests for weekCategoryList', () => {
         //flatList gets data from props
         const flatList = wrapper.find(FlatList)
         expect (flatList.props().data).toEqual(testList);
+
     });
 
 
