@@ -1,14 +1,18 @@
-import { mount} from 'enzyme';
+/**
+ * @jest-environment jsdom
+ */
+import React from 'react';
+import Enzyme from 'enzyme';
 import AddNoteComponent from '../addNote.component';
+import { Button } from 'react-native';
 
-describe('testing adding an overall note', () => {
-    const wrapper = mount(<AddNoteComponent/>);
-    const button = wrapper.find('button');
-    const input = wrapper.find('input');
-
-    button.simulate('click');
-    expect(button).toHaveBeenCalled();
+test('test adding an overall note', () => {
+    const wrapper = Enzyme.mount(<AddNoteComponent />);
+    const mockFn = jest.fn();
     
-    input.simulate('change', {target: {value: 'something'}});
-    expect(input).toHaveBeenCalled();
+    const tree = Enzyme.shallow(
+        <Button title='button test' onPress={mockFn} />
+      );
+      tree.simulate('click');
+      expect(mockFn).toHaveBeenCalled();
 });
