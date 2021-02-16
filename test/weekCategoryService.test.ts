@@ -12,7 +12,7 @@ describe('tests for adding, deleting, and retrieving categories for a week', asy
     test('that deleteCategory returns a promise with data in it when the function is passed incorrect data', async () => {
 
         let returnValues;
-        let obj = { data: 200 };
+        let obj = null;
         axios.delete = jest.fn().mockResolvedValue(obj);
         await weekCategoryService.deleteCategory().then((returendMSG: any) => {
             returnValues = returendMSG;
@@ -25,13 +25,13 @@ describe('tests for adding, deleting, and retrieving categories for a week', asy
 
         let returnValues;
 
-        let obj = { data: 400 };
+        let obj = { error:'Error' };
         axios.delete = jest.fn().mockResolvedValue(obj);
         await weekCategoryService.deleteCategory().then((returendMSG: any) => {
             returnValues = returendMSG;
         });
         expect(axios.delete).toHaveBeenCalledTimes(1);
-        expect(returnValues).toBe(obj.data);
+        expect(returnValues).toBe(obj.error);
         expect(axios.delete).toHaveBeenCalledWith('enter url');
     });
 
