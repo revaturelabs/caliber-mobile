@@ -13,4 +13,12 @@ describe('tests for weekCategoryList', ()=>{
 
     });
 
+    test('that the button makes a [menu?] appear', ()=>{
+
+    });
+
+    test('that selecting from menu calls addCategory from categoryService and refreshes list', ()=>{
+
+    });
+
 });

@@ -9,7 +9,7 @@ describe('tests for weekCategory.component', ()=>{
 
     });
     
-    test('that the button works', () =>{
+    test('that the button calls deleteCategory from categoryService and refreshes list', () =>{
 
     });
 
