@@ -4,11 +4,6 @@ import weekCategoryService from '../weekCategory/weekCategory.service';
 // Change Data at will please
 describe('tests for adding, deleting, and retrieving categories for a week', async () => {
 
-
-
-
-
-
     test('that deleteCategory returns a promise with data in it when the function is passed incorrect data', async () => {
 
         let returnValues;
