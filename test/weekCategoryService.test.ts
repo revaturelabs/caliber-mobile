@@ -61,13 +61,8 @@ describe('tests for adding, deleting, and retrieving categories for a week', asy
         let returnValues;
         let skill = 'skill'
         let active = true;
-<<<<<<< HEAD
-        let obj = {data: []};
-        axios.post = jest.fn().mockResolvedValue(obj);
-=======
         let err = new Error();
         axios.post = jest.fn().mockResolvedValue(err);
->>>>>>> 3d43bf5866ab8d9a15cb40c0a237acf01c05bf66
         await weekCategoryService.addCategory(skill, active).then((result:any)=>{
             returnValues = result;
         });
