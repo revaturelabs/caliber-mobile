@@ -1,30 +1,30 @@
 /**
  * @jest-environment jsdom
  */
+import Enzyme from 'enzyme';
 import React from 'react';
 import 'react-native';
 import 'jest-enzyme';
 import '@testing-library/jest-dom';
-import Enzyme from 'enzyme';
 import 'enzyme-adapter-react-16';
 
 import AssociateDetail from '../associate.detail';
-import { associate, qcFeedback } from '../associate.service';
+import * as AssociateService from '../associate.service';
 
-const testFeedback = new qcFeedback();
+const testFeedback = new AssociateService.QCFeedback();
 testFeedback.associateId = 'testId';
 testFeedback.batchId = 'testBatch';
 testFeedback.weekId = 1;
 testFeedback.qcTechnicalStatus = 2;
 testFeedback.qcNote = 'testNote';
 
-const testAssociate = new associate();
+const testAssociate = new AssociateService.Associate();
 testAssociate.associateId = testFeedback.associateId;
 testAssociate.firstName = 'testFN';
 testAssociate.lastName = 'testLN';
 
 const wrapper = Enzyme.mount(
-    <AssociateDetail assoc={testAssociate} qcFB={testFeedback}/>
+    <AssociateDetail associate={testAssociate} qcFeedback={testFeedback}/>
 );
 
 test('That the associate\'s name displays', () => {
@@ -67,4 +67,26 @@ test('That there\'s a button that displays/hides this associate\'s note for this
     expect(note.first()).toExist();
     button.simulate('click');
     expect(note.first()).not.toExist();
+});
+
+test('That on text input, qcNote is changed', () => {
+    const note = wrapper.findWhere((node) => {
+        return node.prop('testID') === 'qcNote';
+    });
+
+    const testInput = 'Hello';
+    note.simulate('change', { target: { value: testInput } });
+    expect(wrapper.state('qcNote')).toBe(testInput);
+});
+
+test('That when the Save Note button is pressed, associate.service is called', () => {
+    const button = wrapper.findWhere((node) => node.prop('testID') === 'saveNote').first();
+    expect(button).toExist();
+
+    AssociateService.patchAssociate = jest.fn();
+
+    button.simulate('click');
+    expect(AssociateService.patchAssociate).toHaveBeenCalledTimes(1);
+    expect(AssociateService.patchAssociate).toHaveBeenLastCalledWith({'qcNote': wrapper.state('qcNote')});
+    
 });

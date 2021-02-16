@@ -2,7 +2,7 @@
 //     to get qc feedback for individual associates
 // also sends axios calls to the mock data api, to get associate's name
 
-export class qcFeedback {
+export class QCFeedback {
     batchId: string = '';
     weekId: number = 0;
     associateId: string = '';
@@ -10,7 +10,7 @@ export class qcFeedback {
     qcTechnicalStatus: number = 0;
 }
 
-export class associate {
+export class Associate {
     associateId: string = '';
     firstName: string = '';
     lastName: string = '';
