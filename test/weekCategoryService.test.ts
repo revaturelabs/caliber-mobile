@@ -55,7 +55,7 @@ describe('tests for adding, deleting, and retrieving categories for a week', asy
         let active = true;
         let obj = {data: []};
         axios.post = jest.fn().mockResolvedValue(obj);
-        await weekCategoryService.addCategory(skill, active).then((result)=>{
+        await weekCategoryService.addCategory(skill, active).then((result:any)=>{
             returnValues = result;
         });
         expect(axios.post).toHaveBeenCalledTimes(1);
@@ -69,7 +69,7 @@ describe('tests for adding, deleting, and retrieving categories for a week', asy
         let active = true;
         let obj = {data: []};
         axios.post = jest.fn().mockResolvedValue(obj);
-        await weekCategoryService.addCategory(skill, active).then((result)=>{
+        await weekCategoryService.addCategory(skill, active).then((result:any)=>{
             returnValues = result;
         });
         expect(axios.post).toHaveBeenCalledTimes(1);
