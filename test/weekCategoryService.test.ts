@@ -2,37 +2,37 @@ import axios from 'axios';
 import weekCategoryService from '../weekCategory/weekCategory.service';
 
 // Change Data at will please
-describe('tests for adding, deleting, and retrieving categories for a week', async() => {
+describe('tests for adding, deleting, and retrieving categories for a week', async () => {
+
+
+
+
+
+
+    test('that deleteCategory returns a promise with data in it when the function is passed incorrect data', async () => {
 
         let returnValues;
-    
-    let obj = {data:200};
-    axios.get = jest.fn().mockResolvedValue(obj);
-    await weekCategoryService.deleteCategory().then((returendMSG:any) => {
-        returnValues = returendMSG;
-    });
-    expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(returnValues).toBe(obj);
-    expect(axios.get).toHaveBeenCalledWith('');
-
-
-    })
-
-    test('that deleteCategory returns a promise with data in it when the function is passed incorrect data', async ()=>{
-       
-        let returnValues;
-    
-        let obj = {data:400};
-        axios.get = jest.fn().mockResolvedValue(obj);
-        await weekCategoryService.deleteCategory().then((returendMSG:any) => {
+        let obj = { data: 200 };
+        axios.delete = jest.fn().mockResolvedValue(obj);
+        await weekCategoryService.deleteCategory().then((returendMSG: any) => {
             returnValues = returendMSG;
         });
-        expect(axios.get).toHaveBeenCalledTimes(1);
-        expect(returnValues).toBe(obj.data);
-        expect(axios.get).toHaveBeenCalledWith('');
-
+        expect(axios.delete).toHaveBeenCalledTimes(1);
+        expect(returnValues).toBe(obj);
+        expect(axios.delete).toHaveBeenCalledWith('');
+    });
     test('that deleteCategory returns an error when the function is passed incorrect data', async () => {
 
+        let returnValues;
+
+        let obj = { data: 400 };
+        axios.delete = jest.fn().mockResolvedValue(obj);
+        await weekCategoryService.deleteCategory().then((returendMSG: any) => {
+            returnValues = returendMSG;
+        });
+        expect(axios.delete).toHaveBeenCalledTimes(1);
+        expect(returnValues).toBe(obj.data);
+        expect(axios.delete).toHaveBeenCalledWith('');
     });
 
     //Note: getCategories either returns an empty array or an array with categories inside of
