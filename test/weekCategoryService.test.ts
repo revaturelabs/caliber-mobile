@@ -2,7 +2,7 @@ import axios from 'axios';
 import weekCategoryService from '../weekCategory/weekCategory.service';
 
 // Change Data at will please
-describe('tests for adding, deleting, and retrieving categories for a week', () => {
+describe('tests for adding, deleting, and retrieving categories for a week', async() => {
 
         let returnValues;
     
