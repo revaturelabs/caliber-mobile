@@ -49,11 +49,11 @@ describe('tests for adding, deleting, and retrieving categories for a week', asy
     });
 
 
-    test('that addCategory returns a promise with data in it when the function is passed correct data', async () => {
+    test('that addCategory returns a promise with true value in it when the function is passed correct data', async () => {
 
     });
 
-    test('that addCategory returns an error when the function is passed incorrect data', async () => {
+    test('that addCategory returns an promise with a false when the function is passed incorrect data', async () => {
 
     });
 });
