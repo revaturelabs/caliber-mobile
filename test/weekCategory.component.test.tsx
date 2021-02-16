@@ -20,7 +20,7 @@ describe('tests for weekCategory.component', ()=>{
        
         const wrapper =  shallow(<CategoryAdd/>); 
         expect(wrapper.debug().length).toBeGreaterThan(0);  
-       // console.log(wrapper.debug()); 
+        console.log(wrapper.debug()); 
     });
     
     test('that the button calls deleteCategory from categoryService and refreshes list', () =>{
