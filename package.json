@@ -32,10 +32,7 @@
   },
   "homepage": "https://github.com/913-RichardOrr/caliber-mobile#readme",
   "dependencies": {
-<<<<<<< HEAD
     "firebase": "^8.2.7",
-=======
->>>>>>> 03a72c9a6b38d010907fb93665f431ff4f4ab371
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/native": "^5.8.10",
     "@react-navigation/stack": "^5.12.8",
@@ -43,18 +40,12 @@
     "aws-amplify": "^3.3.14",
     "axios": "^0.21.1",
     "babel-preset-es2015": "^6.24.1",
-<<<<<<< HEAD
-    "expo": "~40.0.0",
-    "expo-status-bar": "~1.0.3",
-=======
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "expo": "~40.0.0",
     "expo-status-bar": "~1.0.3",
-    "firebase": "^8.2.7",
     "jest": "^26.6.3",
     "jsdom-global": "^3.0.2",
->>>>>>> 03a72c9a6b38d010907fb93665f431ff4f4ab371
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
