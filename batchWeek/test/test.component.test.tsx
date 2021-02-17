@@ -17,7 +17,7 @@ test("testing whether Enzyme mount works", () => {
     expect(true).toBeTruthy();
 
     const wrapper = mount(<TestComponent />);
-    console.log(wrapper.debug());
+    // console.log(wrapper.debug());
 });
 
 test("testing jest mock and function", () => {
@@ -35,9 +35,3 @@ test("testing jest mock and function", () => {
     const openModal = jest.fn();
     const button = wrapper.findWhere((node: any) => node.prop('testID') === 'openModalButton');
 })
-
-
-// test('renders without errors', () => {
-//     const wrapper = shallow(<TestComponent />);
-//     wrapper.find("[data-test = 'component-test']")
-// })
