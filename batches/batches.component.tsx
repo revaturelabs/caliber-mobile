@@ -43,8 +43,8 @@ export default function BatchesComponent() {
     }
 
     useEffect(() => {
-        batchService.getBatchesByTrainerEmail(trainerEmail).then((batches) => {
-            dispatch(getBatches(batches));
+        batchService.getBatchesByTrainerEmail(trainerEmail).then((batchesResp) => {
+            dispatch(getBatches(batchesResp));
         });
     }, []);
 

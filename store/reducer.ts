@@ -1,6 +1,5 @@
 import { CaliberState } from './store';
 import * as Actions from './actions';
-import { State } from 'react-native-gesture-handler';
 
 import Batch from '../batches/batch';
 
