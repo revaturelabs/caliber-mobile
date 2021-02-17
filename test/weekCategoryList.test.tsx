@@ -14,7 +14,7 @@ describe('tests for weekCategoryList', () => {
     test('that nothing is displayed if there are no categories for the week', () => {
         let returnValues:any = [];
         const wrapper = Enzyme.mount(
-            <CategoryList data={returnValues}></CategoryList>
+            <WeekCategoryList data={returnValues}></WeekCategoryList>
          );
          const skill = wrapper.findWhere((node) => {
              return node.prop('testID') === 'skill'
@@ -29,7 +29,7 @@ describe('tests for weekCategoryList', () => {
         category.skill = 'test';
         const list = [category];
         const wrapper = Enzyme.mount(
-            <CategoryList data={list}></CategoryList>
+            <WeekCategoryList data={list}></WeekCategoryList>
         );
         const skill = wrapper.findWhere((node) => {
             return node.prop('testID') === 'skill'
