@@ -1,6 +1,6 @@
 import { mount} from "enzyme";
 import React from 'react';
-import AddWeek from '../addWeek.component';
+import AddWeek from '../../batchWeek/addWeek.component';
 
 describe('Add New Week', () => {
 

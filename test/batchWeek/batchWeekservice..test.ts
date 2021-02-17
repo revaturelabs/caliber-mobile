@@ -3,7 +3,7 @@
  */
 
 import axios from 'axios';
-import batchWeekService, { QcNote, QcWeek} from '../batchWeekService';
+import batchWeekService, { QcNote, QcWeek} from '../../batchWeek/batchWeekService';
 
 let returnValues: any;
 let pathToBatch: string;
