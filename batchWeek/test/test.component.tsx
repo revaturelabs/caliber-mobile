@@ -5,7 +5,7 @@ function TestComponent(){
 
     return (
         <View style={styles.view} >
-            <Text style= {styles.textStyle} data-test="component-test"> Testing Enzyme 1</Text>
+            <Text style= {styles.textStyle} testID="name"> Testing Enzyme 1</Text>
             
         </View>
     );
