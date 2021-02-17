@@ -67,17 +67,7 @@ export default function BatchesComponent() {
                                         value={batch.batchId}/>
                                 })}
                             </Picker>
-                            {(() => {
-                                if (batches[0]) {
-                                    return (
-                                        <FlatList data={filter == '' ? null : list} renderItem={batchPreview} keyExtractor={keyExtractor}/>
-                                    )
-                                } else {
-                                    return (
-                                        <ActivityIndicator/>
-                                    )
-                                }
-                            })()}
+                            <FlatList data={filter == '' ? null : list} renderItem={batchPreview} keyExtractor={keyExtractor}/>
                         </View>
                     )
                 } else {
