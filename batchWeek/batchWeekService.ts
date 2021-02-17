@@ -5,8 +5,6 @@ import axios from 'axios';
 class BatchWeekService {
     private URI: string;
     constructor() {
-        let batchId ='batch123';
-        let week =3;
         this.URI ="http://localhost:3000/";
 
 
@@ -15,17 +13,14 @@ class BatchWeekService {
     // get qc_notes for all weeks for the batch
     getBatchWeekNotes(batchId: string, week: number): Promise <QcNote []> {
         let pathToBatch = `batches/${batchId}`;
-        let pathToWeek =`batches/${batchId}/weeks/${week}`;
 
         return axios.get(this.URI + pathToBatch + '/weeks' ).then(result => result.data);
     }
 
     // get qc_notes for specific batch for specific week
     getBatchWeekNote(batchId: string, week: number): Promise <QcNote []> {
-        let pathToBatch = `batches/${batchId}`;
-        let pathToWeek =`batches/${batchId}/weeks/${week}`;
-
-        return axios.get(this.URI + pathToBatch + '/weeks' ).then(result => result.data);
+        let pathToWeek =`batches/${batchId}/weeks/${week}`
+        return axios.get(this.URI + pathToWeek ).then(result => result.data);
     }
 
 
