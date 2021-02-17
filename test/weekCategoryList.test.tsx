@@ -6,28 +6,20 @@ import React from 'react';
 import Category from '../weekCategory/category';
 import { CategoryTable } from '../categories/categoryTable';
 import weekCategoryService from '../weekCategory/weekCategory.service';
-
-//changeItem is a function in weekCategoryList that changes the state of the class
-import changeItem from '../weekCatetgory/weekCategoryList';
 import { FlatList } from 'react-native';
 import { useSelector } from 'react-redux';
 
 
 describe('tests for weekCategoryList', () => {
     test('that nothing is displayed if there are no categories for the week', () => {
-        let returnValues;
-        let obj = { data: [] };
-        weekCategoryService.getCategories = jest.fn().mockResolvedValueOnce(obj)
-        weekCategoryService.getCategories().then((arr: any) => {
-            returnValues = arr;
-        });
+        let returnValues:any = [];
         const wrapper = Enzyme.mount(
             <CategoryList data={returnValues}></CategoryList>
          );
          const skill = wrapper.findWhere((node) => {
              return node.prop('testID') === 'skill'
          });
-         expect(skill.first()).toBe('');
+         expect(skill.first()).toExist();
          expect(skill.first().text()).toBe('');
 
     });
@@ -35,8 +27,9 @@ describe('tests for weekCategoryList', () => {
     test('that categories display correctly if there are categories for the week', () => {
         const category = new Category();
         category.skill = 'test';
+        const list = [category];
         const wrapper = Enzyme.mount(
-            <CategoryList data={category}></CategoryList>
+            <CategoryList data={list}></CategoryList>
         );
         const skill = wrapper.findWhere((node) => {
             return node.prop('testID') === 'skill'
