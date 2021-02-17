@@ -8,7 +8,7 @@ class BatchService {
         this.URI = /*process.env.CALIBER_URI*/'https://aosczl5fvf.execute-api.us-west-2.amazonaws.com/default' + '/batches';
     }
 
-    getBatchesByTrainerEmail(): Promise<Batch[]> {
+    getBatchesByTrainerEmail(trainerEmail): Promise<Batch[]> {
         console.log('Batch Service: getBatchesByTrainerEmail');
         return axios.get(this.URI, {params: {trainerEmail: trainerEmail}})
             .then(result => result.data)
