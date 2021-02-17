@@ -9,7 +9,7 @@ import 'jest-enzyme';
 import '@testing-library/jest-dom';
 
 import BatchWeekSelectionComponent from '../../batchWeek/batchWeekSelection.component';
-import BatchWeekService from '../../batchWeek/batchWeek.service';
+import BatchWeekService from '../../batchWeek/batchWeekService';
 
 describe('Batch Week Selection tests', ()=> {
     let wrapper: any;
@@ -50,7 +50,7 @@ describe('Batch Week Selection tests', ()=> {
 
     test('that the week select callback updates the redux store with the batch-week info', () => {
         // Mock the service function
-        BatchWeekService.getWeek = jest.fn();
+        BatchWeekService.getBatchWeekNote = jest.fn();
 
         // Find week tab(button?) in component
         const weekSelect1 = wrapper.findWhere((node: any) => node.prop('testID') === 'weekSelect1').first();
@@ -58,13 +58,13 @@ describe('Batch Week Selection tests', ()=> {
 
         // Trigger onPress callback
         weekSelect1.simulate('press');
-        expect(BatchWeekService.getWeek).toBeCalledTimes(1);
+        expect(BatchWeekService.getBatchWeekNote).toBeCalledTimes(1);
         expect(useDispatch).toBeCalledTimes(1);
     });
 
     test('that the refresh button callback updates the redux store with the batch-week info', () => {
         // Mock the service function
-        BatchWeekService.getWeek = jest.fn();
+        BatchWeekService.getBatchWeekNote = jest.fn();
 
         // Find refresh button in component
         const refresh = wrapper.findWhere((node: any) => node.prop('testID') === 'refresh').first();
@@ -72,7 +72,7 @@ describe('Batch Week Selection tests', ()=> {
 
         // Trigger onPress callback
         refresh.simulate('press');
-        expect(BatchWeekService.getWeek).toBeCalledTimes(1);
+        expect(BatchWeekService.getBatchWeekNote).toBeCalledTimes(1);
         expect(useDispatch).toBeCalledTimes(1);
     });
 });
