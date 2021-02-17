@@ -23,7 +23,8 @@ class AssociateService {
     }
 }
 export default new AssociateService();
-export class qcFeedback {
+
+export class QCFeedback {
     batchId: string = '';
     weekId: number = 0;
     associateId: string = '';

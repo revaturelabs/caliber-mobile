@@ -24,7 +24,7 @@ testAssociate.firstName = 'testFN';
 testAssociate.lastName = 'testLN';
 
 const wrapper = Enzyme.mount(
-    <AssociateDetail associate={testAssociate} qcFeedback={testFeedback}/>
+    <AssociateDetail associate={testAssociate} qcFeedback={testFeedback} />
 );
 
 test('That the associate\'s name displays', () => {
@@ -47,9 +47,43 @@ test('That the associate\'s technical status displays', () => {
         return node.prop('testID') === 'techStatus';
     });
     expect(techStatus.first()).toExist();
-    // TODO there will probably be a separate component (with tests) to display and cycle through the technical status
-    // expect(techStatus.first()).toBe(testFeedback.qcTechnicalStatus);
+    expect(wrapper.state('qcTechnicalStatus')).toBe(testFeedback.qcTechnicalStatus);
 
+});
+
+// The current plan is that clicking on the technical status cycles through possible values
+test('That clicking on the associate\'s technical status increases it', () => {
+    const techStatus = wrapper.findWhere((node) => {
+        return node.prop('testID') === 'techStatus';
+    }).first();
+
+    AssociateService.default.updateAssociate = jest.fn();
+
+    //0=undefined, 1=red sad face, 2=yellow neutral, 3=green happy, 4=star
+    //status goes 2 -> 3
+    techStatus.simulate('click');
+    expect(AssociateService.default.updateAssociate).toHaveBeenCalledTimes(1);
+    expect(wrapper.state('qcTechnicalStatus')).toEqual(testFeedback.qcTechnicalStatus + 1);
+
+    //status goes 3 -> 4
+    techStatus.simulate('click');
+    expect(AssociateService.default.updateAssociate).toHaveBeenCalledTimes(2);
+    expect(wrapper.state('qcTechnicalStatus')).toEqual(testFeedback.qcTechnicalStatus + 2);
+
+    //status goes 4 -> 0
+    techStatus.simulate('click');
+    expect(AssociateService.default.updateAssociate).toHaveBeenCalledTimes(3);
+    expect(wrapper.state('qcTechnicalStatus')).toEqual(0);
+
+    //status goes 0 -> 1
+    techStatus.simulate('click');
+    expect(AssociateService.default.updateAssociate).toHaveBeenCalledTimes(4);
+    expect(wrapper.state('qcTechnicalStatus')).toEqual(1);
+
+    //status goes 1 -> 2
+    techStatus.simulate('click');
+    expect(AssociateService.default.updateAssociate).toHaveBeenCalledTimes(5);
+    expect(wrapper.state('qcTechnicalStatus')).toEqual(2);
 });
 
 // Not 100% sure this is how our styling will end up, but this is the current concept
@@ -57,7 +91,7 @@ test('That there\'s a button that displays/hides this associate\'s note for this
 
     const button = wrapper.findWhere((node) => node.prop('testID') === 'displayNote').first();
     expect(button).toExist();
-    
+
     const note = wrapper.findWhere((node) => {
         return node.prop('testID') === 'qcNote';
     });
@@ -83,10 +117,10 @@ test('That when the Save Note button is pressed, associate.service is called', (
     const button = wrapper.findWhere((node) => node.prop('testID') === 'saveNote').first();
     expect(button).toExist();
 
-    AssociateService.patchAssociate = jest.fn();
+    AssociateService.default.updateAssociate = jest.fn();
 
     button.simulate('click');
-    expect(AssociateService.patchAssociate).toHaveBeenCalledTimes(1);
-    expect(AssociateService.patchAssociate).toHaveBeenLastCalledWith({'qcNote': wrapper.state('qcNote')});
-    
+    expect(AssociateService.default.updateAssociate).toHaveBeenCalledTimes(1);
+    expect(AssociateService.default.updateAssociate).toHaveBeenLastCalledWith({ 'qcNote': wrapper.state('qcNote') });
+
 });
