@@ -18,6 +18,8 @@ export default function BatchesComponent() {
     const [list, setList] = useState<Batch[]>([]);
     const keyExtractor = (item: object, index: number) => { return index.toString(); }
 
+    const trainerEmail = 'mock1027.employee74df14df-5842-4811-a57c-be9836537a40@mock.com';
+
     const batchPreview = (params: any) => {
         return (
             <View>
@@ -41,7 +43,7 @@ export default function BatchesComponent() {
     }
 
     useEffect(() => {
-        batchService.getBatchesByTrainerEmail().then((batches) => {
+        batchService.getBatchesByTrainerEmail(trainerEmail).then((batches) => {
             dispatch(getBatches(batches));
         });
     }, []);
