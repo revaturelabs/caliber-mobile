@@ -8,6 +8,7 @@ import Enzyme from 'enzyme';
 import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
+import WeekCategory from '../weekCategory/weekCategory.component.tsx';
 import CategoryAdd from './testComp';
 
 
@@ -25,15 +26,11 @@ describe('tests for weekCategory.component', ()=>{
     
     test('that the button calls deleteCategory from categoryService and refreshes list', () =>{
         const mockFunction = jest.fn();
-
-        const wrapper =  shallow(<CategoryAdd/>); 
-        console.log(wrapper.containsAllMatchingElements([<CategoryAdd />])); 
-        // const instancePress = wrapper.instance;
-        //  console.log(instancePress.toString());
-        // expect(instancePress).toHaveBeenCalled();
-        //  const fnCall = jest.spyOn(wrapper.instance,'myPress'); 
-        // // expect(fnCall).toBeCalled();
-        // console.log(fnCall);
+        const wrapper =  shallow(<WeekCategory/>); 
+        var WeekCategoriesLength= wrapper.find('WeekCategories').length;
+        wrapper.find('WeekCategories').simulate('click');
+        var WeekCategoriesNewLength = wrapper.find('WeekCategories').length;
+        expect(WeekCategoriesNewLength).toBe(WeekCategoriesLength-1); 
+        console.log(wrapper.containsAllMatchingElements([<CategoryAdd />]));   
         });
-
 });
