@@ -8,7 +8,7 @@ export type StackParam = {
 
 const Stack = createStackNavigator<StackParam>();
 
-export function Router() {
+function Router() {
     return (
         <Stack.Navigator initialRouteName='Login'>
           <Stack.Screen name='Login' component={} />
