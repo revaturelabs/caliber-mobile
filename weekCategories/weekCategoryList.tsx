@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { WeekCategory } from './weekCategory';
+import { weekCategory } from './weekCategory';
 import {
   MenuProvider,
   Menu,
@@ -12,7 +12,7 @@ import {
 
 
 
-export default function WeekCategoryList() {
+export default function weekCategoryList() {
 
   //store should have the week id, and list of weekCategories
   let catList: any = [];
