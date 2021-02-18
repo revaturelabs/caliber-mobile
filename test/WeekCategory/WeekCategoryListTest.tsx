@@ -3,11 +3,12 @@ import 'jest-enzyme';
 import '@testing-library/jest-dom';
 import Enzyme from 'enzyme';
 import React from 'react';
-import Category from '../weekCategory/category';
-import { CategoryTable } from '../categories/categoryTable';
-import weekCategoryService from '../weekCategory/weekCategory.service';
+import {WeekCategory} from '../../WeekCategories/weekCategory'
+import { CategoryTable } from '../../categories/categoryTable';
+import weekCategoryService from '../../WeekCategories/WeekCategoryService';
 import { FlatList } from 'react-native';
 import { useSelector } from 'react-redux';
+import WeekCategoryList from '../../WeekCategories/weekCategoryList';
 
 
 describe('tests for weekCategoryList', () => {

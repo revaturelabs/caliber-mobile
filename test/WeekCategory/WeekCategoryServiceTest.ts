@@ -1,5 +1,5 @@
 import axios from 'axios';
-import weekCategoryService from '../weekCategory/weekCategory.service';
+import weekCategoryService from '../../WeekCategories/WeekCategoryService';
 
 // Change Data at will please
 describe('tests for adding, deleting, and retrieving categories for a week', async () => {

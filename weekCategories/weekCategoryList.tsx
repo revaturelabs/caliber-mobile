@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import  {weekCategory}  from './weekCategory';
+import { WeekCategory } from './weekCategory';
 import {
   MenuProvider,
   Menu,
@@ -9,47 +9,66 @@ import {
   MenuOption,
 } from 'react-native-popup-menu';
 
-//store should have the week id, and list of weekCategories
 
-function addCategory(id:number){
+
+
+export default function WeekCategoryList() {
+
+  //store should have the week id, and list of weekCategories
+  let catList: any = [];
+
+  function addCategory(id: number) {
     console.log(id);
-    //add code to update weakCategory list
+    //add code to update weekCategory list
 
-}
+  }
 
+  class App extends Component {
+    render() {
+      return (
+        <MenuProvider style={styles.menu}>
+          {/* what happens when an item in menu is clicked (on top of the menu closing) */}
+          <Menu onSelect={value => { addCategory(value) }}>
+            {/* what must be clicked for menu to appear */}
+            <MenuTrigger text='+' />
+            {/* items in the menu */}
+            <MenuOptions>
+              <FlatList
+                data={catList}
+                renderItem={({ item }) => (
+                  <MenuOption value={Number(item.id)} text={item.skill} />
+                )}
+                style={{ height: 200 }}
+              />
+            </MenuOptions>
+          </Menu>
+        </MenuProvider>
+      )
+    }
+  }
 
-export default function weekCategoryList(){
-    <View style = {styles.container}>
+  return (
+    <View style={styles.container}>
 
     </View>
 
+  )
+
 }
 
 
-export class App extends Component{
-    render(){
-        return(
-            <MenuProvider style={styles.container}>
-            <Text>+</Text>
-            <Menu onSelect={value => { addCategory(value) }}>
-              <MenuTrigger text='+' />
-              <MenuOptions>
-                <FlatList
-                  data={list}
-                  renderItem={({ item }) => (
-                    <MenuOption value={Number(item.id)} text={item.skill}/>
-                  )}
-                  style={{ height: 200 }}
-                />
-              </MenuOptions>
-            </Menu>
-          </MenuProvider>
-        )
-    }
-}
+// this is the pop-up menu
+
 
 const styles = StyleSheet.create({
-    container: {
-      flexDirection: 'row',
-    }
+  container: {
+    flexDirection: 'row',
+  },
+  menu: {
+    flexDirection: 'row',
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'sand'
+  }
 })

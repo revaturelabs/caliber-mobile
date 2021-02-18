@@ -7,9 +7,9 @@ import '@testing-library/jest-dom';
 import Enzyme from 'enzyme';
 import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import WeekCategory from '../weekCategory/weekCategory.component.tsx';
-import useDispatch from './react-redux'
-import weekCategoryService from '../WeekCategore/weekCategoryService';
+import {WeekCategory} from '../../WeekCategories/weekCategory';
+import useDispatch from 'react-redux'
+import weekCategoryService from '../../WeekCategories/WeekCategoryService';
 
 
 
