@@ -2,16 +2,19 @@
 import React from 'react';
 import 'react-native';
 import { View } from 'react-native';
-import { Associate, qcFeedback } from './associate.service';
+import AssociateDetail from './associate.detail';
+import { Associate, QCFeedback } from './associate.service';
 
 interface AssociateProps {
     assoc: Associate;
-    qcFB: qcFeedback; 
+    qcFB: QCFeedback; 
 }
 
 function AssociateComponent(props: AssociateProps) {
     return (
-        <View></View>
+        <View>
+            <AssociateDetail></AssociateDetail>
+        </View>
         
     );
 }

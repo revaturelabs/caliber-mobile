@@ -42,9 +42,9 @@ function AssociateDetail(props: AssociateProps) {
                 icon={
                     <Icon
                         name={viewNote ? 'chevron-down' : 'chevron-left'}
-                        type='fontawesome'/>
+                        type='fontawesome' />
                 }
-                onPress={() => setViewNote(true)}/>
+                onPress={() => setViewNote(true)} />
             {viewNote && <Input
                 label='Note from QC'
                 placeholder={qcNote}
@@ -58,10 +58,10 @@ function AssociateDetail(props: AssociateProps) {
                 icon={
                     <Icon
                         name='save'
-                        type='fontawesome'/>
+                        type='fontawesome' />
                 }
-                //onPress={() => associateService.updateAssociate({'qcNote': qcNote})}
-                />
+            //onPress={() => associateService.updateAssociate({'qcNote': qcNote})}
+            />
             }
         </View>
     );

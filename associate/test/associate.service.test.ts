@@ -39,7 +39,7 @@ test('Test Axios request to Patch associate singular', async ()=>{
     
     let obj = {data: []};
     axios.patch = jest.fn().mockResolvedValue(obj);
-    await associateService.updateAssociate(new Associate(),"","","blabla"}).then((arr:any) => {
+    await associateService.updateAssociate(new Associate(),"","","blabla").then((arr:any) => {
         returnValues = arr;
     });
     expect(axios.patch).toHaveBeenCalledTimes(1);
