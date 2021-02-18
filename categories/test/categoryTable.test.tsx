@@ -6,7 +6,7 @@ import React from 'react';
 import 'react-native';
 import 'jest-enzyme';
 import '@testing-library/jest-dom';
-import { CategoryTable } from '../categoryTable';
+import { CategoryTable } from '../categoryName';
 
 const mockedNav = jest.fn();
 
