@@ -2,6 +2,8 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet, Text, View } from 'react-native';
+import { Provider } from 'react-redux';
+import store from './store/store';
 
 import store from './store/store';
 import RouterComponent from './router/router.component';

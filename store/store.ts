@@ -1,20 +1,36 @@
-import { applyMiddleware, createStore, Store } from 'redux';
-import thunk from 'redux-thunk';
+import { combineReducers, applyMiddleware, createStore, Store } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-
+import thunk from 'redux-thunk';
 import reducer from './reducer';
+import userReducer from './userReducer';
 import { AppAction } from './actions';
 import Batch from '../batches/batch';
+import { UserInput, UserInfo } from '../user/user';
 
 export interface BatchState {
-    batches: Batch[];
+	batches: Batch[];
 }
 
-export interface CaliberState
-    extends BatchState {}
+export interface UserState {
+	user: UserInfo;
+	userLogin: UserInput;
+}
+export interface CaliberState extends UserState, BatchState {}
+// <> is generics: Generic arguments allow us to define the type of a thing at runtime instead of when we write it,
+// creating a reusable object.
 
-const store: Store<BatchState, AppAction> = createStore(reducer, composeWithDevTools(
-    applyMiddleware(thunk),)
+//add your reducer to the object
+const rootReducer = combineReducers({
+	userReducer,
+	reducer,
+});
+
+//user userSelector(state: RootState => state.yourReducer.yourPayload)
+export type RootState = ReturnType<typeof rootReducer>;
+
+const store: Store<CaliberState, AppAction> = createStore(
+	rootReducer,
+	composeWithDevTools(applyMiddleware(thunk))
 );
 
 export default store;
