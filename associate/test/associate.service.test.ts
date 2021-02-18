@@ -5,7 +5,7 @@ import 'enzyme-adapter-react-16';
 import axios from 'axios';
 
 
-import associateService, { Associate } from '../associate.service';
+import associateService, { Associate, QCFeedback } from '../associateService';
 
 
 test('Test Axios request to GET associate singular', async ()=>{
@@ -39,7 +39,7 @@ test('Test Axios request to Patch associate singular', async ()=>{
     
     let obj = {data: []};
     axios.patch = jest.fn().mockResolvedValue(obj);
-    await associateService.updateAssociate(new Associate(),"","","thisisanote").then((arr:any) => {
+    await associateService.updateAssociate(new QCFeedback(),"thisisanote").then((arr:any) => {
         returnValues = arr;
     });
     expect(axios.patch).toHaveBeenCalledTimes(1);

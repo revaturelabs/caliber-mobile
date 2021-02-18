@@ -8,8 +8,8 @@ import 'jest-enzyme';
 import '@testing-library/jest-dom';
 import 'enzyme-adapter-react-16';
 
-import AssociateDetail from '../associate.detail';
-import * as AssociateService from '../associate.service';
+import AssociateDetail from '../AssociateDetailsComponent';
+import * as AssociateService from '../associateService';
 
 const testFeedback = new AssociateService.QCFeedback();
 testFeedback.associateId = 'testId';

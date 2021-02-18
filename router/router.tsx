@@ -1,6 +1,7 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
-import AssociateDetail from '../associate/associate.detail';
+import AssociateComponent from '../associate/AssociateComponent';
+import AssociateDetail from '../associate/AssociateDetailsComponent';
 import ManageCategories from '../categories/manageCategories';
   
 export type StackParam = {
@@ -19,7 +20,7 @@ function Router() {
           <Stack.Screen name='ManageCategories' component={ManageCategories} />
           <Stack.Screen name='Quality Audit' component={} />
           <Stack.Screen name='Reports' component={} /> */}
-          <Stack.Screen name='TestingNotesCard' component={AssociateDetail} />
+          <Stack.Screen name='TestingNotesCard' component={AssociateComponent} />
         </Stack.Navigator>
     );
   }

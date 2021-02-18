@@ -32,7 +32,7 @@ export class QCFeedback {
 }
 
 export class Associate {
-    associateId: string = '';
-    firstName: string = '';
-    lastName: string = '';
+    associateId: string = 'Test';
+    firstName: string = 'TestFirstName';
+    lastName: string = 'TestLastName';
 }
