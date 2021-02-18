@@ -7,15 +7,16 @@ import { Associate, QCFeedback } from './associate.service';
 
 interface AssociateProps {
     assoc: Associate;
-    qcFB: QCFeedback; 
+    qcFB: QCFeedback;
 }
+
 
 function AssociateComponent(props: AssociateProps) {
     return (
         <View>
-            <AssociateDetail associate = {props.assoc} qcFeedback = {props.qcFB}></AssociateDetail>
+            <AssociateDetail associate={new Associate()} qcFeedback={new QCFeedback()}></AssociateDetail>
         </View>
-        
+
     );
 }
 
