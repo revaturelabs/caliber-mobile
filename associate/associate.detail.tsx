@@ -14,23 +14,25 @@ interface AssociateProps {
 
 function AssociateDetail(props: AssociateProps) {
 
-    //Using states to store the current qc note/technical status: we can view multiple associate's
-    //  notes at once, so we should DEFINITELY not be using the redux store
-    //This should be initialized to the correct Associate's current feedback, if they have one
+    /**
+     * Using states to store the current qc note/technical status: we can view multiple associate's
+     * notes at once, so we should DEFINITELY not be using the redux store
+     * This should be initialized to the correct Associate's current feedback, if they have one
+     */
     const [qcNote, setQcNote] = useState(props.qcFeedback.qcNote);
     const [qcTechnicalStatus, setQcTechnicalStatus] = useState(props.qcFeedback.qcTechnicalStatus);
 
     //Should we be able to view their note?
     const [viewNote, setViewNote] = useState(false);
-
-    //When the Technical Status component is pressed, should cycle through 0-4
-    //   Update both the state and the database.
-    // function blabla() {
-    //     const newStatus = qcTechnicalStatus < 3 ? qcTechnicalStatus + 1 : 0;
-    //     setQcTechnicalStatus(newStatus);
-    //     associateService.updateAssociate({'qcStatus': newStatus});
-    // }
-
+   
+    /**
+     * When the Technical Status component is pressed, should cycle through 0-4
+     *  Update both the state and the database.
+     * function blabla() {
+     * const newStatus = qcTechnicalStatus < 3 ? qcTechnicalStatus + 1 : 0;
+     * setQcTechnicalStatus(newStatus);
+     * associateService.updateAssociate({'qcStatus': newStatus});
+     */
     return (
         <View>
             <Text testID='firstName'>{props.associate.firstName}</Text>
