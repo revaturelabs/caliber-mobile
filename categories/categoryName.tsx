@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { Category } from './category';
-import categoryService from './categoryService';
+import { Category } from './Category';
+import categoryService from './CategoryService';
 import Stylesheet from 'react-native';
 import { CategoryState } from '../store/store';
-import { GetCategories } from '../store/categories/categoryActions';
+import { getCategories } from '../store/categories/CategoryActions';
 
 interface CategoryNameProp {
     category: Category;
@@ -45,7 +45,7 @@ export function changeStatus(category: Category, categories: Category[]) {
 
     // calls categoryService.updateCategory with the category id
     categoryService.updateCategory(category.categoryId).then(() => {
-        dispatch(GetCategories(categories));
+        dispatch(getCategories(categories));
     }); 
 
 } 

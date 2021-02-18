@@ -1,4 +1,4 @@
-import {Category} from '../../categories/category';
+import {Category} from '../../categories/Category';
 
 export enum CategoryActions {
     GetCategories = 'GET_CATEGORIES'
@@ -11,10 +11,10 @@ export interface AppAction {
 
 export interface CategoryAction<P> extends AppAction {
     type: CategoryActions;
-    payload: P;
+    payload: P | P[];
 }
 
-export function GetCategories(categories: Category[]): CategoryAction<Category[]> {
+export function getCategories(categories: Category[]): CategoryAction<Category[]> {
     const action: CategoryAction<Category[]> = {
         type: CategoryActions.GetCategories,
         payload: categories

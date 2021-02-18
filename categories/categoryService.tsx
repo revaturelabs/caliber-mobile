@@ -1,3 +1,5 @@
+import axios from "axios";
+import { Category } from './Category';
 
 class categoryService {
     private URI: string;
@@ -28,12 +30,6 @@ class categoryService {
         })
         return promise;
     }
-}
-
-class Category {
-    public id: number = 0;
-    public skill: string = '';
-    public active: boolean = true;
 }
 
 export default new categoryService();
