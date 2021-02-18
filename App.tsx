@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 import store from './store/store';
-import {Router} from './router/router';
+import Router from './router/router';
 import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {

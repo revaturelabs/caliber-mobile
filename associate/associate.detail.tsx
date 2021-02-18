@@ -13,7 +13,6 @@ interface AssociateProps {
 }
 
 function AssociateDetail(props: AssociateProps) {
-
     /**
      * Using states to store the current qc note/technical status: we can view multiple associate's
      * notes at once, so we should DEFINITELY not be using the redux store
@@ -24,22 +23,27 @@ function AssociateDetail(props: AssociateProps) {
 
     //Should we be able to view their note?
     const [viewNote, setViewNote] = useState(false);
-   
+
     /**
      * When the Technical Status component is pressed, should cycle through 0-4
      *  Update both the state and the database.
-     * function blabla() {
-     * const newStatus = qcTechnicalStatus < 3 ? qcTechnicalStatus + 1 : 0;
-     * setQcTechnicalStatus(newStatus);
-     * associateService.updateAssociate({'qcStatus': newStatus});
-     */
+    */
+    function cycleTechnicalStatus() {
+        let newStatus = qcTechnicalStatus + 1;
+        if (newStatus > 4) {
+            newStatus = 0;
+        }
+        setQcTechnicalStatus(newStatus);
+        associateService.updateAssociate(props.qcFeedback,{'qcStatus': newStatus });
+    }
+
     return (
         <View>
             <Text testID='firstName'>{props.associate.firstName}</Text>
             <Text testID='lastName'> {props.associate.lastName}</Text>
             <TechnicalStatus
                 status={qcTechnicalStatus}
-                setStatus={setQcTechnicalStatus} />
+                setStatus={cycleTechnicalStatus} />
             <Button
                 icon={
                     <Icon

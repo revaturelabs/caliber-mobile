@@ -12,13 +12,13 @@ class AssociateService {
     }
 
     async getAssociate(a:Associate,batch:string,week:string):Promise<Associate> {
-        return axios.get(this.URI+'/'+batch+'/'+week+'/'+a.associateId).then(result => result.data).catch((err) => {console.error(err)});
+        return axios.get(this.URI+'/batches/'+batch+'/weeks/'+week+'/associates/'+a.associateId).then(result => result.data).catch((err) => {console.error(err)});
     }
     async replaceAssociate(a:Associate,batch:string,week:string):Promise<Associate> {
-        return axios.put(this.URI+'/'+batch+'/'+week+'/'+a.associateId).then(result => result.data).catch((err) => {console.error(err)});
+        return axios.put(this.URI+'/batches/'+batch+'/weeks/'+week+'/associates/'+a.associateId).then(result => result.data).catch((err) => {console.error(err)});
     }
-    async updateAssociate(a:Associate,batch:string,week:string,qcNote:string):Promise<Associate> {
-        return axios.patch(this.URI+'/'+batch+'/'+week+'/'+a.associateId+'/'+qcNote).then(result => result.data).catch((err) => {console.error(err)});
+    async updateAssociate(qcfeedback:QCFeedback,updateObject:Object):Promise<Associate> {
+        return axios.patch(this.URI+'/batches/'+qcfeedback.batchId+'/weeks/'+qcfeedback.weekId+'/associates/'+qcfeedback.associateId,updateObject).then(result => result.data).catch((err) => {console.error(err)});
     }
 }
 export default new AssociateService();
