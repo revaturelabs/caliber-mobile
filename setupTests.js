@@ -8,3 +8,5 @@ import Enzyme from 'enzyme';
  * and inspect the DOM in tests.
  */
 Enzyme.configure({ adapter: new Adapter() });
+
+//export  jsdom = require('jsdom').jsdom;
