@@ -12,6 +12,7 @@ interface AssociateProps {
 function AssociateComponent(props: AssociateProps) {
     return (
         <View></View>
+        
     );
 }
 
