@@ -7,7 +7,7 @@ import '@testing-library/jest-dom';
 import Enzyme from 'enzyme';
 import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import {WeekCategory} from '../../WeekCategories/weekCategory';
+import {weekCategory} from '../../WeekCategories/weekCategory';
 import useDispatch from 'react-redux'
 import weekCategoryService from '../../WeekCategories/WeekCategoryService';
 
@@ -20,7 +20,7 @@ describe('tests for weekCategory.component', () => {
 
     test('that category displays correctly', () => {
 
-        const wrapper = shallow(<WeekCategory />);
+        const wrapper = shallow(<weekCategory />);
         expect(wrapper.debug().length).toBeGreaterThan(0);
         console.log(wrapper.debug());
     });
@@ -28,7 +28,7 @@ describe('tests for weekCategory.component', () => {
     test('that the button calls deleteCategory from categoryService and refreshes list', () => {
         const testCat = ' '
         const wrapper = Enzyme.mount(
-            <WeekCategory data={testCat}></WeekCategory> 
+            <weekCategory data={testCat}></weekCategory> 
         );
         weekCategoryService.deleteCategory() = jest.fn().mockReturnValue(true);
         useDispatch() = jest.fn();

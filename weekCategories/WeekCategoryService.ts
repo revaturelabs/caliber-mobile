@@ -10,7 +10,7 @@ class weekCategoryService {
         return axios.post(this.URI, weekcategory).then(result => result.data).catch(err => err);
     }
 
-    getCategory(id: string): Promise<weekCategory[]> {
+    getCategory(id: Number): Promise<weekCategory[]> {
         return axios.get(this.URI+'/'+id).then(result => result.data).catch(err => err);
     }
     deleteCategory(id: string): Promise<null> {

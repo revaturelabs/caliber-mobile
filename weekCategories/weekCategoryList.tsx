@@ -8,14 +8,37 @@ import {
   MenuOptions,
   MenuOption,
 } from 'react-native-popup-menu';
+import WeekCategoryService from './WeekCategoryService';
+import { useDispatch } from 'react-redux';
 
 
+interface category{
+  numid:Number;
+  skill:String;
+}
 
 
-export default function weekCategoryList() {
+export default function weekCategoryList(categories: weekCategory[]) {
+
+  //need to get unique qc week number from store
+  const dispatch = useDispatch();
+  
+
 
   //store should have the week id, and list of weekCategories
-  let catList: any = [];
+  let categoryNames: category[] = [];
+  categories.forEach(item =>{
+    getName(item.category_id);
+  })
+  
+
+  function getName(id:number){
+    WeekCategoryService.getCategory(id).then((result) =>{
+      let item: category = {numid:id, skill:String(result)}
+      categoryNames.push(item);
+    })
+
+  }
 
   function addCategory(id: number) {
     console.log(id);
@@ -34,9 +57,9 @@ export default function weekCategoryList() {
             {/* items in the menu */}
             <MenuOptions>
               <FlatList
-                data={catList}
+                data={categoryNames}
                 renderItem={({ item }) => (
-                  <MenuOption value={Number(item.id)} text={item.skill} />
+                  <MenuOption value={Number(item.numid)} text={String(item.skill)} />
                 )}
                 style={{ height: 200 }}
               />
@@ -49,7 +72,12 @@ export default function weekCategoryList() {
 
   return (
     <View style={styles.container}>
-
+      <Text>Categories: </Text>
+      <FlatList
+        data = {categoryNames}
+        renderItem={({item}) => (<WeekCategoryComponent data={item}></WeekCategoryComponent>)}
+      />
+      {App}
     </View>
 
   )
