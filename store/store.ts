@@ -1,7 +1,7 @@
 import { combineReducers, createStore, Store } from 'redux';
 import { AppAction } from './actions';
 import userReducer from './userReducer';
-import categoryReducer from './categories/categoryReducer';
+import categoryReducer from './categories/CategoryReducer';
 import {UserInput, UserInfo} from '../user/user'
 import { Category } from '../categories/Category';
 
