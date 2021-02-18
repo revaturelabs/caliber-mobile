@@ -3,9 +3,9 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 import store from './store/store';
-import Router from './categories/router/Router';
+import Router from './categoriesFeature/router/Router';
 import { NavigationContainer } from '@react-navigation/native';
-import  ManageCategories  from './categories/ManageCategories';
+import  ManageCategories  from './categoriesFeature/ManageCategories';
 
 export default function App() {
   return (

@@ -1,4 +1,4 @@
-import { Category } from "../../categories/Category";
+import { Category } from "../../categoriesFeature/Category";
 import { CaliberState } from "../store"
 import { initialState } from "../userReducer";
 import * as Actions from './CategoryActions';

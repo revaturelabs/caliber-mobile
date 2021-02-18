@@ -1,4 +1,4 @@
-import {Category} from '../../categories/Category';
+import {Category} from '../../categoriesFeature/Category';
 
 export enum CategoryActions {
     GetCategories = 'GET_CATEGORIES'
