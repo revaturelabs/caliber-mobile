@@ -17,12 +17,13 @@ class AssociateService {
     async replaceAssociate(a:Associate,batch:string,week:string):Promise<Associate> {
         return axios.put(this.URI+'/'+batch+'/'+week+'/'+a.associateId).then(result => result.data).catch((err) => {console.error(err)});
     }
-    async updateAssociate(a:Associate,batch:string,week:string):Promise<Associate> {
-        return axios.patch(this.URI+'/'+batch+'/'+week+'/'+a.associateId).then(result => result.data).catch((err) => {console.error(err)});
+    async updateAssociate(a:Associate,batch:string,week:string,qcNote:string):Promise<Associate> {
+        return axios.patch(this.URI+'/'+batch+'/'+week+'/'+a.associateId+'/'+qcNote).then(result => result.data).catch((err) => {console.error(err)});
     }
 }
 export default new AssociateService();
-export class qcFeedback {
+
+export class QCFeedback {
     batchId: string = '';
     weekId: number = 0;
     associateId: string = '';
