@@ -1,11 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet, View } from 'react-native';
 import store from './store/store';
 import Router from './categoriesFeature/router/Router';
-import { NavigationContainer } from '@react-navigation/native';
-import  ManageCategories  from './categoriesFeature/ManageCategories';
+
+import RouterComponent from './router/router.component';
 
 export default function App() {
   return (

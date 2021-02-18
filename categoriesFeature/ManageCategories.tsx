@@ -7,7 +7,7 @@ import { CategoryName } from './CategoryName';
 import { StackParam } from './router/Router';
 //import { Category } from './category';
 import { CategoryState } from '../store/store';
-import { getCategories } from '../store/categories/CategoryActions';
+import { getCategories } from '../store/categoriesFeature/CategoryActions';
 import { Category } from './Category';
 
 interface Props {

@@ -5,7 +5,7 @@ import { Category } from './Category';
 import categoryService from './CategoryService';
 import Stylesheet from 'react-native';
 import { CategoryState } from '../store/store';
-import { getCategories } from '../store/categories/CategoryActions';
+import { getCategories } from '../store/categoriesFeature/CategoryActions';
 
 interface CategoryNameProp {
     category: Category;
