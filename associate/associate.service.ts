@@ -17,7 +17,7 @@ class AssociateService {
         let x = new Associate();
         return x;
     }
-    async updateAssociate():Promise<Associate> {
+    async updateAssociate(updateObj: Object):Promise<Associate> {
         let x = new Associate();
         return x;
     }
