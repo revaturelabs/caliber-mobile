@@ -13,7 +13,7 @@ interface AssociateProps {
 function AssociateComponent(props: AssociateProps) {
     return (
         <View>
-            <AssociateDetail></AssociateDetail>
+            <AssociateDetail associate = {props.assoc} qcFeedback = {props.qcFB} ></AssociateDetail>
         </View>
         
     );

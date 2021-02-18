@@ -18,7 +18,7 @@ test('Test Axios request to GET associate singular', async ()=>{
     });
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(returnValues).toBe(obj.data);
-    expect(axios.get).toHaveBeenCalledWith('PLACEHOLDER FOR API URI');
+    expect(axios.get).toHaveBeenCalledWith('PLACEHOLDER FOR API URI///');
 });
 
 test('Test Axios request to Put associate singular', async ()=>{
@@ -31,7 +31,7 @@ test('Test Axios request to Put associate singular', async ()=>{
     });
     expect(axios.put).toHaveBeenCalledTimes(1);
     expect(returnValues).toBe(obj.data);
-    expect(axios.put).toHaveBeenCalledWith('PLACEHOLDER FOR API URI');
+    expect(axios.put).toHaveBeenCalledWith('PLACEHOLDER FOR API URI///');
 });
 
 test('Test Axios request to Patch associate singular', async ()=>{
@@ -39,10 +39,10 @@ test('Test Axios request to Patch associate singular', async ()=>{
     
     let obj = {data: []};
     axios.patch = jest.fn().mockResolvedValue(obj);
-    await associateService.updateAssociate(new Associate(),"","","blabla").then((arr:any) => {
+    await associateService.updateAssociate(new Associate(),"","","thisisanote").then((arr:any) => {
         returnValues = arr;
     });
     expect(axios.patch).toHaveBeenCalledTimes(1);
     expect(returnValues).toBe(obj.data);
-    expect(axios.patch).toHaveBeenCalledWith('PLACEHOLDER FOR API URI');
+    expect(axios.patch).toHaveBeenCalledWith('PLACEHOLDER FOR API URI'+'////'+'thisisanote');
 });

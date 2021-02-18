@@ -8,7 +8,7 @@ class AssociateService {
     private URI: string;
     constructor() {
         // URL of the express server
-        this.URI = 'PLACEHOLDER URI';
+        this.URI = 'PLACEHOLDER FOR API URI';
     }
 
     async getAssociate(a:Associate,batch:string,week:string):Promise<Associate> {
