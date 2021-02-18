@@ -2,6 +2,8 @@
 //     to get qc feedback for individual associates
 // also sends axios calls to the mock data api, to get associate's name
 
+import axios from "axios";
+
 class AssociateService {
     private URI: string;
     constructor() {
@@ -9,17 +11,14 @@ class AssociateService {
         this.URI = 'PLACEHOLDER URI';
     }
 
-    async getAssociate():Promise<Associate> {
-        let x = new Associate();
-        return x;
+    async getAssociate(a:Associate,batch:string,week:string):Promise<Associate> {
+        return axios.get(this.URI+'/'+batch+'/'+week+'/'+a.associateId).then(result => result.data).catch((err) => {console.error(err)});
     }
-    async replaceAssociate():Promise<Associate> {
-        let x = new Associate();
-        return x;
+    async replaceAssociate(a:Associate,batch:string,week:string):Promise<Associate> {
+        return axios.put(this.URI+'/'+batch+'/'+week+'/'+a.associateId).then(result => result.data).catch((err) => {console.error(err)});
     }
-    async updateAssociate():Promise<Associate> {
-        let x = new Associate();
-        return x;
+    async updateAssociate(a:Associate,batch:string,week:string):Promise<Associate> {
+        return axios.patch(this.URI+'/'+batch+'/'+week+'/'+a.associateId).then(result => result.data).catch((err) => {console.error(err)});
     }
 }
 export default new AssociateService();
