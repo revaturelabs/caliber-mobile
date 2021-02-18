@@ -1,5 +1,5 @@
 import axios from 'axios';
-import categoryService from '../categoryService';
+import categoryService from '../CategoryService';
 
 describe('categoryService class', () => {
     test('getCategories returns proper data', async () => {

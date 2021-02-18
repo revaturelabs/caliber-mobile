@@ -3,7 +3,7 @@ import { AppAction } from './actions';
 import userReducer from './userReducer';
 import categoryReducer from './categories/categoryReducer';
 import {UserInput, UserInfo} from '../user/user'
-import { Category } from '../categories/category';
+import { Category } from '../categories/Category';
 
 export interface UserState {
     user: UserInfo;

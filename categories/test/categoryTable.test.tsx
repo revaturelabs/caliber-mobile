@@ -6,7 +6,7 @@ import React from 'react';
 import 'react-native';
 import 'jest-enzyme';
 import '@testing-library/jest-dom';
-import { CategoryTable } from '../categoryName';
+import { CategoryName } from '../CategoryName';
 
 const mockedNav = jest.fn();
 
@@ -21,7 +21,7 @@ let wrapper: any;
 describe('CategoryTable component', () => {
     beforeAll(() => {
         wrapper = Enzyme.mount(
-            <CategoryTable status={status}></CategoryTable>
+            <CategoryName category={} categories={}></CategoryName>
         )
     });
     test('that it has toggle instructions', () => {
