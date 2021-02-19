@@ -1,4 +1,5 @@
 import { UserInfo, UserInput } from "../user/user";
+import { weekCategory } from "../WeekCategories/WeekCategory";
 import { CaliberState } from "./store";
 
 
