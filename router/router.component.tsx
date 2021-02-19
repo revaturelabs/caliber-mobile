@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from 'react-native-elements';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
-import BatchesComponent from '../batches/batches.component';
+import BatchesComponent from '../batches/BatchesComponent';
 
 export type StackParams = {
     Home: undefined;

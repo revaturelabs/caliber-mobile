@@ -1,7 +1,7 @@
 import { CaliberState } from './store';
 import * as Actions from './actions';
 
-import Batch from '../batches/batch';
+import Batch from '../batches/Batch';
 
 export const initialState: CaliberState = {
     batches: []

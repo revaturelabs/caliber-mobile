@@ -1,5 +1,5 @@
+import Batch from '../batches/Batch';
 import { UserInfo, UserInput } from '../user/user';
-import Batch from '../batches/batch';
 
 export enum BatchActions {
 	GetBatches = 'GET_BATCHES',

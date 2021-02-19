@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import reducer from './reducer';
 import userReducer from './userReducer';
 import { AppAction } from './actions';
-import Batch from '../batches/batch';
+import Batch from '../batches/Batch';
 import { UserInput, UserInfo } from '../user/user';
 
 export interface BatchState {
