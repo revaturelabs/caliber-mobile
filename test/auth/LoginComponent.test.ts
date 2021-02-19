@@ -3,9 +3,9 @@ import { shallow } from 'enzyme';
 import LoginComponent from '../../user/Login';
 
 describe('Test case for testing login',() =>{
-    const wrapper: any;
+    
     test('check email', () => {
-        wrapper = shallow(<LoginComponent />);
+        const wrapper: any = shallow(<LoginComponent />);
         wrapper.find('input[type="text"]').simulate('change', {target: {name: 'email', value: 'testuser@revature.net'}});
         expect(wrapper.state('username')).toEqual('testuser@revature.net');
     });
