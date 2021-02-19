@@ -9,17 +9,19 @@ const WeekCategoryReducer = (state: CaliberState = initialState, action: Actions
     const newState = { ...state };
 
     switch (action.type) {
-        case Actions.WeekCategoryActions.AddCategory:
-            newState.weekCategory = action.payload as weekCategory;
+        case Actions.WeekCategoryActions.AddWeekCategory:
+            newState.weekCategories = [...state.weekCategories, action.payload];
             return newState;
-        case Actions.WeekCategoryActions.DeleteCategory:
-            newState.weekCategory = action.payload as weekCategory;
+        case Actions.WeekCategoryActions.DeleteWeekCategory:
+            newState.weekCategories = state.weekCategories.filter(
+                (cat) => cat.categoryId !== action.payload.categoryID
+              );
+              return newState;
+        case Actions.WeekCategoryActions.GetWeekCategories:
+            newState.weekCategories = action.payload as weekCategory[];
             return newState;
-        case Actions.WeekCategoryActions.GetCategories:
-            newState.weekCategoires = action.payload as weekCategory[];
-            return newState;
-        case Actions.WeekCategoryActions.ChangeCategories:
-            newState.weekCategoires = action.payload as weekCategory[];
+        case Actions.WeekCategoryActions.ChangeWeekCategories:
+            newState.weekCategories = action.payload as weekCategory[];
             return newState;
         default:
             return state;

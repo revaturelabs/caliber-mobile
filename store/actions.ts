@@ -11,10 +11,10 @@ export enum UserActions {
 	LoginChange = 'CHANGE_LOGIN',
 }
 export enum WeekCategoryActions{
-	DeleteCategory = 'DELETE_CATEGORY',
-	AddCategory = 'ADD_CATETGORY',
-	GetCategories = 'GET_CATEGORIES',
-	ChangeCategories = 'CHANGE_CATEGORIES'
+	DeleteWeekCategory = 'DELETE_WEEK_CATEGORY',
+	AddWeekCategory = 'ADD_WEEK_CATETGORY',
+	GetWeekCategories = 'GET_WEEK_CATEGORIES',
+	ChangeWeekCategories = 'CHANGE_WEEK_CATEGORIES'
 }
 
 export interface AppAction {
@@ -64,25 +64,25 @@ export function getBatches(batches: Batch[]): BatchAction {
 }
 
 
-export function deleteCategory(category: weekCategory): WeekCategoryAction {
+export function deleteWeekCategory(category: weekCategory): WeekCategoryAction {
 	const action: WeekCategoryAction ={
-		type: WeekCategoryActions.DeleteCategory,
+		type: WeekCategoryActions.DeleteWeekCategory,
 		payload:category
 	};
 	return action;
 };
 
-export function addCategory(category: weekCategory): WeekCategoryAction {
+export function addWeekCategory(category: weekCategory): WeekCategoryAction {
 	const action: WeekCategoryAction ={
-		type: WeekCategoryActions.AddCategory,
+		type: WeekCategoryActions.AddWeekCategory,
 		payload:category
 	};
 	return action;
 };
 
-export function getCategories(categories: weekCategory[]): WeekCategoryAction {
+export function getWeekCategories(categories: weekCategory[]): WeekCategoryAction {
 	const action: WeekCategoryAction ={
-		type: WeekCategoryActions.GetCategories,
+		type: WeekCategoryActions.GetWeekCategories,
 		payload:categories
 	};
 	return action;
@@ -90,7 +90,7 @@ export function getCategories(categories: weekCategory[]): WeekCategoryAction {
 
 export function ChangeCategories(categories: weekCategory[]): WeekCategoryAction {
 	const action: WeekCategoryAction ={
-		type: WeekCategoryActions.ChangeCategories,
+		type: WeekCategoryActions.ChangeWeekCategories,
 		payload:categories
 	};
 	return action;

@@ -9,37 +9,66 @@ import {
   MenuOption,
 } from 'react-native-popup-menu';
 import WeekCategoryService from './WeekCategoryService';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import WeekCategoryComponent from './WeekCategoryComponent';
+import { addWeekCategory, getWeekCategories } from '../store/actions';
+import categoryService from '../categories/categoryService';
+import { WeekCategoryState } from '../store/store';
+
 //need to import category class/interface from ./categories
 
 
+interface weekProp {
+  weekId: number
+}
 
-
-export default function weekCategoryList() {
-
-  //need to get unique qc week number from store
+export default function weekCategoryList(qcWeek: weekProp) {
+  const weekCatSelector = (state:WeekCategoryState) => state.weekCategoires;
+  const weekCategories = useSelector(weekCatSelector);
+  //categories is from another team so this will be error until the store is done
+  const activeCatSelector = (state:CategoryState) => state.categoires;
+  const activeCategories = useSelector(activeCatSelector);
   const dispatch = useDispatch();
-  //either get weekCategories from store or make weekCategories and send to store;
-  //either get a list of active categories from store or create one
-  
-
-  
 
 
- 
-  function getName(id:number){
-   //given the category id, get the actual category
-  }
+  //get list of all catgories from this week from db
+  let weekCategoriesAsCategory: category[] = []
+  WeekCategoryService.getCategory(qcWeek.weekId).then((results) => {
+    categoryService.getCategories().then((allCats)=>{
+      let thisWeekCats:category[] = []
+      allCats.forEach((allCatElement)=>{
+        results.forEach((catid)=>{
+          if (allCatElement.id == catid.category_id){
+            thisWeekCats.push(allCatElement);
+          };
+        });
+        
+        dispatch(getWeekCategories(thisWeekCats));
+      });
+    }); 
+  })
 
+  //create a list of active categories that are not in weekCategories
+  categoryService.getCategories('true').then((results) => {
+    let availableCats: category[] = []
+    results.forEach(element => {
+      if (weekCategories.includes(element) == false){
+       availableCats.push(element);
+      };
+    });
+    //from other team
+    dispatch(getCategories(availableCats));
+  });
 
-
-  function addCategory(id: number) {
-    console.log(id);
-    //add code to update weekCategory list using the given category id
-    //on hold until we know if there is a list of categorys in store or what service to call if it's not in store
-
-  }
+  function addCategory(newCat: category){
+    let weekCat: weekCategory = new weekCategory;
+    weekCat.categoryId = newCat.id;
+    weekCat.qcWeekId = Number(qcWeek);
+    WeekCategoryService.addCategory(weekCat).then(()=>{
+      weekCategories.push(newCat);
+      dispatch(addWeekCategory(weekCat))      
+    });
+  };
 
   //This is our pop-up menu
   class App extends Component {
@@ -53,7 +82,7 @@ export default function weekCategoryList() {
             {/* items in the menu */}
             <MenuOptions>
               <FlatList
-                data={categoryNames}
+                data={activeCategories}
                 renderItem={({ item }) => (
                   <MenuOption value={Number(item.numid)} text={String(item.skill)} />
                 )}
@@ -66,23 +95,13 @@ export default function weekCategoryList() {
     }
   }
 
-  //create an array of active + unused categories; this is for our pop-up menu
-
-
-   //use our array of weekCategores (contains category id and week id) and retrieves the full category
-  //This is for diplaying categories already inside of the week
-  /* let categories: category[] = [];
-  weekCategories.forEach(item =>{
-    categories.push(getName(item.category_id));
-  }) */
-
   return (
     <View style={styles.container}>
       <Text>Categories: </Text>
       {/* This is the categories we already have */}
       <FlatList
-        data = {categoryNames}
-        renderItem={({item}) => (<WeekCategoryComponent data={item}></WeekCategoryComponent>)}
+        data={weekCategories}
+        renderItem={({ item }) => (<WeekCategoryComponent data={item}></WeekCategoryComponent>)}
       />
       {/* This is our button that creates a pop-up menu of categories we can add */}
       {App}
