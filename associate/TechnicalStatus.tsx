@@ -24,13 +24,13 @@ export default function TechnicalStatus(props: TechnicalStatusProps) {
     if (props.status >= 1 && props.status < 2) {
         iconName = 'frown';
         iconColor = 'red';
-    } else if (props.status < 3) {
+    } else if (props.status >= 2 && props.status < 3) {
         iconName = 'meh';
         iconColor = 'yellow';
-    } else if (props.status < 4) {
+    } else if (props.status >= 3 && props.status < 4) {
         iconName = 'smile';
         iconColor = 'green';
-    } else if (props.status < 5) {
+    } else if (props.status === 4) {
         iconName = 'star';
         iconColor = 'blue';
     }
@@ -39,6 +39,7 @@ export default function TechnicalStatus(props: TechnicalStatusProps) {
         <Icon
             name={iconName}
             type='font-awesome'
-            color={iconColor} />
+            color={iconColor}
+            testID='statusIcon'/>
     )
 }

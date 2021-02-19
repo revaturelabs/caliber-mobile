@@ -8,9 +8,9 @@ import 'jest-enzyme';
 import '@testing-library/jest-dom';
 import 'enzyme-adapter-react-16';
 
-import AssociateDetail from '../AssociateDetail';
-import * as AssociateService from '../AssociateService';
-import TechnicalStatus from '../TechnicalStatus';
+import AssociateDetail from '../../associate/AssociateDetail';
+import * as AssociateService from '../../associate/AssociateService';
+import TechnicalStatus from '../../associate/TechnicalStatus';
 
 const testFeedback = new AssociateService.QCFeedback();
 testFeedback.associateId = 'testId';
@@ -87,23 +87,13 @@ test('That pressing on the associate\'s technical status increases it', () => {
     expect(AssociateService.default.updateAssociate).toHaveBeenLastCalledWith(testFeedback, {'qcStatus': 4});
     expect(techStatus.children('TechnicalStatus').prop('status')).toBe(4);
 
-    //status goes 4 -> 5
+    //status goes 4 -> 0
     techStatus.props().onPress();
     wrapper.update();
     techStatus = wrapper.findWhere((node) => {
         return node.prop('testID') === 'technicalStatus';
     }).first();
     expect(AssociateService.default.updateAssociate).toHaveBeenCalledTimes(3);
-    expect(AssociateService.default.updateAssociate).toHaveBeenLastCalledWith(testFeedback, {'qcStatus': 5});
-    expect(techStatus.children('TechnicalStatus').prop('status')).toBe(5);
-
-    //status goes 5 -> 0
-    techStatus.props().onPress();
-    wrapper.update();
-    techStatus = wrapper.findWhere((node) => {
-        return node.prop('testID') === 'technicalStatus';
-    }).first();
-    expect(AssociateService.default.updateAssociate).toHaveBeenCalledTimes(4);
     expect(AssociateService.default.updateAssociate).toHaveBeenLastCalledWith(testFeedback, {'qcStatus': 0});
     expect(techStatus.children('TechnicalStatus').prop('status')).toBe(0);
 
@@ -113,7 +103,7 @@ test('That pressing on the associate\'s technical status increases it', () => {
     techStatus = wrapper.findWhere((node) => {
         return node.prop('testID') === 'technicalStatus';
     }).first();
-    expect(AssociateService.default.updateAssociate).toHaveBeenCalledTimes(5);
+    expect(AssociateService.default.updateAssociate).toHaveBeenCalledTimes(4);
     expect(AssociateService.default.updateAssociate).toHaveBeenLastCalledWith(testFeedback, {'qcStatus': 1});
     expect(techStatus.children('TechnicalStatus').prop('status')).toBe(1);
 
@@ -123,7 +113,7 @@ test('That pressing on the associate\'s technical status increases it', () => {
     techStatus = wrapper.findWhere((node) => {
         return node.prop('testID') === 'technicalStatus';
     }).first();
-    expect(AssociateService.default.updateAssociate).toHaveBeenCalledTimes(6);
+    expect(AssociateService.default.updateAssociate).toHaveBeenCalledTimes(5);
     expect(AssociateService.default.updateAssociate).toHaveBeenLastCalledWith(testFeedback, {'qcStatus': 2});
     expect(techStatus.children('TechnicalStatus').prop('status')).toBe(2);
 });

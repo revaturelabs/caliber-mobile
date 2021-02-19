@@ -30,7 +30,7 @@ function AssociateDetail(props: AssociateProps) {
     */
     function cycleTechnicalStatus() {
         let newStatus = qcTechnicalStatus + 1;
-        if (newStatus > 5) {
+        if (newStatus > 4) {
             newStatus = 0;
         }
         setQcTechnicalStatus(newStatus);
@@ -42,7 +42,8 @@ function AssociateDetail(props: AssociateProps) {
             <Text testID='firstName'>{props.associate.firstName}</Text>
             <Text testID='lastName'> {props.associate.lastName}</Text>
             <Pressable
-                onPress={cycleTechnicalStatus}>
+                onPress={cycleTechnicalStatus}
+                testID='technicalStatus'>
                 <TechnicalStatus
                     status={qcTechnicalStatus} />
             </Pressable>
@@ -52,10 +53,11 @@ function AssociateDetail(props: AssociateProps) {
                         name={viewNote ? 'chevron-down' : 'chevron-left'}
                         type='fontawesome' />
                 }
-                onPress={() => setViewNote(true)} />
+                onPress={() => setViewNote(viewNote ? false : true)}
+                testID='displayNote'/>
             {viewNote && <Input
                 label='Note from QC'
-                placeholder={qcNote}
+                defaultValue={qcNote}
                 multiline
                 numberOfLines={4}
                 scrollEnabled
@@ -68,7 +70,8 @@ function AssociateDetail(props: AssociateProps) {
                         name='save'
                         type='fontawesome' />
                 }
-                onPress={() => associateService.updateAssociate(props.qcFeedback, {'qcNote': qcNote})}/>
+                onPress={() => associateService.updateAssociate(props.qcFeedback, {'qcNote': qcNote})}
+                testID='saveNote'/>
             }
         </View>
     );
