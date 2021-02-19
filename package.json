@@ -16,6 +16,9 @@
   },
   "jest": {
     "preset": "react-native",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(react-native|@react-native-[a-z]*|react-native-[a-z]*|react-native-[a-z]*-[a-z]*|@expo)/)"
+    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -33,11 +36,7 @@
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/assetsTransformer.js",
       "\\.(css|less)$": "<rootDir>/assetsTransformer.js"
-    },
-    "__commentForTransformIgnorePatterns": "add your node module before the second closing parentheses from the end with a pipe before.",
-    "transformIgnorePatterns": [
-      "node_modules/(?!(react-native|caliber-mobile|@react-native-picker/picker|react-native-gesture-handler)/)"
-    ]
+    }
   },
   "repository": {
     "type": "git",
@@ -86,9 +85,9 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.0",
+    "@types/axios": "^0.14.0",
     "@types/enzyme": "^3.10.8",
     "@types/enzyme-adapter-react-16": "^1.0.6",
-    "@types/axios": "^0.14.0",
     "@types/jest": "^26.0.20",
     "@types/react": "~16.9.35",
     "@types/react-dom": "~16.9.8",
@@ -98,6 +97,7 @@
     "@types/redux": "^3.6.0",
     "@types/redux-thunk": "^2.1.0",
     "babel-jest": "^26.6.3",
+    "enzyme": "^3.11.0",
     "jest-enzyme": "^7.1.2",
     "jsdom": "^16.4.0",
     "typescript": "~4.0.0"
