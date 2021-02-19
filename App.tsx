@@ -6,9 +6,6 @@ import store from './store/store';
 import {Router} from './router/router';
 
 export default function App() {
-  function handleLogout(){
-
-  }
 
   return (
     <Provider store={store}>
@@ -23,7 +20,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
   },
 });
