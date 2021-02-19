@@ -33,13 +33,11 @@ test('That the associate\'s name displays', () => {
         return node.prop('testID') === 'firstName';
     });
     expect(firstName.first()).toExist();
-    //expect(firstName.first().text()).toBe(testAssociate.firstName);
 
     const lastName = wrapper.findWhere((node) => {
         return node.prop('testID') === 'lastName';
     });
     expect(lastName.first()).toExist();
-    //expect(lastName.first().text()).toBe(testAssociate.lastName);
 });
 
 test('That the associate\'s technical status displays', () => {

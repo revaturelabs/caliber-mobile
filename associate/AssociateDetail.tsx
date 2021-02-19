@@ -1,7 +1,6 @@
 //Shows associate name, technical status, note (editable)
 
 import React, { useState } from 'react';
-import 'react-native';
 import { Pressable, View } from 'react-native';
 import { Text, Input, Button, Icon } from 'react-native-elements';
 import associateService, { Associate, QCFeedback } from './AssociateService';

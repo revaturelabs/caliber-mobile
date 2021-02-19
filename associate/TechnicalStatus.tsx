@@ -32,7 +32,6 @@ export default function TechnicalStatus(props: TechnicalStatusProps) {
         iconColor = 'green';
     } else if (props.status === 4) {
         iconName = 'star';
-        iconColor = 'blue';
     }
 
     return (
