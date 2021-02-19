@@ -48,6 +48,8 @@ export default function BatchesComponent() {
         });
     }, []);
 
+    console.log(batches);
+
     return (
         <View>
             {(() => {
