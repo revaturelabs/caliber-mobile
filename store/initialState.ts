@@ -1,3 +1,4 @@
+import { Category } from "../categoriesFeature/Category";
 import { UserInfo, UserInput } from "../user/user";
 import { CaliberState } from "./store";
 
@@ -6,5 +7,6 @@ import { CaliberState } from "./store";
 export const initialState: CaliberState = {
     user: new UserInfo(),
     userLogin: new UserInput(),
-    batches: []
+    batches: [],
+    categories: []
 }
