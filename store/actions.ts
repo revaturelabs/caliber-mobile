@@ -1,4 +1,4 @@
-import Batch from '../batches/batch';
+import Batch from '../batches/Batch';
 
 export enum BatchActions {
     GetBatches = 'GET_BATCHES'

@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 import axios from 'axios';
 import Enzyme, { shallow } from 'enzyme';
 
-import BatchesComponent from '../../batches/batches.component';
+import BatchesComponent from '../../batches/BatchesComponent';
 
 describe('BatchesComponent Test(s)', () => {
 	let trainerEmail: string =

@@ -4,7 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import reducer from './reducer';
 import { AppAction } from './actions';
-import Batch from '../batches/batch';
+import Batch from '../batches/Batch';
 
 export interface BatchState {
     batches: Batch[];
