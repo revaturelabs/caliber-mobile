@@ -50,7 +50,7 @@ export default function BatchesComponent() {
 
     return (
         <View>
-            {(() => {
+            {/* {(() => {
                 if (batches[0]) {
                     return (
                         <View>
@@ -75,7 +75,7 @@ export default function BatchesComponent() {
                         <ActivityIndicator/>
                     )
                 }
-            })()}
+            })()} */}
         </View>
     )
 }

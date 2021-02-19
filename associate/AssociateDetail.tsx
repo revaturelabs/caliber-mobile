@@ -5,6 +5,7 @@ import { Pressable, View } from 'react-native';
 import { Text, Input, Button, Icon } from 'react-native-elements';
 import associateService, { Associate, QCFeedback } from './AssociateService';
 import TechnicalStatus from './TechnicalStatus';
+import style from '../global_styles'
 
 interface AssociateProps {
     associate: Associate;
@@ -37,23 +38,22 @@ function AssociateDetail(props: AssociateProps) {
     }
 
     return (
-        <View>
-            <Text testID='firstName'>{props.associate.firstName}</Text>
-            <Text testID='lastName'> {props.associate.lastName}</Text>
+        <View style={style.notesCard}>
+            <Text testID='firstName' style={style.noteName}>{props.associate.firstName} {props.associate.lastName}</Text>
+            {/* <Text testID='lastName' style = {style.notesLastName}> {props.associate.lastName}</Text> */}
             <Pressable
+                style={style.techstatus}
                 onPress={cycleTechnicalStatus}
                 testID='technicalStatus'>
                 <TechnicalStatus
                     status={qcTechnicalStatus} />
             </Pressable>
             <Button
-                icon={
-                    <Icon
-                        name={viewNote ? 'chevron-down' : 'chevron-left'}
-                        type='fontawesome' />
-                }
+                buttonStyle={style.button}
+                type="outline"
+                title={viewNote ? ('Hide Note') : ('Show Note')}
                 onPress={() => setViewNote(viewNote ? false : true)}
-                testID='displayNote'/>
+                testID='displayNote' />
             {viewNote && <Input
                 label='Note from QC'
                 defaultValue={qcNote}
@@ -64,13 +64,19 @@ function AssociateDetail(props: AssociateProps) {
                 onChangeText={text => setQcNote(text)}
                 testID='qcNote' />}
             {viewNote && <Button
+                raised
+                title = 'Save'
+                buttonStyle={style.button}
+                type="outline"
                 icon={
                     <Icon
                         name='save'
-                        type='fontawesome' />
+                        type='fontawesome'
+                        color='#F26925'
+                    />
                 }
-                onPress={() => associateService.updateAssociate(props.qcFeedback, {'qcNote': qcNote})}
-                testID='saveNote'/>
+                onPress={() => associateService.updateAssociate(props.qcFeedback, { 'qcNote': qcNote })}
+                testID='saveNote' />
             }
         </View>
     );
