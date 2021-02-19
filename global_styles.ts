@@ -1,10 +1,12 @@
 import { OpaqueColorValue, StyleSheet } from 'react-native';
 import { color } from 'react-native-reanimated';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { create, PREDEF_RES } from 'react-native-pixel-perfect'
-
 
 // Importing using require because there is no @types
+const { create,PREDEF_RES} = require('react-native-pixel-perfect');
+
+const REVATUREORANGE = "#F26925"
+
 const designResolution = {
     width: 360,
     height: 640
@@ -54,15 +56,19 @@ const style= StyleSheet.create({
         marginRight:"auto",
         marginBottom:perfectSize(5),
         width:perfectSize(290),
-        borderColor:"#F26925",
+        borderColor:REVATUREORANGE,
         borderWidth:perfectSize(2),
         borderRadius:perfectSize(5),
+        color:REVATUREORANGE,
     },
     assocheader: {
         fontSize: perfectSize(24),
         textAlign:"center",
         fontWeight:"bold",
-        color:"#F26925",
+        color:REVATUREORANGE,
+    },
+    title: {
+        color:REVATUREORANGE
     }
 });
 export default style;

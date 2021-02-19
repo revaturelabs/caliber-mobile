@@ -40,7 +40,6 @@ function AssociateDetail(props: AssociateProps) {
     return (
         <View style={style.notesCard}>
             <Text testID='firstName' style={style.noteName}>{props.associate.firstName} {props.associate.lastName}</Text>
-            {/* <Text testID='lastName' style = {style.notesLastName}> {props.associate.lastName}</Text> */}
             <Pressable
                 style={style.techstatus}
                 onPress={cycleTechnicalStatus}
@@ -49,13 +48,14 @@ function AssociateDetail(props: AssociateProps) {
                     status={qcTechnicalStatus} />
             </Pressable>
             <Button
+                titleStyle={style.title}
                 buttonStyle={style.button}
                 type="outline"
                 title={viewNote ? ('Hide Note') : ('Show Note')}
                 onPress={() => setViewNote(viewNote ? false : true)}
                 testID='displayNote' />
             {viewNote && <Input
-                label='Note from QC'
+                placeholder = "Insert note here"
                 defaultValue={qcNote}
                 multiline
                 numberOfLines={4}
@@ -65,8 +65,9 @@ function AssociateDetail(props: AssociateProps) {
                 testID='qcNote' />}
             {viewNote && <Button
                 raised
-                title = 'Save'
+                titleStyle={style.title}
                 buttonStyle={style.button}
+                title='Save'
                 type="outline"
                 icon={
                     <Icon
