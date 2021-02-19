@@ -1,13 +1,13 @@
 import * as Actions from './actions';
 import { UserInfo, UserInput } from '../user/user';
-import { CaliberState } from './store';
+import { RootState } from './store';
 
-export const initialState: CaliberState = {
+export const initialState: RootState = {
     user: new UserInfo(),
     userLogin: new UserInput(),
 }
 
-const userReducer = (state: CaliberState = initialState, action: Actions.AppAction): CaliberState => {
+const userReducer = (state: RootState = initialState, action: Actions.AppAction): RootState => {
     const newState = {...state}; 
 
     switch (action.type) {    

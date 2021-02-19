@@ -1,4 +1,4 @@
-export class Batch {
+export default class Batch {
   batchId: string = '';
   name: string = '';
   startDate: string = '';
