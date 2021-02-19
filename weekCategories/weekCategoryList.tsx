@@ -23,26 +23,21 @@ export default function weekCategoryList() {
   //either get weekCategories from store or make weekCategories and send to store;
   //either get a list of active categories from store or create one
   
-  //create an array of active + unused categories; this is for our pop-up menu
+
   
 
 
-  //use our array of weekCategores (contains category id and week id) and retrieves the full category
-  //This is for diplaying categories already inside of the week
-  let categories: category[] = [];
-  weekCategories.forEach(item =>{
-    categories.push(getName(item.category_id));
-  })
+ 
   function getName(id:number){
-    WeekCategoryService.getCategory(id).then((result) =>{
-     return( {numid:id, skill:String(result), active:Boolean});
-    })
-    return;
+   //given the category id, get the actual category
   }
+
+
 
   function addCategory(id: number) {
     console.log(id);
     //add code to update weekCategory list using the given category id
+    //on hold until we know if there is a list of categorys in store or what service to call if it's not in store
 
   }
 
@@ -70,6 +65,16 @@ export default function weekCategoryList() {
       )
     }
   }
+
+  //create an array of active + unused categories; this is for our pop-up menu
+
+
+   //use our array of weekCategores (contains category id and week id) and retrieves the full category
+  //This is for diplaying categories already inside of the week
+  /* let categories: category[] = [];
+  weekCategories.forEach(item =>{
+    categories.push(getName(item.category_id));
+  }) */
 
   return (
     <View style={styles.container}>
