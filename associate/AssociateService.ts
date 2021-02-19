@@ -36,3 +36,9 @@ export class Associate {
     firstName: string = 'TestFirstName';
     lastName: string = 'TestLastName';
 }
+
+export class AssociateWithFeedback {
+    associate:Associate = new Associate();
+    qcFeedback:QCFeedback = new QCFeedback();
+
+}
