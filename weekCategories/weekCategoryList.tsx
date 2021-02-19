@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { weekCategory } from './weekCategory';
+import { weekCategory } from './WeekCategory';
 import {
   MenuProvider,
   Menu,
@@ -10,42 +10,43 @@ import {
 } from 'react-native-popup-menu';
 import WeekCategoryService from './WeekCategoryService';
 import { useDispatch } from 'react-redux';
+import WeekCategoryComponent from './WeekCategoryComponent';
+//need to import category class/interface from ./categories
 
 
-interface category{
-  numid:Number;
-  skill:String;
-}
 
 
-export default function weekCategoryList(categories: weekCategory[]) {
+export default function weekCategoryList() {
 
   //need to get unique qc week number from store
   const dispatch = useDispatch();
+  //either get weekCategories from store or make weekCategories and send to store;
+  //either get a list of active categories from store or create one
+  
+  //create an array of active + unused categories; this is for our pop-up menu
   
 
 
-  //store should have the week id, and list of weekCategories
-  let categoryNames: category[] = [];
-  categories.forEach(item =>{
-    getName(item.category_id);
+  //use our array of weekCategores (contains category id and week id) and retrieves the full category
+  //This is for diplaying categories already inside of the week
+  let categories: category[] = [];
+  weekCategories.forEach(item =>{
+    categories.push(getName(item.category_id));
   })
-  
-
   function getName(id:number){
     WeekCategoryService.getCategory(id).then((result) =>{
-      let item: category = {numid:id, skill:String(result)}
-      categoryNames.push(item);
+      let item: category = {numid:id, skill:String(result), active:Boolean}
     })
 
   }
 
   function addCategory(id: number) {
     console.log(id);
-    //add code to update weekCategory list
+    //add code to update weekCategory list using the given category id
 
   }
 
+  //This is our pop-up menu
   class App extends Component {
     render() {
       return (
@@ -73,10 +74,12 @@ export default function weekCategoryList(categories: weekCategory[]) {
   return (
     <View style={styles.container}>
       <Text>Categories: </Text>
+      {/* This is the categories we already have */}
       <FlatList
         data = {categoryNames}
         renderItem={({item}) => (<WeekCategoryComponent data={item}></WeekCategoryComponent>)}
       />
+      {/* This is our button that creates a pop-up menu of categories we can add */}
       {App}
     </View>
 
@@ -85,7 +88,7 @@ export default function weekCategoryList(categories: weekCategory[]) {
 }
 
 
-// this is the pop-up menu
+
 
 
 const styles = StyleSheet.create({
