@@ -33,6 +33,8 @@ export function getUser(user: UserInfo): UserAction<UserInfo> {
 	return action;
 }
 
+//send forgot password email
+
 //user input
 export function loginChange(user: UserInput): UserAction<UserInput> {
 	const action: UserAction<UserInput> = {

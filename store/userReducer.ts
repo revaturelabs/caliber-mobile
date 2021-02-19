@@ -1,16 +1,15 @@
 import * as Actions from './actions';
 import { UserInfo, UserInput } from '../user/user';
-import { RootState } from './store';
+import { CaliberState } from './store';
+import { initialState } from './initialState';
 
-export const initialState: RootState = {
-    user: new UserInfo(),
-    userLogin: new UserInput(),
-}
+const userReducer = (
+    state: CaliberState = initialState,
+    action: Actions.AppAction
+): CaliberState => {
+    const newState = { ...state };
 
-const userReducer = (state: RootState = initialState, action: Actions.AppAction): RootState => {
-    const newState = {...state}; 
-
-    switch (action.type) {    
+    switch (action.type) {
         case Actions.UserActions.GetUser:
             newState.user = action.payload as UserInfo;
             newState.userLogin = new UserInput();
@@ -18,9 +17,9 @@ const userReducer = (state: RootState = initialState, action: Actions.AppAction)
         case Actions.UserActions.LoginChange:
             newState.userLogin = action.payload as UserInput;
             return newState;
-        default: 
+        default:
             return state;
     }
-}
+};
 
 export default userReducer;
