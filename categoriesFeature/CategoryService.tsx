@@ -24,7 +24,8 @@ class categoryService {
     }
 
     // PUT function for /categories/{categoryId}
-    updateCategory(id: number): Promise<Category>{ 
+    // should take in a category object? 
+    updateCategory(category: Category): Promise<Category>{ 
         let promise: Promise<Category> = new Promise ((resolve) => {
             setTimeout(resolve, 10, new Category());
         })

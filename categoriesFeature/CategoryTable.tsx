@@ -6,6 +6,7 @@ import { CategoryState } from '../store/store';
 import { Category } from './Category';
 import { CategoryName } from './CategoryName';
 import categoryService from './CategoryService';
+import MaterialTable from 'material-table';
 
 interface CategoryTableProp {
     status: boolean;
@@ -46,15 +47,14 @@ export function CategoryTable({ status }: CategoryTableProp) {
             active: false
         }
     ];
-    
+
     // after every render, check if there is a change in categories
     useEffect(() => {
         categoryService.getCategories(status.toString()).then((results) => {
             dispatch(getCategories(results));
         })
     }, [dispatch])
-    
-    
+
     return (
         <>
             {status ?
@@ -67,40 +67,55 @@ export function CategoryTable({ status }: CategoryTableProp) {
                     <Text style={styles.textColor}>Click to toggle Active/Stale Categories</Text>
 
                     {/* Table items */}
-                    {mockCategories.map((req: Category, index: number) => (
-                        <CategoryName
-                            key={'req-' + index}
-                            category={req}
-                            categories={newCategories}
-                        ></CategoryName>
-                    ))}
+                    <MaterialTable
+                        columns={[
+                            {field: 'skill'},
+                            {field: '', filtering: false, sorting: false}
+                        ]}
+                        data={mockCategories.map((req: Category, index: number) => (
+                            <CategoryName
+                                key={'req-' + index}
+                                category={req}
+                                categories={newCategories}
+                            ></CategoryName>
+                        ))} />
                 </View>
                 :
                 // if status is false, return a table of stale categories
                 <View>
-                    {/* Table header */}
-                    <Text style={styles.textColor}>Stale Categories</Text>
+                        {/* Table header */}
+                        <Text style={styles.textColor}>Stale Categories</Text>
 
-                    {/* Toggle instructions */}
-                    <Text style={styles.textColor}>Click to toggle Active/Stale Categories</Text>
+                        {/* Toggle instructions */}
+                        <Text style={styles.textColor}>Click to toggle Active/Stale Categories</Text>
 
-                    {/* Table items */}
-                    {mockCategories.map((req: Category, index: number) => (
-                        <CategoryName
-                            key={'req-' + index}
-                            category={req}
-                            categories={newCategories}
-                        ></CategoryName>
-                    ))}
-                </View>
+                        {/* Table items */}
+                        <MaterialTable
+                        columns={[
+                            {field: 'skill'},
+                            {field: '', filtering: false, sorting: false}
+                        ]}
+                        data={mockCategories.map((req: Category, index: number) => (
+                            <CategoryName
+                                key={'req-' + index}
+                                category={req}
+                                categories={newCategories}
+                            ></CategoryName>
+                        ))} 
+                        options={{
+                            sorting: true,
+                            filtering: true
+                        }}
+                        />
+                    </View>
             }
         </>
     )
 }
 
-const styles = StyleSheet.create( {   
-        textColor: {
-            color: 'black',
+const styles = StyleSheet.create( {
+                textColor: {
+                color: 'black',
         }
     }
 )

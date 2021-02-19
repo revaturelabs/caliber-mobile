@@ -84,7 +84,6 @@ describe('openModal function', () => {
 });
 
 describe('addCategory function', () => {
-
     test('calls categoryService.addCategory', () => {
         const serviceAddCategory = jest.fn().mockImplementation( (skill, isActive) => {});
         const skill = 'test';

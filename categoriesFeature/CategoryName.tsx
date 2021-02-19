@@ -6,6 +6,8 @@ import { getCategories } from '../store/categoriesFeature/CategoryActions';
 import { Category } from './Category';
 import categoryService from './CategoryService';
 import { CategoryState } from '../store/store';
+import { Button } from '@material-ui/core';
+import {openModal} from './ManageCategories';
 
 interface CategoryNameProp {
     category: Category;
@@ -24,6 +26,9 @@ export function CategoryName({ category, categories }: CategoryNameProp) {
             {/* has a list of category names (depends on props) */}
             <Pressable onPress={()=> {changeStatus(category, categories)}}>
                 <Text>{category.skill}</Text>
+            </Pressable>
+            <Pressable onPress={()=> openModal('Edit Category')}>
+                <Text>Edit Category</Text>
             </Pressable>
         </View>
     )
@@ -48,8 +53,8 @@ export function changeStatus(category: Category, categories: Category[]) {
     categories.splice(categories.indexOf(category), 1, category);
 
     // calls categoryService.updateCategory with the category id
-    categoryService.updateCategory(category.categoryid).then(() => {
+    categoryService.updateCategory(category).then(() => {
         dispatch(getCategories(categories));
     }); 
 
-} 
+}

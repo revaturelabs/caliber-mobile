@@ -9,6 +9,7 @@ import categoryService from './CategoryService';
 import { getCategories } from '../store/categoriesFeature/CategoryActions';
 import { StackParam } from './router/Router';
 import { CategoryState } from '../store/store';
+import { Category } from './Category';
 
 interface Props {
     route: RouteProp<StackParam, 'ManageCategories'>;
@@ -42,7 +43,7 @@ export default function ManageCategories() {
             
             {/* Button for adding a new category */}
             <View>
-                <Button title="Add Category" onPress={openModal} accessibilityLabel='Add Category' />
+                <Button title="Add Category" onPress={()=>openModal('Add Category')} accessibilityLabel='Add Category' />
             </View>
         </View>
     )
@@ -52,7 +53,7 @@ export default function ManageCategories() {
  *  This component opens a modal when 'Add Category' button is clicked
  *  @returns: view that has a modal where user can add a category
  */
-export function openModal() {
+export function openModal(modalAction: string, category?: Category) {
     const[value, onChangeText] = React.useState('');
     const [modalVisible, setModalVisible] = useState(true);
 
@@ -72,7 +73,7 @@ export function openModal() {
             >
                 <View>
                     {/* Title for modal */}
-                    <Text>Add Category</Text>
+                    <Text>{modalAction}</Text>
 
                     {/* Allow user to enter a new category name */}
                     <TextInput
@@ -83,10 +84,15 @@ export function openModal() {
                     />
                     
                     {/* Button that adds a category */}
-                    <Button title='Add Category' onPress={(value) => addCategory(value.toString())}></Button>
-
+                    {category ? (
+                        <Button title={modalAction} onPress={(value) => editCategory(value.toString(), category)}></Button>
+                        )
+                     : (
+                        <Button title={modalAction} onPress={(value) => addCategory(value.toString())}></Button>
+                    )}
+                    
                     {/* Button that closes modal */}
-                    <Button title='Close' onPress={ () => {setModalVisible(!modalVisible)}}></Button>
+                    <Button title='Close' onPress={() => {setModalVisible(!modalVisible)}}></Button>
                 </View>
             </Modal>
         </View>
@@ -98,7 +104,6 @@ export function addCategory(value: string) {
     // get category state from store
     const categorySelector = (state: CategoryState) => state.categories;
     const categories = useSelector(categorySelector);
-    const newCategories = { ...categories };
     const dispatch = useDispatch();
 
     // calls categoryService.addCategory
@@ -117,6 +122,36 @@ export function addCategory(value: string) {
     }).catch(error => {
         // tiny toast for failure
         Toast.show('Failed to add category.', {
+            duration:  3000
+        });
+    });
+}
+
+export function editCategory(value: string, category: Category){
+    // get category state from store
+    const categorySelector = (state: CategoryState) => state.categories;
+    const categories = useSelector(categorySelector);
+    const dispatch = useDispatch();
+
+    //update skill name
+    category.skill = value;
+
+    // calls categoryService.addCategory
+    categoryService.updateCategory(category).then((result) => {
+        // add new category to current categories
+        categories.push(result);
+
+        // dispatch new categories
+        dispatch(getCategories(categories));
+
+        // tiny toast for success
+        Toast.show('Category Updated!', {
+            duration:  3000
+        });
+    
+    }).catch(error => {
+        // tiny toast for failure
+        Toast.show('Failed to update category.', {
             duration:  3000
         });
     });
