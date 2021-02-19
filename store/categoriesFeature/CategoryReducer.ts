@@ -1,6 +1,6 @@
 import { Category } from "../../categoriesFeature/Category";
 import { CaliberState } from "../store"
-import { initialState } from "../userReducer";
+import { initialState } from "../initialState";
 import * as Actions from './CategoryActions';
 
 const categoryReducer = (state: CaliberState = initialState, action: Actions.AppAction): CaliberState => {

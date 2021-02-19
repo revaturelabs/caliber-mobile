@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet, View } from 'react-native';
 import store from './store/store';
-import Router from './categoriesFeature/router/Router';
+import {Router} from './router/router';
 
 import RouterComponent from './router/router.component';
 
