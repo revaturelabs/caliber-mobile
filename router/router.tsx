@@ -1,7 +1,7 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import AssociateComponent from '../associate/AssociateComponent';
-import AssociateDetail from '../associate/AssociateDetailsComponent';
+import AssociateDetail from '../associate/AssociateDetail';
 import ManageCategories from '../categories/manageCategories';
   
 export type StackParam = {
