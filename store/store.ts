@@ -1,7 +1,7 @@
 import { combineReducers, applyMiddleware, createStore, Store } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import reducer from './reducer';
+import batchReducer from './batchReducer';
 import userReducer from './userReducer';
 import { AppAction } from './actions';
 import Batch from '../batches/batch';
@@ -22,7 +22,7 @@ export interface CaliberState extends UserState, BatchState {}
 //add your reducer to the object
 const rootReducer = combineReducers({
 	userReducer,
-	reducer,
+	batchReducer,
 });
 
 //user userSelector(state: RootState => state.yourReducer.yourPayload)
