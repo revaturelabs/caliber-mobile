@@ -1,8 +1,9 @@
 import { combineReducers, applyMiddleware, createStore, Store } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import reducer from './reducer';
+import batchReducer from './batchReducer';
 import userReducer from './userReducer';
+import WeekCategoryReducer from './WeekCategoryReducer'
 import { AppAction } from './actions';
 import Batch from '../batches/batch';
 import { UserInput, UserInfo } from '../user/user';
@@ -29,13 +30,14 @@ export interface CaliberState extends UserState, BatchState, WeekCategoryState {
 //add your reducer to the object
 const rootReducer = combineReducers({
 	userReducer,
-	reducer,
+	batchReducer,
+	WeekCategoryReducer
 });
 
 //user userSelector(state: RootState => state.yourReducer.yourPayload)
 export type RootState = ReturnType<typeof rootReducer>;
 
-const store: Store<CaliberState, AppAction> = createStore(
+const store: Store<RootState, AppAction> = createStore(
 	rootReducer,
 	composeWithDevTools(applyMiddleware(thunk))
 );

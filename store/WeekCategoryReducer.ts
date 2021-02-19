@@ -1,12 +1,9 @@
 import { weekCategory } from '../WeekCategories/WeekCategory';
 import * as Actions from './actions';
-
+import { initialState } from './initialState';
 import { CaliberState } from './store';
 
-export const initialState: CaliberState = {
-    weekCategory: new weekCategory(),
-    weekCategoires: []
-};
+
 
 const WeekCategoryReducer = (state: CaliberState = initialState, action: Actions.AppAction): CaliberState => {
     const newState = { ...state };
