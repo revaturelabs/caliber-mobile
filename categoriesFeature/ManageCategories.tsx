@@ -87,7 +87,7 @@ export function openModal(modalAction: string, category?: Category) {
                     {category ? (
                         <Button title={modalAction} onPress={(value) => editCategory(value.toString(), category)}></Button>
                         )
-                     : (
+                    : (
                         <Button title={modalAction} onPress={(value) => addCategory(value.toString())}></Button>
                     )}
                     
