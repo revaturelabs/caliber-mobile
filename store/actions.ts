@@ -1,5 +1,7 @@
 import { UserInfo, UserInput } from '../user/user';
 import Batch from '../batches/batch';
+import { WeekCategoryState } from './store';
+import { weekCategory } from '../WeekCategories/WeekCategory';
 
 export enum BatchActions {
 	GetBatches = 'GET_BATCHES',
@@ -7,6 +9,12 @@ export enum BatchActions {
 export enum UserActions {
 	GetUser = 'GET_USER',
 	LoginChange = 'CHANGE_LOGIN',
+}
+export enum WeekCategoryActions{
+	DeleteCategory = 'DELETE_CATEGORY',
+	AddCategory = 'ADD_CATETGORY',
+	GetCategories = 'GET_CATEGORIES',
+	ChangeCategories = 'CHANGE_CATEGORIES'
 }
 
 export interface AppAction {
@@ -22,6 +30,11 @@ export interface UserAction<P> extends AppAction {
 export interface BatchAction extends AppAction {
 	type: BatchActions;
 	payload: Batch[];
+}
+
+export interface WeekCategoryAction extends AppAction{
+	type:WeekCategoryActions;
+	payload:weekCategory[] | weekCategory;
 }
 
 //info of the user that is logged in
@@ -49,3 +62,36 @@ export function getBatches(batches: Batch[]): BatchAction {
 	};
 	return action;
 }
+
+
+export function deleteCategory(category: weekCategory): WeekCategoryAction {
+	const action: WeekCategoryAction ={
+		type: WeekCategoryActions.DeleteCategory,
+		payload:category
+	};
+	return action;
+};
+
+export function addCategory(category: weekCategory): WeekCategoryAction {
+	const action: WeekCategoryAction ={
+		type: WeekCategoryActions.AddCategory,
+		payload:category
+	};
+	return action;
+};
+
+export function getCategories(categories: weekCategory[]): WeekCategoryAction {
+	const action: WeekCategoryAction ={
+		type: WeekCategoryActions.GetCategories,
+		payload:categories
+	};
+	return action;
+};
+
+export function ChangeCategories(categories: weekCategory[]): WeekCategoryAction {
+	const action: WeekCategoryAction ={
+		type: WeekCategoryActions.ChangeCategories,
+		payload:categories
+	};
+	return action;
+};

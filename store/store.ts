@@ -6,6 +6,7 @@ import userReducer from './userReducer';
 import { AppAction } from './actions';
 import Batch from '../batches/batch';
 import { UserInput, UserInfo } from '../user/user';
+import { weekCategory } from '../WeekCategories/WeekCategory';
 
 export interface BatchState {
 	batches: Batch[];
@@ -15,7 +16,13 @@ export interface UserState {
 	user: UserInfo;
 	userLogin: UserInput;
 }
-export interface CaliberState extends UserState, BatchState {}
+
+export interface WeekCategoryState{
+	weekCategoires: weekCategory[];
+	weekCategory: weekCategory;
+}
+
+export interface CaliberState extends UserState, BatchState, WeekCategoryState {}
 // <> is generics: Generic arguments allow us to define the type of a thing at runtime instead of when we write it,
 // creating a reusable object.
 

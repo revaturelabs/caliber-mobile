@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { weekCategory } from './weekCategory';
+import { weekCategory } from './WeekCategory';
 
 class weekCategoryService {
     private URI: string;
@@ -9,7 +9,6 @@ class weekCategoryService {
     addCategory(weekcategory: weekCategory): Promise<weekCategory> {
         return axios.post(this.URI, weekcategory).then(result => result.data).catch(err => err);
     }
-
     getCategory(id: Number): Promise<weekCategory[]> {
         return axios.get(this.URI+'/'+id).then(result => result.data).catch(err => err);
     }

@@ -36,6 +36,7 @@ export default function weekCategoryList() {
   function getName(id:number){
     WeekCategoryService.getCategory(id).then((result) =>{
       let item: category = {numid:id, skill:String(result), active:Boolean}
+      return item;
     })
 
   }
