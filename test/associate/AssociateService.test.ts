@@ -5,7 +5,7 @@ import 'enzyme-adapter-react-16';
 import axios from 'axios';
 
 
-import associateService, { Associate, QCFeedback } from '../associateService';
+import associateService, { Associate, QCFeedback } from '../../associate/AssociateService';
 
 
 test('Test Axios request to GET associate singular', async ()=>{

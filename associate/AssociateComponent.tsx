@@ -2,8 +2,8 @@
 import React from 'react';
 import 'react-native';
 import { View } from 'react-native';
-import AssociateDetail from './AssociateDetailsComponent';
-import { Associate, QCFeedback } from './associateService';
+import AssociateDetail from './AssociateDetail';
+import { Associate, QCFeedback } from './AssociateService';
 
 interface AssociateProps {
     assoc: Associate;

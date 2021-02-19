@@ -1,10 +1,10 @@
 //Shows associate name, technical status, note (editable)
 
 import React, { useState } from 'react';
-import 'react-native';
 import { Pressable, View } from 'react-native';
 import { Text, Input, Button, Icon } from 'react-native-elements';
-import associateService, { Associate, QCFeedback } from './associateService';
+import associateService, { Associate, QCFeedback } from './AssociateService';
+import TechnicalStatus from './TechnicalStatus';
 
 interface AssociateProps {
     associate: Associate;
@@ -24,23 +24,6 @@ function AssociateDetail(props: AssociateProps) {
     const [viewNote, setViewNote] = useState(false);
 
     /**
-     * Icon manager(switches the icon based on the value of the technical status);
-     */
-    let iconName: string = 'question';
-    let iconColor: string = 'blue';
-    if (qcTechnicalStatus >= 1 && qcTechnicalStatus < 2) {
-        iconName = 'frown';
-        iconColor = 'red';
-    } else if (qcTechnicalStatus < 3) {
-        iconName = 'meh';
-        iconColor = 'yellow';
-    } else if (qcTechnicalStatus < 4) {
-        iconName = 'smile';
-        iconColor = 'green';
-    }
-
-
-    /**
      * When the Technical Status component is pressed, should cycle through 0-4
      *  Update both the state and the database.
     */
@@ -58,11 +41,10 @@ function AssociateDetail(props: AssociateProps) {
             <Text testID='firstName'>{props.associate.firstName}</Text>
             <Text testID='lastName'> {props.associate.lastName}</Text>
             <Pressable
-                onPress={cycleTechnicalStatus}>
-                <Icon
-                    name={iconName}
-                    type='font-awesome'
-                    color={iconColor} />
+                onPress={cycleTechnicalStatus}
+                testID='technicalStatus'>
+                <TechnicalStatus
+                    status={qcTechnicalStatus} />
             </Pressable>
             <Button
                 icon={
@@ -70,10 +52,11 @@ function AssociateDetail(props: AssociateProps) {
                         name={viewNote ? 'chevron-down' : 'chevron-left'}
                         type='fontawesome' />
                 }
-                onPress={() => setViewNote(true)} />
+                onPress={() => setViewNote(viewNote ? false : true)}
+                testID='displayNote'/>
             {viewNote && <Input
                 label='Note from QC'
-                placeholder={qcNote}
+                defaultValue={qcNote}
                 multiline
                 numberOfLines={4}
                 scrollEnabled
@@ -86,8 +69,8 @@ function AssociateDetail(props: AssociateProps) {
                         name='save'
                         type='fontawesome' />
                 }
-            //onPress={() => associateService.updateAssociate({'qcNote': qcNote})}
-            />
+                onPress={() => associateService.updateAssociate(props.qcFeedback, {'qcNote': qcNote})}
+                testID='saveNote'/>
             }
         </View>
     );
