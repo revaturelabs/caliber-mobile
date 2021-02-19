@@ -1,136 +1,123 @@
 import { RouteProp } from '@react-navigation/native';
-import React, { useEffect, useState} from 'react';
-import { Button, View, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { Button, View, Text, StyleSheet, Modal, TextInput, Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import Toast from 'react-native-tiny-toast';
+import { CategoryTable } from './CategoryTable';
 import categoryService from './CategoryService';
-import { CategoryName } from './CategoryName';
-import { StackParam } from './router/Router';
-//import { Category } from './category';
-import { CategoryState } from '../store/store';
 import { getCategories } from '../store/categoriesFeature/CategoryActions';
-import { Category } from './Category';
+import { StackParam } from './router/Router';
+import { CategoryState } from '../store/store';
 
 interface Props {
     route: RouteProp<StackParam, 'ManageCategories'>;
 }
 
-// one main component to include everything
+/**
+ *  This component encloses the entire Manage Categories feature
+ *  @returns: view that has tabs of active/stale categories 
+ *  and a button that adds a category
+ */
 export default function ManageCategories() {
-    // need category state from the store
-    const categorySelector = (state: CategoryState) => state.categories;
-    const categories = useSelector(categorySelector);
-    const newCategories = {...categories};
-
-    //mock data
-    const mockCategories = [
-        {
-            categoryId: 1,
-            skill: 'SQL',
-            active: true
-        }, 
-        {
-            categoryId: 2,
-            skill: 'React',
-            active: false
-        }, 
-        {
-            categoryId: 3,
-            skill: 'Redux',
-            active: true        
-        }, 
-        {
-            categoryId: 4,
-            skill: 'Microservices',
-            active: false  
-        }
-    ];
-
-     // set local state: start with viewing active tab
+    const Tab = createMaterialTopTabNavigator();
+    // set local state for currently viewed tab
     const [status, setStatus] = useState(true);
-    
-    const dispatch = useDispatch();
 
-    //const nav = useNavigation();
-    
-    // after every render, check if there is a change in categories
-    useEffect(() => {
-        categoryService.getCategories(status.toString()).then((results) => {
-            dispatch(getCategories(results));
-        })
-    },[dispatch])
-
-    return(
+    return (
         <View>
+            {/* Tabs that navigate between active and stale categories */}
             <View>
-                <Button title="Add Category" onPress={openModal} accessibilityLabel='Add Category'/>
-            </View>
-
-            {/* tab navigator */}
-            <View>
-                {/* <Button title="Active" onPress={() => {switchTab('active', status)}} accessibilityLabel='Active'/>
-                <Button title="Inactive" onPress={() => {switchTab('inactive', status)}} accessibilityLabel='Inactive'/> */}
+                <Tab.Navigator>
+                    <Tab.Screen
+                        name="Active"
+                        children={() => <CategoryTable status={true} />}
+                    />
+                    <Tab.Screen
+                        name="Inactive"
+                        children={() => <CategoryTable status={false}/>}
+                    />
+                </Tab.Navigator>
             </View>
             
-            {/* all of this is going to go inside each tab */}
-            {/* Table header */}
-            <Text style={styles.textColor}>Active/Stale Categories</Text>
-            {/* Toggle instructions */}
-            <Text style={styles.textColor}>Click to toggle Active/Stale Categories</Text>
-            {/* Table items */}
-            {mockCategories.map((req: Category, index: number) => (
-                <CategoryName
-                    key={'req-'+ index}
-                    category={req}
-                    categories={newCategories}
-                ></CategoryName>
-            ))}
-
+            {/* Button for adding a new category */}
+            <View>
+                <Button title="Add Category" onPress={openModal} accessibilityLabel='Add Category' />
+            </View>
         </View>
     )
 }
 
-//export default ManageCategories;
-
-// when 'Add Category' button is clicked, open modal
+/**
+ *  This component opens a modal when 'Add Category' button is clicked
+ *  @returns: view that has a modal where user can add a category
+ */
 export function openModal() {
-    // has a textInput for category name
+    const[value, onChangeText] = React.useState('');
+    const [modalVisible, setModalVisible] = useState(true);
 
-    // has a button that calls addCategory()
+    return (
+        <View>
+            <Modal
+                animationType="slide"
+                visible={modalVisible}
+                // this happens when a user presses the hardware back button
+                onRequestClose={() => {
+                    // tiny toast
+                    Toast.show('Closed without saving', {
+                        duration: 3000
+                    });
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View>
+                    {/* Title for modal */}
+                    <Text>Add Category</Text>
 
-    // creates an alert for sucessfully creating a category
-    
-    // has a button that closes the modal
-    return(
-        <></>
+                    {/* Allow user to enter a new category name */}
+                    <TextInput
+                        onChangeText={text => onChangeText(text)}
+                        value={value}
+                        autoCapitalize='words'
+                        autoFocus={true}
+                    />
+                    
+                    {/* Button that adds a category */}
+                    <Button title='Add Category' onPress={(value) => addCategory(value.toString())}></Button>
+
+                    {/* Button that closes modal */}
+                    <Button title='Close' onPress={ () => {setModalVisible(!modalVisible)}}></Button>
+                </View>
+            </Modal>
+        </View>
     )
 }
 
 // gets called from the modal to add the category
-export function addCategory() {
+export function addCategory(value: string) {
+    // get category state from store
+    const categorySelector = (state: CategoryState) => state.categories;
+    const categories = useSelector(categorySelector);
+    const newCategories = { ...categories };
+    const dispatch = useDispatch();
+
     // calls categoryService.addCategory
+    categoryService.addCategory(value).then((result) => {
+        // add new category to current categories
+        categories.push(result);
+
+        // dispatch new categories
+        dispatch(getCategories(categories));
+
+        // tiny toast for success
+        Toast.show('Category Added!', {
+            duration:  3000
+        });
     
-    // update the state to include the new category
-
-    // adds category to corresponding table
-    return(
-        <></>
-    )
+    }).catch(error => {
+        // tiny toast for failure
+        Toast.show('Failed to add category.', {
+            duration:  3000
+        });
+    });
 }
-
-export function switchTab(activeTab: string, status: boolean) {
-    //checks the state for status and switches to the opposite if activeTab does not match
-    //if active => inactive, if inactive => active
-    //getCategories by the new status dispatch THAT to the state
-}
-
-
-const styles = StyleSheet.create (
-    {
-        textColor: {
-            color: 'black',
-        },
-        btnStyle: {
-            color: 'blue'
-        }
-    }
-)

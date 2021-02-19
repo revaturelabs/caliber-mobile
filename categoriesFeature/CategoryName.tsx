@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import Stylesheet from 'react-native';
+import { getCategories } from '../store/categoriesFeature/CategoryActions';
 import { Category } from './Category';
 import categoryService from './CategoryService';
-import Stylesheet from 'react-native';
 import { CategoryState } from '../store/store';
-import { getCategories } from '../store/categoriesFeature/CategoryActions';
 
 interface CategoryNameProp {
     category: Category;
@@ -13,8 +13,9 @@ interface CategoryNameProp {
 }
 
 /**
- *  This component creates a category name that can be pressed to toggle the category's status
- *  @params: category
+ *  This component displays a category name that can be pressed to toggle the category's status
+ *  @param: category - the specific category we are displaying
+ *  @param: categories - entire category state that will also need to update with new category
  *  @returns: view with a pressable category name
  */
 export function CategoryName({ category, categories }: CategoryNameProp) {
@@ -30,9 +31,12 @@ export function CategoryName({ category, categories }: CategoryNameProp) {
 
 /**
  *  This function is called when a category is pressed and changes the status of the category
+ *  @param: category - the specific category whose status is changing
+ *  @param: categories - entire category state that will also need to update with new category
  */
 export function changeStatus(category: Category, categories: Category[]) {
     const dispatch = useDispatch();
+    
     // change category status
     if (category.active) {
         category.active = false;
@@ -40,11 +44,11 @@ export function changeStatus(category: Category, categories: Category[]) {
         category.active = true;
     }
 
-    // find category in categories array and replace
+    // find category in categories array and replace with new category
     categories.splice(categories.indexOf(category), 1, category);
 
     // calls categoryService.updateCategory with the category id
-    categoryService.updateCategory(category.categoryId).then(() => {
+    categoryService.updateCategory(category.categoryid).then(() => {
         dispatch(getCategories(categories));
     }); 
 
