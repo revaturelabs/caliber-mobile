@@ -7,7 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 
 import { BatchState } from '../store/store';
 import { getBatches } from '../store/actions';
-
 import batchService from './BatchService';
 import Batch from './Batch';
 
