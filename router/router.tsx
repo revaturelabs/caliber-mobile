@@ -11,7 +11,6 @@ const Stack = createStackNavigator();
 
 export function Router() {
     return (
-      <NavigationContainer>
         <Stack.Navigator initialRouteName='Manage Categories'>
           {/* <Stack.Screen name='Login' component={} />
           <Stack.Screen name='Home' component={} />
@@ -21,7 +20,6 @@ export function Router() {
           {/* <Stack.Screen name='Quality Audit' component={} />
           <Stack.Screen name='Reports' component={} /> */}
         </Stack.Navigator>
-      </NavigationContainer>
     );
   }
 

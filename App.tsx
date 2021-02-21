@@ -3,19 +3,18 @@ import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet, View } from 'react-native';
 import store from './store/store';
-import {Router} from './router/router';
-
+import { Router } from './router/router';
 import RouterComponent from './router/router.component';
 
 export default function App() {
   return (
-    <Provider store={store}>
-      <View style={styles.container}>
-        <NavigationContainer>
-          <Router />
-        </NavigationContainer>
-      </View>
-    </Provider>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <NavigationContainer>
+            <Router />
+          </NavigationContainer>
+        </View>
+      </Provider>
   );
 }
 

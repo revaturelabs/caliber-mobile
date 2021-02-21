@@ -55,6 +55,14 @@ export function CategoryTable({ status }: CategoryTableProp) {
         })
     }, [dispatch])
 
+    const mappedData = mockCategories.map((req: Category, index: number) => (
+        <CategoryName
+            key={'req-' + index}
+            category={req}
+            categories={newCategories}
+        ></CategoryName>
+    ))
+
     return (
         <>
             {status ?
@@ -72,13 +80,12 @@ export function CategoryTable({ status }: CategoryTableProp) {
                             {field: 'skill'},
                             {field: '', filtering: false, sorting: false}
                         ]}
-                        data={mockCategories.map((req: Category, index: number) => (
-                            <CategoryName
-                                key={'req-' + index}
-                                category={req}
-                                categories={newCategories}
-                            ></CategoryName>
-                        ))} />
+                        data={mappedData} 
+                        options={{
+                            sorting: true,
+                            filtering: true
+                        }}
+                    />
                 </View>
                 :
                 // if status is false, return a table of stale categories
@@ -95,13 +102,7 @@ export function CategoryTable({ status }: CategoryTableProp) {
                             {field: 'skill'},
                             {field: '', filtering: false, sorting: false}
                         ]}
-                        data={mockCategories.map((req: Category, index: number) => (
-                            <CategoryName
-                                key={'req-' + index}
-                                category={req}
-                                categories={newCategories}
-                            ></CategoryName>
-                        ))} 
+                        data={mappedData} 
                         options={{
                             sorting: true,
                             filtering: true

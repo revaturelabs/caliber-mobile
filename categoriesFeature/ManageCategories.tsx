@@ -1,9 +1,9 @@
 import { RouteProp } from '@react-navigation/native';
+import ToastNotification from 'react-native-toast-notification';
 import React, { useState } from 'react';
 import { Button, View, Text, StyleSheet, Modal, TextInput, Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import Toast from 'react-native-tiny-toast';
 import { CategoryTable } from './CategoryTable';
 import categoryService from './CategoryService';
 import { getCategories } from '../store/categoriesFeature/CategoryActions';
@@ -65,9 +65,10 @@ export function openModal(modalAction: string, category?: Category) {
                 // this happens when a user presses the hardware back button
                 onRequestClose={() => {
                     // tiny toast
-                    Toast.show('Closed without saving', {
-                        duration: 3000
-                    });
+                    <ToastNotification
+                        text='Closed without saving.'
+                        duration={3000}
+                    />
                     setModalVisible(!modalVisible);
                 }}
             >
@@ -115,15 +116,21 @@ export function addCategory(value: string) {
         dispatch(getCategories(categories));
 
         // tiny toast for success
-        Toast.show('Category Added!', {
-            duration:  3000
-        });
+        return (
+            <ToastNotification 
+                text='Category added!'
+                duration={3000}
+            />
+        )
     
     }).catch(error => {
         // tiny toast for failure
-        Toast.show('Failed to add category.', {
-            duration:  3000
-        });
+        return (
+            <ToastNotification 
+                text='Failed to add category'
+                duration={3000}
+            />
+        )
     });
 }
 
@@ -145,14 +152,20 @@ export function editCategory(value: string, category: Category){
         dispatch(getCategories(categories));
 
         // tiny toast for success
-        Toast.show('Category Updated!', {
-            duration:  3000
-        });
+        return (
+            <ToastNotification 
+                text='Category added!'
+                duration={3000}
+            />
+        )
     
     }).catch(error => {
         // tiny toast for failure
-        Toast.show('Failed to update category.', {
-            duration:  3000
-        });
+        return (
+            <ToastNotification 
+                text='Failed to add category'
+                duration={3000}
+            />
+        )
     });
 }
