@@ -6,7 +6,9 @@ export default function CategoryButton(props:any) {
    return(
     <View style={[styles.screenContainer] }>
     <Text style={styles.myFontColor}>{categoryContext+"  "} 
-      <TouchableOpacity onPress={() => {alert("Place holder for dispatching {action:'delete',payload:'"+props.value + "'}"); 
+      <TouchableOpacity onPress={() => {
+        
+        alert("Place holder for dispatching {action:'delete',payload:'"+props.value + "'}"); 
       setCategoryContext('deleted')}}>
         <Text style={styles.innerContainer}> x </Text></TouchableOpacity></Text>
   </View>
