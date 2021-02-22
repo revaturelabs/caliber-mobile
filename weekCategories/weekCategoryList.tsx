@@ -23,7 +23,7 @@ interface weekProp {
 }
 
 export default function weekCategoryList(qcWeek: weekProp) {
-  const weekCatSelector = (state:WeekCategoryState) => state.weekCategoires;
+  const weekCatSelector = (state:WeekCategoryState) => state.weekCategories;
   const weekCategories = useSelector(weekCatSelector);
   //categories is from another team so this will be error until the store is done
   const activeCatSelector = (state:CategoryState) => state.categoires;
@@ -38,11 +38,11 @@ export default function weekCategoryList(qcWeek: weekProp) {
       let thisWeekCats:category[] = []
       allCats.forEach((allCatElement)=>{
         results.forEach((catid)=>{
-          if (allCatElement.id == catid.category_id){
+          if (allCatElement.id == catid.categoryId){
             thisWeekCats.push(allCatElement);
           };
         });
-        
+        weekCategoriesAsCategory = thisWeekCats;
         dispatch(getWeekCategories(thisWeekCats));
       });
     }); 
@@ -52,7 +52,7 @@ export default function weekCategoryList(qcWeek: weekProp) {
   categoryService.getCategories('true').then((results) => {
     let availableCats: category[] = []
     results.forEach(element => {
-      if (weekCategories.includes(element) == false){
+      if (weekCategoriesAsCategory.includes(element) == false){
        availableCats.push(element);
       };
     });
