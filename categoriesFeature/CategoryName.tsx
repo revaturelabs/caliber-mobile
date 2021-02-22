@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import Stylesheet from 'react-native';
 import { getCategories } from '../store/categoriesFeature/CategoryActions';
 import { Category } from './Category';
 import categoryService from './CategoryService';
-import { CategoryState } from '../store/store';
-import { Button } from '@material-ui/core';
 import {openModal} from './ManageCategories';
 
 interface CategoryNameProp {

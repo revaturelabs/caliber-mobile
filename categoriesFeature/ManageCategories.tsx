@@ -24,6 +24,88 @@ export default function ManageCategories() {
     const Tab = createMaterialTopTabNavigator();
     // set local state for currently viewed tab
     const [status, setStatus] = useState(true);
+    
+    // get category state from store
+    const categorySelector = (state: CategoryState) => state.categories;
+    const categories = useSelector(categorySelector);
+    const dispatch = useDispatch();
+
+    function openModal(modalAction: string, category?: Category) {
+        const [value, onChangeText] = React.useState('');
+        const [modalVisible, setModalVisible] = useState(true);
+
+        return (
+            <View>
+                <Modal
+                    animationType="slide"
+                    visible={modalVisible}
+                    // this happens when a user presses the hardware back button
+                    onRequestClose={() => {
+                        // tiny toast
+                        <ToastNotification
+                            text='Closed without saving.'
+                            duration={3000}
+                        />
+                        setModalVisible(!modalVisible);
+                    }}
+                >
+                    <View>
+                        {/* Title for modal */}
+                        <Text>{modalAction}</Text>
+    
+                        {/* Allow user to enter a new category name */}
+                        <TextInput
+                            onChangeText={text => onChangeText(text)}
+                            value={value}
+                            autoCapitalize='words'
+                            autoFocus={true}
+                        />
+                        
+                        {/* Button that adds a category */}
+                        {category ? (
+                            <Button title={modalAction} onPress={(value) => editCategory(value.toString(), category)}></Button>
+                            )
+                        : (
+                            <Button title={modalAction} onPress={(value) => addCategory(value.toString())}></Button>
+                        )}
+                        
+                        {/* Button that closes modal */}
+                        <Button title='Close' onPress={() => {setModalVisible(!modalVisible)}}></Button>
+                    </View>
+                </Modal>
+            </View>
+        )
+    }
+    
+    // gets called from the modal to add the category
+    const addCategory = (value: string) => {
+        
+        // calls categoryService.addCategory
+        categoryService.addCategory(value).then((result) => {
+            // add new category to current categories
+            categories.push(result);
+    
+            // dispatch new categories
+            dispatch(getCategories(categories));
+    
+            // tiny toast for success
+            return (
+                <ToastNotification 
+                    text='Category added!'
+                    duration={3000}
+                />
+            )
+        
+        }).catch(error => {
+            // tiny toast for failure
+            return (
+                <ToastNotification 
+                    text='Failed to add category'
+                    duration={3000}
+                />
+            )
+        });
+    }
 
     return (
         <View>
@@ -54,7 +136,7 @@ export default function ManageCategories() {
  *  @returns: view that has a modal where user can add a category
  */
 export function openModal(modalAction: string, category?: Category) {
-    const[value, onChangeText] = React.useState('');
+    const [value, onChangeText] = React.useState('');
     const [modalVisible, setModalVisible] = useState(true);
 
     return (
