@@ -14,21 +14,7 @@ jest.mock('../firebase-client-config', () => ({
             )
     }
 }));
-// jest.mock('firebase/app', () => {
-//     return {
-//         auth: jest.fn().mockImplementation(() => ({
-//             setPersistence: jest.fn(),
-//             signInWithEmailAndPassword: jest
-//                 .fn()
-//                 .mockImplementation((email, password) => ({
-//                     email: email,
-//                     userId: 1,
-//                     isEmailVerified: true
-//                 }))
-//         })),
-//         initializeApp: jest.fn()
-//     };
-// });
+
 
 test('test to return email address and userId', async () => {
     // (firebase.auth as jest.Mocked<any>).mockReturnValueOnce({
