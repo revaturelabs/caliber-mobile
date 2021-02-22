@@ -1,37 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import { ButtonGroup } from 'react-native-elements';
-import { ScrollView } from 'react-native-gesture-handler';
+import { useDispatch, useSelector } from 'react-redux';
+import { Picker } from '@react-native-picker/picker';
+import { WeekState } from '../store/store';
+import { changeSelectedWeek } from '../store/actions';
+import QcWeek from './QcWeek';
 
 /**
- * Provides a button group 
+ * Provides a picker to select and set the current week we are looking at
  */
 export default function WeekSelectionComponent() {
 
-    const [numberOfWeeks, setNumberOfWeeks] = useState(6);
-    const [selectedIndex, setSelectedIndex] = useState(0);
-    const [buttonLabels, setButtonLabels] = useState([] as string[]);
+    const [weeks, setWeeks] = useState([] as QcWeek[]);
 
     useEffect(() => {
-        // Initialize labels for each week to be displayed
-        let labels: string[] = [];
-        for(let i = 1; i <= numberOfWeeks; i++) {
-            labels.push('Week '+i);
-        }
-        setButtonLabels(labels);
+        // Get the weeks in the redux store
+        setWeeks(useSelector((state: WeekState) => state.weeks));
+
     }, []);
 
-    // Called on week tab change (this could also be another picker instead)
-    function onWeekSelect(weekIndex: number) {
-        setSelectedIndex(weekIndex);
+    function onWeekSelect(weekValue: number) {
+        // Update the redux store with the selected week
+        let selectedWeek = weeks.find(week => week.weekNumber === weekValue);
+        if(selectedWeek) {
+            useDispatch()(changeSelectedWeek(selectedWeek));
+        }
     }
 
     return (
-        <ScrollView horizontal>
-            <ButtonGroup
-                onPress={onWeekSelect}
-                selectedIndex={selectedIndex}
-                buttons={buttonLabels}
-            />
-        </ScrollView>
+        <Picker onValueChange={onWeekSelect} testID='weekPicker'>
+            {weeks.map((qcWeek) => {
+                return <Picker.Item
+                    label={'Week '+qcWeek.weekNumber}
+                    value={qcWeek.weekNumber}
+                />
+            })}
+        </Picker>
     );
 }
