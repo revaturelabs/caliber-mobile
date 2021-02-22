@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import  AlphabetListView from 'react-native-alphabetlistview';
 import { View, Text, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../store/categoriesFeature/CategoryActions';
@@ -6,7 +7,6 @@ import { CategoryState } from '../store/store';
 import { Category } from './Category';
 import { CategoryName } from './CategoryName';
 import categoryService from './CategoryService';
-import MaterialTable from 'material-table';
 
 interface CategoryTableProp {
     status: boolean;
@@ -55,7 +55,11 @@ export function CategoryTable({ status }: CategoryTableProp) {
         })
     }, [dispatch])
 
-    const mappedData = mockCategories.map((req: Category, index: number) => (
+    const sortedData = mockCategories.sort(function(a,b){
+        return a.skill > b.skill ? 1 : -1;
+    });
+
+    const mappedData = sortedData.map((req: Category, index: number) => (
         <CategoryName
             key={'req-' + index}
             category={req}
@@ -65,7 +69,7 @@ export function CategoryTable({ status }: CategoryTableProp) {
 
     return (
         <>
-            {status ?
+            {status == true ?
                 // if status is true, return a table of active categories
                 <View>
                     {/* Table header */}
@@ -75,48 +79,41 @@ export function CategoryTable({ status }: CategoryTableProp) {
                     <Text style={styles.textColor}>Click to toggle Active/Stale Categories</Text>
 
                     {/* Table items */}
-                    <MaterialTable
-                        columns={[
-                            {field: 'skill'},
-                            {field: '', filtering: false, sorting: false}
-                        ]}
-                        data={mappedData} 
-                        options={{
-                            sorting: true,
-                            filtering: true
-                        }}
-                    />
+                    {sortedData.map((req: Category, index: number) => (
+                        <CategoryName
+                            key={'req-' + index}
+                            category={req}
+                            categories={newCategories}
+                        ></CategoryName>
+                    ))}
+
                 </View>
                 :
                 // if status is false, return a table of stale categories
                 <View>
-                        {/* Table header */}
-                        <Text style={styles.textColor}>Stale Categories</Text>
+                    {/* Table header */}
+                    <Text style={styles.textColor}>Stale Categories</Text>
 
-                        {/* Toggle instructions */}
-                        <Text style={styles.textColor}>Click to toggle Active/Stale Categories</Text>
+                    {/* Toggle instructions */}
+                    <Text style={styles.textColor}>Click to toggle Active/Stale Categories</Text>
 
-                        {/* Table items */}
-                        <MaterialTable
-                        columns={[
-                            {field: 'skill'},
-                            {field: '', filtering: false, sorting: false}
-                        ]}
-                        data={mappedData} 
-                        options={{
-                            sorting: true,
-                            filtering: true
-                        }}
-                        />
-                    </View>
+                    {/* Table items */}
+                    {sortedData.map((req: Category, index: number) => (
+                        <CategoryName
+                            key={'req-' + index}
+                            category={req}
+                            categories={newCategories}
+                        ></CategoryName>
+                    ))}
+                </View>
             }
         </>
     )
 }
 
-const styles = StyleSheet.create( {
-                textColor: {
-                color: 'black',
-        }
+const styles = StyleSheet.create({
+    textColor: {
+        color: 'black',
     }
+}
 )
