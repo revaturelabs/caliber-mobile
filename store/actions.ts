@@ -1,5 +1,6 @@
 import { UserInfo, UserInput } from '../user/user';
 import Batch from '../batches/batch';
+import { WeekInfo } from '../batchWeek/weekInfo';
 
 export enum BatchActions {
 	GetBatches = 'GET_BATCHES',
@@ -7,6 +8,11 @@ export enum BatchActions {
 export enum UserActions {
 	GetUser = 'GET_USER',
 	LoginChange = 'CHANGE_LOGIN',
+}
+
+export enum BatchWeekActions {
+	GetWeek = 'GET_WEEK',
+	NoteChange = 'CHANGE_NOTE',
 }
 
 export interface AppAction {
@@ -22,6 +28,11 @@ export interface UserAction<P> extends AppAction {
 export interface BatchAction extends AppAction {
 	type: BatchActions;
 	payload: Batch[];
+}
+
+export interface BatchWeekAction extends AppAction {
+	type: BatchWeekActions;
+	payload: WeekInfo[];
 }
 
 //info of the user that is logged in
@@ -47,5 +58,13 @@ export function getBatches(batches: Batch[]): BatchAction {
 		type: BatchActions.GetBatches,
 		payload: batches,
 	};
+	return action;
+}
+
+export function addOverallNote(week: WeekInfo[]): BatchWeekAction {
+	const action: BatchWeekAction = {
+		type: BatchWeekActions.NoteChange,
+		payload: week
+	}
 	return action;
 }
