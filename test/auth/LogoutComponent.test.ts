@@ -1,5 +1,5 @@
 // import React from 'react';
-// import {mount, shallow} from 'enzyme';
+import {mount, shallow} from 'enzyme';
 import login from './login';
 import logout from './logout';
 import firebase from 'firebase/app';
@@ -42,4 +42,7 @@ test('Logout user', async () => {
     expect(firebase.auth().signOut).toBeCalled();
 })
 
-
+const mockLogoutFunc = jest.fn();
+const component = shallow(<LogoutComponent onPress={mockLogoutFunc} />);    
+component.dive().simulate('press');
+expect(mockLogoutFunc).toHaveBeenCalled();
