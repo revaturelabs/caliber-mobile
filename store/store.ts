@@ -4,11 +4,12 @@ import thunk from 'redux-thunk';
 import batchReducer from './batchReducer';
 import userReducer from './userReducer';
 import WeekCategoryReducer from './WeekCategoryReducer'
+import { weekCategory } from '../weekCategories/weekCategory';
+import categoryReducer from './categoriesFeature/CategoryReducer';
+import {UserInput, UserInfo} from '../user/user'
+import { Category } from '../categoriesFeature/Category';
 import { AppAction } from './actions';
 import Batch from '../batches/batch';
-import { UserInput, UserInfo } from '../user/user';
-import { weekCategory } from '../WeekCategories/WeekCategory';
-import {Category} from '../categories/Category'
 
 export interface BatchState {
 	batches: Batch[];
@@ -24,7 +25,11 @@ export interface WeekCategoryState{
 	weekCategory: weekCategory;
 }
 
-export interface CaliberState extends UserState, BatchState, WeekCategoryState {}
+
+export interface CategoryState {
+    categories: Category[];
+}
+export interface CaliberState extends UserState, CategoryState, BatchState, WeekCategoryState {}
 // <> is generics: Generic arguments allow us to define the type of a thing at runtime instead of when we write it,
 // creating a reusable object.
 

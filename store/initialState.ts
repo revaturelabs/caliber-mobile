@@ -1,5 +1,6 @@
+import { Category } from "../categoriesFeature/Category";
 import { UserInfo, UserInput } from "../user/user";
-import { weekCategory } from "../WeekCategories/WeekCategory";
+import { weekCategory } from "../weekCategories/weekCategory";
 import { CaliberState } from "./store";
 
 
@@ -9,5 +10,6 @@ export const initialState: CaliberState = {
     userLogin: new UserInput(),
     batches: [],
     weekCategory: new weekCategory(),
-    weekCategoires: []
+    weekCategories: [],
+    categories: []
 }
