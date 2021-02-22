@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import Enzyme from 'enzyme';
-import AddNoteComponent from '../../batchWeek/addNote.component';
+import AddNoteComponent from '../../batchWeek/AddNoteComponent';
 import { Button, TextInput } from 'react-native';
 
 test('test adding an overall note', () => {
