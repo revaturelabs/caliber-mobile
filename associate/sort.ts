@@ -40,14 +40,34 @@ export function sortAssociateByLastName(associates: AssociateWithFeedback[]) {
     });
 }
 
-export function randomizeAssociates(associates:AssociateWithFeedback[]) {
+export function randomizeAssociates(associates: AssociateWithFeedback[]) {
     let randomArray = [];
-    for(let x  = associates.length-1; x >= 0;x--) {
-        let index = Math.floor(Math.random() * x);
+    for (let x = associates.length - 1; x >= 0; x--) {
+        let index = Math.round(Math.random() * x);
         randomArray.push(associates[index]);
 
-        associates = associates.splice(index, 1);
+        associates.splice(index, 1);
     }
     associates = [...randomArray];
+
     return randomArray;
+}
+
+export function shuffle(associates: AssociateWithFeedback[]) {
+    var currentIndex = associates.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = associates[currentIndex];
+        associates[currentIndex] = associates[randomIndex];
+        associates[randomIndex] = temporaryValue;
+    }
+
+    return associates;
 }

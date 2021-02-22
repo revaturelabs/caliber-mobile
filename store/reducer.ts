@@ -22,6 +22,9 @@ const reducer = (
         case Actions.AssociateActions.GetAssociates:
             newState.associates = action.payload as AssociateWithFeedback[];
             return newState;
+        case Actions.RerenderActions.ForceRerender:
+            newState.rerender = action.payload as number;
+            return newState;
         default:
             return state;
     }

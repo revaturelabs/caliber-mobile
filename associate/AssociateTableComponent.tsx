@@ -1,13 +1,14 @@
 //Shows associate name, technical status, note (editable)
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'react-native';
 import { View, Text, FlatList, Button } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import style from '../global_styles';
-import { BatchAction, getAssociates } from '../store/actions';
+import { BatchAction, forceRerender, getAssociates } from '../store/actions';
+import { AssociateState, RerenderState } from '../store/store';
 import AssociateDetail from './AssociateDetail';
 import AssociateService, { Associate, AssociateWithFeedback, QCFeedback } from './AssociateService';
-import { randomizeAssociates } from './sort';
+import { randomizeAssociates, shuffle } from './sort';
 
 interface AssociateProps {
     assoc: Associate;
@@ -23,27 +24,42 @@ let assoc1 = new AssociateWithFeedback();
 assoc1.associate.firstName = "Tyler"
 let assoc2 = new AssociateWithFeedback();
 assoc2.associate.firstName = "Kathryn"
+let assoc3 = new AssociateWithFeedback();
+assoc3.associate.firstName = "Silly"
+let assoc4 = new AssociateWithFeedback();
+assoc4.associate.firstName = "Mary"
+
 
 
 
 
 function AssociateTableComponent(props: AssociateProps) {
-    let tempAssociates = [assoc1, assoc2, new AssociateWithFeedback(), new AssociateWithFeedback()];
+    let tempAssociates = [assoc1, assoc2, assoc3, assoc4];
     let dispatch = useDispatch();
-    
+    let associates = useSelector((state: AssociateState) => state.associates);
+    let rerender = useSelector((state: RerenderState) => state.rerender);
+    associates = [...tempAssociates];
+
+
+    useEffect(() => {
+    }, []);
+
     return (
         <View>
-            <Button onPress={() => {
-                randomizeAssociates(tempAssociates);
-                dispatch(getAssociates(tempAssociates));
-                console.log("Rerender should happen here");
+            <Button onPress={async () => {
+                await shuffle(associates);
+                console.log(associates);
+                setTimeout(() => {
+                    dispatch(getAssociates(associates));
+                    dispatch(forceRerender(rerender+1));
+                }, 500);
             }
             } title='Randomize List' buttonStyle={style.button}></Button>
             <Text style={style.assocheader}>Associates:</Text>
             <FlatList
-                data={tempAssociates}
+                data={associates}
                 renderItem={({ item }) => (<AssociateDetail associate={item.associate} qcFeedback={item.qcFeedback}></AssociateDetail>)}
-                keyExtractor={(item) => item.associate.associateId}
+                keyExtractor={(item) => item.associate.firstName}
             />
         </View>
 

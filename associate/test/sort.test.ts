@@ -95,7 +95,6 @@ describe("Tests for sorting by last name", () => {
 
 describe("Tests for randomzing the order of the associates", () => {
     testSet = [...testSet,associate5];
-    console.log(testSet[4]);
     
     test("Make sure that first random set works.", () => {
         testSet.push(associate5);
@@ -106,11 +105,10 @@ describe("Tests for randomzing the order of the associates", () => {
         testSet[4].associate.firstName = "Echo";
         orderedSet = [...testSet];
         
-        randomizeAssociates(testSet);
-        randomizeAssociates(testSet);
-        randomizeAssociates(testSet);
+        testSet = randomizeAssociates(testSet);
         
         expect(testSet).not.toStrictEqual(orderedSet);
+        expect(testSet.length).toBe(orderedSet.length);
     })
 
 })

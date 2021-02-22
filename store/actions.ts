@@ -10,8 +10,13 @@ export enum UserActions {
 	LoginChange = 'CHANGE_LOGIN',
 }
 
+
 export enum AssociateActions {
-	GetAssociates = 'GET_ASSOCIATES',
+    GetAssociates = 'GET_ASSOCIATES',
+}
+
+export enum RerenderActions {
+    ForceRerender = "ForceRerender"
 }
 
 export interface AppAction {
@@ -34,11 +39,31 @@ export interface AssociateAction extends AppAction {
 	payload: AssociateWithFeedback[];
 }
 
-//info of the user that is logged in
+export interface RerenderAction extends AppAction {
+	type: RerenderActions;
+	payload:Number;
+}
+
+/**
+ * Set the associates in the state to whatever is currently displaying in the UI.
+ * @param associates 
+ */
 export function getAssociates(associates: AssociateWithFeedback[]): AssociateAction {
 	const action: AssociateAction = {
 		type: AssociateActions.GetAssociates,
 		payload: associates,
+	};
+	return action;
+}
+
+/**
+ * ForceRerender of UI
+ * @param associates 
+ */
+export function forceRerender(number:number): RerenderAction {
+	const action: RerenderAction = {
+		type: RerenderActions.ForceRerender,
+		payload: number,
 	};
 	return action;
 }
