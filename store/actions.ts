@@ -1,5 +1,6 @@
 import { UserInfo, UserInput } from '../user/user';
 import Batch from '../batches/batch';
+import { AssociateWithFeedback } from '../associate/AssociateService';
 
 export enum BatchActions {
 	GetBatches = 'GET_BATCHES',
@@ -7,6 +8,10 @@ export enum BatchActions {
 export enum UserActions {
 	GetUser = 'GET_USER',
 	LoginChange = 'CHANGE_LOGIN',
+}
+
+export enum AssociateActions {
+	GetAssociates = 'GET_ASSOCIATES',
 }
 
 export interface AppAction {
@@ -22,6 +27,20 @@ export interface UserAction<P> extends AppAction {
 export interface BatchAction extends AppAction {
 	type: BatchActions;
 	payload: Batch[];
+}
+
+export interface AssociateAction extends AppAction {
+	type: AssociateActions;
+	payload: AssociateWithFeedback[];
+}
+
+//info of the user that is logged in
+export function getAssociates(associates: AssociateWithFeedback[]): AssociateAction {
+	const action: AssociateAction = {
+		type: AssociateActions.GetAssociates,
+		payload: associates,
+	};
+	return action;
 }
 
 //info of the user that is logged in

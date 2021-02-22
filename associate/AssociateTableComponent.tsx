@@ -1,11 +1,13 @@
 //Shows associate name, technical status, note (editable)
 import React from 'react';
 import 'react-native';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, Button } from 'react-native';
+import { useDispatch } from 'react-redux';
 import style from '../global_styles';
-import { BatchAction } from '../store/actions';
+import { BatchAction, getAssociates } from '../store/actions';
 import AssociateDetail from './AssociateDetail';
 import AssociateService, { Associate, AssociateWithFeedback, QCFeedback } from './AssociateService';
+import { randomizeAssociates } from './sort';
 
 interface AssociateProps {
     assoc: Associate;
@@ -27,37 +29,16 @@ assoc2.associate.firstName = "Kathryn"
 
 function AssociateTableComponent(props: AssociateProps) {
     let tempAssociates = [assoc1, assoc2, new AssociateWithFeedback(), new AssociateWithFeedback()];
-
-    //TODO: Finish this sorting algorithm.
-    tempAssociates = tempAssociates.sort((a, b) => {
-        let firstcheck = (a.associate.firstName.charCodeAt(0)) - (b.associate.firstName.charCodeAt(0));
-        if (firstcheck == 0) {
-            if (a.associate.firstName.length > b.associate.firstName.length) {
-                for (let i = 0; i < b.associate.firstName.length; i++) {
-                    let check = (a.associate.firstName.charCodeAt(i)) - (b.associate.firstName.charCodeAt(i));
-                    if (check >= 1) {
-                        return 1;
-                    } else if (check <= 1) {
-                        return -1;
-                    }
-                }
-            } else {
-                for (let i = 0; i < a.associate.firstName.length; i++) {
-                    let check = (b.associate.firstName.charCodeAt(i)) - (a.associate.firstName.charCodeAt(i));
-                    if (check >= 1) {
-                        return 1;
-                    } else if (check <= 1) {
-                        return -1;
-                    }
-                }
-            }
-        } else {
-            return (a.associate.firstName.charCodeAt(0)) - (b.associate.firstName.charCodeAt(0));
-        }
-    });
-
+    let dispatch = useDispatch();
+    
     return (
         <View>
+            <Button onPress={() => {
+                randomizeAssociates(tempAssociates);
+                dispatch(getAssociates(tempAssociates));
+                console.log("Rerender should happen here");
+            }
+            } title='Randomize List' buttonStyle={style.button}></Button>
             <Text style={style.assocheader}>Associates:</Text>
             <FlatList
                 data={tempAssociates}
