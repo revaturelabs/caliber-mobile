@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
+/**
+ * @params {string}  props - Value you want to display as one category
+ * Displays each value of category array through props */
 
-/** Displays each value of category array through props */
 
 export default function CategoryButton(props:any) {
   /** @type {string}  */ 
