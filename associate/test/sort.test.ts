@@ -1,5 +1,5 @@
 import { AssociateWithFeedback } from "../AssociateService";
-import { randomizeAssociates, sortAssociateByFirstName, sortAssociateByLastName } from "../sort";
+import { shuffle, sortAssociateByFirstName, sortAssociateByLastName } from "../sort";
 
 let associate1:AssociateWithFeedback;
 let associate2:AssociateWithFeedback;
@@ -105,7 +105,7 @@ describe("Tests for randomzing the order of the associates", () => {
         testSet[4].associate.firstName = "Echo";
         orderedSet = [...testSet];
         
-        testSet = randomizeAssociates(testSet);
+        testSet = shuffle(testSet);
         
         expect(testSet).not.toStrictEqual(orderedSet);
         expect(testSet.length).toBe(orderedSet.length);

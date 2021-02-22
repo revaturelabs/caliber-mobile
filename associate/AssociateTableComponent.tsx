@@ -1,14 +1,12 @@
 //Shows associate name, technical status, note (editable)
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import 'react-native';
-import { View, Text, FlatList, Button } from 'react-native';
+import { View,Text, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import style from '../global_styles';
 import { BatchAction, forceRerender, getAssociates } from '../store/actions';
-import { AssociateState, RerenderState } from '../store/store';
 import AssociateDetail from './AssociateDetail';
 import AssociateService, { Associate, AssociateWithFeedback, QCFeedback } from './AssociateService';
-import { randomizeAssociates, shuffle } from './sort';
 
 interface AssociateProps {
     assoc: Associate;
