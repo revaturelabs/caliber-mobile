@@ -86,19 +86,19 @@ export default function BatchesComponent() {
             case 1:
             case 2:
             case 3:
-                return 'Q1';
+                return 1;
             case 4:
             case 5:
             case 6:
-                return 'Q2';
+                return 2;
             case 7:
             case 8:
             case 9:
-                return 'Q3';
+                return 3;
             case 10:
             case 11:
             case 12:
-                return 'Q4';
+                return 4;
         }
     }
 
@@ -133,16 +133,16 @@ export default function BatchesComponent() {
                                                     value=''/>
                                                 <Picker.Item
                                                     label='Q1'
-                                                    value='Q1'/>
+                                                    value='1'/>
                                                 <Picker.Item
                                                     label='Q2'
-                                                    value='Q2'/>
+                                                    value='2'/>
                                                 <Picker.Item
                                                     label='Q3'
-                                                    value='Q3'/>
+                                                    value='3'/>
                                                 <Picker.Item
                                                     label='Q4'
-                                                    value='Q4'/>
+                                                    value='4'/>
                                             </Picker>
                                             {(() => {
                                                 if (quarterFilter) {
