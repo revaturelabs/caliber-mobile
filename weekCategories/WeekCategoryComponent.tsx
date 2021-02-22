@@ -8,13 +8,13 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 export default function CategoryButton(props:any) {
   /** @type {string}  */ 
-  var [categoryContext,setCategoryContext] = useState(props.value);
+  var [categoryContext,setCategoryContext] = useState(props.data.skill);
    return(
     <View style={[styles.screenContainer] }>
     <Text style={styles.myFontColor}>{categoryContext+"  "} 
       <TouchableOpacity onPress={() => {
           /**Add the Array here to dispatch the actions*/
-        alert("Place holder for dispatching {action:'delete',payload:'"+props.value + "'}"); 
+        alert("Place holder for dispatching {action:'delete',payload:'"+props.data.categoryid + "'}"); 
       setCategoryContext('deleted')}}>
         <Text style={styles.innerContainer}> x </Text></TouchableOpacity></Text>
   </View>

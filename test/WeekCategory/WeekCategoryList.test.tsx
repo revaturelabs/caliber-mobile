@@ -3,59 +3,104 @@ import 'jest-enzyme';
 import '@testing-library/jest-dom';
 import Enzyme from 'enzyme';
 import React from 'react';
-import {weekCategory} from '../../WeekCategories/weekCategory'
+import {weekCategory} from '../../WeekCategories/WeekCategory'
 import { CategoryTable } from '../../categories/categoryTable';
 import weekCategoryService from '../../WeekCategories/WeekCategoryService';
 import { FlatList } from 'react-native';
 import { useSelector } from 'react-redux';
-import WeekCategoryList from '../../WeekCategories/weekCategoryList';
+import WeekCategoryList from '../../weekCategories/WeekCategoryList';
+import configureStore from 'redux-mock-store';
+import {Provider} from 'react-redux';
+import categoryService from '../../categories/categoryService';
+import {addWeekCategory, getWeekCategories} from '../../store/actions'
+
+
+const mockStore = configureStore([]);
 
 
 describe('tests for weekCategoryList', () => {
-    test('that nothing is displayed if there are no categories for the week', () => {
-        let returnValues:any = [];
+    let store: any;
+
+
+    test('that we retrive a list of all catergores from the given week from the db and we update the store', ()=>{
+        store = mockStore({
+            weekCategories:[],
+            categories:[]
+        });
+        store.dispatch = jest.fn();
+        weekCategoryService.getCategory = jest.fn().mockReturnValue([{categoryId:1, qcWeekId:0}, {categoryId:2, qcWeekId:0}]);
+        categoryService.getCategories = jest.fn().mockReturnValue([{ categoryid: 0, skill: 'React', active: true }, { categoryid: 1, skill: 'TypeScript', active: true },{ categoryid: 2, skill: 'Redux', active: true } ])
+        let weekId = 0;
+        let thisWeekCats: Category[] = [{ categoryid: 1, skill: 'TypeScript', active: true },{ categoryid: 2, skill: 'Redux', active: true }]
         const wrapper = Enzyme.mount(
-            <WeekCategoryList data={returnValues}></WeekCategoryList>
+            <Provider store ={store}>
+            <WeekCategoryList weekId={weekId}></WeekCategoryList>
+            </Provider>
          );
-         const skill = wrapper.findWhere((node) => {
-             return node.prop('testID') === 'skill'
-         });
-         expect(skill.first()).toExist();
-         expect(skill.first().text()).toBe('');
+         expect(weekCategoryService.getCategory).toBeCalled();
+         expect(weekCategoryService.getCategory).toBeCalledWith(weekId);
+         expect(categoryService.getCategories).toBeCalled();
+         expect(store.dispatch).toHaveBeenCalled();
+         expect(store.dispatch).toHaveBeenCalledWith(getWeekCategories(thisWeekCats));
+    });
+
+    test('that we create a list of active categories that are not in weekCategories and update store', ()=>{
+        store = mockStore({
+            weekCategories:[],
+            categories:[]
+        });
+        store.dispatch = jest.fn();
+        weekCategoryService.getCategory = jest.fn().mockReturnValue([{categoryId:1, qcWeekId:0}, {categoryId:2, qcWeekId:0}]);
+        categoryService.getCategories = jest.fn().mockReturnValue([{ categoryid: 0, skill: 'React', active: true }, { categoryid: 1, skill: 'TypeScript', active: true },{ categoryid: 2, skill: 'Redux', active: true } ])
+        let weekId = 0;
+        let availabeCats: Category[] = [{ categoryid: 1, skill: 'TypeScript', active: true },{ categoryid: 2, skill: 'Redux', active: true }]
+        const wrapper = Enzyme.mount(
+            <Provider store ={store}>
+            <WeekCategoryList weekId={weekId}></WeekCategoryList>
+            </Provider>
+         );
+         expect(categoryService.getCategories).toBeCalled();
+         expect(categoryService.getCategories).toHaveBeenCalledWith('true');
+         expect(store.dispatch).toHaveBeenCalled();
+         expect(store.dispatch).toHaveBeenCalledWith(getCategories({ categoryid: 0, skill: 'React', active: true }));
+    });
+
+    test('that nothing is displayed if there are no categories for the week', () => {
+        store = mockStore({
+            weekCategories:[],
+            categories:[]
+        });
+        store.dispatch = jest.fn();
+        weekCategoryService.getCategory = jest.fn().mockReturnValue([]);
+        categoryService.getCategories = jest.fn().mockReturnValue([{ categoryid: 0, skill: 'React', active: true }, { categoryid: 1, skill: 'TypeScript', active: true },{ categoryid: 2, skill: 'Redux', active: true } ])
+        let testList:any = [];
+        let weekId=0;
+        const wrapper = Enzyme.mount(
+            <Provider store ={store}>
+            <WeekCategoryList weekId={weekId}></WeekCategoryList>
+            </Provider>
+         );
+         const flatList = wrapper.find(FlatList).first();
+         expect (flatList.props().data).toEqual(testList);
 
     });
 
     test('that categories display correctly if there are categories for the week', () => {
-        const category = new Category();
-        category.skill = 'test';
-        const list = [category];
-        const wrapper = Enzyme.mount(
-            <WeekCategoryList data={list}></WeekCategoryList>
-        );
-        const skill = wrapper.findWhere((node) => {
-            return node.prop('testID') === 'skill'
+        store = mockStore({
+            weekCategories:[],
+            categories:[]
         });
-        expect(skill.first()).toExist();
-        expect(skill.first().text()).toBe('test');
-
-    });
-
-    test('that the flatList gets its items from props', () => {
-        //Set up
-        const cat1 = new Category(1, 'React', true);
-        const cat2 = new Category(2, 'TypeScript', true);
-        const testList = [cat1, cat2];
-
-        //Mount component for testing
+        store.dispatch = jest.fn();
+        weekCategoryService.getCategory = jest.fn().mockReturnValue([{categoryId:1, qcWeekId:0}, {categoryId:2, qcWeekId:0}]);
+        categoryService.getCategories = jest.fn().mockReturnValue([{ categoryid: 0, skill: 'React', active: true }, { categoryid: 1, skill: 'TypeScript', active: true },{ categoryid: 2, skill: 'Redux', active: true } ])
+        let weekId=0;
+        let testList = [{ categoryid: 1, skill: 'TypeScript', active: true },{ categoryid: 2, skill: 'Redux', active: true }];
         const wrapper = Enzyme.mount(
-            <WeekCategoryList data = {testList}></WeekCategoryList>
+            <WeekCategoryList weekId={weekId}></WeekCategoryList>
         );
-
-        //flatList gets data from props
-        const flatList = wrapper.find(FlatList)
-        expect (flatList.props().data).toEqual(testList);
+        const flatList = wrapper.find(FlatList).first();
+         expect (flatList.props().data).toEqual(testList);
 
     });
-
 
 });
