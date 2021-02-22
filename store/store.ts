@@ -8,6 +8,7 @@ import { AppAction } from './actions';
 import Batch from '../batches/batch';
 import { UserInput, UserInfo } from '../user/user';
 import { weekCategory } from '../WeekCategories/WeekCategory';
+import {Category} from '../categories/Category'
 
 export interface BatchState {
 	batches: Batch[];
@@ -19,7 +20,7 @@ export interface UserState {
 }
 
 export interface WeekCategoryState{
-	weekCategories: weekCategory[];
+	weekCategories: Category[];
 	weekCategory: weekCategory;
 }
 

@@ -3,19 +3,20 @@ import 'jest-enzyme';
 import '@testing-library/jest-dom';
 import Enzyme from 'enzyme';
 import React from 'react';
-import {weekCategory} from '../../WeekCategories/weekCategory'
+import {weekCategory} from '../../WeekCategories/WeekCategory'
 import { CategoryTable } from '../../categories/categoryTable';
 import weekCategoryService from '../../WeekCategories/WeekCategoryService';
 import { FlatList } from 'react-native';
 import { useSelector } from 'react-redux';
-import WeekCategoryList from '../../WeekCategories/weekCategoryList';
+import WeekCategoryList from '../../WeekCategories/WeekCategoryList';
+import {Category} from '../../categories/Category';
 
 
 describe('tests for weekCategoryList', () => {
     test('that nothing is displayed if there are no categories for the week', () => {
-        let returnValues:any = [];
+        let returnValues = 0;
         const wrapper = Enzyme.mount(
-            <WeekCategoryList data={returnValues}></WeekCategoryList>
+            <WeekCategoryList weekId = {returnValues}></WeekCategoryList>
          );
          const skill = wrapper.findWhere((node) => {
              return node.prop('testID') === 'skill'
@@ -30,7 +31,7 @@ describe('tests for weekCategoryList', () => {
         category.skill = 'test';
         const list = [category];
         const wrapper = Enzyme.mount(
-            <WeekCategoryList data={list}></WeekCategoryList>
+            <WeekCategoryList weekId={0}></WeekCategoryList>
         );
         const skill = wrapper.findWhere((node) => {
             return node.prop('testID') === 'skill'
@@ -40,10 +41,10 @@ describe('tests for weekCategoryList', () => {
 
     });
 
-    test('that the flatList gets its items from props', () => {
+    test('that the flatList gets its items from state', () => {
         //Set up
-        const cat1 = new Category(1, 'React', true);
-        const cat2 = new Category(2, 'TypeScript', true);
+        const cat1 = new Category();
+        const cat2 = new Category();
         const testList = [cat1, cat2];
 
         //Mount component for testing

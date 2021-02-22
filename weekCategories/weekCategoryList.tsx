@@ -14,6 +14,7 @@ import WeekCategoryComponent from './WeekCategoryComponent';
 import { addWeekCategory, getWeekCategories } from '../store/actions';
 import categoryService from '../categories/categoryService';
 import { WeekCategoryState } from '../store/store';
+import { Category } from '../categories/Category';
 
 //need to import category class/interface from ./categories
 
@@ -23,50 +24,52 @@ interface weekProp {
 }
 
 export default function weekCategoryList(qcWeek: weekProp) {
-  const weekCatSelector = (state:WeekCategoryState) => state.weekCategories;
+  const weekCatSelector = (state: WeekCategoryState) => state.weekCategories;
   const weekCategories = useSelector(weekCatSelector);
   //categories is from another team so this will be error until the store is done
-  const activeCatSelector = (state:CategoryState) => state.categoires;
-  const activeCategories = useSelector(activeCatSelector);
+  /* const activeCatSelector = (state:CategoryState) => state.categoires;
+  const activeCategories = useSelector(activeCatSelector); */
+  const activeCategories: Category[] = [{ categoryid: 0, skill: 'React', active: true }, { categoryid: 1, skill: 'TypeScript', active: true }]
   const dispatch = useDispatch();
 
 
   //get list of all catgories from this week from db
-  let weekCategoriesAsCategory: category[] = []
+  let weekCategoriesAsCategory: Category[] = []
   WeekCategoryService.getCategory(qcWeek.weekId).then((results) => {
-    categoryService.getCategories().then((allCats)=>{
-      let thisWeekCats:category[] = []
-      allCats.forEach((allCatElement)=>{
-        results.forEach((catid)=>{
-          if (allCatElement.id == catid.categoryId){
-            thisWeekCats.push(allCatElement);
+    categoryService.getCategories().then((allCats) => {
+      let thisWeekCats: Category[] = []
+      allCats.forEach((allCatElement) => {
+        
+        results.forEach((catid) => {
+          if (allCatElement.id == catid.categoryId) {
+            thisWeekCats.push(allCatElement as Category);
           };
         });
         weekCategoriesAsCategory = thisWeekCats;
         dispatch(getWeekCategories(thisWeekCats));
       });
-    }); 
+    });
   })
 
   //create a list of active categories that are not in weekCategories
   categoryService.getCategories('true').then((results) => {
-    let availableCats: category[] = []
+    let availableCats: Category[] = []
     results.forEach(element => {
-      if (weekCategoriesAsCategory.includes(element) == false){
-       availableCats.push(element);
+      if (weekCategoriesAsCategory.includes(element) == false) {
+        availableCats.push(element);
       };
     });
     //from other team
     dispatch(getCategories(availableCats));
   });
 
-  function addCategory(newCat: category){
+  function addCategory(newCat: Category) {
     let weekCat: weekCategory = new weekCategory;
     weekCat.categoryId = newCat.id;
     weekCat.qcWeekId = Number(qcWeek);
-    WeekCategoryService.addCategory(weekCat).then(()=>{
+    WeekCategoryService.addCategory(weekCat).then(() => {
       weekCategories.push(newCat);
-      dispatch(addWeekCategory(weekCat))      
+      dispatch(addWeekCategory(weekCat))
     });
   };
 

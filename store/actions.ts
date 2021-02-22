@@ -2,6 +2,7 @@ import { UserInfo, UserInput } from '../user/user';
 import Batch from '../batches/batch';
 import { WeekCategoryState } from './store';
 import { weekCategory } from '../WeekCategories/WeekCategory';
+import {Category} from '../categories/Category';
 
 export enum BatchActions {
 	GetBatches = 'GET_BATCHES',
@@ -80,7 +81,7 @@ export function addWeekCategory(category: weekCategory): WeekCategoryAction {
 	return action;
 };
 
-export function getWeekCategories(categories: weekCategory[]): WeekCategoryAction {
+export function getWeekCategories(categories:Category[]): WeekCategoryAction {
 	const action: WeekCategoryAction ={
 		type: WeekCategoryActions.GetWeekCategories,
 		payload:categories
@@ -88,7 +89,7 @@ export function getWeekCategories(categories: weekCategory[]): WeekCategoryActio
 	return action;
 };
 
-export function ChangeCategories(categories: weekCategory[]): WeekCategoryAction {
+export function ChangeCategories(categories: Category[]): WeekCategoryAction {
 	const action: WeekCategoryAction ={
 		type: WeekCategoryActions.ChangeWeekCategories,
 		payload:categories
