@@ -29,24 +29,33 @@ function AssociateTableComponent(props: AssociateProps) {
     let tempAssociates = [assoc1, assoc2, new AssociateWithFeedback(), new AssociateWithFeedback()];
 
     //TODO: Finish this sorting algorithm.
-    // tempAssociates = tempAssociates.sort((a, b) => {
-    //     let firstcheck = (a.associate.firstName.charCodeAt(0)) - (b.associate.firstName.charCodeAt(0));
-    //     if(firstcheck == 0) {
-    //         if(a.associate.firstName.length > b.associate.firstName.length) {
-    //             for (let i = 0; i < b.associate.firstName.length; i++) {
-    //                 let check = (a.associate.firstName.charCodeAt(i)) - (b.associate.firstName.charCodeAt(i));
-    //                 if (check === 0) {
-    //                     return 
-    //                 }
-    //             }
-    //         }
-    //     else {
-    //         return (b.associate.lastName.length)
-    //     }
-    //     console.log((a.associate.firstName).charCodeAt(0))
-    //     return (a.associate.firstName.charCodeAt(0)) - (b.associate.firstName.charCodeAt(0))
-    // });
-    console.log(JSON.stringify(tempAssociates));
+    tempAssociates = tempAssociates.sort((a, b) => {
+        let firstcheck = (a.associate.firstName.charCodeAt(0)) - (b.associate.firstName.charCodeAt(0));
+        if (firstcheck == 0) {
+            if (a.associate.firstName.length > b.associate.firstName.length) {
+                for (let i = 0; i < b.associate.firstName.length; i++) {
+                    let check = (a.associate.firstName.charCodeAt(i)) - (b.associate.firstName.charCodeAt(i));
+                    if (check >= 1) {
+                        return 1;
+                    } else if (check <= 1) {
+                        return -1;
+                    }
+                }
+            } else {
+                for (let i = 0; i < a.associate.firstName.length; i++) {
+                    let check = (b.associate.firstName.charCodeAt(i)) - (a.associate.firstName.charCodeAt(i));
+                    if (check >= 1) {
+                        return 1;
+                    } else if (check <= 1) {
+                        return -1;
+                    }
+                }
+            }
+        } else {
+            return (a.associate.firstName.charCodeAt(0)) - (b.associate.firstName.charCodeAt(0));
+        }
+    });
+
     return (
         <View>
             <Text style={style.assocheader}>Associates:</Text>
