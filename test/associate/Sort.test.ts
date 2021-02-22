@@ -1,5 +1,5 @@
-import { AssociateWithFeedback } from "../AssociateService";
-import { shuffle, sortAssociateByFirstName, sortAssociateByLastName } from "../sort";
+import { AssociateWithFeedback } from "../../associate/AssociateService";
+import { shuffle, sortAssociateByFirstName, sortAssociateByLastName } from "../../associate/sort";
 
 let associate1:AssociateWithFeedback;
 let associate2:AssociateWithFeedback;
