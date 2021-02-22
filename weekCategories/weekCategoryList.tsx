@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { weekCategory } from './WeekCategory';
+import { weekCategory } from '../weekCategories/weekCategory';
 import {
   MenuProvider,
   Menu,
@@ -8,15 +8,16 @@ import {
   MenuOptions,
   MenuOption,
 } from 'react-native-popup-menu';
-import WeekCategoryService from './WeekCategoryService';
+import WeekCategoryService from '../weekCategories/WeekCategoryService';
 import { useDispatch, useSelector } from 'react-redux';
-import WeekCategoryComponent from './WeekCategoryComponent';
+import WeekCategoryComponent from '../weekCategories/WeekCategoryComponent';
 import { addWeekCategory, getWeekCategories } from '../store/actions';
-import categoryService from '../categories/categoryService';
+import categoryService from '../categoriesFeature/CategoryService';
 import { WeekCategoryState } from '../store/store';
-import { Category } from '../categories/Category';
+import { Category } from '../categoriesFeature/Category';
 
-//need to import category class/interface from ./categories
+
+
 
 
 interface weekProp {
@@ -25,7 +26,7 @@ interface weekProp {
 
 export default function weekCategoryList(qcWeek: weekProp) {
   const weekCatSelector = (state: WeekCategoryState) => state.weekCategories;
-  const weekCategories = useSelector(weekCatSelector);
+  const weekCategories: Category[] = [{categoryid: 3, skill: 'React Native', active: true},{categoryid: 4, skill: 'Redux', active: true}];
   //categories is from another team so this will be error until the store is done
   /* const activeCatSelector = (state:CategoryState) => state.categoires;
   const activeCategories = useSelector(activeCatSelector); */
@@ -34,14 +35,14 @@ export default function weekCategoryList(qcWeek: weekProp) {
 
 
   //get list of all catgories from this week from db
-  let weekCategoriesAsCategory: Category[] = []
-  WeekCategoryService.getCategory(qcWeek.weekId).then((results) => {
-    categoryService.getCategories().then((allCats) => {
+  let weekCategoriesAsCategory: Category[] = [{ categoryid: 3, skill: 'JS', active: true },{ categoryid: 4, skill: 'Redux', active: true }]
+  /* WeekCategoryService.getCategory(qcWeek.weekId).then((results) => {
+    categoryService.getCategories().then((allCats:Category[]) => {
       let thisWeekCats: Category[] = []
       allCats.forEach((allCatElement) => {
         
         results.forEach((catid) => {
-          if (allCatElement.id == catid.categoryId) {
+          if (allCatElement.categoryid == catid.categoryId) {
             thisWeekCats.push(allCatElement as Category);
           };
         });
@@ -49,10 +50,10 @@ export default function weekCategoryList(qcWeek: weekProp) {
         dispatch(getWeekCategories(thisWeekCats));
       });
     });
-  })
+  }) */
 
   //create a list of active categories that are not in weekCategories
-  categoryService.getCategories('true').then((results) => {
+/*   categoryService.getCategories('true').then((results: Category[]) => {
     let availableCats: Category[] = []
     results.forEach(element => {
       if (weekCategoriesAsCategory.includes(element) == false) {
@@ -60,12 +61,12 @@ export default function weekCategoryList(qcWeek: weekProp) {
       };
     });
     //from other team
-    dispatch(getCategories(availableCats));
-  });
+    dispatch(getCategories(availableCats)); 
+  }); */
 
   function addCategory(newCat: Category) {
     let weekCat: weekCategory = new weekCategory;
-    weekCat.categoryId = newCat.id;
+    weekCat.categoryId = newCat.categoryid;
     weekCat.qcWeekId = Number(qcWeek);
     WeekCategoryService.addCategory(weekCat).then(() => {
       weekCategories.push(newCat);
@@ -73,11 +74,27 @@ export default function weekCategoryList(qcWeek: weekProp) {
     });
   };
 
+  
   //This is our pop-up menu
-  class App extends Component {
-    render() {
-      return (
-        <MenuProvider style={styles.menu}>
+
+
+
+  return (
+    <View style={styles.container}>
+      <Text>Categories: </Text>
+      {/* This is the categories we already have */}
+      <View style ={styles.container}>
+      <FlatList
+        data={weekCategories}
+        horizontal={false}
+        numColumns={10}
+        renderItem={({ item }) => (<WeekCategoryComponent data={item}></WeekCategoryComponent>)}
+      />
+      </View>
+      {/* This is our button that creates a pop-up menu of categories we can add */}
+      <View style={{height:100}}>
+        
+      <MenuProvider style={styles.menu}>
           {/* what happens when an item in menu is clicked (on top of the menu closing) */}
           <Menu onSelect={value => { addCategory(value) }}>
             {/* what must be clicked for menu to appear */}
@@ -87,27 +104,14 @@ export default function weekCategoryList(qcWeek: weekProp) {
               <FlatList
                 data={activeCategories}
                 renderItem={({ item }) => (
-                  <MenuOption value={Number(item.numid)} text={String(item.skill)} />
+                  <MenuOption value={Number(item.categoryid)} text={String(item.skill)} />
                 )}
-                style={{ height: 200 }}
+                style={{ height:100}}
               />
             </MenuOptions>
           </Menu>
         </MenuProvider>
-      )
-    }
-  }
-
-  return (
-    <View style={styles.container}>
-      <Text>Categories: </Text>
-      {/* This is the categories we already have */}
-      <FlatList
-        data={weekCategories}
-        renderItem={({ item }) => (<WeekCategoryComponent data={item}></WeekCategoryComponent>)}
-      />
-      {/* This is our button that creates a pop-up menu of categories we can add */}
-      {App}
+        </View>
     </View>
 
   )
@@ -124,9 +128,11 @@ const styles = StyleSheet.create({
   },
   menu: {
     flexDirection: 'row',
-    borderRadius: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'sand'
-  }
+    width:200,
+    height:100,
+    marginLeft:10,
+    
+
+  },
+
 })
