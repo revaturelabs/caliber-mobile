@@ -40,19 +40,6 @@ export function sortAssociateByLastName(associates: AssociateWithFeedback[]) {
     });
 }
 
-export function randomizeAssociates(associates: AssociateWithFeedback[]) {
-    let randomArray = [];
-    for (let x = associates.length - 1; x >= 0; x--) {
-        let index = Math.round(Math.random() * x);
-        randomArray.push(associates[index]);
-
-        associates.splice(index, 1);
-    }
-    associates = [...randomArray];
-
-    return randomArray;
-}
-
 export function shuffle(associates: AssociateWithFeedback[]) {
     var currentIndex = associates.length, temporaryValue, randomIndex;
 
