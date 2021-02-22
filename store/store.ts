@@ -28,7 +28,7 @@ const rootReducer = combineReducers({
 //user userSelector(state: RootState => state.yourReducer.yourPayload)
 export type RootState = ReturnType<typeof rootReducer>;
 
-const store: Store<CaliberState, AppAction> = createStore(
+const store: Store<RootState, AppAction> = createStore(
 	rootReducer,
 	composeWithDevTools(applyMiddleware(thunk))
 );
