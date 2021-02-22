@@ -9,7 +9,6 @@ class BatchService {
     }
 
     getBatchesByTrainerEmail(trainerEmail: string): Promise<Batch[]> {
-        console.log('Batch Service: getBatchesByTrainerEmail');
         return axios.get(this.URI, {params: {trainerEmail: trainerEmail}})
             .then(result => result.data)
             .catch((error) => {
