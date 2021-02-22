@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 
-/**Displays each value of category array through props */
+/** Displays each value of category array through props */
 
 export default function CategoryButton(props:any) {
-    var [categoryContext,setCategoryContext] = useState(props.value);
+  /** @type {string}  */ 
+  var [categoryContext,setCategoryContext] = useState(props.value);
    return(
     <View style={[styles.screenContainer] }>
     <Text style={styles.myFontColor}>{categoryContext+"  "} 
