@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, SectionList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../store/categoriesFeature/CategoryActions';
 import { CategoryState } from '../store/store';
@@ -151,6 +151,7 @@ export function CategoryTable({ status }: CategoryTableProp) {
         return a.skill > b.skill ? 1 : -1;
     });
     
+    // this section is for sorting the skills and getting their first letter
     const mappedByLetter = new Map();
     
     for(let element in sortedData){
@@ -161,7 +162,13 @@ export function CategoryTable({ status }: CategoryTableProp) {
     }
     console.log(mappedByLetter);
 
-    const result = Object.fromEntries(mappedByLetter);
+    // const result = Object.fromEntries(mappedByLetter);
+    const result = new Array();
+    for(let element in sortedData) {
+        let [value, key, active] = [sortedData[element].skill, sortedData[element].categoryid, sortedData[element].active]
+        result.push({value, key, active})
+    }
+    // result = Array.from(mappedByLetter).map(([skill, active]) => ({skill, active}));
     console.log(result);
 
     return (
@@ -192,16 +199,16 @@ export function CategoryTable({ status }: CategoryTableProp) {
                     <AlphabetList
                         data={result}
                         indexLetterColor={'red'}
-                        renderItem={({item}: {item: any}) => (
+                        renderCustomItem={(item: any) => (
                             <CategoryName
-                                skill={item.skill}
-                                categoryid={item.categoryid}
+                                skill={item.value}
+                                categoryid={item.key}
                                 active={item.active}
                                 categories={newCategories}
                             ></CategoryName>
                         )}
-                        cellHeight={100}
-                        sectionHeaderHeight={22.5}
+                        // cellHeight={100}
+                        // sectionHeaderHeight={22.5}
                     />
                     {/* {sortedData.map((req: Category, index: number) => (
                         <CategoryName
@@ -239,7 +246,12 @@ export function CategoryTable({ status }: CategoryTableProp) {
                         data={mockCategories}
                         keyExtractor={item => item.categoryid.toString()}
                         renderItem={({ item }) => (
-                            <CategoryName category={item} categories={mockCategories}></CategoryName>
+                            <CategoryName 
+                                skill={item.skill}
+                                categoryid={item.categoryid}
+                                active={item.active}
+                                categories={newCategories}
+                            />
                         )}
                     />
                 </View>
