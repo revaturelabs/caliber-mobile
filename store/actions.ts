@@ -1,8 +1,13 @@
 import { UserInfo, UserInput } from '../user/user';
 import Batch from '../batches/batch';
+import QcWeek from '../batchWeek/QcWeek';
 
 export enum BatchActions {
 	GetBatches = 'GET_BATCHES',
+}
+export enum WeekActions {
+	GetWeeks = 'GET_WEEKS',
+	ChangeSelectedWeek = 'CHANGE_SELECTED_WEEK'
 }
 export enum UserActions {
 	GetUser = 'GET_USER',
@@ -22,6 +27,11 @@ export interface UserAction<P> extends AppAction {
 export interface BatchAction extends AppAction {
 	type: BatchActions;
 	payload: Batch[];
+}
+
+export interface WeekAction extends AppAction {
+	type: WeekActions;
+	payload: QcWeek | QcWeek[];
 }
 
 //info of the user that is logged in
@@ -46,6 +56,22 @@ export function getBatches(batches: Batch[]): BatchAction {
 	const action: BatchAction = {
 		type: BatchActions.GetBatches,
 		payload: batches,
+	};
+	return action;
+}
+
+export function getWeeks(weeks: QcWeek[]): WeekAction {
+	const action: WeekAction = {
+		type: WeekActions.GetWeeks,
+		payload: weeks
+	};
+	return action;
+}
+
+export function changeSelectedWeek(week: QcWeek): WeekAction {
+	const action: WeekAction = {
+		type: WeekActions.ChangeSelectedWeek,
+		payload: week
 	};
 	return action;
 }
