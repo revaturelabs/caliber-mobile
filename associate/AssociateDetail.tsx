@@ -33,6 +33,9 @@ function AssociateDetail(props: AssociateProps) {
         if (newStatus > 4) {
             newStatus = 0;
         }
+        /**
+         * Every time this button is pressed the database will update with the correct feedback.
+         */
         setQcTechnicalStatus(newStatus);
         associateService.updateAssociate(props.qcFeedback, { 'qcStatus': newStatus });
     }

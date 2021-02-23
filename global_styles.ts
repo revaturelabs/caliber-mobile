@@ -61,14 +61,57 @@ const style= StyleSheet.create({
         borderRadius:perfectSize(5),
         color:REVATUREORANGE,
     },
-    assocheader: {
-        fontSize: perfectSize(24),
+    tOSF: {
+        width:perfectSize(120),
+        height:perfectSize(50),
+        left:perfectSize(30),
+    },
+    tOSL: {
+        width:perfectSize(120),
+        height:perfectSize(50),
+        top:perfectSize(-50),
+        left:perfectSize(180),
+    },
+    fNameSortH: {
+        fontSize: perfectSize(12),
         textAlign:"center",
         fontWeight:"bold",
         color:REVATUREORANGE,
+        position:'relative',
+        width:perfectSize(120),
+        height:perfectSize(30),
     },
     title: {
         color:REVATUREORANGE
+    },
+    iconsf: {
+        position:"relative",
+        top:perfectSize(-10),
+        width:"fitcontent",
+        height:"fitcontent",
+    },
+    iconsl: {
+        position:"relative",
+        top:perfectSize(-10),
+        width:"fitcontent",
+        height:"fitcontent",
+    },
+    lNameSortH : {
+        fontSize: perfectSize(12),
+        textAlign:"center",
+        fontWeight:"bold",
+        color:REVATUREORANGE,
+        position:'relative',
+        width:perfectSize(120),
+        height:perfectSize(30),
+    },
+    flatListAssociates: {
+        position:"relative",
+        top:perfectSize(-35),
+    },
+    associatesViewComponent: {
+        width:"fitcontent",
+        backgroundColor:'white',
     }
 });
 export default style;

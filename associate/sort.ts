@@ -20,6 +20,26 @@ export function sortAssociateByFirstName(associates: AssociateWithFeedback[]) {
     });
 }
 
+export function sortAssociateByFirstNameReversed(associates: AssociateWithFeedback[]) {
+    associates.sort((a, b) => {
+        if (a.associate.firstName.length >= b.associate.firstName.length) {
+            for (let i = 0; i < b.associate.firstName.length; i++) {
+                let check = (b.associate.firstName.charCodeAt(i)) - (a.associate.firstName.charCodeAt(i));
+                if (check != 0) {
+                    return check;
+                }
+            }
+        } else {
+            for (let i = 0; i < a.associate.firstName.length; i++) {
+                let check = (b.associate.firstName.charCodeAt(i)) - (a.associate.firstName.charCodeAt(i));
+                if (check != 0) {
+                    return check;
+                }
+            }
+        }
+    });
+}
+
 export function sortAssociateByLastName(associates: AssociateWithFeedback[]) {
     associates.sort((a, b) => {
         if (a.associate.lastName.length >= b.associate.lastName.length) {
