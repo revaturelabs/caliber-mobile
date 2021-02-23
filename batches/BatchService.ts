@@ -5,14 +5,13 @@ class BatchService {
 	private URI: string;
 	constructor() {
 		this.URI =
-			/*process.env.CALIBER_URI*/ 'https://aosczl5fvf.execute-api.us-west-2.amazonaws.com/default' +
-			'/batches';
+			/*process.env.CALIBER_URI*/ 'https://aosczl5fvf.execute-api.us-west-2.amazonaws.com/default';
 	}
 
 	getBatchesByTrainerEmail(trainerEmail: string): Promise<Batch[]> {
 		console.log('Batch Service: getBatchesByTrainerEmail');
 		return axios
-			.get(this.URI, { params: { trainerEmail: trainerEmail } })
+			.get(this.URI + '/batches', { params: { trainerEmail: trainerEmail } })
 			.then((result) => result.data)
 			.catch((error) => {
 				console.error(error);
@@ -20,7 +19,9 @@ class BatchService {
 	}
 	getAllBatches(year: number, quarter: number): Promise<Batch[]> {
 		return axios
-			.get(this.URI, { params: { year: year, quarter: quarter } })
+			.get(this.URI + '/batchesall', {
+				params: { year: year, quarter: quarter },
+			})
 			.then((result) => result.data)
 			.catch((error) => {
 				console.error(error);

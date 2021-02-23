@@ -27,7 +27,7 @@ export default function BatchesComponent() {
 	const validYears: any = [2020, 2021];
 
 	const trainer = {
-		role: 'ROLE_TRAINER',
+		role: 'ROLE_QC',
 		email: 'mock1005.employee7c90a542-e70e-4db5-be8b-629e62f851c5@mock.com',
 		firstName: 'Mock 1005',
 		lastName: 'Employee 1005',
@@ -57,7 +57,10 @@ export default function BatchesComponent() {
 		} else if (yearFilter && quarterFilter) {
 			batchService
 				.getAllBatches(Number(yearFilter), Number(quarterFilter))
-				.then((batchesResp) => dispatch(getBatches(batchesResp)));
+				.then((batchesResp) => {
+					dispatch(getBatches(batchesResp));
+					setList(batchesResp);
+				});
 		}
 	}, [yearFilter, quarterFilter]);
 
@@ -125,56 +128,58 @@ export default function BatchesComponent() {
 	return (
 		<>
 			<View style={{ flexDirection: 'row' }}>
-				<Picker selectedValue={yearFilter} onValueChange={handleYearFilter}>
-					<Picker.Item label="Year" value="" />
-					{validYears.map((year: any) => {
-						return <Picker.Item key={year} label={year} value={year} />;
-					})}
-				</Picker>
-				{yearFilter && (
-					<Picker
-						selectedValue={quarterFilter}
-						onValueChange={handleQuarterFilter}
-					>
-						<Picker.Item label="Quarter" value="" />
-						<Picker.Item label="Q1" value="1" />
-						<Picker.Item label="Q2" value="2" />
-						<Picker.Item label="Q3" value="3" />
-						<Picker.Item label="Q4" value="4" />
+				<>
+					<Picker selectedValue={yearFilter} onValueChange={handleYearFilter}>
+						<Picker.Item label="Year" value="" />
+						{validYears.map((year: any) => {
+							return <Picker.Item key={year} label={year} value={year} />;
+						})}
 					</Picker>
-				)}
-				{quarterFilter && batches.length && (
-					<Picker selectedValue={batchFilter} onValueChange={handleFilter}>
-						{list && list.length ? (
-							<Picker.Item label="Choose Batch" value="" />
-						) : (
-							<Picker.Item label="No Batches Found" value="" />
-						)}
-						{list &&
-							list.length &&
-							list.map((batch) => (
-								<Picker.Item
-									key={batch.batchId}
-									label={
-										batch.trainer
-											? batch.trainer +
-											  ' - ' +
-											  batch.skill +
-											  ' - ' +
-											  batch.startDate
-											: trainer.firstName +
-											  ' ' +
-											  trainer.lastName +
-											  ' - ' +
-											  batch.skill +
-											  ' - ' +
-											  batch.startDate
-									}
-									value={batch.batchId}
-								/>
-							))}
-					</Picker>
-				)}
+					{yearFilter && (
+						<Picker
+							selectedValue={quarterFilter}
+							onValueChange={handleQuarterFilter}
+						>
+							<Picker.Item label="Quarter" value="" />
+							<Picker.Item label="Q1" value="1" />
+							<Picker.Item label="Q2" value="2" />
+							<Picker.Item label="Q3" value="3" />
+							<Picker.Item label="Q4" value="4" />
+						</Picker>
+					)}
+					{quarterFilter && batches && (
+						<Picker selectedValue={batchFilter} onValueChange={handleFilter}>
+							{list && list.length ? (
+								<Picker.Item label="Choose Batch" value="" />
+							) : (
+								<Picker.Item label="No Batches Found" value="" />
+							)}
+							{list &&
+								list.length &&
+								list.map((batch) => (
+									<Picker.Item
+										key={batch.batchId}
+										label={
+											batch.trainer
+												? batch.trainer +
+												  ' - ' +
+												  batch.skill +
+												  ' - ' +
+												  batch.startDate
+												: trainer.firstName +
+												  ' ' +
+												  trainer.lastName +
+												  ' - ' +
+												  batch.skill +
+												  ' - ' +
+												  batch.startDate
+										}
+										value={batch.batchId}
+									/>
+								))}
+						</Picker>
+					)}
+				</>
 			</View>
 			<View>
 				<FlatList
