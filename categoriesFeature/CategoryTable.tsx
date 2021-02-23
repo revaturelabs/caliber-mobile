@@ -9,6 +9,7 @@ import categoryService from './CategoryService';
 import { FlatList } from 'react-native-gesture-handler';
 import { SearchBar } from 'react-native-elements';
 import SearchInput, {createFilter} from 'react-native-search-filter';
+import { AlphabetList } from "react-native-section-alphabet-list";
 
 interface CategoryTableProp {
     status: boolean;
@@ -48,7 +49,57 @@ export function CategoryTable({ status }: CategoryTableProp) {
             categoryid: 4,
             skill: 'Microservices',
             active: false
-        }
+        },
+        {
+            categoryid: 5,
+            skill: 'DynamoDB',
+            active: true
+        },
+        {
+            categoryid: 6,
+            skill: 'AWS Fargate',
+            active: true
+        },
+        {
+            categoryid: 7,
+            skill: 'Amazon Web Services',
+            active: false
+        },
+        {
+            categoryid: 8,
+            skill: 'Enzyme',
+            active: true
+        },
+        {
+            categoryid: 9,
+            skill: 'Docker',
+            active: false
+        },
+        {
+            categoryid: 10,
+            skill: 'TypeScript',
+            active: true
+        },
+        {
+            categoryid: 11,
+            skill: 'Jest',
+            active: false
+        },
+        {
+            categoryid: 12,
+            skill: 'Containers',
+            active: true
+        },
+        {
+            categoryid: 13,
+            skill: 'Bootstrap',
+            active: false
+        },
+        {
+            categoryid: 14,
+            skill: 'ECR',
+            active: true
+        },
     ];
 
     let [localCat, setCat] = useState(mockCategories);
@@ -99,6 +150,19 @@ export function CategoryTable({ status }: CategoryTableProp) {
     const sortedData = filteredData.sort(function (a, b) {
         return a.skill > b.skill ? 1 : -1;
     });
+    
+    const mappedByLetter = new Map();
+    
+    for(let element in sortedData){
+        if (!mappedByLetter.has(sortedData[element].skill.charAt(0))) {
+            mappedByLetter.set(sortedData[element].skill.charAt(0), new Array());
+        }
+        mappedByLetter.get(sortedData[element].skill.charAt(0)).push(sortedData[element]);
+    }
+    console.log(mappedByLetter);
+
+    const result = Object.fromEntries(mappedByLetter);
+    console.log(result);
 
     return (
         <>
@@ -124,19 +188,28 @@ export function CategoryTable({ status }: CategoryTableProp) {
                         }}
                         value={search}
                     />
-                    {sortedData.map((req: Category, index: number) => (
+
+                    <AlphabetList
+                        data={result}
+                        indexLetterColor={'red'}
+                        renderItem={({item}: {item: any}) => (
+                            <CategoryName
+                                skill={item.skill}
+                                categoryid={item.categoryid}
+                                active={item.active}
+                                categories={newCategories}
+                            ></CategoryName>
+                        )}
+                        cellHeight={100}
+                        sectionHeaderHeight={22.5}
+                    />
+                    {/* {sortedData.map((req: Category, index: number) => (
                         <CategoryName
                             key={'req-' + index}
                             category={req}
                             categories={newCategories}
                         ></CategoryName>
-                    ))}
-                    {/* <FlatList 
-                        data={sortedData}
-                        renderItem={({item}) => ((<CategoryName categories={mockCategories} category={item}></CategoryName>))}
-                        keyExtractor={(item) => item.categoryid.toString()}
-                    /> */}
-
+                    ))} */}
                 </View>
                 :
                 // if status is false, return a table of stale categories
@@ -146,7 +219,7 @@ export function CategoryTable({ status }: CategoryTableProp) {
 
                     {/* Toggle instructions */}
                     <Text style={styles.textColor}>Click to toggle Active/Stale Categories</Text>
-
+                    
                     {/* Table items */}
                     <SearchBar
                         placeholder="Enter Skill..."

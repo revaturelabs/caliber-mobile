@@ -8,7 +8,9 @@ import categoryService from './CategoryService';
 import {OpenModal} from './ManageCategories';
 
 interface CategoryNameProp {
-    category: Category;
+    skill: string;
+    categoryid: number;
+    active: boolean;
     categories: Category[];
 }
 
@@ -18,9 +20,13 @@ interface CategoryNameProp {
  *  @param: categories - entire category state that will also need to update with new category
  *  @returns: view with a pressable category name
  */
-export function CategoryName({ category, categories }: CategoryNameProp) {
+export function CategoryName({ skill, categoryid, active, categories }: CategoryNameProp) {
     const [clicked, setClicked] = useState({action: '', isClicked: false});
-    
+    const category = new Category();
+    category.skill = skill;
+    category.categoryid = categoryid;
+    category.active = active;
+
     return (
         <View>
             {/* has a list of category names (depends on props) */}
@@ -57,5 +63,4 @@ export function changeStatus(category: Category, categories: Category[]) {
     categoryService.updateCategory(category).then(() => {
         dispatch(getCategories(categories));
     }); 
-
 }
