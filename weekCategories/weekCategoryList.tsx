@@ -76,13 +76,13 @@ export default function weekCategoryList(qcWeek: weekProp) {
  * qcWeek is what was passed to weekCategoryList function
  */
 function addCategory(newCat: Category) {
-  let weekCat: weekCategory = new weekCategory;
-  weekCat.categoryId = newCat.categoryid;
-  weekCat.qcWeekId = Number(qcWeek);
-  WeekCategoryService.addCategory(weekCat).then(() => {
-    weekCategories.push(newCat);
-    dispatch(addWeekCategory(weekCat))
-  });
+  function addCategory(newCat: number) {
+    let weekCat: weekCategory = {categoryId: newCat, qcWeekId: qcWeek.weekId};
+    console.log(weekCat)
+    WeekCategoryService.addCategory(weekCat).then(() => {
+      dispatch(addWeekCategory(weekCat))
+    });
+  };
 };
 
 
