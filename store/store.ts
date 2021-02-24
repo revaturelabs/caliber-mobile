@@ -9,6 +9,8 @@ import Batch from '../batches/batch';
 import { UserInfo, UserInput } from '../user/user';
 import { AssociateWithFeedback } from '../associate/AssociateService';
 import QcWeek from '../batchWeek/QcWeek';
+import WeekCategoryReducer from './WeekCategoryReducer'
+import { weekCategory } from '../weekCategories/WeekCategory';
 
 export interface BatchState {
 	batches: Batch[];
@@ -27,6 +29,13 @@ export interface AssociateState {
 	associates: AssociateWithFeedback[];
 }
 export interface CaliberState extends UserState, BatchState,AssociateState {}
+
+export interface WeekCategoryState{
+	weekCategories: weekCategory[];
+	weekCategory: weekCategory;
+}
+
+export interface CaliberState extends UserState, BatchState, WeekCategoryState {}
 // <> is generics: Generic arguments allow us to define the type of a thing at runtime instead of when we write it,
 // creating a reusable object.
 
@@ -36,7 +45,8 @@ export interface CaliberState extends UserState, BatchState, WeekState {}
 const rootReducer = combineReducers({
 	userReducer,
 	batchReducer,
-	weekReducer
+	weekReducer,
+	WeekCategoryReducer
 });
 
 //user userSelector(state: RootState => state.yourReducer.yourPayload)

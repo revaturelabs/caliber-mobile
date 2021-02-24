@@ -1,0 +1,31 @@
+import { weekCategory } from '../WeekCategories/WeekCategory';
+import * as Actions from './actions';
+import { initialState } from './initialState';
+import { CaliberState } from './store';
+
+
+
+const WeekCategoryReducer = (state: CaliberState = initialState, action: Actions.AppAction): CaliberState => {
+    const newState = { ...state };
+
+    switch (action.type) {
+        case Actions.WeekCategoryActions.AddWeekCategory:
+            newState.weekCategories = [...state.weekCategories, action.payload];
+            return newState;
+        case Actions.WeekCategoryActions.DeleteWeekCategory:
+            newState.weekCategories = state.weekCategories.filter(
+                (cat) => cat.categoryId !== action.payload.categoryID
+              );
+              return newState;
+        case Actions.WeekCategoryActions.GetWeekCategories:
+            newState.weekCategories = action.payload as weekCategory[];
+            return newState;
+        case Actions.WeekCategoryActions.ChangeWeekCategories:
+            newState.weekCategories = action.payload as weekCategory[];
+            return newState;
+        default:
+            return state;
+    }
+}
+
+export default WeekCategoryReducer;
