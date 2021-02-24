@@ -9,7 +9,7 @@ import { forceRerender, getAssociates } from '../store/actions';
 import { AssociateState, RerenderState } from '../store/store';
 import AssociateDetail from './AssociateDetail';
 import { Associate, AssociateWithFeedback, QCFeedback } from './AssociateService';
-import { shuffle, sortAssociateByFirstName, sortAssociateByFirstNameReversed, sortAssociateByLastName } from './sort';
+import { shuffle, sortAssociateByFirstName, sortAssociateByFirstNameReversed, sortAssociateByLastName, sortAssociateByLastNameReversed } from './sort';
 
 interface AssociateProps {
     assoc: Associate;
@@ -22,17 +22,17 @@ interface AssociateProps {
  */
 //let qcFeedback = AssociateService.getAssociate(assoc);
 let assoc1 = new AssociateWithFeedback();
-assoc1.associate.firstName = "Tyler"
-assoc1.associate.lastName = "Beta"
+assoc1.associate.firstName = "TylerTest"
+assoc1.associate.lastName = "BetaTest"
 let assoc2 = new AssociateWithFeedback();
-assoc2.associate.firstName = "Kathryn"
-assoc2.associate.lastName = "Alpha"
+assoc2.associate.firstName = "KathrynTest"
+assoc2.associate.lastName = "AlphaTest"
 let assoc3 = new AssociateWithFeedback();
-assoc3.associate.firstName = "Silly"
-assoc3.associate.lastName = "Charlie"
+assoc3.associate.firstName = "SillyTest"
+assoc3.associate.lastName = "CharlieTest"
 let assoc4 = new AssociateWithFeedback();
-assoc4.associate.firstName = "Mary"
-assoc4.associate.lastName = "Delta"
+assoc4.associate.firstName = "MaryTest"
+assoc4.associate.lastName = "DeltaTest"
 
 
 
@@ -69,20 +69,20 @@ function AssociateTableComponent(props: AssociateProps) {
         if (sortDirection == "LUp") {
             setSortDirection("LDown");
             let val = [...associates];
-            sortAssociateByFirstName(val);
+            sortAssociateByLastName(val);
             getAssociates(val);
         } else {
             setSortDirection("LUp");
             let val = [...associates];
-            sortAssociateByFirstNameReversed(val);
+            sortAssociateByLastNameReversed(val);
             getAssociates(val);
         }
     }
     return (
         <View style = {style.associatesViewComponent}>
+            <Button onPress = {() => {alert(JSON.stringify(associates))}}></Button>
             <Button onPress={async () => {
                 await shuffle(associates);
-                console.log(associates);
                 setTimeout(() => {
                     dispatch(getAssociates(associates));
                     dispatch(forceRerender(rerender + 1));

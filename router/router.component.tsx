@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
 import BatchesComponent from '../batches/batches.component';
 import AssociateTableComponent from '../associate/AssociateTableComponent';
+import UnderDevelopmentComponent from '../UnderDevelopmentComponent';
 
 export type StackParams = {
     Home: undefined;
@@ -18,15 +19,19 @@ const Stack = createStackNavigator();
 
 export default function RouterComponent(props: any) {
     return (
-        <Stack.Navigator initialRouteName='TestingNotesCard'>
+        <Stack.Navigator initialRouteName='NoteTableComponent'>
             <Stack.Screen
                 name='Batches'
                 component={BatchesComponent}
                 options={headerOptions}
             />
             <Stack.Screen 
-                name='TestingNotesCard' 
+                name='NoteTableComponent' 
                 component={AssociateTableComponent} 
+            />
+            <Stack.Screen 
+                name='Under Development' 
+                component={UnderDevelopmentComponent} 
             />
         </Stack.Navigator>
     )
