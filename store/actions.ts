@@ -1,9 +1,17 @@
 import { UserInfo, UserInput } from '../user/user';
 import Batch from '../batches/batch';
 import { AssociateWithFeedback } from '../associate/AssociateService';
+import QcWeek from '../batchWeek/QcWeek';
+import weekReducer from './WeekReducer';
 
 export enum BatchActions {
 	GetBatches = 'GET_BATCHES',
+}
+export enum WeekActions {
+	GetWeeks = 'GET_WEEKS',
+	ChangeSelectedWeek = 'CHANGE_SELECTED_WEEK',
+	AddWeek = 'ADD_WEEK',
+	AddNote = 'ADD_NOTE'
 }
 export enum UserActions {
 	GetUser = 'GET_USER',
@@ -13,6 +21,12 @@ export enum UserActions {
 
 export enum AssociateActions {
     GetAssociates = 'GET_ASSOCIATES',
+
+}
+
+export enum BatchWeekActions {
+	GetWeek = 'GET_WEEK',
+	NoteChange = 'CHANGE_NOTE',
 }
 
 export interface AppAction {
@@ -30,6 +44,7 @@ export interface BatchAction extends AppAction {
 	payload: Batch[];
 }
 
+<<<<<<< HEAD
 export interface AssociateAction extends AppAction {
 	type: AssociateActions;
 	payload: AssociateWithFeedback[];
@@ -45,6 +60,11 @@ export function getAssociates(associates: AssociateWithFeedback[]): AssociateAct
 		payload: associates,
 	};
 	return action;
+=======
+export interface WeekAction extends AppAction {
+	type: WeekActions;
+	payload: QcWeek | QcWeek[];
+>>>>>>> 2e723f333af6720aeb53cd7cae0735b9d08ca75c
 }
 
 //info of the user that is logged in
@@ -69,6 +89,38 @@ export function getBatches(batches: Batch[]): BatchAction {
 	const action: BatchAction = {
 		type: BatchActions.GetBatches,
 		payload: batches,
+	};
+	return action;
+}
+
+export function getWeeks(weeks: QcWeek[]): WeekAction {
+	const action: WeekAction = {
+		type: WeekActions.GetWeeks,
+		payload: weeks
+	};
+	return action;
+}
+
+export function changeSelectedWeek(week: QcWeek): WeekAction {
+	const action: WeekAction = {
+		type: WeekActions.ChangeSelectedWeek,
+		payload: week
+	};
+	return action;
+}
+
+export function addWeek(week: QcWeek): WeekAction {
+	const action: WeekAction = {
+		type: WeekActions.AddWeek,
+		payload: week
+	};
+	return action;
+}
+
+export function addOverallNote(week: QcWeek): WeekAction {
+	const action: WeekAction = {
+		type: WeekActions.ChangeSelectedWeek,
+		payload: week
 	};
 	return action;
 }

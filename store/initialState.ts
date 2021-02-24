@@ -1,4 +1,6 @@
+import WeekSelectionComponent from "../batchWeek/WeekSelectionComponent";
 import { UserInfo, UserInput } from "../user/user";
+import QcWeek from '../batchWeek/QcWeek';
 import { CaliberState } from "./store";
 
 
@@ -6,5 +8,7 @@ import { CaliberState } from "./store";
 export const initialState: CaliberState = {
     user: new UserInfo(),
     userLogin: new UserInput(),
-    batches: []
+    batches: [],
+    weeks: [],
+    selectedWeek: new QcWeek()
 }
