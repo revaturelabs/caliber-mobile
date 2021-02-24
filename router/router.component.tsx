@@ -3,11 +3,14 @@ import { Text } from 'react-native-elements';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
 
-import BatchesComponent from '../batches/BatchesComponent';
+import YearComponent from '../batches/YearComponent';
+import QuarterComponent from '../batches/QuarterComponent';
+import BatchListComponent from '../batches/BatchListComponent';
 
 export type StackParams = {
     Home: undefined;
     Batches: undefined;
+    Quarter: [];
 };
 
 const headerOptions: StackHeaderOptions = {
@@ -18,10 +21,20 @@ const Stack = createStackNavigator();
 
 export default function RouterComponent(props: any) {
     return (
-        <Stack.Navigator initialRouteName='Batches'>
+        <Stack.Navigator initialRouteName='Year'>
+            <Stack.Screen
+                name='Year'
+                component={YearComponent}
+                options={headerOptions}
+            />
+            <Stack.Screen
+                name='Quarter'
+                component={QuarterComponent}
+                options={headerOptions}
+            />
             <Stack.Screen
                 name='Batches'
-                component={BatchesComponent}
+                component={BatchListComponent}
                 options={headerOptions}
             />
         </Stack.Navigator>
