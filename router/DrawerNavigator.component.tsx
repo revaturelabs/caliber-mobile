@@ -2,6 +2,7 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import BatchesComponent from '../batches/batches.component';
 import LoginComponent from '../user/Login';
+import ManageCategories from '../categoriesFeature/ManageCategories';
 
 const Drawer = createDrawerNavigator();
 
@@ -17,7 +18,7 @@ export function DrawerNavigator() {
         component={BatchesComponent}></Drawer.Screen>
       <Drawer.Screen
         name='Management'
-        component={BatchesComponent}></Drawer.Screen>
+        component={ManageCategories}></Drawer.Screen>
       <Drawer.Screen name='Logout' component={LoginComponent}></Drawer.Screen>
     </Drawer.Navigator>
   );
