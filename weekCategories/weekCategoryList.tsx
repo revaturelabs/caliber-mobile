@@ -53,8 +53,12 @@ export default function weekCategoryList(qcWeek: weekProp) {
         weekCategoriesAsCategory = thisWeekCats;
         dispatch(getWeekCategories(thisWeekCats));
       });
-    }); 
-  })
+    }).catch((err) => {
+      console.log(err);
+    });
+  }).catch((err) => {
+    console.log(err);
+  });
 
   //create a list of active categories that are not in weekCategories
   categoryService.getCategories('true').then((results:Category[]) => {
@@ -66,6 +70,8 @@ export default function weekCategoryList(qcWeek: weekProp) {
     });
     //from other team
     dispatch(getCategories(availableCats));
+  }).catch((err) => {
+    console.log(err);
   });
 
 

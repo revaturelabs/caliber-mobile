@@ -17,6 +17,7 @@
   "jest": {
     "preset": "react-native",
     "transformIgnorePatterns": [
+      "node_modules/(?!(react-native|caliber-mobile|@react-native-picker/picker|react-native-gesture-handler)/)",
       "node_modules/(?!(react-native|@react-native-[a-z]*|react-native-[a-z]*|react-native-[a-z]*-[a-z]*|@expo)/)"
     ],
     "moduleFileExtensions": [
@@ -37,11 +38,7 @@
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/assetsTransformer.js",
       "\\.(css|less)$": "<rootDir>/assetsTransformer.js"
     },
-    "__commentForTransformIgnorePatterns": "add your node module before the second closing parentheses from the end with a pipe before.",
-    "transformIgnorePatterns": [
-      "node_modules/(?!(react-native|caliber-mobile|@react-native-picker/picker|react-native-gesture-handler)/)",
-      "node_modules/(?!(react-native|@react-native-[a-z]*|react-native-[a-z]*|react-native-[a-z]*-[a-z]*|@expo)/)"
-    ]
+    "__commentForTransformIgnorePatterns": "add your node module before the second closing parentheses from the end with a pipe before."
   },
   "repository": {
     "type": "git",
@@ -70,7 +67,6 @@
     "enzyme-adapter-react-16": "^1.15.6",
     "expo": "~40.0.0",
     "expo-status-bar": "~1.0.3",
-    "firebase": "^8.2.7",
     "jest": "^26.6.3",
     "jsdom-global": "^3.0.2",
     "react": "16.13.1",
