@@ -1,3 +1,4 @@
+import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import BatchesComponent from '../batches/batches.component';
 import LoginComponent from '../user/Login';
