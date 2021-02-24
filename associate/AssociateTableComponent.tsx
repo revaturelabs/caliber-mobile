@@ -58,7 +58,7 @@ function AssociateTableComponent(props: AssociateProps) {
     function getQCNotes() {
         let listofassociates:AssociateWithFeedback[] = [];
         props.assoc.forEach(async (asoc) => {
-            let qcnotes:QCFeedback = await AssociateService.getAssociate(val,batch,week);
+            let qcnotes:QCFeedback = await AssociateService.getAssociate(asoc,batch,week);
             if(qcnotes) {
                 let val = new AssociateWithFeedback();
                 val.associate =asoc;

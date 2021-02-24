@@ -19,11 +19,7 @@ export interface UserState {
 export interface AssociateState {
 	associates: AssociateWithFeedback[];
 }
-
-export interface RerenderState {
-	rerender: number;
-}
-export interface CaliberState extends UserState, BatchState,AssociateState,RerenderState {}
+export interface CaliberState extends UserState, BatchState,AssociateState {}
 // <> is generics: Generic arguments allow us to define the type of a thing at runtime instead of when we write it,
 // creating a reusable object.
 

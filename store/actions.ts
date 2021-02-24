@@ -15,10 +15,6 @@ export enum AssociateActions {
     GetAssociates = 'GET_ASSOCIATES',
 }
 
-export enum RerenderActions {
-    ForceRerender = "ForceRerender"
-}
-
 export interface AppAction {
 	type: string;
 	payload: any;
@@ -39,11 +35,6 @@ export interface AssociateAction extends AppAction {
 	payload: AssociateWithFeedback[];
 }
 
-export interface RerenderAction extends AppAction {
-	type: RerenderActions;
-	payload:Number;
-}
-
 /**
  * Set the associates in the state to whatever is currently displaying in the UI.
  * @param associates 
@@ -52,18 +43,6 @@ export function getAssociates(associates: AssociateWithFeedback[]): AssociateAct
 	const action: AssociateAction = {
 		type: AssociateActions.GetAssociates,
 		payload: associates,
-	};
-	return action;
-}
-
-/**
- * ForceRerender of UI
- * @param associates 
- */
-export function forceRerender(number:number): RerenderAction {
-	const action: RerenderAction = {
-		type: RerenderActions.ForceRerender,
-		payload: number,
 	};
 	return action;
 }
