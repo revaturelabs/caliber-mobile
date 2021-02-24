@@ -9,7 +9,8 @@ export enum BatchActions {
 export enum WeekActions {
 	GetWeeks = 'GET_WEEKS',
 	ChangeSelectedWeek = 'CHANGE_SELECTED_WEEK',
-	AddWeek = 'ADD_WEEK'
+	AddWeek = 'ADD_WEEK',
+	AddNote = 'ADD_NOTE'
 }
 export enum UserActions {
 	GetUser = 'GET_USER',
