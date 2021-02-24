@@ -1,7 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
-import ManageCategories from '../categoriesFeature/ManageCategories';
+import Test from '../test';
+
   
 export type StackParam = {
   ManageCategories: undefined;
@@ -16,7 +17,8 @@ export function Router() {
           <Stack.Screen name='Home' component={} />
           <Stack.Screen name='Manage Batch' component={} />
           <Stack.Screen name='Assess Batch' component={} /> */}
-          <Stack.Screen name='Manage Categories' component={ManageCategories} />
+          <Stack.Screen name='Test' component={Test}></Stack.Screen>
+
           {/* <Stack.Screen name='Quality Audit' component={} />
           <Stack.Screen name='Reports' component={} /> */}
         </Stack.Navigator>

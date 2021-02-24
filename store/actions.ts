@@ -1,7 +1,8 @@
 import { UserInfo, UserInput } from '../user/user';
 import Batch from '../batches/batch';
 import { WeekCategoryState } from './store';
-import { weekCategory } from '../WeekCategories/WeekCategory';
+import { weekCategory } from '../weekCategories/weekCategory';
+import {Category} from '../categoriesFeature/Category';
 
 export enum BatchActions {
 	GetBatches = 'GET_BATCHES',
@@ -34,7 +35,7 @@ export interface BatchAction extends AppAction {
 
 export interface WeekCategoryAction extends AppAction{
 	type:WeekCategoryActions;
-	payload:weekCategory[] | weekCategory;
+	payload:Category[] | weekCategory;
 }
 
 //info of the user that is logged in
@@ -80,7 +81,7 @@ export function addWeekCategory(category: weekCategory): WeekCategoryAction {
 	return action;
 };
 
-export function getWeekCategories(categories: weekCategory[]): WeekCategoryAction {
+export function getWeekCategories(categories:Category[]): WeekCategoryAction {
 	const action: WeekCategoryAction ={
 		type: WeekCategoryActions.GetWeekCategories,
 		payload:categories
@@ -88,7 +89,7 @@ export function getWeekCategories(categories: weekCategory[]): WeekCategoryActio
 	return action;
 };
 
-export function ChangeCategories(categories: weekCategory[]): WeekCategoryAction {
+export function ChangeCategories(categories: Category[]): WeekCategoryAction {
 	const action: WeekCategoryAction ={
 		type: WeekCategoryActions.ChangeWeekCategories,
 		payload:categories
