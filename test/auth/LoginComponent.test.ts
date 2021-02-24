@@ -1,11 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import Enzyme from 'enzyme';
 import LoginComponent from '../../user/Login';
 
 describe('Test case for testing login',() =>{
     
     test('check email', () => {
-        const wrapper: any = shallow(<LoginComponent />);
+        const wrapper = Enzyme.mount(<typeof LoginComponent />);
         wrapper.find('input[type="text"]').simulate('change', {target: {name: 'email', value: 'testuser@revature.net'}});
         expect(wrapper.state('username')).toEqual('testuser@revature.net');
     });
