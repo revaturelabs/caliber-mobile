@@ -20,7 +20,7 @@ export enum UserActions {
 
 
 export enum AssociateActions {
-    GetAssociates = 'GET_ASSOCIATES',
+	GetAssociates = 'GET_ASSOCIATES',
 
 }
 
@@ -44,7 +44,6 @@ export interface BatchAction extends AppAction {
 	payload: Batch[];
 }
 
-<<<<<<< HEAD
 export interface AssociateAction extends AppAction {
 	type: AssociateActions;
 	payload: AssociateWithFeedback[];
@@ -60,67 +59,66 @@ export function getAssociates(associates: AssociateWithFeedback[]): AssociateAct
 		payload: associates,
 	};
 	return action;
-=======
-export interface WeekAction extends AppAction {
-	type: WeekActions;
-	payload: QcWeek | QcWeek[];
->>>>>>> 2e723f333af6720aeb53cd7cae0735b9d08ca75c
 }
+	export interface WeekAction extends AppAction {
+		type: WeekActions;
+		payload: QcWeek | QcWeek[];
+	}
 
-//info of the user that is logged in
-export function getUser(user: UserInfo): UserAction<UserInfo> {
-	const action: UserAction<UserInfo> = {
-		type: UserActions.GetUser,
-		payload: user,
-	};
-	return action;
-}
+	//info of the user that is logged in
+	export function getUser(user: UserInfo): UserAction<UserInfo> {
+		const action: UserAction<UserInfo> = {
+			type: UserActions.GetUser,
+			payload: user,
+		};
+		return action;
+	}
 
-//user input
-export function loginChange(user: UserInput): UserAction<UserInput> {
-	const action: UserAction<UserInput> = {
-		type: UserActions.LoginChange,
-		payload: user,
-	};
-	return action;
-}
+	//user input
+	export function loginChange(user: UserInput): UserAction<UserInput> {
+		const action: UserAction<UserInput> = {
+			type: UserActions.LoginChange,
+			payload: user,
+		};
+		return action;
+	}
 
-export function getBatches(batches: Batch[]): BatchAction {
-	const action: BatchAction = {
-		type: BatchActions.GetBatches,
-		payload: batches,
-	};
-	return action;
-}
+	export function getBatches(batches: Batch[]): BatchAction {
+		const action: BatchAction = {
+			type: BatchActions.GetBatches,
+			payload: batches,
+		};
+		return action;
+	}
 
-export function getWeeks(weeks: QcWeek[]): WeekAction {
-	const action: WeekAction = {
-		type: WeekActions.GetWeeks,
-		payload: weeks
-	};
-	return action;
-}
+	export function getWeeks(weeks: QcWeek[]): WeekAction {
+		const action: WeekAction = {
+			type: WeekActions.GetWeeks,
+			payload: weeks
+		};
+		return action;
+	}
 
-export function changeSelectedWeek(week: QcWeek): WeekAction {
-	const action: WeekAction = {
-		type: WeekActions.ChangeSelectedWeek,
-		payload: week
-	};
-	return action;
-}
+	export function changeSelectedWeek(week: QcWeek): WeekAction {
+		const action: WeekAction = {
+			type: WeekActions.ChangeSelectedWeek,
+			payload: week
+		};
+		return action;
+	}
 
-export function addWeek(week: QcWeek): WeekAction {
-	const action: WeekAction = {
-		type: WeekActions.AddWeek,
-		payload: week
-	};
-	return action;
-}
+	export function addWeek(week: QcWeek): WeekAction {
+		const action: WeekAction = {
+			type: WeekActions.AddWeek,
+			payload: week
+		};
+		return action;
+	}
 
-export function addOverallNote(week: QcWeek): WeekAction {
-	const action: WeekAction = {
-		type: WeekActions.ChangeSelectedWeek,
-		payload: week
-	};
-	return action;
-}
+	export function addOverallNote(week: QcWeek): WeekAction {
+		const action: WeekAction = {
+			type: WeekActions.ChangeSelectedWeek,
+			payload: week
+		};
+		return action;
+	}
