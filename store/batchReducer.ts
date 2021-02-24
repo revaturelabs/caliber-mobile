@@ -2,14 +2,10 @@ import { CaliberState } from './store';
 import * as Actions from './actions';
 
 import Batch from '../batches/batch';
+import { initialState } from './initialState';
 import { AssociateWithFeedback } from '../associate/AssociateService';
 
-export const initialState: CaliberState = {
-    batches: [],
-    associates: [],
-}
-
-const reducer = (
+const batchReducer = (
     state: CaliberState = initialState,
     action: Actions.AppAction
 ): CaliberState => {
@@ -30,4 +26,4 @@ const reducer = (
     }
 }
 
-export default reducer;
+export default batchReducer;
