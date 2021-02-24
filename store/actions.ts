@@ -8,7 +8,8 @@ export enum BatchActions {
 }
 export enum WeekActions {
 	GetWeeks = 'GET_WEEKS',
-	ChangeSelectedWeek = 'CHANGE_SELECTED_WEEK'
+	ChangeSelectedWeek = 'CHANGE_SELECTED_WEEK',
+	AddWeek = 'ADD_WEEK'
 }
 export enum UserActions {
 	GetUser = 'GET_USER',
@@ -77,6 +78,14 @@ export function getWeeks(weeks: QcWeek[]): WeekAction {
 export function changeSelectedWeek(week: QcWeek): WeekAction {
 	const action: WeekAction = {
 		type: WeekActions.ChangeSelectedWeek,
+		payload: week
+	};
+	return action;
+}
+
+export function addWeek(week: QcWeek): WeekAction {
+	const action: WeekAction = {
+		type: WeekActions.AddWeek,
 		payload: week
 	};
 	return action;
