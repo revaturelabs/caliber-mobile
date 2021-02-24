@@ -17,10 +17,10 @@ test('test adding an overall note', () => {
     input.simulate('change', { target: { value: 'something' } });
     expect(mockChange).toHaveBeenCalled();
 
-    const tree = Enzyme.shallow(
+    /* const tree = Enzyme.shallow(
         <Button title='button test' onPress={mockFn} />
     );
     tree.simulate('click');
-    expect(mockFn).toHaveBeenCalled();
+    expect(mockFn).toHaveBeenCalled(); */
 
 });

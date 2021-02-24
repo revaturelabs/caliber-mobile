@@ -2,14 +2,20 @@ import { combineReducers, applyMiddleware, createStore, Store } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import batchReducer from './batchReducer';
+import weekReducer from './WeekReducer';
 import userReducer from './userReducer';
 import { AppAction } from './actions';
 import Batch from '../batches/batch';
+import QcWeek from '../batchWeek/QcWeek';
 import { UserInput, UserInfo } from '../user/user';
-import { WeekInfo } from '../batchWeek/weekInfo';
 
 export interface BatchState {
 	batches: Batch[];
+}
+
+export interface WeekState {
+	weeks: QcWeek[];
+	selectedWeek: QcWeek;
 }
 
 export interface UserState {
@@ -17,18 +23,13 @@ export interface UserState {
 	userLogin: UserInput;
 }
 
-export interface WeekState {
-	week: WeekInfo;
-}
-
 export interface CaliberState extends UserState, BatchState, WeekState {}
-// <> is generics: Generic arguments allow us to define the type of a thing at runtime instead of when we write it,
-// creating a reusable object.
 
 //add your reducer to the object
 const rootReducer = combineReducers({
 	userReducer,
 	batchReducer,
+	weekReducer
 });
 
 //user userSelector(state: RootState => state.yourReducer.yourPayload)
