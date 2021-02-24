@@ -3,6 +3,7 @@ import Batch from '../batches/Batch';
 
 export enum BatchActions {
 	GetBatches = 'GET_BATCHES',
+	ChangeBatch = 'CHANGE_BATCH'
 }
 export enum UserActions {
 	GetUser = 'GET_USER',
@@ -21,7 +22,7 @@ export interface UserAction<P> extends AppAction {
 
 export interface BatchAction extends AppAction {
 	type: BatchActions;
-	payload: Batch[];
+	payload: Batch | Batch[];
 }
 
 //info of the user that is logged in
@@ -46,6 +47,14 @@ export function getBatches(batches: Batch[]): BatchAction {
 	const action: BatchAction = {
 		type: BatchActions.GetBatches,
 		payload: batches,
+	};
+	return action;
+}
+
+export function changeBatch(batch: Batch): BatchAction {
+	const action: BatchAction = {
+		type: BatchActions.ChangeBatch,
+		payload: batch,
 	};
 	return action;
 }

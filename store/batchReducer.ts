@@ -14,6 +14,9 @@ const batchReducer = (
         case Actions.BatchActions.GetBatches:
             newState.batches = action.payload as Batch[];
             return newState;
+        case Actions.BatchActions.ChangeBatch:
+            newState.batch = action.payload as Batch;
+            return newState;
         default:
             return state;
     }
