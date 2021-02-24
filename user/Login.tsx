@@ -35,7 +35,7 @@ export default function LoginComponent({navigation}: LoginProp) {
                     if(user.email){
                         email = user.email
                     }
-                    dispatch(getUser({...user, uid: user.uid, email: email, role: role}));
+                    dispatch(getUser({...useUser, uid: user.uid, email: email, role: role}));
                 })
             }else{
                 console.log('not logged in');
@@ -49,16 +49,11 @@ export default function LoginComponent({navigation}: LoginProp) {
                 let email = newUser.email;
                 let password = newUser.password;
                 let user = await auth.signInWithEmailAndPassword(email, password);
-                console.log(user);
-                if(useUser.role.ROLE_TRAINER){
+                //console.log(user);
+                console.log(useUser);
+                console.log(useUser.role);
+                //'Test' will be changed to 'Home'
                 navigation.navigate('Test');
-                }else if(useUser.role.ROLE_QC){
-
-                }else if(useUser.role.ROLE_VP){
-
-                }else{
-                    console.log('error')
-                }
             } catch(error){
                 console.log(error);
             }
