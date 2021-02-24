@@ -102,73 +102,23 @@ export function CategoryTable({ status }: CategoryTableProp) {
         },
     ];
 
-    let [localCat, setCat] = useState(mockCategories);
-
     // after every render, check if there is a change in categories
     useEffect(() => {
         categoryService.getCategories(status.toString()).then((results) => {
             dispatch(getCategories(results));
         })
     }, [dispatch])
-
-    // function checkFilter() {
-    //     mockCategories.forEach((category) => {
-    //         if (category.skill.includes(search)) {
-    //             console.log(search);
-    //             return true;
-    //         } else {
-    //             return false;
-    //         }
-    //     })
-    //     return false;
-    // }
-
-    const updateSearch = (search: string) => {
-        searchSet(search);
-    }
-
-    function handleChange(input: string) {
-        let currentList = [];
-        let newList = [];
-        if (input !== "") {
-            currentList = mockCategories;
-            newList = currentList.filter(category => {
-                const skill = category.skill.toLowerCase();
-                const filter = input.toLowerCase();
-                return skill.includes(filter);
-            })
-        } else {
-            newList = mockCategories;
-        }
-        
-        // need to set state to contain the filtered categories
-        setCat(newList);
-    }
     
+    // filters the data
     const KEYS_TO_FILTERS = ['skill'];
     const filteredData = mockCategories.filter(createFilter(search, KEYS_TO_FILTERS));
-    const sortedData = filteredData.sort(function (a, b) {
-        return a.skill > b.skill ? 1 : -1;
-    });
-    
-    // this section is for sorting the skills and getting their first letter
-    const mappedByLetter = new Map();
-    
-    for(let element in sortedData){
-        if (!mappedByLetter.has(sortedData[element].skill.charAt(0))) {
-            mappedByLetter.set(sortedData[element].skill.charAt(0), new Array());
-        }
-        mappedByLetter.get(sortedData[element].skill.charAt(0)).push(sortedData[element]);
-    }
-    console.log(mappedByLetter);
 
-    // const result = Object.fromEntries(mappedByLetter);
+    // destructures array into [value: 'skill, key: categoryid, active: boolean] for AlphabetList
     const result = new Array();
-    for(let element in sortedData) {
-        let [value, key, active] = [sortedData[element].skill, sortedData[element].categoryid, sortedData[element].active]
+    for(let element in filteredData) {
+        let [value, key, active] = [filteredData[element].skill, filteredData[element].categoryid, filteredData[element].active]
         result.push({value, key, active})
     }
-    // result = Array.from(mappedByLetter).map(([skill, active]) => ({skill, active}));
     console.log(result);
 
     return (
@@ -183,11 +133,6 @@ export function CategoryTable({ status }: CategoryTableProp) {
                     <Text style={styles.textColor}>Click to toggle Active/Stale Categories</Text>
 
                     {/* Table items */}
-                    {/* <SearchBar
-                        placeholder="Type Here..."
-                        onChangeText={(search) => {handleChange(search)}}
-                        value={search}
-                    /> */}
                     <SearchBar
                         placeholder="Enter Skill..."
                         onChangeText={(value) => {
@@ -207,16 +152,7 @@ export function CategoryTable({ status }: CategoryTableProp) {
                                 categories={newCategories}
                             ></CategoryName>
                         )}
-                        // cellHeight={100}
-                        // sectionHeaderHeight={22.5}
                     />
-                    {/* {sortedData.map((req: Category, index: number) => (
-                        <CategoryName
-                            key={'req-' + index}
-                            category={req}
-                            categories={newCategories}
-                        ></CategoryName>
-                    ))} */}
                 </View>
                 :
                 // if status is false, return a table of stale categories
@@ -235,23 +171,16 @@ export function CategoryTable({ status }: CategoryTableProp) {
                         }}
                         value={search}
                     />
-                    {/* {sortedData.map((req: Category, index: number) => (
-                        <CategoryName
-                            key={'req-' + index}
-                            category={req}
-                            categories={newCategories}
-                        ></CategoryName>
-                    ))} */}
-                    <FlatList
-                        data={mockCategories}
-                        keyExtractor={item => item.categoryid.toString()}
-                        renderItem={({ item }) => (
-                            <CategoryName 
-                                skill={item.skill}
-                                categoryid={item.categoryid}
+                    <AlphabetList
+                        data={result}
+                        indexLetterColor={'red'}
+                        renderCustomItem={(item: any) => (
+                            <CategoryName
+                                skill={item.value}
+                                categoryid={item.key}
                                 active={item.active}
                                 categories={newCategories}
-                            />
+                            ></CategoryName>
                         )}
                     />
                 </View>
@@ -266,5 +195,4 @@ const styles = StyleSheet.create({
     textColor: {
         color: 'black',
     }
-}
-)
+})
