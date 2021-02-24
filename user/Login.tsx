@@ -1,5 +1,5 @@
 import { auth0SignInButton } from 'aws-amplify';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableHighlight, Image } from 'react-native';
 import {style} from '../global_styles';
 import { RootState, UserState } from '../store/store';
@@ -7,39 +7,41 @@ import {f, auth, database} from './config';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, loginChange } from '../store/actions';
 import { Input } from 'react-native-elements';
+import { Roles } from './user';
 
 interface LoginProp {
     navigation: any;
 }
 
 export default function LoginComponent({navigation}: LoginProp) {
+    const [loggedIn, setLoggedin] = useState(false);
     const inputUser = (state: RootState) => state.userReducer.userLogin;
     const newUser = useSelector(inputUser);
+    const dispatchUser = (state: RootState) => state.userReducer.user
+    const useUser = useSelector(dispatchUser);
     const dispatch = useDispatch();
 
-    //should be in App.tsx when the store is declared
-    /* useEffect(() => {
-        auth.onAuthStateChanged((loggedUser) => {
+    useEffect(() => {
+        auth.onAuthStateChanged((user) => {
             console.log('auth state changed');
-            if(loggedUser){
-                loggedUser.getIdTokenResult().then(token => {
-                    const role: string = token.claims.role;
+            if(user){
+                user.getIdTokenResult().then(token => {
+                    const role: Roles = {
+                        ROLE_QC: token.claims.ROLE_QC,
+                        ROLE_VP: token.claims.ROLE_VP,
+                        ROLE_TRAINER: token.claims.ROLE_TRAINER
+                    };
                     let email: string = '';
-                    if(loggedUser.email){
-                        email = loggedUser.email
+                    if(user.email){
+                        email = user.email
                     }
-                    dispatch(getUser({
-                        ...user,
-                        uid: loggedUser.uid,
-                        email: email,
-                        role: role
-                    }));
+                    dispatch(getUser({...user, uid: user.uid, email: email, role: role}));
                 })
             }else{
                 console.log('not logged in');
             }
         });
-    }, []); */
+    }, []); 
 
     const loginUser = async(newUser: any) => {
         if(newUser.email != '' && newUser.password != ''){
@@ -47,6 +49,16 @@ export default function LoginComponent({navigation}: LoginProp) {
                 let email = newUser.email;
                 let password = newUser.password;
                 let user = await auth.signInWithEmailAndPassword(email, password);
+                console.log(user);
+                if(useUser.role.ROLE_TRAINER){
+                navigation.navigate('Test');
+                }else if(useUser.role.ROLE_QC){
+
+                }else if(useUser.role.ROLE_VP){
+
+                }else{
+                    console.log('error')
+                }
             } catch(error){
                 console.log(error);
             }
@@ -54,6 +66,18 @@ export default function LoginComponent({navigation}: LoginProp) {
             alert('Missing email or password');
         }
     }
+
+    f.auth().onAuthStateChanged(function(user:any) {
+        if(user){
+            //Logged in
+            setLoggedin(true);
+            console.log('Logged in', user);
+    }else{
+      //logged out
+        setLoggedin(false);
+        console.log('Logged out');
+        }
+    });
 
     return (
         <View style={style.container}>

@@ -4,9 +4,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
 import BatchesComponent from '../batches/batches.component';
 import LoginComponent from '../user/Login';
+import Test from '../user/Test';
 
 export type StackParams = {
     Login: undefined;
+    Test: undefined;
     Home: undefined;
     Batches: undefined;
 };
@@ -23,6 +25,11 @@ export default function RouterComponent(props: any) {
             <Stack.Screen
                 name='Login'
                 component={LoginComponent}
+                options={headerOptions}
+            />
+            <Stack.Screen
+                name='Test'
+                component={Test}
                 options={headerOptions}
             />
             <Stack.Screen
