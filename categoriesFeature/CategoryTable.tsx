@@ -188,7 +188,7 @@ export function CategoryTable({ status }: CategoryTableProp) {
                         onChangeText={(search) => {handleChange(search)}}
                         value={search}
                     /> */}
-                    <SearchInput
+                    <SearchBar
                         placeholder="Enter Skill..."
                         onChangeText={(value) => {
                             searchSet(value);

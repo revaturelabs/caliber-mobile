@@ -28,7 +28,7 @@ export function CategoryName({ skill, categoryid, active, categories }: Category
     category.active = active;
 
     return (
-        <View>
+        <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-between'}}>
             {/* has a list of category names (depends on props) */}
             <Pressable onPress={()=> {changeStatus(category, categories)}}>
                 <Text>{category.skill}</Text>
