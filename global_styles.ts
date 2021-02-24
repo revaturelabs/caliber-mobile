@@ -14,12 +14,6 @@ const designResolution = {
 const perfectSize = create(designResolution);   
 
 const style= StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
     notesCard: {
         backgroundColor:"white",
         justifyContent:"center",
@@ -147,3 +141,5 @@ const style= StyleSheet.create({
     }
 
 })
+
+export default style;

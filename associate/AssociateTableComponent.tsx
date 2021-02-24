@@ -5,8 +5,8 @@ import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
 import style from '../global_styles';
-import { forceRerender, getAssociates } from '../store/actions';
-import { AssociateState, RerenderState } from '../store/store';
+import { getAssociates } from '../store/actions';
+import { AssociateState } from '../store/store';
 import AssociateDetail from './AssociateDetail';
 import AssociateService, { Associate, AssociateWithFeedback, QCFeedback } from './AssociateService';
 import { shuffle, sortAssociateByFirstName, sortAssociateByFirstNameReversed, sortAssociateByLastName, sortAssociateByLastNameReversed } from './sort';
@@ -42,7 +42,6 @@ function AssociateTableComponent(props: AssociateProps) {
     let tempAssociates = [assoc1, assoc2, assoc3, assoc4];
     let dispatch = useDispatch();
     let associates = useSelector((state: AssociateState) => state.associates);
-    let qcnotes:QCFeedback;
     let iconName: string = 'angle-up';
     let iconColor: string = '#F26925';
     associates = [...tempAssociates];
@@ -57,12 +56,21 @@ function AssociateTableComponent(props: AssociateProps) {
      * Retrievs QC Notes from back end.
      */
     function getQCNotes() {
-        qcnotes = AssociateService.getAssociates(batch,week);
-        props.assoc.forEach((assoc) => {
-            if(assoc) {
-                console.log();
+        let listofassociates:AssociateWithFeedback[] = [];
+        props.assoc.forEach(async (asoc) => {
+            let qcnotes:QCFeedback = await AssociateService.getAssociate(val,batch,week);
+            if(qcnotes) {
+                let val = new AssociateWithFeedback();
+                val.associate =asoc;
+                val.qcFeedback = qcnotes;
+                listofassociates.push(val);
+            } else {
+                let val = new AssociateWithFeedback();
+                val.associate =asoc;
+                listofassociates.push(val);
             }
         })
+        dispatch(getAssociates(listofassociates));
     }
 
     /**
