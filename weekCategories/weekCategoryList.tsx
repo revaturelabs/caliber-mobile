@@ -13,8 +13,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import WeekCategoryComponent from '../weekCategories/WeekCategoryComponent';
 import { addWeekCategory, getWeekCategories } from '../store/actions';
 import categoryService from '../categoriesFeature/CategoryService';
-import { WeekCategoryState } from '../store/store';
+import store, { CaliberState, CategoryState, RootState, WeekCategoryState } from '../store/store';
 import { Category } from '../categoriesFeature/Category';
+
 
 
 
@@ -25,12 +26,15 @@ interface weekProp {
 }
 
 export default function weekCategoryList(qcWeek: weekProp) {
-  const weekCatSelector = (state: WeekCategoryState) => state.weekCategories;
-  const weekCategories: Category[] = [{categoryid: 3, skill: 'React Native', active: true},{categoryid: 4, skill: 'Redux', active: true}];
+  console.log()
+  const weekCatSelector = (state: RootState) => state.WeekCategoryReducer.weekCategories;
+  const weekCategories = useSelector(weekCatSelector);
   //categories is from another team so this will be error until the store is done
-  /* const activeCatSelector = (state:CategoryState) => state.categoires;
-  const activeCategories = useSelector(activeCatSelector); */
-  const activeCategories: Category[] = [{ categoryid: 0, skill: 'React', active: true }, { categoryid: 1, skill: 'TypeScript', active: true }]
+  const activeCatSelector = (state:RootState) => state.categoryReducer.categories;
+  const activeCategories = useSelector(activeCatSelector);
+  console.log(weekCategories);
+  console.log(activeCategories);
+  
   const dispatch = useDispatch();
 
 
@@ -80,19 +84,19 @@ export default function weekCategoryList(qcWeek: weekProp) {
 
 
   return (
-    <View style={styles.container}>
+    <View style={styles.allContainer}>
       <Text>Categories: </Text>
       {/* This is the categories we already have */}
       <View style ={styles.container}>
       <FlatList
         data={weekCategories}
-        horizontal={false}
-        numColumns={10}
+        horizontal={true}
+        keyExtractor={(item, index) => index.toString()} 
         renderItem={({ item }) => (<WeekCategoryComponent data={item}></WeekCategoryComponent>)}
       />
       </View>
       {/* This is our button that creates a pop-up menu of categories we can add */}
-      <View style={{height:100}}>
+      <View style={styles.menuContainer}>
         
       <MenuProvider style={styles.menu}>
           {/* what happens when an item in menu is clicked (on top of the menu closing) */}
@@ -103,6 +107,7 @@ export default function weekCategoryList(qcWeek: weekProp) {
             <MenuOptions>
               <FlatList
                 data={activeCategories}
+                keyExtractor={(item, index) => index.toString()} 
                 renderItem={({ item }) => (
                   <MenuOption value={Number(item.categoryid)} text={String(item.skill)} />
                 )}
@@ -123,16 +128,24 @@ export default function weekCategoryList(qcWeek: weekProp) {
 
 
 const styles = StyleSheet.create({
+  allContainer:{
+    flexDirection: 'row',
+  },
   container: {
     flexDirection: 'row',
+    width:'50%',
+    height:'40%'
   },
   menu: {
     flexDirection: 'row',
-    width:200,
+   
     height:100,
     marginLeft:10,
-    
 
   },
+  menuContainer:{
+    width:'30%',
+    height:100
+  }
 
 })

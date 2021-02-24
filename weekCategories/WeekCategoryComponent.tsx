@@ -5,7 +5,6 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 export default function CategoryButton(props: any) {
   var [categoryContext, setCategoryContext] = useState(props.data.skill);
-  console.log(props)
   return (
     <View style={[styles.screenContainer]}>
       <Text style={styles.myFontColor}>{categoryContext + "  "}
@@ -25,6 +24,10 @@ var styles = StyleSheet.create({
     opacity: .5,
     borderRadius: 8,
     paddingLeft: 5,
+    margin:1,
+    alignItems:'center',
+    justifyContent:'center',
+    height:30
   },
   innerContainer: {
     backgroundColor: 'lightgrey',
@@ -41,7 +44,8 @@ var styles = StyleSheet.create({
     width: '100%',
   },
   myFontColor: {
-    color: 'blue'
+    color: 'blue',
+    
   }
 
 

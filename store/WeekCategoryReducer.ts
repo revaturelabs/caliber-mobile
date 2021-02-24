@@ -1,4 +1,5 @@
-import { weekCategory } from '../WeekCategories/WeekCategory';
+import { Category } from '../categoriesFeature/Category';
+import { weekCategory } from '../weekCategories/weekCategory';
 import * as Actions from './actions';
 import { initialState } from './initialState';
 import { CaliberState } from './store';
@@ -7,21 +8,20 @@ import { CaliberState } from './store';
 
 const WeekCategoryReducer = (state: CaliberState = initialState, action: Actions.AppAction): CaliberState => {
     const newState = { ...state };
-
     switch (action.type) {
         case Actions.WeekCategoryActions.AddWeekCategory:
             newState.weekCategories = [...state.weekCategories, action.payload];
             return newState;
         case Actions.WeekCategoryActions.DeleteWeekCategory:
             newState.weekCategories = state.weekCategories.filter(
-                (cat) => cat.categoryId !== action.payload.categoryID
+                (cat) => cat.categoryid !== action.payload.categoryID
               );
               return newState;
         case Actions.WeekCategoryActions.GetWeekCategories:
-            newState.weekCategories = action.payload as weekCategory[];
+            newState.weekCategories = action.payload as Category[];
             return newState;
         case Actions.WeekCategoryActions.ChangeWeekCategories:
-            newState.weekCategories = action.payload as weekCategory[];
+            newState.weekCategories = action.payload as Category[];
             return newState;
         default:
             return state;

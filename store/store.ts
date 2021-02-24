@@ -37,7 +37,8 @@ export interface CaliberState extends UserState, CategoryState, BatchState, Week
 const rootReducer = combineReducers({
 	userReducer,
 	batchReducer,
-	WeekCategoryReducer
+	WeekCategoryReducer,
+	categoryReducer
 });
 
 //user userSelector(state: RootState => state.yourReducer.yourPayload)
