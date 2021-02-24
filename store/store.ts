@@ -8,6 +8,7 @@ import Batch from '../batches/Batch';
 import { UserInput, UserInfo } from '../user/user';
 
 export interface BatchState {
+	batch: Batch;
 	batches: Batch[];
 }
 

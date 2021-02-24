@@ -6,11 +6,13 @@ import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/t
 import YearComponent from '../batches/YearComponent';
 import QuarterComponent from '../batches/QuarterComponent';
 import BatchListComponent from '../batches/BatchListComponent';
+import BatchDetailComponent from '../batches/BatchDetailComponent';
 
 export type StackParams = {
     Home: undefined;
     Batches: undefined;
     Quarter: [];
+    BatchDetail: undefined;
 };
 
 const headerOptions: StackHeaderOptions = {
@@ -35,6 +37,11 @@ export default function RouterComponent(props: any) {
             <Stack.Screen
                 name='Batches'
                 component={BatchListComponent}
+                options={headerOptions}
+            />
+            <Stack.Screen
+                name='BatchDetail'
+                component={BatchDetailComponent}
                 options={headerOptions}
             />
         </Stack.Navigator>

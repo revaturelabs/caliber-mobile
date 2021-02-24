@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Image, ActivityIndicator, Pressable } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Text, ActivityIndicator, Pressable } from 'react-native';
 import { Card } from 'react-native-elements';
 import { useSelector, useDispatch } from 'react-redux';
 import { FlatList } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
 import { RootState } from '../store/store';
-import { getBatches } from '../store/actions';
+import { getBatches, changeBatch } from '../store/actions';
 import batchService from './BatchService';
 
-export default function BatchListComponent({route}) {
+export default function BatchListComponent({route}: any) {
     const nav = useNavigation();
     const dispatch = useDispatch();
     const batches = useSelector((state: RootState) => state.batchReducer.batches);
@@ -22,6 +22,8 @@ export default function BatchListComponent({route}) {
 
     function quarterToNumber(strQuarter: string) {
         switch (strQuarter) {
+            case 'All Quarters':
+                return 0;
             case 'Q1':
                 return 1;
             case 'Q2':
@@ -32,7 +34,6 @@ export default function BatchListComponent({route}) {
                 return 4;
         }
     }
-
 
     const trainer = {
         role: 'ROLE_QC',
@@ -57,19 +58,18 @@ export default function BatchListComponent({route}) {
         }
     }, [year, quarter]);
 
-    console.log(route.params);
-    console.log(year + ' ' + quarter);
-
-    function handleBatchSelect() {
-        //nav.navigate('Batches', props.year, quarter);
-        console.log('Selected Batch');
+    function handleBatchSelect(index: number) {
+        dispatch(changeBatch(batches[index]));
+        nav.navigate('BatchDetail');
     }
 
     const batchCard = (params: any) => {
         return (
-            <Pressable onPress={handleBatchSelect}>
+            <Pressable onPress={() => handleBatchSelect(params.index)}>
                 <Card>
-                    <Text>{params.item.name + ' ' + params.item.startDate}</Text>
+                    <Text>{params.item.trainer}</Text>
+                    <Text>{params.item.skill}</Text>
+                    <Text>{params.item.startDate}</Text>
                 </Card>
             </Pressable>
         )
@@ -77,13 +77,15 @@ export default function BatchListComponent({route}) {
     
     return (
         <View>
-            {year !== null && (
-                <FlatList
-                    data={batches}
-                    renderItem={batchCard}
-                    keyExtractor={keyExtractor}
-                />
-            )}
+            {batches.length > 0 ? 
+                (year !== null && quarter !== null && batches[0] !== null ? (
+                    <FlatList
+                        data={batches}
+                        renderItem={batchCard}
+                        keyExtractor={keyExtractor}
+                    />) :
+                <ActivityIndicator/>
+            ) : <ActivityIndicator/>}
         </View>
     )
 }
