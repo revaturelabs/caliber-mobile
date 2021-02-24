@@ -8,3 +8,9 @@ export class UserInfo {
     uid: string = '';
     role: string = '';
 }
+
+export class Roles {
+    ROLE_TRAINER: boolean = false;
+    ROLE_QC: boolean = false;
+    ROLE_VP: boolean = false;
+}
