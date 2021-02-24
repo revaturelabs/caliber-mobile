@@ -1,27 +1,28 @@
-import { NavigationContainer } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import ManageCategories from '../categories/manageCategories'
+import QualityAuditComponent from '../qc/QualityAuditComponent';
+import LoginComponent from '../user/Login';
   
 export type StackParam = {
   ManageCategories: undefined;
+  QualityAudit: undefined;
+  Login: undefined;
 };
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<StackParam>();
 
-export function Router() {
+function Router() {
     return (
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName='Login'>
-          <Stack.Screen name='Login' component={} />
-          <Stack.Screen name='Home' component={} />
+        <Stack.Navigator initialRouteName='QualityAudit'>
+          <Stack.Screen name='Login' component={LoginComponent} />
+          {/* <Stack.Screen name='Home' component={} />
           <Stack.Screen name='Manage Batch' component={} />
-          <Stack.Screen name='Assess Batch' component={} />
-          <Stack.Screen name='Manage Categories' component={ManageCategories} />
-          <Stack.Screen name='Quality Audit' component={} />
-          <Stack.Screen name='Reports' component={} />
+          <Stack.Screen name='Assess Batch' component={} /> */}
+          <Stack.Screen name='ManageCategories' component={ManageCategories} />
+          <Stack.Screen name='QualityAudit' component={QualityAuditComponent} />
+          {/* <Stack.Screen name='Reports' component={} /> */}
         </Stack.Navigator>
-      </NavigationContainer>
     );
   }
 
