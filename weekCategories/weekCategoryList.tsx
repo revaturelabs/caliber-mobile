@@ -15,6 +15,7 @@ import { addWeekCategory, getWeekCategories } from '../store/actions';
 import categoryService from '../categories/categoryService';
 import { CategoryState, WeekCategoryState } from '../store/store';
 import { Category } from '../categoriesFeature/Category';
+import { getCategories } from '../store/categoriesFeature/CategoryActions';
 
 //need to import category class/interface from ./categories
 
@@ -41,11 +42,11 @@ export default function weekCategoryList(qcWeek: weekProp) {
   //get list of all catgories from this week from db
   let weekCategoriesAsCategory: Category[] = []
   WeekCategoryService.getCategory(qcWeek.weekId).then((results) => {
-    categoryService.getCategories().then((allCats:Category[])=>{
-      let thisWeekCats:Category[] = []
+    categoryService.getCategories().then((allCats:weekCategory[])=>{
+      let thisWeekCats:weekCategory[] = []
       allCats.forEach((allCatElement)=>{
         results.forEach((catid)=>{
-          if (allCatElement.categoryid == catid.categoryId){
+          if (allCatElement.categoryId == catid.categoryId){
             thisWeekCats.push(allCatElement);
           };
         });
@@ -58,7 +59,7 @@ export default function weekCategoryList(qcWeek: weekProp) {
   //create a list of active categories that are not in weekCategories
   categoryService.getCategories('true').then((results) => {
     let availableCats: Category[] = []
-    results.forEach(element => {
+    results.forEach((element) => {
       if (weekCategories.includes(element) == false){
        availableCats.push(element);
       };
@@ -83,8 +84,6 @@ export default function weekCategoryList(qcWeek: weekProp) {
       dispatch(addWeekCategory(weekCat))      
     });
   };
-
-
 
   return (
     <View style={styles.container}>

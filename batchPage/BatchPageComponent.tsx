@@ -1,19 +1,21 @@
 import { View } from "react-native";
+import AssociateTableComponent from "../associate/AssociateTableComponent";
 import AddNoteComponent from "../batchWeek/AddNoteComponent";
 import AddWeek from "../batchWeek/AddWeek/addWeek.component";
 import WeekSelectionComponent from "../batchWeek/WeekSelectionComponent";
+import weekCategoryList from '../weekCategories/weekCategoryList';
 
-function BatchPageComponent(props: Batch) {
+function BatchPageComponent(props: any) {
     return (
         <View>
-            <WeekSelectionComponent/>
-            <AddWeek/>
-            <AddNoteComponent/>
-            {/**Needs Overall Technical status component Here */}
-
+            <WeekSelectionComponent></WeekSelectionComponent>
+            <AddWeek></AddWeek>
+            <AddNoteComponent></AddNoteComponent>
+            {/* <weekCategoryList></weekCategoryList> */}
+            <AssociateTableComponent assoc = {[]}></AssociateTableComponent>
         </View>
-
-    )
+ 
+    );
 }
 
 export default BatchPageComponent

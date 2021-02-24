@@ -77,10 +77,6 @@
     "enzyme-adapter-react-16": "^1.15.6",
     "expo": "~40.0.0",
     "expo-status-bar": "~1.0.3",
-<<<<<<< HEAD
-=======
-    "firebase": "^8.2.7",
->>>>>>> e818fe89e932ffc5d7bc55cbbb44f54813d2068b
     "jest": "^26.6.3",
     "jsdom-global": "^3.0.2",
     "material-table": "^1.69.2",
