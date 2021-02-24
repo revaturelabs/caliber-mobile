@@ -12,13 +12,8 @@ import WeekCategoryService from './WeekCategoryService';
 import { useDispatch, useSelector } from 'react-redux';
 import WeekCategoryComponent from './WeekCategoryComponent';
 import { addWeekCategory, getWeekCategories } from '../store/actions';
-<<<<<<< HEAD
-import categoryService from '../categories/categoryService';
-import { CategoryState, WeekCategoryState } from '../store/store';
-=======
 import categoryService from '../categoriesFeature/CategoryService';
 import { RootState, WeekCategoryState } from '../store/store';
->>>>>>> eae2c6e4a41ad84a7743c887361baf6c66bef5a5
 import { Category } from '../categoriesFeature/Category';
 import { getCategories } from '../store/categoriesFeature/CategoryActions';
 

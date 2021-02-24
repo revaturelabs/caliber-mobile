@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { View } from "react-native";
 import AssociateTableComponent from "../associate/AssociateTableComponent";
 import AddNoteComponent from "../batchWeek/AddNoteComponent";
@@ -9,10 +11,10 @@ function BatchPageComponent(props: any) {
     return (
         <View>
             <WeekSelectionComponent></WeekSelectionComponent>
-            <AddWeek></AddWeek>
-            <AddNoteComponent></AddNoteComponent>
-            {/* <weekCategoryList></weekCategoryList> */}
-            <AssociateTableComponent assoc = {[]}></AssociateTableComponent>
+            {/* <AddWeek></AddWeek> */}
+            {/* <AddNoteComponent></AddNoteComponent> */}
+            {/* {weekCategoryList({weekId:0})} */}
+            {/* <AssociateTableComponent assoc = {[]}></AssociateTableComponent> */}
         </View>
  
     );
