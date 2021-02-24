@@ -11,6 +11,8 @@ import { AssociateWithFeedback } from '../associate/AssociateService';
 import QcWeek from '../batchWeek/QcWeek';
 import WeekCategoryReducer from './WeekCategoryReducer'
 import { weekCategory } from '../weekCategories/WeekCategory';
+import { Category } from '../categoriesFeature/Category';
+import categoryReducer from './categoriesFeature/CategoryReducer';
 
 export interface BatchState {
 	batches: Batch[];
@@ -36,6 +38,11 @@ export interface WeekCategoryState{
 }
 
 export interface CaliberState extends UserState, BatchState, WeekCategoryState {}
+
+export interface CategoryState {
+    categories: Category[];
+}
+export interface CaliberState extends UserState, CategoryState, BatchState {}
 // <> is generics: Generic arguments allow us to define the type of a thing at runtime instead of when we write it,
 // creating a reusable object.
 

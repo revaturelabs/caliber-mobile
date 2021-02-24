@@ -6,6 +6,7 @@ import BatchesComponent from '../batches/batches.component';
 import AssociateTableComponent from '../associate/AssociateTableComponent';
 import UnderDevelopmentComponent from '../UnderDevelopmentComponent';
 import LoginComponent from '../user/Login';
+import BatchPageComponent from '../batchPage/BatchPageComponent';
 
 export type StackParams = {
     Login: undefined;

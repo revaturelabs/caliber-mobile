@@ -10,8 +10,10 @@ function BatchPageComponent(props: Batch) {
             <AddWeek/>
             <AddNoteComponent/>
             {/**Needs Overall Technical status component Here */}
-            
+
         </View>
 
     )
 }
+
+export default BatchPageComponent

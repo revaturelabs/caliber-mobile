@@ -3,7 +3,7 @@ import 'jest-enzyme';
 import '@testing-library/jest-dom';
 import Enzyme from 'enzyme';
 import React from 'react';
-import {weekCategory} from '../../WeekCategories/WeekCategory'
+import {weekCategory} from '../../weekCategories/WeekCategory'
 import { CategoryTable } from '../../categories/categoryTable';
 import weekCategoryService from '../../WeekCategories/WeekCategoryService';
 import { FlatList } from 'react-native';
@@ -13,6 +13,8 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import categoryService from '../../categories/categoryService';
 import {addWeekCategory, getWeekCategories} from '../../store/actions'
+import { Category } from '../../categoriesFeature/Category';
+import { getCategories } from '../../store/categoriesFeature/CategoryActions';
 
 
 const mockStore = configureStore([]);

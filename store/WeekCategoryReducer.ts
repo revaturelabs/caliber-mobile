@@ -1,4 +1,4 @@
-import { weekCategory } from '../WeekCategories/WeekCategory';
+import { weekCategory } from '../weekCategories/WeekCategory';
 import * as Actions from './actions';
 import { initialState } from './initialState';
 import { CaliberState } from './store';

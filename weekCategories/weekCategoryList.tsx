@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { weekCategory } from '../WeekCategories/WeekCategory';
+import { weekCategory } from './WeekCategory';
 import {
   MenuProvider,
   Menu,
@@ -13,7 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import WeekCategoryComponent from './WeekCategoryComponent';
 import { addWeekCategory, getWeekCategories } from '../store/actions';
 import categoryService from '../categories/categoryService';
-import { WeekCategoryState } from '../store/store';
+import { CategoryState, WeekCategoryState } from '../store/store';
+import { Category } from '../categoriesFeature/Category';
 
 //need to import category class/interface from ./categories
 
@@ -32,7 +33,7 @@ export default function weekCategoryList(qcWeek: weekProp) {
   const weekCatSelector = (state:WeekCategoryState) => state.weekCategories;
   const weekCategories = useSelector(weekCatSelector);
   //categories is from another team so this will be error until the store is done
-  const activeCatSelector = (state:CategoryState) => state.categoires;
+  const activeCatSelector = (state:CategoryState) => state.categories;
   const activeCategories = useSelector(activeCatSelector);
   const dispatch = useDispatch();
 
@@ -40,11 +41,11 @@ export default function weekCategoryList(qcWeek: weekProp) {
   //get list of all catgories from this week from db
   let weekCategoriesAsCategory: Category[] = []
   WeekCategoryService.getCategory(qcWeek.weekId).then((results) => {
-    categoryService.getCategories().then((allCats)=>{
+    categoryService.getCategories().then((allCats:Category[])=>{
       let thisWeekCats:Category[] = []
       allCats.forEach((allCatElement)=>{
         results.forEach((catid)=>{
-          if (allCatElement.id == catid.categoryId){
+          if (allCatElement.categoryid == catid.categoryId){
             thisWeekCats.push(allCatElement);
           };
         });
