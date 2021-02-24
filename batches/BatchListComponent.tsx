@@ -20,6 +20,7 @@ export default function BatchListComponent({route}: any) {
     const year = route.params.year;
     const quarter = quarterToNumber(route.params.quarter);
 
+    // Changes the chosen quarter from a string to a number for use in the filter
     function quarterToNumber(strQuarter: string) {
         switch (strQuarter) {
             case 'All Quarters':
@@ -35,6 +36,7 @@ export default function BatchListComponent({route}: any) {
         }
     }
 
+    // Placeholder user
     const trainer = {
         role: 'ROLE_QC',
         email: 'mock1005.employee7c90a542-e70e-4db5-be8b-629e62f851c5@mock.com',
@@ -42,6 +44,7 @@ export default function BatchListComponent({route}: any) {
         lastName: 'Employee 1005',
     };
 
+    // Retrieves a batch list based on filters
     useEffect(() => {
         if (trainer.role === 'ROLE_TRAINER') {
             batchService
@@ -58,11 +61,14 @@ export default function BatchListComponent({route}: any) {
         }
     }, [year, quarter]);
 
+    // Upon selection, updates the state with a chosen batch
+    // The navigator's destination is to be replaced in code after determining the next component in line
     function handleBatchSelect(index: number) {
         dispatch(changeBatch(batches[index]));
         nav.navigate('BatchDetail');
     }
 
+    // Display a selectable batch
     const batchCard = (params: any) => {
         return (
             <Pressable onPress={() => handleBatchSelect(params.index)}>
@@ -75,6 +81,7 @@ export default function BatchListComponent({route}: any) {
         )
     }
     
+    // Displays a list of batches based on filters
     return (
         <View>
             {batches.length > 0 ? 
