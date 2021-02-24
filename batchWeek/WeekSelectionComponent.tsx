@@ -10,19 +10,20 @@ import QcWeek from './QcWeek';
  */
 export default function WeekSelectionComponent() {
 
-    const [weeks, setWeeks] = useState([] as QcWeek[]);
+    // Get the selected batch in the redux store
+    // Get the weeks in the redux store
+    //const weeks = useSelector((state: WeekState) => state.weeks);
+    const weeks = [{weekNumber: 1}, {weekNumber: 2}, {weekNumber: 3}, {weekNumber: 4}];
 
     useEffect(() => {
-        // Get the weeks in the redux store
-        setWeeks(useSelector((state: WeekState) => state.weeks));
-
+        // TODO: Call service function to get week data
     }, []);
 
     function onWeekSelect(weekValue: number) {
         // Update the redux store with the selected week
         let selectedWeek = weeks.find(week => week.weekNumber === weekValue);
         if(selectedWeek) {
-            useDispatch()(changeSelectedWeek(selectedWeek));
+            //useDispatch()(changeSelectedWeek(selectedWeek));
         }
     }
 
