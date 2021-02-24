@@ -8,11 +8,11 @@ import style from '../global_styles';
 import { forceRerender, getAssociates } from '../store/actions';
 import { AssociateState, RerenderState } from '../store/store';
 import AssociateDetail from './AssociateDetail';
-import { Associate, AssociateWithFeedback, QCFeedback } from './AssociateService';
+import AssociateService, { Associate, AssociateWithFeedback, QCFeedback } from './AssociateService';
 import { shuffle, sortAssociateByFirstName, sortAssociateByFirstNameReversed, sortAssociateByLastName, sortAssociateByLastNameReversed } from './sort';
 
 interface AssociateProps {
-    assoc: Associate;
+    assoc: Associate[];
 }
 //let com = useSelector((state: BatchAction) => state.batch);
 
@@ -42,7 +42,7 @@ function AssociateTableComponent(props: AssociateProps) {
     let tempAssociates = [assoc1, assoc2, assoc3, assoc4];
     let dispatch = useDispatch();
     let associates = useSelector((state: AssociateState) => state.associates);
-    let rerender = useSelector((state: RerenderState) => state.rerender);
+    let qcnotes:QCFeedback;
     let iconName: string = 'angle-up';
     let iconColor: string = '#F26925';
     associates = [...tempAssociates];
@@ -50,8 +50,24 @@ function AssociateTableComponent(props: AssociateProps) {
 
 
     useEffect(() => {
+        getQCNotes();
     }, []);
 
+    /**
+     * Retrievs QC Notes from back end.
+     */
+    function getQCNotes() {
+        qcnotes = AssociateService.getAssociates(batch,week);
+        props.assoc.forEach((assoc) => {
+            if(assoc) {
+                console.log();
+            }
+        })
+    }
+
+    /**
+     * Switches sorting direction for first name (Button Handler)
+     */
     function switchSortingF() {
         if (sortDirection == "FUp") {
             setSortDirection("FDown");
@@ -65,6 +81,10 @@ function AssociateTableComponent(props: AssociateProps) {
             getAssociates(val);
         }
     }
+
+    /**
+     * Switches sorting direction for last name (Button Handler)
+     */
     function switchSortingL() {
         if (sortDirection == "LUp") {
             setSortDirection("LDown");
@@ -84,8 +104,7 @@ function AssociateTableComponent(props: AssociateProps) {
             <Button onPress={async () => {
                 await shuffle(associates);
                 setTimeout(() => {
-                    dispatch(getAssociates(associates));
-                    dispatch(forceRerender(rerender + 1));
+                    dispatch(getAssociates([...associates]));
                 }, 500);
             }
             } title='Randomize List' buttonStyle={style.button}></Button>

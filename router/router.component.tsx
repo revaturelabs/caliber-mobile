@@ -30,7 +30,7 @@ export default function RouterComponent(props: any) {
                 component={AssociateTableComponent} 
             />
             <Stack.Screen 
-                name='Under Development' 
+                name='UnderDevelopment' 
                 component={UnderDevelopmentComponent} 
             />
         </Stack.Navigator>
