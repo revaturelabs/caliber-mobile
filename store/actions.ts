@@ -4,7 +4,8 @@ import { AssociateWithFeedback } from '../associate/AssociateService';
 import QcWeek from '../batchWeek/QcWeek';
 import weekReducer from './WeekReducer';
 import { WeekCategoryState } from './store';
-import { weekCategory } from '../WeekCategories/WeekCategory';
+import { weekCategory } from '../weekCategories/weekCategory';
+import {Category} from '../categoriesFeature/Category';
 
 export enum BatchActions {
 	GetBatches = 'GET_BATCHES',
@@ -57,10 +58,6 @@ export interface AssociateAction extends AppAction {
 	payload: AssociateWithFeedback[];
 }
 
-export interface WeekCategoryAction extends AppAction {
-	type: WeekCategoryActions;
-	payload: weekCategory[] | weekCategory;
-}
 /**
  * Set the associates in the state to whatever is currently displaying in the UI.
  * @param associates 
@@ -75,6 +72,11 @@ export function getAssociates(associates: AssociateWithFeedback[]): AssociateAct
 export interface WeekAction extends AppAction {
 	type: WeekActions;
 	payload: QcWeek | QcWeek[];
+}
+
+export interface WeekCategoryAction extends AppAction{
+	type:WeekCategoryActions;
+	payload:Category[] | weekCategory;
 }
 
 //info of the user that is logged in
@@ -152,16 +154,16 @@ export function addWeekCategory(category: weekCategory): WeekCategoryAction {
 	return action;
 };
 
-export function getWeekCategories(categories: weekCategory[]): WeekCategoryAction {
-	const action: WeekCategoryAction = {
+export function getWeekCategories(categories:Category[]): WeekCategoryAction {
+	const action: WeekCategoryAction ={
 		type: WeekCategoryActions.GetWeekCategories,
 		payload: categories
 	};
 	return action;
 };
 
-export function ChangeCategories(categories: weekCategory[]): WeekCategoryAction {
-	const action: WeekCategoryAction = {
+export function ChangeCategories(categories: Category[]): WeekCategoryAction {
+	const action: WeekCategoryAction ={
 		type: WeekCategoryActions.ChangeWeekCategories,
 		payload: categories
 	};

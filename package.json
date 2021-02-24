@@ -54,7 +54,19 @@
   },
   "homepage": "https://github.com/913-RichardOrr/caliber-mobile#readme",
   "dependencies": {
+<<<<<<< HEAD
     "firebase": "^8.2.7",
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+    "firebase": "^8.2.7",
+=======
+    "@material-ui/core": "^4.11.3",
+>>>>>>> e818fe89e932ffc5d7bc55cbbb44f54813d2068b
+=======
+    "@material-ui/core": "^4.11.3",
+>>>>>>> bfa428bd1b3231fb4387fa9076b0907b7a7455e3
+>>>>>>> eae2c6e4a41ad84a7743c887361baf6c66bef5a5
     "@react-native-community/masked-view": "0.1.10",
     "@react-native-picker/picker": "^1.9.11",
     "@react-navigation/material-top-tabs": "^5.3.13",
@@ -69,9 +81,19 @@
     "enzyme-adapter-react-16": "^1.15.6",
     "expo": "~40.0.0",
     "expo-status-bar": "~1.0.3",
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    "firebase": "^8.2.7",
+>>>>>>> e818fe89e932ffc5d7bc55cbbb44f54813d2068b
+=======
+    "firebase": "^8.2.7",
+>>>>>>> bfa428bd1b3231fb4387fa9076b0907b7a7455e3
+>>>>>>> eae2c6e4a41ad84a7743c887361baf6c66bef5a5
     "jest": "^26.6.3",
     "jsdom-global": "^3.0.2",
-    "material-table": "^1.69.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
