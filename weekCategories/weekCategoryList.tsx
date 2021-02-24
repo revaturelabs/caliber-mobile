@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { weekCategory } from '../weekCategories/weekCategory';
 import {
@@ -68,12 +68,10 @@ export default function weekCategoryList(qcWeek: weekProp) {
     dispatch(getCategories(availableCats)); 
   }); */
 
-  function addCategory(newCat: Category) {
-    let weekCat: weekCategory = new weekCategory;
-    weekCat.categoryId = newCat.categoryid;
-    weekCat.qcWeekId = Number(qcWeek);
+  function addCategory(newCat: number) {
+    let weekCat: weekCategory = {categoryId: newCat, qcWeekId: qcWeek.weekId};
+    console.log(weekCat)
     WeekCategoryService.addCategory(weekCat).then(() => {
-      weekCategories.push(newCat);
       dispatch(addWeekCategory(weekCat))
     });
   };
@@ -133,19 +131,20 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: 'row',
-    width:'50%',
-    height:'40%'
+    maxWidth:'50%',
+    height:'50%'
   },
   menu: {
     flexDirection: 'row',
-   
     height:100,
     marginLeft:10,
+    
 
   },
   menuContainer:{
-    width:'30%',
-    height:100
+    width:'10%',
+    height:100,
+    alignContent:'flex-start',
   }
 
 })
