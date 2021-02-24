@@ -7,10 +7,11 @@ import categoryReducer from './categoriesFeature/CategoryReducer';
 import {UserInput, UserInfo} from '../user/user'
 import { Category } from '../categoriesFeature/Category';
 import { AppAction } from './actions';
-import Batch from '../batches/batch';
+import Batch from '../batches/Batch';
 
 export interface BatchState {
-  batches: Batch[];
+	batch: Batch;
+	batches: Batch[];
 }
 
 export interface UserState {
@@ -27,16 +28,16 @@ export interface CaliberState extends UserState, CategoryState, BatchState {}
 
 //add your reducer to the object
 const rootReducer = combineReducers({
-  userReducer,
-  batchReducer,
+	userReducer,
+	batchReducer,
 });
 
 //user userSelector(state: RootState => state.yourReducer.yourPayload)
 export type RootState = ReturnType<typeof rootReducer>;
 
 const store: Store<RootState, AppAction> = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(thunk))
+	rootReducer,
+	composeWithDevTools(applyMiddleware(thunk))
 );
 
 export default store;
