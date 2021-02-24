@@ -1,4 +1,5 @@
 import React from 'react';
+import WeekSelectionComponent from '../batchWeek/WeekSelectionComponent';
 
 /**
  * The parent component for the QC Quality Audit Page; will conatin the selection of specific
@@ -7,6 +8,8 @@ import React from 'react';
  */
 export default function QualityAuditComponent() {
     return (
-        <></>
+        <>
+            <WeekSelectionComponent/>
+        </>
     );
 }

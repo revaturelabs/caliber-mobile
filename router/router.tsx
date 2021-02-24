@@ -7,14 +7,15 @@ import LoginComponent from '../user/Login';
 export type StackParam = {
   ManageCategories: undefined;
   QualityAudit: undefined;
+  Login: undefined;
 };
 
 const Stack = createStackNavigator<StackParam>();
 
 function Router() {
     return (
-        <Stack.Navigator initialRouteName='Login'>
-          {/* <Stack.Screen name='Login' component={LoginComponent} /> */}
+        <Stack.Navigator initialRouteName='QualityAudit'>
+          <Stack.Screen name='Login' component={LoginComponent} />
           {/* <Stack.Screen name='Home' component={} />
           <Stack.Screen name='Manage Batch' component={} />
           <Stack.Screen name='Assess Batch' component={} /> */}
