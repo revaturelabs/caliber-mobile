@@ -36,16 +36,12 @@
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/assetsTransformer.js",
       "\\.(css|less)$": "<rootDir>/assetsTransformer.js"
-<<<<<<< HEAD
-    }
-=======
     },
     "__commentForTransformIgnorePatterns": "add your node module before the second closing parentheses from the end with a pipe before.",
     "transformIgnorePatterns": [
       "node_modules/(?!(react-native|caliber-mobile|@react-native-picker/picker|react-native-gesture-handler)/)",
       "node_modules/(?!(react-native|@react-native-[a-z]*|react-native-[a-z]*|react-native-[a-z]*-[a-z]*|@expo)/)"
     ]
->>>>>>> e818fe89e932ffc5d7bc55cbbb44f54813d2068b
   },
   "repository": {
     "type": "git",
@@ -58,11 +54,7 @@
   },
   "homepage": "https://github.com/913-RichardOrr/caliber-mobile#readme",
   "dependencies": {
-<<<<<<< HEAD
     "firebase": "^8.2.7",
-=======
-    "@material-ui/core": "^4.11.3",
->>>>>>> e818fe89e932ffc5d7bc55cbbb44f54813d2068b
     "@react-native-community/masked-view": "0.1.10",
     "@react-native-picker/picker": "^1.9.11",
     "@react-navigation/material-top-tabs": "^5.3.13",

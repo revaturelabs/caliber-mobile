@@ -1,7 +1,7 @@
 import { auth0SignInButton } from 'aws-amplify';
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableHighlight, Image } from 'react-native';
-import {style} from '../global_styles';
+import style from '../global_styles';
 import { RootState, UserState } from '../store/store';
 import {f, auth, database} from './config';
 import { useDispatch, useSelector } from 'react-redux';
