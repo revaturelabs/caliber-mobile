@@ -17,7 +17,9 @@ interface CategoryNameProp {
 
 /**
  *  This component displays a category name that can be pressed to toggle the category's status
- *  @param: category - the specific category we are displaying
+ *  @param: skill - the specific category skill we are displaying
+ *  @param: categoryid - the categoryid of the specified category
+ *  @param: active - the active status of the specified category
  *  @param: categories - entire category state that will also need to update with new category
  *  @returns: view with a pressable category name
  */
@@ -31,10 +33,10 @@ export function CategoryName({ skill, categoryid, active, categories }: Category
     category.categoryid = categoryid;
     category.active = active;
     const dispatch = useDispatch();
-    console.log(categories);
 
     return (
         <React.Fragment>
+            {/* Conditional rendering for toast notifications for edit categories */}
             <React.Fragment>
                 {toastStatus === 'success' ? <ToastNotification
                     text='Category updated!'
@@ -50,9 +52,10 @@ export function CategoryName({ skill, categoryid, active, categories }: Category
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
                 {/* has a list of category names (depends on props) */}
                 <Pressable onPress={() => { changeStatus(category, categories) }}>
-                    <Text style={catStyle.text}>{category.skill}</Text>
+                    <Text style={catStyle.skillText}>{category.skill}</Text>
                 </Pressable>
                 <View>
+                    {/* Edit button to open modal for editing */}
                     <TouchableOpacity style={catStyle.editBtn} onPress={() => setClicked(true)} accessibilityLabel='Edit Category'>
                         <Text style={catStyle.btnText}>Edit</Text>
                     </TouchableOpacity>
@@ -60,7 +63,7 @@ export function CategoryName({ skill, categoryid, active, categories }: Category
                 {clicked == true && (
                     <Modal
                         animationType='slide'
-                        // this happens when a user presses the hardware back TouchableOpacity
+                        // this happens when a user presses the hardware back button
                         onRequestClose={() => {
                             // tiny toast
                             <ToastNotification
@@ -73,7 +76,7 @@ export function CategoryName({ skill, categoryid, active, categories }: Category
                     >
                         <View style={catStyle.modal}>
                             {/* Title for modal */}
-                            <Text style={catStyle.title}>Edit Category</Text>
+                            <Text style={catStyle.modalTitle}>Edit Category</Text>
 
                             {/* Allow user to enter a new category name */}
                             <TextInput
@@ -85,6 +88,7 @@ export function CategoryName({ skill, categoryid, active, categories }: Category
                                 placeholder={skill}
                                 placeholderTextColor='#474C55'
                             />
+                            
                             <View style={{ justifyContent: 'space-between' }}>
                                 {/* Button that edits a category */}
                                 <TouchableOpacity
