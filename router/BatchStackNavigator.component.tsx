@@ -8,6 +8,7 @@ import YearComponent from '../batches/YearComponent';
 import { DrawerNavigator } from './DrawerNavigator.component';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LogoutComponent from '../user/Logout';
+import { useNavigation } from '@react-navigation/native';
 
 const Stack = createStackNavigator();
 
@@ -26,14 +27,7 @@ const headerOptions: StackHeaderOptions = {
     />
   ),
   headerRight: () => <LogoutComponent />,
-  headerLeft: () => (
-    <Icon.Button
-      name='ios-menu'
-      size={25}
-      onPress={() => {
-        <DrawerNavigator />;
-      }}></Icon.Button>
-  ),
+  headerLeft: () => <Icon.Button name='ios-menu' size={25}></Icon.Button>,
 };
 
 export default function BatchStackNavigator(props: any) {

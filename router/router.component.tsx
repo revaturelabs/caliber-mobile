@@ -1,11 +1,8 @@
 import React from 'react';
-import { Text, Image } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Image } from 'react-native-elements';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
-import BatchesComponent from '../batches/batches.component';
 import LoginComponent from '../user/Login';
-import Test from '../user/Test';
 import LogoutComponent from '../user/Logout';
 import { DrawerNavigator } from './DrawerNavigator.component';
 
@@ -24,14 +21,6 @@ const headerOptions: StackHeaderOptions = {
     />
   ),
   headerRight: () => <LogoutComponent />,
-  headerLeft: () => (
-    <Icon.Button
-      name='ios-menu'
-      size={25}
-      onPress={() => {
-        <DrawerNavigator />;
-      }}></Icon.Button>
-  ),
 };
 
 const Stack = createStackNavigator();
