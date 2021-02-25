@@ -131,6 +131,7 @@ const catStyle = StyleSheet.create({
     },
     searchContainer: {
         backgroundColor:'white',
+        borderColor: 'white'
         
     }, 
     sectionHeaderContainer: {

@@ -144,7 +144,6 @@ export function CategoryTable({ status }: CategoryTableProp) {
                     />
                     </View>
 
-                    <View style={{height: '60%'}}>
                     <AlphabetList
                         data={result}
                         indexLetterColor={'rgba(0,0,0,0)'}
@@ -163,7 +162,6 @@ export function CategoryTable({ status }: CategoryTableProp) {
                         )}
                     />
                     </View>
-                </View>
                 :
                 // if status is false, return a table of stale categories
                 <View>
@@ -186,7 +184,6 @@ export function CategoryTable({ status }: CategoryTableProp) {
 
                     {/* Table items */}
                    
-                    <View style={{height: '60%'}}>
                     <AlphabetList
                         data={result}
                         indexLetterColor={'rgba(0,0,0,0)'}
@@ -206,7 +203,6 @@ export function CategoryTable({ status }: CategoryTableProp) {
                     />
                     </View>
                     
-                </View>
             }
         </View>
     )
