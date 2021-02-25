@@ -37,13 +37,13 @@ export function CategoryName({ skill, categoryid, active, categories }: Category
                 <Text style={catStyle.text}>{category.skill}</Text>
             </Pressable>
             <View>
-                <TouchableOpacity style= {catStyle.blueBtn} onPress={() => setClicked(true)} accessibilityLabel='Edit Category'>
+                <TouchableOpacity style= {catStyle.editBtn} onPress={() => setClicked(true)} accessibilityLabel='Edit Category'>
                     <Text style={catStyle.btnText}>Edit</Text>
                 </TouchableOpacity>
             </View>
             {clicked == true && (
                 <Modal
-                    animationType="slide"
+                    animationType='slide'
                     // this happens when a user presses the hardware back TouchableOpacity
                     onRequestClose={() => {
                         // tiny toast
@@ -53,33 +53,42 @@ export function CategoryName({ skill, categoryid, active, categories }: Category
                         />
                         setClicked(false);
                     }}
+                    transparent
                 >
-                    <View>
+                    <View style={catStyle.modal}>
                         {/* Title for modal */}
-                        <Text>Edit Category</Text>
+                        <Text style={catStyle.title}>Edit Category</Text>
 
                         {/* Allow user to enter a new category name */}
                         <TextInput
+                            style={catStyle.modalTextInput}
                             onChangeText={text => onChangeText(text)}
                             value={value}
                             autoCapitalize='words'
                             autoFocus={true}
+                            placeholder={skill}
+                            placeholderTextColor='#474C55'
                         />
+                        <View style={{justifyContent: 'space-between'}}>
+                            {/* Button that edits a category */}
+                            <TouchableOpacity 
+                                style={catStyle.modalActionBtn}
+                                onPress={(value) => {
+                                    EditCategory(value.toString(), category);
+                                    setClicked(false);
+                                }}
+                            >
+                                <Text style={catStyle.btnText}>Edit</Text>
+                            </TouchableOpacity>
 
-                        {/* Button that edits a category */}
-                        <TouchableOpacity onPress={(value) => {
-                            EditCategory(value.toString(), category);
-                            setClicked(false);
-                        }}>
-                            <Text>Edit Category</Text>
-                        </TouchableOpacity>
-
-                        {/* Button that closes modal */}
-                        <TouchableOpacity onPress={() => {
-                            setClicked(false);
-                        }}>
-                            <Text>Close</Text>
-                        </TouchableOpacity>
+                            {/* Button that closes modal */}
+                            <TouchableOpacity 
+                                style={catStyle.closeBtn}
+                                onPress={() => {setClicked(false);
+                            }}>
+                                <Text style={catStyle.btnText}>Close</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </Modal>
             )}

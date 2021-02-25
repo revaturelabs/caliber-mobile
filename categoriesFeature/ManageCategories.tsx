@@ -35,7 +35,16 @@ export default function ManageCategories() {
         <View>
             {/* Tabs that navigate between active and stale categories */}
             <View>
-                <Tab.Navigator>
+                <Tab.Navigator
+                    tabBarOptions={{
+                        labelStyle: { fontSize: 14 },
+                        activeTintColor:'#F26925',
+                        inactiveTintColor:'#474C55',
+                        style: { backgroundColor: '#FFFFFF' },
+                        indicatorStyle: {backgroundColor: '#72A4C2', height: 5, borderRadius:5},
+                        
+                    }}
+                        >
                     <Tab.Screen
                         name="Active"
                         children={() => <CategoryTable status={true} />}
@@ -48,14 +57,14 @@ export default function ManageCategories() {
             </View>
 
             {/* Button for adding a new category */}
-            <View style={{flex: 1, justifyContent: 'flex-end'}}>
+            <View style={{flex:1, justifyContent:'flex-end'}}>
                 <TouchableOpacity style={catStyle.addBtn} onPress={() => setClicked(true)} accessibilityLabel='Add Category'>
                     <Text style={catStyle.plusSign}>+</Text>
                 </TouchableOpacity>
             </View>
             {clicked == true && (
                 <Modal
-                    animationType="slide"
+                    animationType='slide'
                     // this happens when a user presses the hardware back TouchableOpacity
                     onRequestClose={() => {
                         // tiny toast
@@ -64,30 +73,39 @@ export default function ManageCategories() {
                             duration={3000}
                         />
                     }}
+                    transparent
                 >
-                    <View>
+                    <View style={catStyle.modal}>
                         {/* Title for modal */}
-                        <Text>{'Add Category'}</Text>
+                        <Text style={catStyle.title}>{'Add Category'}</Text>
 
                         {/* Allow user to enter a new category name */}
                         <TextInput
+                            style={catStyle.modalTextInput}
                             onChangeText={text => onChangeText(text)}
                             value={value}
                             autoCapitalize='words'
                             autoFocus={true}
+                            placeholder='Enter Category...'
+                            placeholderTextColor='#474C55'
                         />
 
                         {/* Button that adds a category */}
-                        <TouchableOpacity onPress={(value) => {
-                            AddCategory(value.toString());
-                            setClicked(false);
-                        }}>
-                            <Text>Add Category</Text>
+                        <TouchableOpacity 
+                            style={catStyle.modalActionBtn}
+                            onPress={(value) => {
+                                AddCategory(value.toString());
+                                setClicked(false);
+                            }}
+                        >
+                            <Text style={catStyle.btnText}>Add Category</Text>
                         </TouchableOpacity>
 
                         {/* Button that closes modal */}
-                        <TouchableOpacity onPress={() => { setClicked(false) }}>
-                            <Text>Close</Text>
+                        <TouchableOpacity 
+                            style={catStyle.closeBtn}
+                            onPress={() => { setClicked(false) }}>
+                            <Text style={catStyle.btnText}>Close</Text>
                         </TouchableOpacity>
                     </View>
                 </Modal>
