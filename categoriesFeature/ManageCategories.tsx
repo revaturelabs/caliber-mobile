@@ -24,171 +24,125 @@ import catStyle from '../categoriesFeature/categoriesStyles';
  *  and a button that adds a category
  */
 export default function ManageCategories() {
-    const Tab = createMaterialTopTabNavigator();
-    // set local state for currently viewed tab
-    const [clicked, setClicked] = useState(false);
-    const [value, onChangeText] = React.useState('');
-    
-    // get category state from store
-    const categorySelector = (state: CategoryState) => state.categories;
-    const categories = useSelector(categorySelector);
-    const dispatch = useDispatch();
+  const Tab = createMaterialTopTabNavigator();
+  // set local state for currently viewed tab
+  const [clicked, setClicked] = useState(false);
+  const [value, onChangeText] = React.useState('');
 
-    return (
-        <React.Fragment>
-            {/* Tabs that navigate between active and stale categories */}
-            <Tab.Navigator
-                tabBarOptions={{
-                    labelStyle: { fontSize: 14 },
-                    activeTintColor:'#F26925',
-                    inactiveTintColor:'#474C55',
-                    style: { backgroundColor: '#FFFFFF' },
-                    indicatorStyle: {backgroundColor: '#72A4C2', height: 5, borderRadius:5},
-                    
-                }}
-            >
-                {/* Active Categories Table */}
-                <Tab.Screen
-                    name="Active"
-                    children={() => <CategoryTable status={true} />}
-                />
-                {/* Stale Categories Table */}
-                <Tab.Screen
-                    name="Inactive"
-                    children={() => <CategoryTable status={false} />}
-                />
-            </Tab.Navigator>
+  // get category state from store
+  const categorySelector = (state: CategoryState) => state.categories;
+  const categories = useSelector(categorySelector);
+  const dispatch = useDispatch();
 
-            {/* If clicked is true, open the modal */}
-            {clicked == true && (
-                <Modal
-                    animationType='slide'
-                    // this happens when a user presses the hardware back TouchableOpacity
-                    onRequestClose={() => {
-                        // tiny toast
-                        <ToastNotification
-                            text='Closed without saving.'
-                            duration={3000}
-                        />
-                    }}
-                    transparent
-                >
-                    <View style={catStyle.modal}>
-                        {/* Title for modal */}
-                        <Text style={catStyle.title}>{'Add Category'}</Text>
+  return (
+    <React.Fragment>
+      {/* Tabs that navigate between active and stale categories */}
+      <Tab.Navigator
+        tabBarOptions={{
+          labelStyle: { fontSize: 14 },
+          activeTintColor: '#F26925',
+          inactiveTintColor: '#474C55',
+          style: { backgroundColor: '#FFFFFF' },
+          indicatorStyle: {
+            backgroundColor: '#72A4C2',
+            height: 5,
+            borderRadius: 5,
+          },
+        }}>
+        {/* Active Categories Table */}
+        <Tab.Screen
+          name='Active'
+          children={() => <CategoryTable status={true} />}
+        />
+        {/* Stale Categories Table */}
+        <Tab.Screen
+          name='Inactive'
+          children={() => <CategoryTable status={false} />}
+        />
+      </Tab.Navigator>
 
-                        {/* Allow user to enter a new category name */}
-                        <TextInput
-                            style={catStyle.modalTextInput}
-                            onChangeText={text => onChangeText(text)}
-                            value={value}
-                            autoCapitalize='words'
-                            autoFocus={true}
-                            placeholder='Enter Category...'
-                            placeholderTextColor='#474C55'
-                        />
+      {/* If clicked is true, open the modal */}
+      {clicked == true && (
+        <Modal
+          animationType='slide'
+          // this happens when a user presses the hardware back TouchableOpacity
+          onRequestClose={() => {
+            // tiny toast
+            <ToastNotification text='Closed without saving.' duration={3000} />;
+          }}
+          transparent>
+          <View style={catStyle.modal}>
+            {/* Title for modal */}
+            <Text style={catStyle.title}>{'Add Category'}</Text>
 
-                        {/* Button that adds a category */}
-                        <TouchableOpacity 
-                            style={catStyle.modalActionBtn}
-                            onPress={(value) => {
-                                AddCategory(value.toString());
-                                setClicked(false);
-                            }}
-                        >
-                            <Text style={catStyle.btnText}>Add Category</Text>
-                        </TouchableOpacity>
+            {/* Allow user to enter a new category name */}
+            <TextInput
+              style={catStyle.modalTextInput}
+              onChangeText={(text) => onChangeText(text)}
+              value={value}
+              autoCapitalize='words'
+              autoFocus={true}
+              placeholder='Enter Category...'
+              placeholderTextColor='#474C55'
+            />
 
-                        {/* Button that closes modal */}
-                        <TouchableOpacity 
-                            style={catStyle.closeBtn}
-                            onPress={() => { setClicked(false) }}>
-                            <Text style={catStyle.btnText}>Close</Text>
-                        </TouchableOpacity>
-                    </View>
-                </Modal>
-            )}
-        </React.Fragment>
-    )
+            {/* Button that adds a category */}
+            <TouchableOpacity
+              style={catStyle.modalActionBtn}
+              onPress={(value) => {
+                AddCategory(value.toString());
+                setClicked(false);
+              }}>
+              <Text style={catStyle.btnText}>Add Category</Text>
+            </TouchableOpacity>
 
-    /**
-     *  This component opens a modal when 'Add Category' TouchableOpacity is clicked
-     *  @param: value is a string that is what the user inputs for a new category
-     */
-    function AddCategory(value: string) {
-        // calls categoryService.addCategory
-        categoryService.addCategory(value).then((result) => {
-            // add new category to current categories
-            categories.push(result);
+            {/* Button that closes modal */}
+            <TouchableOpacity
+              style={catStyle.closeBtn}
+              onPress={() => {
+                setClicked(false);
+              }}>
+              <Text style={catStyle.btnText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+      )}
+    </React.Fragment>
+  );
 
-            // dispatch new categories
-            dispatch(getCategories(categories));
+  /**
+   *  This component opens a modal when 'Add Category' TouchableOpacity is clicked
+   *  @param: value is a string that is what the user inputs for a new category
+   */
+  function AddCategory(value: string) {
+    // calls categoryService.addCategory
+    categoryService
+      .addCategory(value)
+      .then((result) => {
+        // add new category to current categories
+        categories.push(result);
 
-            // call toast function with result
-            toastCall('success');
+        // dispatch new categories
+        dispatch(getCategories(categories));
 
-        }).catch(error => {
-            // call toast function with result
-            toastCall('failure');
-        });
-    }
+        // call toast function with result
+        toastCall('success');
+      })
+      .catch((error) => {
+        // call toast function with result
+        toastCall('failure');
+      });
+  }
 }
 
 /**
  *  This component makes a toast
  *  @param: result is either a success or failure string. Depending on string, appropriate toast shows up.
  */
-<<<<<<< HEAD
-
-export interface modalProps {
-  action: string;
-  category?: Category;
+function toastCall(result: string) {
+  if (result == 'success') {
+    return <ToastNotification text='Category added!' duration={3000} />;
+  } else {
+    return <ToastNotification text='Failed to add category' duration={3000} />;
+  }
 }
-
-// gets called from the modal to add the category
-function AddCategory(value: string) {
-  // create local state
-  // get category state from store
-  const categorySelector = (state: CategoryState) => state.categories;
-  const categories = useSelector(categorySelector);
-  const dispatch = useDispatch();
-
-  // calls categoryService.addCategory
-  categoryService
-    .addCategory(value)
-    .then((result) => {
-      // add new category to current categories
-      categories.push(result);
-
-      // dispatch new categories
-      dispatch(getCategories(categories));
-
-      // tiny toast for success
-      return <ToastNotification text='Category added!' duration={3000} />;
-    })
-    .catch((error) => {
-      // tiny toast for failure
-      return (
-        <ToastNotification text='Failed to add category' duration={3000} />
-      );
-    });
-}
-=======
-function toastCall(result: string){
-    if(result == 'success'){
-        return (
-            <ToastNotification
-                text='Category added!'
-                duration={3000}
-            />
-        )
-    } else {
-        return (
-            <ToastNotification
-                text='Failed to add category'
-                duration={3000}
-            />
-        )
-    }
-}
->>>>>>> 98f6e1901bcc64384f25bb201e1ae9d88eae9f81
