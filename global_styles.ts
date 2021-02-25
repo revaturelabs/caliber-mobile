@@ -105,6 +105,7 @@ const style= StyleSheet.create({
     },
     associatesViewComponent: {
         width:"fitcontent",
+        height:"fitcontent",
         backgroundColor:'white',
     }, container: {
         flex:1,

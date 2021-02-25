@@ -63,10 +63,13 @@ export interface AssociateAction extends AppAction {
  * @param associates 
  */
 export function getAssociates(associates: AssociateWithFeedback[]): AssociateAction {
+	console.log("calling get associates");
+	
 	const action: AssociateAction = {
 		type: AssociateActions.GetAssociates,
 		payload: associates,
 	};
+	console.log(associates)
 	return action;
 }
 export interface WeekAction extends AppAction {

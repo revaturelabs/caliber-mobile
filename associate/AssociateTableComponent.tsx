@@ -6,7 +6,7 @@ import { Button, Icon } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
 import style from '../global_styles';
 import { getAssociates } from '../store/actions';
-import { AssociateState } from '../store/store';
+import { AssociateState, BatchState, WeekState } from '../store/store';
 import AssociateDetail from './AssociateDetail';
 import AssociateService, { Associate, AssociateWithFeedback, QCFeedback } from './AssociateService';
 import { shuffle, sortAssociateByFirstName, sortAssociateByFirstNameReversed, sortAssociateByLastName, sortAssociateByLastNameReversed } from './sort';
@@ -42,6 +42,9 @@ function AssociateTableComponent(props: AssociateProps) {
     let tempAssociates = [assoc1, assoc2, assoc3, assoc4];
     let dispatch = useDispatch();
     let associates = useSelector((state: AssociateState) => state.associates);
+    let batch = useSelector((state: BatchState) => state.batch);
+    let week = useSelector((state: WeekState) => state.selectedWeek);
+
     let iconName: string = 'angle-up';
     let iconColor: string = '#F26925';
     associates = [...tempAssociates];
@@ -56,17 +59,17 @@ function AssociateTableComponent(props: AssociateProps) {
      * Retrievs QC Notes from back end.
      */
     function getQCNotes() {
-        let listofassociates:AssociateWithFeedback[] = [];
+        let listofassociates: AssociateWithFeedback[] = [];
         props.assoc.forEach(async (asoc) => {
-            let qcnotes:QCFeedback = await AssociateService.getAssociate(asoc,batch,week);
-            if(qcnotes) {
+            let qcnotes: QCFeedback = await AssociateService.getAssociate(asoc, batch, week.qcWeekId.toString());
+            if (qcnotes) {
                 let val = new AssociateWithFeedback();
-                val.associate =asoc;
+                val.associate = asoc;
                 val.qcFeedback = qcnotes;
                 listofassociates.push(val);
             } else {
                 let val = new AssociateWithFeedback();
-                val.associate =asoc;
+                val.associate = asoc;
                 listofassociates.push(val);
             }
         })
@@ -89,6 +92,7 @@ function AssociateTableComponent(props: AssociateProps) {
             getAssociates(val);
         }
     }
+    
 
     /**
      * Switches sorting direction for last name (Button Handler)
@@ -106,13 +110,23 @@ function AssociateTableComponent(props: AssociateProps) {
             getAssociates(val);
         }
     }
+
+    function handleAllUpdate() {
+        associates.forEach((assoc) => {
+            AssociateService.updateAssociate(assoc.qcFeedback, { 'notecontent': assoc.qcFeedback.qcNote})
+            AssociateService.updateAssociate(assoc.qcFeedback, { 'technicalstatus': assoc.qcFeedback.qcTechnicalStatus});
+
+        })
+    }
     return (
-        <View style = {style.associatesViewComponent}>
-            <Button onPress = {() => {alert(JSON.stringify(associates))}}></Button>
+        <View style={style.associatesViewComponent}>
+            <Button onPress={() => { alert(JSON.stringify(associates)) }}></Button>
             <Button onPress={async () => {
-                await shuffle(associates);
+                let x = [...associates]
+                await shuffle(x);
                 setTimeout(() => {
-                    dispatch(getAssociates([...associates]));
+                    // dispatch(getAssociates([new AssociateWithFeedback()]));
+                    dispatch(getAssociates(x));
                 }, 500);
             }
             } title='Randomize List' buttonStyle={style.button}></Button>
@@ -123,13 +137,13 @@ function AssociateTableComponent(props: AssociateProps) {
                     name={iconName}
                     type='font-awesome'
                     color={iconColor}
-                    testID='statusIcon' /> :  sortDirection == "FDown" ?
-                    <Icon
-                        style={style.iconsf}
-                        name={'angle-down'}
-                        type='font-awesome'
-                        color={iconColor}
-                        testID='statusIcon' /> : <Text></Text>}
+                    testID='statusIcon' /> : sortDirection == "FDown" ?
+                        <Icon
+                            style={style.iconsf}
+                            name={'angle-down'}
+                            type='font-awesome'
+                            color={iconColor}
+                            testID='statusIcon' /> : <Text></Text>}
             </TouchableOpacity>
             <TouchableOpacity style={style.tOSL} activeOpacity={.7}>
                 <Text style={style.lNameSortH} onPress={switchSortingL}>Sort By Last Name</Text>
@@ -139,18 +153,34 @@ function AssociateTableComponent(props: AssociateProps) {
                     type='font-awesome'
                     color={iconColor}
                     testID='statusIcon' /> : sortDirection == "LDown" ?
-                    <Icon
-                        style={style.iconsl}
-                        name={'angle-down'}
-                        type='font-awesome'
-                        color={iconColor}
-                        testID='statusIcon' /> : <Text></Text>}
+                        <Icon
+                            style={style.iconsl}
+                            name={'angle-down'}
+                            type='font-awesome'
+                            color={iconColor}
+                            testID='statusIcon' /> : <Text></Text>}
             </TouchableOpacity>
             <FlatList
-                style ={style.flatListAssociates}
+                style={style.flatListAssociates}
                 data={associates}
                 renderItem={({ item }) => (<AssociateDetail associate={item.associate} qcFeedback={item.qcFeedback}></AssociateDetail>)}
                 keyExtractor={(item) => item.associate.firstName}
+            />
+            <Button
+                raised
+                titleStyle={style.title}
+                buttonStyle={style.button}
+                title='Save'
+                type="outline"
+                icon={
+                    <Icon
+                        name='save'
+                        type='fontawesome'
+                        color='#F26925'
+                    />
+                }
+                onPress={handleAllUpdate}
+                testID='saveNote'
             />
         </View>
 

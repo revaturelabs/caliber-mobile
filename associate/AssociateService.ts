@@ -11,7 +11,7 @@ class AssociateService {
         this.URI = 'PLACEHOLDER FOR API URI';
     }
 
-    async getAssociate(a:Associate,batch:string,week:string):Promise<Associate> {
+    async getAssociate(a:Associate,batch:string,week:string):Promise<QCFeedback> {
         return axios.get(this.URI+'/batches/'+batch+'/weeks/'+week+'/associates/'+a.associateId).then(result => result.data).catch((err) => {console.error(err)});
     }
     async replaceAssociate(a:Associate,batch:string,week:string):Promise<Associate> {

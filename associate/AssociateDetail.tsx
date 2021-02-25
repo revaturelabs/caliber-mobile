@@ -66,22 +66,6 @@ function AssociateDetail(props: AssociateProps) {
                 spellCheck={true}
                 onChangeText={text => setQcNote(text)}
                 testID='qcNote' />}
-            {viewNote && <Button
-                raised
-                titleStyle={style.title}
-                buttonStyle={style.button}
-                title='Save'
-                type="outline"
-                icon={
-                    <Icon
-                        name='save'
-                        type='fontawesome'
-                        color='#F26925'
-                    />
-                }
-                onPress={() => associateService.updateAssociate(props.qcFeedback, { 'qcNote': qcNote })}
-                testID='saveNote' />
-            }
         </View>
     );
 }
