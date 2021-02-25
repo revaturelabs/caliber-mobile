@@ -14,8 +14,6 @@ import { shuffle, sortAssociateByFirstName, sortAssociateByFirstNameReversed, so
 interface AssociateProps {
     assoc: Associate[];
 }
-//let com = useSelector((state: BatchAction) => state.batch);
-
 
 /**
  * Get Associate needs to do some stuff here.
@@ -42,16 +40,16 @@ function AssociateTableComponent(props: AssociateProps) {
     let tempAssociates = [assoc1, assoc2, assoc3, assoc4];
     let dispatch = useDispatch();
     let associates = useSelector((state: RootState) => state.batchReducer.associates);
-    let batch = useSelector((state: RootState) => state.batchReducer.batch);
+    //let batch = useSelector((state: RootState) => state.batchReducer.batch);
     let week = useSelector((state: RootState) => state.weekReducer.selectedWeek);
 
     let iconName: string = 'angle-up';
     let iconColor: string = '#F26925';
-    associates = [...tempAssociates];
     const [sortDirection, setSortDirection] = useState("FUp");
 
 
     useEffect(() => {
+        dispatch(getAssociates(tempAssociates));
         // getQCNotes();
     }, []);
 
@@ -84,12 +82,12 @@ function AssociateTableComponent(props: AssociateProps) {
             setSortDirection("FDown");
             let val = [...associates];
             sortAssociateByFirstName(val);
-            getAssociates(val);
+            dispatch(getAssociates(val));
         } else {
             setSortDirection("FUp");
             let val = [...associates];
             sortAssociateByFirstNameReversed(val);
-            getAssociates(val);
+            dispatch(getAssociates(val));
         }
     }
     
@@ -102,25 +100,33 @@ function AssociateTableComponent(props: AssociateProps) {
             setSortDirection("LDown");
             let val = [...associates];
             sortAssociateByLastName(val);
-            getAssociates(val);
+            dispatch(getAssociates(val));
+
         } else {
             setSortDirection("LUp");
             let val = [...associates];
             sortAssociateByLastNameReversed(val);
-            getAssociates(val);
+            dispatch(getAssociates(val));
         }
     }
 
     function handleAllUpdate() {
         associates.forEach((assoc) => {
-            AssociateService.updateAssociate(assoc.qcFeedback, { 'notecontent': assoc.qcFeedback.qcNote})
-            AssociateService.updateAssociate(assoc.qcFeedback, { 'technicalstatus': assoc.qcFeedback.qcTechnicalStatus});
+            try{
+                AssociateService.updateAssociate(assoc.qcFeedback, { 'notecontent': assoc.qcFeedback.qcNote})
+            } catch(err:any) {
+                AssociateService.replaceAssociate(assoc.qcFeedback, { 'notecontent': assoc.qcFeedback.qcNote, 'technicalstatus': assoc.qcFeedback.qcTechnicalStatus})
+            }
+            try{
+                AssociateService.updateAssociate(assoc.qcFeedback, { 'technicalstatus': assoc.qcFeedback.qcNote})
+            } catch(err:any) {
+                AssociateService.replaceAssociate(assoc.qcFeedback, { 'technicalstatus': assoc.qcFeedback.qcTechnicalStatus, 'notecontent': assoc.qcFeedback.qcNote})
+            }
+        });
 
-        })
     }
     return (
         <View style={style.associatesViewComponent}>
-            <Button onPress={() => { alert(JSON.stringify(associates)) }}></Button>
             <Button onPress={async () => {
                 let x = [...associates]
                 await shuffle(x);
@@ -168,8 +174,8 @@ function AssociateTableComponent(props: AssociateProps) {
             <Button
                 raised
                 titleStyle={style.title}
-                buttonStyle={style.button}
-                title='Save'
+                buttonStyle={style.savebutton}
+                title='Save All'
                 type="outline"
                 icon={
                     <Icon

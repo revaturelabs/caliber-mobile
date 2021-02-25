@@ -4,8 +4,7 @@ import { AssociateWithFeedback } from '../associate/AssociateService';
 import QcWeek from '../batchWeek/QcWeek';
 import weekReducer from './WeekReducer';
 import { WeekCategoryState } from './store';
-import { weekCategory } from '../weekCategories/weekCategory';
-import {Category} from '../categoriesFeature/Category';
+import { weekCategory } from '../weekCategories/WeekCategory'
 
 export enum BatchActions {
 	GetBatches = 'GET_BATCHES',
