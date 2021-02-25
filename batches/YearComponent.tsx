@@ -10,13 +10,15 @@ export default function BatchesComponent() {
         return index.toString();
     };
 
+    // Placeholder valid year list
     const validYears: any = [2020, 2021];
-    
-    // Sets the year and resets the other dropdowns
+
+    // Sets the year and navigates to the quarter selector
     function handleYearSelect(year: number) {
         nav.navigate('Quarter', {year: year});
     }
 
+    // Displays a selectable year
     const yearCard = (params: any) => {
         return (
             <Pressable onPress={() => handleYearSelect(params.item)}>
@@ -27,6 +29,7 @@ export default function BatchesComponent() {
         )
     }
 
+    // Displays a list of years to filter by
     return (
         <View>
             {validYears.length > 0 && (

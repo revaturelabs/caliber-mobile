@@ -10,17 +10,18 @@ export default function QuarterComponent({route}: any) {
         return index.toString();
     };
 
-    console.log(route);
-
     const year: number = route.params.year;
 
     const quarters: any = ['All Quarters', 'Q1', 'Q2', 'Q3', 'Q4'];
+
+    // Sets the quarter and navigates to the batch list
 
     function handleQuarterSelect(index: number) {
         const quarter = quarters[index];
         nav.navigate('Batches', {year: year, quarter: quarter});
     }
 
+    // Displays a selectable quarter
     const quarterCard = (params: any) => {
         return (
             <Pressable onPress={() => handleQuarterSelect(params.index)}>
@@ -31,6 +32,7 @@ export default function QuarterComponent({route}: any) {
         )
     }
     
+    // Displays a list of quarters to filter by
     return (
         <View>
             {year !== null && (

@@ -1,3 +1,5 @@
+// This is a placeholder to test functionality; previous component will instead link to a TBD component
+
 import React from 'react';
 import { View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
