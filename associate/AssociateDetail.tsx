@@ -60,7 +60,7 @@ function AssociateDetail(props: AssociateProps) {
                 title={viewNote ? ('Hide Note') : ('Show Note')}
                 onPress={() => setViewNote(viewNote ? false : true)}
                 testID='displayNote' />
-            {viewNote && user.role == 'TRAINER' && <Input
+            {viewNote && user.role == 'ROLE_TRAINER' && <Input
                 disabled
                 placeholder = "Insert note here"
                 defaultValue={qcNote}

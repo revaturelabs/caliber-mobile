@@ -1,20 +1,50 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { View,Text } from "react-native";
+import { useSelector } from 'react-redux';
+import { Associate } from '../associate/AssociateService';
 import AssociateTableComponent from "../associate/AssociateTableComponent";
+import BatchService from '../batches/batch.service';
 import AddNoteComponent from "../batchWeek/AddNoteComponent";
 import AddWeek from "../batchWeek/AddWeek/addWeek.component";
 import WeekSelectionComponent from "../batchWeek/WeekSelectionComponent";
+import { RootState } from '../store/store';
 import weekCategoryList from '../weekCategories/weekCategoryList';
+import BatchPageService from './BatchPageService';
 
-function BatchPageComponent(props: any) {
+function BatchPageComponent() {
+
+    
+    let batch = useSelector((state: RootState) => state.batchReducer.batch);
+
+
+    /**
+     * Queries the mock API to retrieve all the associates for a given batch.
+     */
+    function getAssociateFromMock() {
+        let newAssociateArray:Associate[] = [];
+        BatchPageService.getAssociates(batch).then((results:[]) => {
+            results.forEach((asoc:any) => {
+                let associate = new Associate();
+                associate.firstName = asoc.firstName;
+                associate.lastName = asoc.lastName;
+                associate.associateId = asoc.email;
+                newAssociateArray.push(associate);
+            })
+        });
+        return newAssociateArray;
+    }
+
+    useEffect(() => {
+    }, []);
+
     return (
         <View>
             <WeekSelectionComponent></WeekSelectionComponent>
             <AddWeek></AddWeek>
             <AddNoteComponent></AddNoteComponent>
             {weekCategoryList({weekId:0})}
-            <AssociateTableComponent assoc = {[]}></AssociateTableComponent>
+            <AssociateTableComponent assoc = {getAssociateFromMock()}></AssociateTableComponent>
         </View>
  
     );
