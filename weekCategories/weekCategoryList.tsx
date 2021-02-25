@@ -60,7 +60,7 @@ export default function weekCategoryList(qcWeek: weekProp) {
   categoryService.getCategories('true').then((results) => {
     let availableCats: Category[] = []
     results.forEach(element => {
-      if (weekCategories.includes(element) == false){
+      if (weekCategories.includes({categoryId: element.categoryid, qcWeekId:Number(qcWeek)}) == false){
        availableCats.push(element);
       };
     });
@@ -76,13 +76,11 @@ export default function weekCategoryList(qcWeek: weekProp) {
  * qcWeek is what was passed to weekCategoryList function
  */
 function addCategory(newCat: Category) {
-  function addCategory(newCat: number) {
-    let weekCat: weekCategory = {categoryId: newCat, qcWeekId: qcWeek.weekId};
-    console.log(weekCat)
-    WeekCategoryService.addCategory(weekCat).then(() => {
-      dispatch(addWeekCategory(weekCat))
-    });
-  };
+  let weekCat: weekCategory = {categoryId: newCat.categoryid, qcWeekId: qcWeek.weekId};
+  WeekCategoryService.addCategory(weekCat).then(() => {
+    dispatch(addWeekCategory(weekCat));
+    
+  });
 };
 
 
