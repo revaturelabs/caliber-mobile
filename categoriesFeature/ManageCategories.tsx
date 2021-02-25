@@ -26,42 +26,38 @@ export default function ManageCategories() {
     // set local state for currently viewed tab
     const [clicked, setClicked] = useState(false);
     const [value, onChangeText] = React.useState('');
-
-    // useEffect(() => {
-
-    // }, [clicked]);
+    
+    // get category state from store
+    const categorySelector = (state: CategoryState) => state.categories;
+    const categories = useSelector(categorySelector);
+    const dispatch = useDispatch();
 
     return (
-        <View>
+        <React.Fragment>
             {/* Tabs that navigate between active and stale categories */}
-            <View>
-                <Tab.Navigator
-                    tabBarOptions={{
-                        labelStyle: { fontSize: 14 },
-                        activeTintColor:'#F26925',
-                        inactiveTintColor:'#474C55',
-                        style: { backgroundColor: '#FFFFFF' },
-                        indicatorStyle: {backgroundColor: '#72A4C2', height: 5, borderRadius:5},
-                        
-                    }}
-                        >
-                    <Tab.Screen
-                        name="Active"
-                        children={() => <CategoryTable status={true} />}
-                    />
-                    <Tab.Screen
-                        name="Inactive"
-                        children={() => <CategoryTable status={false} />}
-                    />
-                </Tab.Navigator>
-            </View>
+            <Tab.Navigator
+                tabBarOptions={{
+                    labelStyle: { fontSize: 14 },
+                    activeTintColor:'#F26925',
+                    inactiveTintColor:'#474C55',
+                    style: { backgroundColor: '#FFFFFF' },
+                    indicatorStyle: {backgroundColor: '#72A4C2', height: 5, borderRadius:5},
+                    
+                }}
+            >
+                {/* Active Categories Table */}
+                <Tab.Screen
+                    name="Active"
+                    children={() => <CategoryTable status={true} />}
+                />
+                {/* Stale Categories Table */}
+                <Tab.Screen
+                    name="Inactive"
+                    children={() => <CategoryTable status={false} />}
+                />
+            </Tab.Navigator>
 
-            {/* Button for adding a new category */}
-            <View style={{flex:1, justifyContent:'flex-end'}}>
-                <TouchableOpacity style={catStyle.addBtn} onPress={() => setClicked(true)} accessibilityLabel='Add Category'>
-                    <Text style={catStyle.plusSign}>+</Text>
-                </TouchableOpacity>
-            </View>
+            {/* If clicked is true, open the modal */}
             {clicked == true && (
                 <Modal
                     animationType='slide'
@@ -110,53 +106,50 @@ export default function ManageCategories() {
                     </View>
                 </Modal>
             )}
-        </View>
+        </React.Fragment>
     )
+
+    /**
+     *  This component opens a modal when 'Add Category' TouchableOpacity is clicked
+     *  @param: value is a string that is what the user inputs for a new category
+     */
+    function AddCategory(value: string) {
+        // calls categoryService.addCategory
+        categoryService.addCategory(value).then((result) => {
+            // add new category to current categories
+            categories.push(result);
+
+            // dispatch new categories
+            dispatch(getCategories(categories));
+
+            // call toast function with result
+            toastCall('success');
+
+        }).catch(error => {
+            // call toast function with result
+            toastCall('failure');
+        });
+    }
 }
 
 /**
- *  This component opens a modal when 'Add Category' or 'Edit Category' TouchableOpacity is clicked
- *  @param: modalAction prop that states the action being taken
- *  @param: category prop that takes in an optional category - utilized for the editCategory function
- *  @returns: view that has a modal where user can add or edit a category
+ *  This component makes a toast
+ *  @param: result is either a success or failure string. Depending on string, appropriate toast shows up.
  */
-
-export interface modalProps {
-    action: string,
-    category?: Category
-}
-
-// gets called from the modal to add the category
-function AddCategory(value: string) {
-    // create local state
-    // get category state from store
-    const categorySelector = (state: CategoryState) => state.categories;
-    const categories = useSelector(categorySelector);
-    const dispatch = useDispatch();
-
-    // calls categoryService.addCategory
-    categoryService.addCategory(value).then((result) => {
-        // add new category to current categories
-        categories.push(result);
-
-        // dispatch new categories
-        dispatch(getCategories(categories));
-
-        // tiny toast for success
+function toastCall(result: string){
+    if(result == 'success'){
         return (
             <ToastNotification
                 text='Category added!'
                 duration={3000}
             />
         )
-
-    }).catch(error => {
-        // tiny toast for failure
+    } else {
         return (
             <ToastNotification
                 text='Failed to add category'
                 duration={3000}
             />
         )
-    });
+    }
 }
