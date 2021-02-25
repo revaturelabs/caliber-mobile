@@ -1,3 +1,4 @@
+import { auth0SignInButton } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
 import { style } from '../global_styles';

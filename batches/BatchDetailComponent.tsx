@@ -1,3 +1,5 @@
+// This is a placeholder to test functionality; previous component will instead link to a TBD component
+
 import React from 'react';
 import { View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -9,12 +11,26 @@ export default function BatchDetailComponent() {
 
     return (
         <View>
-            <Text>{batch.name}</Text>
-            <Text>{batch.skill}</Text>
-            <Text>{batch.type}</Text>
-            <Text>{batch.location}</Text>
-            <Text>{batch.startDate}</Text>
-            <Text>{batch.endDate}</Text>
+            <Text>Batch Name:</Text>
+            <Text>    {batch.name}</Text>
+            <Text>{'\n'}</Text>
+            <Text>Trainer:</Text>
+            <Text>    {batch.trainer}</Text>
+            <Text>{'\n'}</Text>
+            <Text>Skill:</Text>
+            <Text>    {batch.skill}</Text>
+            <Text>{'\n'}</Text>
+            <Text>Type:</Text>
+            <Text>    {batch.type}</Text>
+            <Text>{'\n'}</Text>
+            <Text>Location:</Text>
+            <Text>    {batch.location}</Text>
+            <Text>{'\n'}</Text>
+            <Text>Start Date:</Text>
+            <Text>    {batch.startDate}</Text>
+            <Text>{'\n'}</Text>
+            <Text>End Date:</Text>
+            <Text>    {batch.endDate}</Text>
         </View>
     );
 }
