@@ -6,7 +6,7 @@ import { Button, Icon } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
 import style from '../global_styles';
 import { getAssociates } from '../store/actions';
-import { AssociateState, BatchState, WeekState } from '../store/store';
+import { RootState } from '../store/store';
 import AssociateDetail from './AssociateDetail';
 import AssociateService, { Associate, AssociateWithFeedback, QCFeedback } from './AssociateService';
 import { shuffle, sortAssociateByFirstName, sortAssociateByFirstNameReversed, sortAssociateByLastName, sortAssociateByLastNameReversed } from './sort';
@@ -41,9 +41,9 @@ assoc4.associate.lastName = "DeltaTest"
 function AssociateTableComponent(props: AssociateProps) {
     let tempAssociates = [assoc1, assoc2, assoc3, assoc4];
     let dispatch = useDispatch();
-    let associates = useSelector((state: AssociateState) => state.associates);
-    let batch = useSelector((state: BatchState) => state.batch);
-    let week = useSelector((state: WeekState) => state.selectedWeek);
+    let associates = useSelector((state: RootState) => state.batchReducer.associates);
+    let batch = useSelector((state: RootState) => state.batchReducer.batch);
+    let week = useSelector((state: RootState) => state.weekReducer.selectedWeek);
 
     let iconName: string = 'angle-up';
     let iconColor: string = '#F26925';
@@ -52,7 +52,7 @@ function AssociateTableComponent(props: AssociateProps) {
 
 
     useEffect(() => {
-        getQCNotes();
+        // getQCNotes();
     }, []);
 
     /**
@@ -125,7 +125,6 @@ function AssociateTableComponent(props: AssociateProps) {
                 let x = [...associates]
                 await shuffle(x);
                 setTimeout(() => {
-                    // dispatch(getAssociates([new AssociateWithFeedback()]));
                     dispatch(getAssociates(x));
                 }, 500);
             }

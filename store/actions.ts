@@ -69,7 +69,6 @@ export function getAssociates(associates: AssociateWithFeedback[]): AssociateAct
 		type: AssociateActions.GetAssociates,
 		payload: associates,
 	};
-	console.log(associates)
 	return action;
 }
 export interface WeekAction extends AppAction {
