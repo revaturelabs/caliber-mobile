@@ -15,7 +15,6 @@ export default function QuarterComponent({route}: any) {
     const quarters: any = ['All Quarters', 'Q1', 'Q2', 'Q3', 'Q4'];
 
     // Sets the quarter and navigates to the batch list
-
     function handleQuarterSelect(index: number) {
         const quarter = quarters[index];
         nav.navigate('Batches', {year: year, quarter: quarter});
