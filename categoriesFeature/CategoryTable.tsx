@@ -127,45 +127,44 @@ export function CategoryTable({ status }: CategoryTableProp) {
             {status == true ?
                 // if status is true, return a table of active categories
                 <View>
-                    <View style={catStyle.header}>
+                    <View style={catStyle.header}>   
+                        <SearchBar
+                            placeholder="Enter Skill..."
+                            onChangeText={(value) => {
+                                searchSet(value);
+                            }}
+                            value={search}
+                            inputStyle={catStyle.inputBar}
+                            inputContainerStyle={catStyle.inputContainer}
+                            containerStyle={catStyle.searchContainer}
+                            searchIcon={{color: 'white'}}
+                            />
+                        {/* Toggle instructions */}
+                        <Text style={catStyle.instruct}>Click to toggle Active/Stale Categories</Text>
                         
-                    {/* Table items */}
-                    <SearchBar
-                        placeholder="Enter Skill..."
-                        onChangeText={(value) => {
-                            searchSet(value);
-                        }}
-                        value={search}
-                        inputStyle={catStyle.inputBar}
-                        inputContainerStyle={catStyle.inputContainer}
-                        containerStyle={catStyle.searchContainer}
-                        searchIcon={{color: 'white'}}
-                    />
-                    <TouchableOpacity style={catStyle.addBtn}>
-                        <Text style={catStyle.addCatText}>Add Category</Text>
-                    </TouchableOpacity>
-                    {/* Toggle instructions */}
-                    <Text style={catStyle.instruct}>Click to toggle Active/Stale Categories</Text>
-                    
+                        </View>
+                        <ScrollView style={{height:'84.5%'}}>
+                            {/* Table items */}
+                            <AlphabetList
+                                data={result}
+                                indexLetterColor={'rgba(0,0,0,0)'}
+                                renderCustomItem={(item: any) => (
+                                    <CategoryName
+                                        skill={item.value}
+                                        categoryid={item.key}
+                                        active={item.active}
+                                        categories={mockCategories}
+                                    ></CategoryName>
+                                )}
+                                renderCustomSectionHeader={(section: any) => (
+                                    <View style={catStyle.sectionHeaderContainer}>
+                                        <Text style={catStyle.sectionHeaderLabel}>{section.title}</Text>
+                                    </View>
+                                )}
+                            />
+                        </ScrollView>
                     </View>
-                    <AlphabetList
-                        data={result}
-                        indexLetterColor={'rgba(0,0,0,0)'}
-                        renderCustomItem={(item: any) => (
-                            <CategoryName
-                                skill={item.value}
-                                categoryid={item.key}
-                                active={item.active}
-                                categories={newCategories}
-                            ></CategoryName>
-                        )}
-                        renderCustomSectionHeader={(section: any) => (
-                            <View style={catStyle.sectionHeaderContainer}>
-                                <Text style={catStyle.sectionHeaderLabel}>{section.title}</Text>
-                            </View>
-                        )}
-                    />
-                    </View>
+
                 :
                 // if status is false, return a table of stale categories
                 <View>
@@ -186,26 +185,27 @@ export function CategoryTable({ status }: CategoryTableProp) {
                     {/* Toggle instructions */}
                     <Text style={catStyle.instruct}>Click to toggle Active/Stale Categories</Text>
                     </View>
-
-                    {/* Table items */}
-                    <AlphabetList
-                        data={result}
-                        indexLetterColor={'rgba(0,0,0,0)'}
-                        renderCustomItem={(item: any) => (
-                            <CategoryName
-                                skill={item.value}
-                                categoryid={item.key}
-                                active={item.active}
-                                categories={newCategories}
-                            ></CategoryName>
-                        )}
-                        renderCustomSectionHeader={(section: any) => (
-                            <View style={catStyle.sectionHeaderContainer}>
-                                <Text style={catStyle.sectionHeaderLabel}>{section.title}</Text>
-                            </View>
-                        )}
-                    />
-                    </View>
+                    <ScrollView style={{height:'84.5%'}}>
+                        {/* Table items */}
+                        <AlphabetList
+                            data={result}
+                            indexLetterColor={'rgba(0,0,0,0)'}
+                            renderCustomItem={(item: any) => (
+                                <CategoryName
+                                    skill={item.value}
+                                    categoryid={item.key}
+                                    active={item.active}
+                                    categories={mockCategories}
+                                ></CategoryName>
+                            )}
+                            renderCustomSectionHeader={(section: any) => (
+                                <View style={catStyle.sectionHeaderContainer}>
+                                    <Text style={catStyle.sectionHeaderLabel}>{section.title}</Text>
+                                </View>
+                            )}
+                        />
+                    </ScrollView>
+                </View>
                     
             }
         </View>

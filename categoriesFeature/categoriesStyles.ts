@@ -84,15 +84,14 @@ const catStyle = StyleSheet.create({
     },
     addBtn: {
         borderColor:'#F26925',
-        width:'95%',
-        height: 30,  
-        borderRadius: 10,
+        borderWidth:0,
+        width:60,
+        height: 60,  
+        borderRadius: 50,
         backgroundColor: '#F26925',
         alignSelf: 'center',
         justifyContent: 'center',
         marginBottom:5
-
-        
     },
     offText: {
         color: '#B9B9BA',
@@ -104,10 +103,11 @@ const catStyle = StyleSheet.create({
         marginTop: 7,
         marginLeft: 15
     },
-    addCatText: {
+    plusSign: {
         color: 'white',
         fontWeight: '500',
-        fontSize: 16,
+        fontSize: 50,
+        marginTop: '-10%',
         alignSelf:'center'
     }, 
     inputBar: {
@@ -119,7 +119,7 @@ const catStyle = StyleSheet.create({
         paddingRight:10,
     },
     inputContainer: {
-        backgroundColor: '#72A4C2',
+        backgroundColor: '#F26925',
         borderRadius: 25,
         color: 'white',
         alignItems: 'center',

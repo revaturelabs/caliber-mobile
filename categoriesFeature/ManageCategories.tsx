@@ -26,7 +26,8 @@ export default function ManageCategories() {
     // set local state for currently viewed tab
     const [clicked, setClicked] = useState(false);
     const [value, onChangeText] = React.useState('');
-    
+    const [toastStatus, setToastStatus] = useState('');
+
     // get category state from store
     const categorySelector = (state: CategoryState) => state.categories;
     const categories = useSelector(categorySelector);
@@ -34,6 +35,18 @@ export default function ManageCategories() {
 
     return (
         <React.Fragment>
+            <React.Fragment>
+                {toastStatus === 'success' ? <ToastNotification
+                    text='Category updated!'
+                    duration={3000}
+                />
+                    : <></>}
+                {toastStatus === 'failure' ? <ToastNotification
+                    text='Failed to update category'
+                    duration={3000}
+                />
+                    : <></>}
+            </React.Fragment>
             {/* Tabs that navigate between active and stale categories */}
             <Tab.Navigator
                 tabBarOptions={{
@@ -56,6 +69,11 @@ export default function ManageCategories() {
                     children={() => <CategoryTable status={false} />}
                 />
             </Tab.Navigator>
+            <TouchableOpacity style={catStyle.addBtn} 
+                onPress={() => setClicked(true)} 
+                accessibilityLabel='Add Category'>
+                <Text style={catStyle.plusSign}>+</Text>
+            </TouchableOpacity>
 
             {/* If clicked is true, open the modal */}
             {clicked == true && (
@@ -123,33 +141,11 @@ export default function ManageCategories() {
             dispatch(getCategories(categories));
 
             // call toast function with result
-            toastCall('success');
+            setToastStatus('success');
 
         }).catch(error => {
             // call toast function with result
-            toastCall('failure');
+            setToastStatus('failure');
         });
-    }
-}
-
-/**
- *  This component makes a toast
- *  @param: result is either a success or failure string. Depending on string, appropriate toast shows up.
- */
-function toastCall(result: string){
-    if(result == 'success'){
-        return (
-            <ToastNotification
-                text='Category added!'
-                duration={3000}
-            />
-        )
-    } else {
-        return (
-            <ToastNotification
-                text='Failed to add category'
-                duration={3000}
-            />
-        )
     }
 }

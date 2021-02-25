@@ -22,79 +22,95 @@ interface CategoryNameProp {
  *  @returns: view with a pressable category name
  */
 export function CategoryName({ skill, categoryid, active, categories }: CategoryNameProp) {
+    // create or get state
     const [clicked, setClicked] = useState(false);
-    const [value, onChangeText] = React.useState('');
+    const [value, onChangeText] = useState('');
+    const [toastStatus, setToastStatus] = useState('');
     const category = new Category();
     category.skill = skill;
     category.categoryid = categoryid;
     category.active = active;
     const dispatch = useDispatch();
-    // get category state from store
+    console.log(categories);
 
     return (
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-            {/* has a list of category names (depends on props) */}
-            <Pressable onPress={() => { changeStatus(category, categories) }}>
-                <Text style={catStyle.text}>{category.skill}</Text>
-            </Pressable>
-            <View>
-                <TouchableOpacity style={catStyle.editBtn} onPress={() => setClicked(true)} accessibilityLabel='Edit Category'>
-                    <Text style={catStyle.btnText}>Edit</Text>
-                </TouchableOpacity>
-            </View>
-            {clicked == true && (
-                <Modal
-                    animationType='slide'
-                    // this happens when a user presses the hardware back TouchableOpacity
-                    onRequestClose={() => {
-                        // tiny toast
-                        <ToastNotification
-                            text='Closed without saving.'
-                            duration={3000}
-                        />
-                        setClicked(false);
-                    }}
-                    transparent
-                >
-                    <View style={catStyle.modal}>
-                        {/* Title for modal */}
-                        <Text style={catStyle.title}>Edit Category</Text>
+        <React.Fragment>
+            <React.Fragment>
+                {toastStatus === 'success' ? <ToastNotification
+                    text='Category updated!'
+                    duration={3000}
+                />
+                    : <></>}
+                {toastStatus === 'failure' ? <ToastNotification
+                    text='Failed to update category'
+                    duration={3000}
+                />
+                    : <></>}
+            </React.Fragment>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                {/* has a list of category names (depends on props) */}
+                <Pressable onPress={() => { changeStatus(category, categories) }}>
+                    <Text style={catStyle.text}>{category.skill}</Text>
+                </Pressable>
+                <View>
+                    <TouchableOpacity style={catStyle.editBtn} onPress={() => setClicked(true)} accessibilityLabel='Edit Category'>
+                        <Text style={catStyle.btnText}>Edit</Text>
+                    </TouchableOpacity>
+                </View>
+                {clicked == true && (
+                    <Modal
+                        animationType='slide'
+                        // this happens when a user presses the hardware back TouchableOpacity
+                        onRequestClose={() => {
+                            // tiny toast
+                            <ToastNotification
+                                text='Closed without saving.'
+                                duration={3000}
+                            />
+                            setClicked(false);
+                        }}
+                        transparent
+                    >
+                        <View style={catStyle.modal}>
+                            {/* Title for modal */}
+                            <Text style={catStyle.title}>Edit Category</Text>
 
-                        {/* Allow user to enter a new category name */}
-                        <TextInput
-                            style={catStyle.modalTextInput}
-                            onChangeText={text => onChangeText(text)}
-                            value={value}
-                            autoCapitalize='words'
-                            autoFocus={true}
-                            placeholder={skill}
-                            placeholderTextColor='#474C55'
-                        />
-                        <View style={{ justifyContent: 'space-between' }}>
-                            {/* Button that edits a category */}
-                            <TouchableOpacity
-                                style={catStyle.modalActionBtn}
-                                onPress={(value) => {
-                                    EditCategory(value.toString(), category);
-                                    setClicked(false);
-                                }}
-                            >
-                                <Text style={catStyle.btnText}>Edit</Text>
-                            </TouchableOpacity>
+                            {/* Allow user to enter a new category name */}
+                            <TextInput
+                                style={catStyle.modalTextInput}
+                                onChangeText={text => onChangeText(text)}
+                                value={value}
+                                autoCapitalize='words'
+                                autoFocus={true}
+                                placeholder={skill}
+                                placeholderTextColor='#474C55'
+                            />
+                            <View style={{ justifyContent: 'space-between' }}>
+                                {/* Button that edits a category */}
+                                <TouchableOpacity
+                                    style={catStyle.modalActionBtn}
+                                    onPress={(value) => {
+                                        EditCategory(value.toString(), category);
+                                        setClicked(false);
+                                    }}
+                                >
+                                    <Text style={catStyle.btnText}>Edit</Text>
+                                </TouchableOpacity>
 
-                            {/* Button that closes modal */}
-                            <TouchableOpacity
-                                style={catStyle.closeBtn}
-                                onPress={() => {
-                                    setClicked(false);
-                                }}>
-                                <Text style={catStyle.btnText}>Close</Text>
-                            </TouchableOpacity>
+                                {/* Button that closes modal */}
+                                <TouchableOpacity
+                                    style={catStyle.closeBtn}
+                                    onPress={() => {
+                                        setClicked(false);
+                                    }}>
+                                    <Text style={catStyle.btnText}>Close</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                    </View>
-                </Modal>
-            )}
-        </View>
+                    </Modal>
+                )}
+            </View>
+        </React.Fragment>
     )
 
     /**
@@ -114,60 +130,35 @@ export function CategoryName({ skill, categoryid, active, categories }: Category
             dispatch(getCategories(categories));
 
             // tiny toast for success
-            toastCall('success');
+            setToastStatus('success');
 
         }).catch(error => {
             // tiny toast for failure
-            toastCall('failure')
+            setToastStatus('failure');
+        });
+    }
+
+    /**
+     *  This function is called when a category is pressed and changes the status of the category
+     *  @param: category - the specific category whose status is changing
+     *  @param: categories - entire category state that will also need to update with new category
+     */
+    function changeStatus(category: Category, categories: Category[]) {
+        // change category status
+        if (category.active) {
+            category.active = false;
+        } else {
+            category.active = true;
+        }
+
+        // find category in categories array and replace with new category
+        categories.splice(categories.indexOf(category), 1, category);
+
+        // calls categoryService.updateCategory with the category id
+        categoryService.updateCategory(category).then(() => {
+            dispatch(getCategories(categories));
         });
     }
 }
 
-/**
- *  This function is called when a category is pressed and changes the status of the category
- *  @param: category - the specific category whose status is changing
- *  @param: categories - entire category state that will also need to update with new category
- */
-export function changeStatus(category: Category, categories: Category[]) {
-    const dispatch = useDispatch();
-
-    // change category status
-    if (category.active) {
-        category.active = false;
-    } else {
-        category.active = true;
-    }
-
-    // find category in categories array and replace with new category
-    categories.splice(categories.indexOf(category), 1, category);
-
-    // calls categoryService.updateCategory with the category id
-    categoryService.updateCategory(category).then(() => {
-        dispatch(getCategories(categories));
-    });
-}
-
-/**
- *  This component makes a toast
- *  @param: result is either a success or failure string. Depending on string, appropriate toast shows up.
- */
-function toastCall(result: string) {
-    if (result == 'success') {
-        return (
-            <ToastNotification
-                text='Category updated!'
-                duration={3000}
-            />
-        )
-    } else {
-        return (
-            <React.Fragment>
-                <ToastNotification
-                text='Failed to update category'
-                duration={3000}
-                />
-            </React.Fragment>
-        )
-    }
-}
 
