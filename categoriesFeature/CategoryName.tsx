@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable, Button } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import Stylesheet from 'react-native';
+import { useDispatch } from 'react-redux';
 import { getCategories } from '../store/categoriesFeature/CategoryActions';
 import { Category } from './Category';
 import categoryService from './CategoryService';

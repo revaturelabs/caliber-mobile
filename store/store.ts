@@ -9,20 +9,19 @@ import { AppAction } from './actions';
 import { UserInfo, UserInput } from '../user/user';
 import { AssociateWithFeedback } from '../associate/AssociateService';
 import QcWeek from '../batchWeek/QcWeek';
-import WeekCategoryReducer from './WeekCategoryReducer'
+import WeekCategoryReducer from './WeekCategoryReducer';
 import { Category } from '../categoriesFeature/Category';
 import categoryReducer from './categoriesFeature/CategoryReducer';
 import { weekCategory } from '../weekCategories/WeekCategory';
 
-
 export interface BatchState {
-	batch: Batch;
-	batches: Batch[];
+  batch: Batch;
+  batches: Batch[];
 }
 
 export interface WeekState {
-	weeks: QcWeek[];
-	selectedWeek: QcWeek;
+  weeks: QcWeek[];
+  selectedWeek: QcWeek;
 }
 
 export interface UserState {
@@ -30,22 +29,28 @@ export interface UserState {
   userLogin: UserInput;
 }
 export interface AssociateState {
-	associates: AssociateWithFeedback[];
+  associates: AssociateWithFeedback[];
 }
-export interface CaliberState extends UserState, BatchState,AssociateState {}
+export interface CaliberState extends UserState, BatchState, AssociateState {}
 
-export interface WeekCategoryState{
-	weekCategories: Category[];
-	weekCategory: weekCategory;
+export interface WeekCategoryState {
+  weekCategories: Category[];
+  weekCategory: weekCategory;
 }
 
-export interface CaliberState extends UserState, BatchState, WeekCategoryState {}
-
+export interface CaliberState
+  extends UserState,
+    BatchState,
+    WeekCategoryState {}
 
 export interface CategoryState {
-    categories: Category[];
+  categories: Category[];
 }
-export interface CaliberState extends UserState, CategoryState, BatchState, WeekCategoryState {}
+export interface CaliberState
+  extends UserState,
+    CategoryState,
+    BatchState,
+    WeekCategoryState {}
 // <> is generics: Generic arguments allow us to define the type of a thing at runtime instead of when we write it,
 // creating a reusable object.
 
@@ -53,19 +58,19 @@ export interface CaliberState extends UserState, BatchState, WeekState {}
 
 //add your reducer to the object
 const rootReducer = combineReducers({
-	userReducer,
-	batchReducer,
-	weekReducer,
-	WeekCategoryReducer,
-	categoryReducer
+  userReducer,
+  batchReducer,
+  weekReducer,
+  WeekCategoryReducer,
+  categoryReducer,
 });
 
 //user userSelector(state: RootState => state.yourReducer.yourPayload)
 export type RootState = ReturnType<typeof rootReducer>;
 
 const store: Store<RootState, AppAction> = createStore(
-	rootReducer,
-	composeWithDevTools(applyMiddleware(thunk))
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk))
 );
 
 export default store;

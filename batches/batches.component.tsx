@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FlatList } from 'react-native-gesture-handler';
 import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native';
-
 import { BatchState } from '../store/store';
 import { getBatches } from '../store/actions';
 import Batch from './Batch';
@@ -46,9 +45,11 @@ export default function BatchesComponent() {
   }
 
   useEffect(() => {
-    batchService.getBatchesByTrainerEmail(trainerEmail).then((batchesResp: Batch[]) => {
-      dispatch(getBatches(batchesResp));
-    });
+    batchService
+      .getBatchesByTrainerEmail(trainerEmail)
+      .then((batchesResp: Batch[]) => {
+        dispatch(getBatches(batchesResp));
+      });
   }, []);
 
   return (

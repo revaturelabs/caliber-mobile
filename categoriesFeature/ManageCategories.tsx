@@ -7,13 +7,8 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { CategoryTable } from './CategoryTable';
 import categoryService from './CategoryService';
 import { getCategories } from '../store/categoriesFeature/CategoryActions';
-import { StackParam } from './router/Router';
 import { CategoryState } from '../store/store';
 import { Category } from './Category';
-
-interface Props {
-    route: RouteProp<StackParam, 'ManageCategories'>;
-}
 
 /**
  *  This component encloses the entire Manage Categories feature
