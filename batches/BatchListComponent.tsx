@@ -38,7 +38,9 @@ export default function BatchListComponent({route}: any) {
 
     // Placeholder user
     const trainer = {
-        role: 'ROLE_QC',
+        ROLE_QC: true,
+        ROLE_TRAINER: false,
+        ROLE_VP: false,
         email: 'mock1005.employee7c90a542-e70e-4db5-be8b-629e62f851c5@mock.com',
         firstName: 'Mock 1005',
         lastName: 'Employee 1005',
@@ -46,7 +48,7 @@ export default function BatchListComponent({route}: any) {
 
     // Retrieves a batch list based on filters
     useEffect(() => {
-        if (trainer.role === 'ROLE_TRAINER') {
+        if (trainer.ROLE_TRAINER === true) {
             batchService
                 .getBatchesByTrainerEmail(trainer.email)
                 .then((batchesResp) => {
