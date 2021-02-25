@@ -68,11 +68,11 @@ export default function weekCategoryList(qcWeek: weekProp) {
     dispatch(getCategories(availableCats)); 
   }); */
 
-  function addCategory(newCat: number) {
-    let weekCat: weekCategory = {categoryId: newCat, qcWeekId: qcWeek.weekId};
-    console.log(weekCat)
+  function addCategory(newCat: Category) {
+    let weekCat: weekCategory = {categoryId: newCat.categoryid, qcWeekId: qcWeek.weekId};
     WeekCategoryService.addCategory(weekCat).then(() => {
-      dispatch(addWeekCategory(weekCat))
+      dispatch(addWeekCategory(weekCat));
+      
     });
   };
 
@@ -107,7 +107,7 @@ export default function weekCategoryList(qcWeek: weekProp) {
                 data={activeCategories}
                 keyExtractor={(item, index) => index.toString()} 
                 renderItem={({ item }) => (
-                  <MenuOption value={Number(item.categoryid)} text={String(item.skill)} />
+                  <MenuOption value={item} text={String(item.skill)} />
                 )}
                 style={{ height:100}}
               />

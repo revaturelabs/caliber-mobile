@@ -14,14 +14,14 @@ const WeekCategoryReducer = (state: CaliberState = initialState, action: Actions
             return newState;
         case Actions.WeekCategoryActions.DeleteWeekCategory:
             newState.weekCategories = state.weekCategories.filter(
-                (cat) => cat.categoryid !== action.payload.categoryID
+                (cat) => cat.categoryId !== action.payload.categoryID
               );
               return newState;
         case Actions.WeekCategoryActions.GetWeekCategories:
-            newState.weekCategories = action.payload as Category[];
+            newState.weekCategories = action.payload;
             return newState;
         case Actions.WeekCategoryActions.ChangeWeekCategories:
-            newState.weekCategories = action.payload as Category[];
+            newState.weekCategories = action.payload;
             return newState;
         default:
             return state;

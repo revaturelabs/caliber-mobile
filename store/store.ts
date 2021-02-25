@@ -21,7 +21,7 @@ export interface UserState {
 }
 
 export interface WeekCategoryState{
-	weekCategories: Category[];
+	weekCategories: weekCategory[];
 	weekCategory: weekCategory;
 }
 
