@@ -6,7 +6,12 @@ import { Button, Icon } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
 import style from '../global_styles';
 import { getAssociates } from '../store/actions';
-import { AssociateState, BatchState, WeekState } from '../store/store';
+import {
+  AssociateState,
+  BatchState,
+  RootState,
+  WeekState,
+} from '../store/store';
 import AssociateDetail from './AssociateDetail';
 import AssociateService, {
   Associate,
@@ -24,11 +29,11 @@ import {
 interface AssociateProps {
   assoc: Associate[];
 }
-//let com = useSelector((state: BatchAction) => state.batch);
 
 /**
  * Get Associate needs to do some stuff here.
  */
+
 //let qcFeedback = AssociateService.getAssociate(assoc);
 let assoc1 = new AssociateWithFeedback();
 assoc1.associate.firstName = 'TylerTest';
@@ -52,10 +57,10 @@ function AssociateTableComponent(props: AssociateProps) {
 
   let iconName: string = 'angle-up';
   let iconColor: string = '#F26925';
-  associates = [...tempAssociates];
   const [sortDirection, setSortDirection] = useState('FUp');
 
   useEffect(() => {
+    dispatch(getAssociates(tempAssociates));
     getQCNotes();
   }, []);
 
@@ -120,12 +125,26 @@ function AssociateTableComponent(props: AssociateProps) {
 
   function handleAllUpdate() {
     associates.forEach((assoc) => {
-      AssociateService.updateAssociate(assoc.qcFeedback, {
-        notecontent: assoc.qcFeedback.qcNote,
-      });
-      AssociateService.updateAssociate(assoc.qcFeedback, {
-        technicalstatus: assoc.qcFeedback.qcTechnicalStatus,
-      });
+      try {
+        AssociateService.updateAssociate(assoc.qcFeedback, {
+          notecontent: assoc.qcFeedback.qcNote,
+        });
+      } catch (err: any) {
+        AssociateService.replaceAssociate(assoc.qcFeedback, {
+          notecontent: assoc.qcFeedback.qcNote,
+          technicalstatus: assoc.qcFeedback.qcTechnicalStatus,
+        });
+      }
+      try {
+        AssociateService.updateAssociate(assoc.qcFeedback, {
+          technicalstatus: assoc.qcFeedback.qcNote,
+        });
+      } catch (err: any) {
+        AssociateService.replaceAssociate(assoc.qcFeedback, {
+          technicalstatus: assoc.qcFeedback.qcTechnicalStatus,
+          notecontent: assoc.qcFeedback.qcNote,
+        });
+      }
     });
   }
   return (
@@ -138,10 +157,7 @@ function AssociateTableComponent(props: AssociateProps) {
         onPress={async () => {
           let x = [...associates];
           await shuffle(x);
-          setTimeout(() => {
-            // dispatch(getAssociates([new AssociateWithFeedback()]));
-            dispatch(getAssociates(x));
-          }, 500);
+          dispatch(getAssociates(x));
         }}
         title='Randomize List'
         buttonStyle={style.button}></Button>
@@ -207,7 +223,7 @@ function AssociateTableComponent(props: AssociateProps) {
         raised
         titleStyle={style.title}
         buttonStyle={style.button}
-        title='Save'
+        title='Save All'
         type='outline'
         icon={<Icon name='save' type='fontawesome' color='#F26925' />}
         onPress={handleAllUpdate}

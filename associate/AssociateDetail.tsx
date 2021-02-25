@@ -6,6 +6,8 @@ import { Text, Input, Button, Icon } from 'react-native-elements';
 import associateService, { Associate, QCFeedback } from './AssociateService';
 import TechnicalStatus from './TechnicalStatus';
 import style from '../global_styles'
+import { RootState } from '../store/store';
+import { useSelector } from 'react-redux';
 
 interface AssociateProps {
     associate: Associate;
@@ -20,6 +22,7 @@ function AssociateDetail(props: AssociateProps) {
      */
     const [qcNote, setQcNote] = useState(props.qcFeedback.qcNote);
     const [qcTechnicalStatus, setQcTechnicalStatus] = useState(props.qcFeedback.qcTechnicalStatus);
+    let user = useSelector((state: RootState) => state.userReducer.user);
 
     //Should we be able to view their note?
     const [viewNote, setViewNote] = useState(false);
@@ -57,7 +60,17 @@ function AssociateDetail(props: AssociateProps) {
                 title={viewNote ? ('Hide Note') : ('Show Note')}
                 onPress={() => setViewNote(viewNote ? false : true)}
                 testID='displayNote' />
-            {viewNote && <Input
+            {viewNote && user.role == 'ROLE_TRAINER' && <Input
+                disabled
+                placeholder = "Insert note here"
+                defaultValue={qcNote}
+                multiline
+                numberOfLines={4}
+                scrollEnabled
+                spellCheck={true}
+                onChangeText={text => setQcNote(text)}
+                testID='qcNote' />}
+            {viewNote && user.role != 'Trainer'  && <Input
                 placeholder = "Insert note here"
                 defaultValue={qcNote}
                 multiline

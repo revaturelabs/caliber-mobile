@@ -33,19 +33,19 @@ class AssociateService {
       });
   }
   async replaceAssociate(
-    a: Associate,
-    batch: string,
-    week: string
-  ): Promise<Associate> {
+    qcfeedback: QCFeedback,
+    updateObject: Object
+  ): Promise<QCFeedback> {
     return axios
       .put(
         this.URI +
           '/batches/' +
-          batch +
+          qcfeedback.batchId +
           '/weeks/' +
-          week +
+          qcfeedback.weekId +
           '/associates/' +
-          a.associateId
+          qcfeedback.associateId,
+        updateObject
       )
       .then((result) => result.data)
       .catch((err) => {
@@ -55,7 +55,7 @@ class AssociateService {
   async updateAssociate(
     qcfeedback: QCFeedback,
     updateObject: Object
-  ): Promise<Associate> {
+  ): Promise<QCFeedback> {
     return axios
       .patch(
         this.URI +
