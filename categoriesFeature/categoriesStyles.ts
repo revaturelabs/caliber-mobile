@@ -12,16 +12,16 @@ const catStyle = StyleSheet.create({
     title: {
         fontSize: 20,
         fontWeight: '700',
-        margin: 20,
-        marginTop:0,
-        marginBottom:70,
+        marginLeft: '5%',
+        marginTop: '5%',
+        marginBottom: 50,
         color: '#474C55'
     },
     instruct: {
         fontSize: 15,
         alignSelf: 'center',
         fontWeight: '700',
-        color: '474C55',
+        color: '#474C55',
         fontStyle: 'italic',
         marginTop: 5,
         marginBottom: -2
@@ -63,6 +63,7 @@ const catStyle = StyleSheet.create({
         borderColor: '#474C55',
         padding: 30,
         width: '90%',
+        minHeight: 350,
         maxHeight:'60%' ,
         marginTop:'auto',
         marginBottom: 'auto',
@@ -73,8 +74,8 @@ const catStyle = StyleSheet.create({
         alignSelf:'center',
         width:'90%',
         height:40,
-        marginTop: 20,
-        marginBottom: 60,
+        marginTop: 'auto',
+        marginBottom: 'auto',
         backgroundColor: '#B9B9BA',
         paddingLeft:10,
         paddingRight:10,
@@ -116,7 +117,7 @@ const catStyle = StyleSheet.create({
     }, 
     inputBar: {
         backgroundColor:'white',
-        color: '474C55',
+        color: '#474C55',
         marginRight: '2.5%',
         borderRadius: 5,
         paddingLeft:10,
@@ -130,7 +131,6 @@ const catStyle = StyleSheet.create({
     },
     searchContainer: {
         backgroundColor:'white',
-        border:'white',
         
     }, 
     sectionHeaderContainer: {
