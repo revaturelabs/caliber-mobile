@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import WeekCategoryComponent from './WeekCategoryComponent';
 import { addWeekCategory, getWeekCategories } from '../store/actions';
 import categoryService from '../categoriesFeature/CategoryService';
-import { RootState } from '../store/store';
+import { ReducerState } from '../store/store';
 import { Category } from '../categoriesFeature/Category';
 import { getCategories } from '../store/categoriesFeature/CategoryActions';
 
@@ -30,11 +30,11 @@ interface weekProp {
  */
 
 export default function weekCategoryList(qcWeek: weekProp) {
-  const weekCatSelector = (state: RootState) =>
+  const weekCatSelector = (state: ReducerState) =>
     state.WeekCategoryReducer.weekCategories;
   const weekCategories = useSelector(weekCatSelector);
   //categories is from another team so this will be error until the store is done
-  const activeCatSelector = (state: RootState) =>
+  const activeCatSelector = (state: ReducerState) =>
     state.categoryReducer.categories;
   const activeCategories = useSelector(activeCatSelector);
   const dispatch = useDispatch();

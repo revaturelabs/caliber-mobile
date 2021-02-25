@@ -9,7 +9,7 @@ import { getAssociates } from '../store/actions';
 import {
   AssociateState,
   BatchState,
-  RootState,
+  ReducerState,
   WeekState,
 } from '../store/store';
 import AssociateDetail from './AssociateDetail';

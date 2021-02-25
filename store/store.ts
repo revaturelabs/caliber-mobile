@@ -65,10 +65,13 @@ const rootReducer = combineReducers({
   categoryReducer,
 });
 
-//user userSelector(state: RootState => state.yourReducer.yourPayload)
-export type RootState = ReturnType<typeof rootReducer>;
+/**
+ * Example of how to use ReducerState
+ * let variableName = useSelector(state: RootState => state.reducerName.payloadName)
+ */
+export type ReducerState = ReturnType<typeof rootReducer>;
 
-const store: Store<RootState, AppAction> = createStore(
+const store: Store<ReducerState, AppAction> = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk))
 );

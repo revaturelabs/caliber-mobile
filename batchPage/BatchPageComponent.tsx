@@ -7,12 +7,12 @@ import AssociateTableComponent from '../associate/AssociateTableComponent';
 import AddNoteComponent from '../batchWeek/AddNoteComponent';
 import AddWeek from '../batchWeek/AddWeek/addWeek.component';
 import WeekSelectionComponent from '../batchWeek/WeekSelectionComponent';
-import { RootState } from '../store/store';
+import { ReducerState } from '../store/store';
 import weekCategoryList from '../weekCategories/WeekCategoryList';
 import BatchPageService from './BatchPageService';
 
 function BatchPageComponent() {
-  let batch = useSelector((state: RootState) => state.batchReducer.batch);
+  let batch = useSelector((state: ReducerState) => state.batchReducer.batch);
 
   useEffect(() => {}, []);
 

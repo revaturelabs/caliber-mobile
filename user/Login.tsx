@@ -2,7 +2,7 @@ import { auth0SignInButton } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
 import { style } from '../global_styles';
-import { RootState } from '../store/store';
+import { ReducerState } from '../store/store';
 import { f, auth } from './config';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, loginChange } from '../store/actions';
@@ -15,9 +15,9 @@ interface LoginProp {
 
 export default function LoginComponent({ navigation }: LoginProp) {
   const [loggedIn, setLoggedin] = useState(false);
-  const inputUser = (state: RootState) => state.userReducer.userLogin;
+  const inputUser = (state: ReducerState) => state.userReducer.userLogin;
   const newUser = useSelector(inputUser);
-  const dispatchUser = (state: RootState) => state.userReducer.user;
+  const dispatchUser = (state: ReducerState) => state.userReducer.user;
   const useUser = useSelector(dispatchUser);
   const dispatch = useDispatch();
 

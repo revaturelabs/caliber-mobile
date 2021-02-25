@@ -6,7 +6,7 @@ import { Text, Input, Button, Icon } from 'react-native-elements';
 import associateService, { Associate, QCFeedback } from './AssociateService';
 import TechnicalStatus from './TechnicalStatus';
 import style from '../global_styles';
-import { RootState } from '../store/store';
+import { ReducerState } from '../store/store';
 import { useSelector } from 'react-redux';
 
 interface AssociateProps {
@@ -24,7 +24,7 @@ function AssociateDetail(props: AssociateProps) {
   const [qcTechnicalStatus, setQcTechnicalStatus] = useState(
     props.qcFeedback.qcTechnicalStatus
   );
-  let user = useSelector((state: RootState) => state.userReducer.user);
+  let user = useSelector((state: ReducerState) => state.userReducer.user);
 
   //Should we be able to view their note?
   const [viewNote, setViewNote] = useState(false);
