@@ -14,23 +14,6 @@ import BatchPageService from './BatchPageService';
 function BatchPageComponent() {
   let batch = useSelector((state: RootState) => state.batchReducer.batch);
 
-  /**
-   * Queries the mock API to retrieve all the associates for a given batch.
-   */
-  function getAssociateFromMock() {
-    let newAssociateArray: Associate[] = [];
-    BatchPageService.getAssociates(batch.batchId).then((results: []) => {
-      results.forEach((asoc: any) => {
-        let associate = new Associate();
-        associate.firstName = asoc.firstName;
-        associate.lastName = asoc.lastName;
-        associate.associateId = asoc.email;
-        newAssociateArray.push(associate);
-      });
-    });
-    return newAssociateArray;
-  }
-
   useEffect(() => {}, []);
 
   return (
@@ -39,8 +22,7 @@ function BatchPageComponent() {
       <AddWeek></AddWeek>
       <AddNoteComponent></AddNoteComponent>
       {weekCategoryList({ weekId: 0 })}
-      <AssociateTableComponent
-        assoc={getAssociateFromMock()}></AssociateTableComponent>
+      <AssociateTableComponent></AssociateTableComponent>
     </View>
   );
 }

@@ -48,7 +48,7 @@ let assoc4 = new AssociateWithFeedback();
 assoc4.associate.firstName = 'MaryTest';
 assoc4.associate.lastName = 'DeltaTest';
 
-function AssociateTableComponent(props: AssociateProps) {
+function AssociateTableComponent() {
   let tempAssociates = [assoc1, assoc2, assoc3, assoc4];
   let dispatch = useDispatch();
   let associates = useSelector((state: AssociateState) => state.associates);
@@ -65,24 +65,24 @@ function AssociateTableComponent(props: AssociateProps) {
   }, []);
 
   /**
-   * Retrievs QC Notes from back end.
+   * Retrieves QC Notes from back end.
    */
   function getQCNotes() {
     let listofassociates: AssociateWithFeedback[] = [];
-    props.assoc.forEach(async (asoc) => {
+    associates.forEach(async (associate) => {
       let qcnotes: QCFeedback = await AssociateService.getAssociate(
-        asoc,
+        associate.associate,
         batch.batchId,
         week.qcWeekId.toString()
       );
       if (qcnotes) {
         let val = new AssociateWithFeedback();
-        val.associate = asoc;
+        val.associate = associate;
         val.qcFeedback = qcnotes;
         listofassociates.push(val);
       } else {
         let val = new AssociateWithFeedback();
-        val.associate = asoc;
+        val.associate = associate;
         listofassociates.push(val);
       }
     });
