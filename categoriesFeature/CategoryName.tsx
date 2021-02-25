@@ -40,6 +40,7 @@ export function CategoryName({
   category.skill = skill;
   category.categoryid = categoryid;
   category.active = active;
+  const dispatch = useDispatch();
   // get category state from store
 
   return (
@@ -113,6 +114,33 @@ export function CategoryName({
       )}
     </View>
   );
+
+  /**
+   *  This component opens a modal when 'Edit' TouchableOpacity is clicked
+   *  @param: value is a string that is what the user inputs for a editing a category name
+   */
+  function EditCategory(value: string, category: Category) {
+    // update skill name
+    category.skill = value;
+
+    // calls categoryService.addCategory
+    categoryService
+      .updateCategory(category)
+      .then((result) => {
+        // add new category to current categories
+        categories.push(result);
+
+        // dispatch new categories
+        dispatch(getCategories(categories));
+
+        // tiny toast for success
+        toastCall('success');
+      })
+      .catch((error) => {
+        // tiny toast for failure
+        toastCall('failure');
+      });
+  }
 }
 
 /**
@@ -139,30 +167,18 @@ export function changeStatus(category: Category, categories: Category[]) {
   });
 }
 
-function EditCategory(value: string, category: Category) {
-  const categorySelector = (state: CategoryState) => state.categories;
-  const categories = useSelector(categorySelector);
-  const dispatch = useDispatch();
-  // update skill name
-  category.skill = value;
-
-  // calls categoryService.addCategory
-  categoryService
-    .updateCategory(category)
-    .then((result) => {
-      // add new category to current categories
-      categories.push(result);
-
-      // dispatch new categories
-      dispatch(getCategories(categories));
-
-      // tiny toast for success
-      return <ToastNotification text='Category updated!' duration={3000} />;
-    })
-    .catch((error) => {
-      // tiny toast for failure
-      return (
+/**
+ *  This component makes a toast
+ *  @param: result is either a success or failure string. Depending on string, appropriate toast shows up.
+ */
+function toastCall(result: string) {
+  if (result == 'success') {
+    return <ToastNotification text='Category updated!' duration={3000} />;
+  } else {
+    return (
+      <React.Fragment>
         <ToastNotification text='Failed to update category' duration={3000} />
-      );
-    });
+      </React.Fragment>
+    );
+  }
 }

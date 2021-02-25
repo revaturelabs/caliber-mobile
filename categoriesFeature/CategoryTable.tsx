@@ -6,7 +6,7 @@ import { CategoryState } from '../store/store';
 import { Category } from './Category';
 import { CategoryName } from './CategoryName';
 import categoryService from './CategoryService';
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { SearchBar } from 'react-native-elements';
 import SearchInput, {createFilter} from 'react-native-search-filter';
 import { AlphabetList } from 'react-native-section-alphabet-list';
@@ -123,14 +123,13 @@ export function CategoryTable({ status }: CategoryTableProp) {
     console.log(result);
 
     return (
-        <View >
+        <View>
             {status == true ?
                 // if status is true, return a table of active categories
                 <View>
                     <View style={catStyle.header}>
-                        {/* Toggle instructions */}
-                        <Text style={catStyle.instruct}>Click to toggle Active/Stale Categories</Text>
-                                            {/* Table items */}
+                        
+                    {/* Table items */}
                     <SearchBar
                         placeholder="Enter Skill..."
                         onChangeText={(value) => {
@@ -142,8 +141,13 @@ export function CategoryTable({ status }: CategoryTableProp) {
                         containerStyle={catStyle.searchContainer}
                         searchIcon={{color: 'white'}}
                     />
+                    <TouchableOpacity style={catStyle.addBtn}>
+                        <Text style={catStyle.addCatText}>Add Category</Text>
+                    </TouchableOpacity>
+                    {/* Toggle instructions */}
+                    <Text style={catStyle.instruct}>Click to toggle Active/Stale Categories</Text>
+                    
                     </View>
-
                     <AlphabetList
                         data={result}
                         indexLetterColor={'rgba(0,0,0,0)'}
@@ -166,24 +170,24 @@ export function CategoryTable({ status }: CategoryTableProp) {
                 // if status is false, return a table of stale categories
                 <View>
                     <View style={catStyle.header}>
-                        {/* Toggle instructions */}
-                        <Text style={catStyle.instruct}>Click to toggle Active/Stale Categories</Text>
 
                         <SearchBar
-                        placeholder="Enter Skill..."
-                        onChangeText={(value) => {
-                            searchSet(value);
-                        }}
-                        value={search}
-                        inputStyle={catStyle.inputBar}
-                        inputContainerStyle={catStyle.inputContainer}
-                        containerStyle={catStyle.searchContainer}
-                        searchIcon={{color: 'white'}}
+                            placeholder="Enter Skill..."
+                            onChangeText={(value) => {
+                                searchSet(value);
+                            }}
+                            value={search}
+                            inputStyle={catStyle.inputBar}
+                            inputContainerStyle={catStyle.inputContainer}
+                            containerStyle={catStyle.searchContainer}
+                            searchIcon={{color: 'white'}}
+                            style={catStyle.searchContainer}
                     />
+                    {/* Toggle instructions */}
+                    <Text style={catStyle.instruct}>Click to toggle Active/Stale Categories</Text>
                     </View>
 
                     {/* Table items */}
-                   
                     <AlphabetList
                         data={result}
                         indexLetterColor={'rgba(0,0,0,0)'}

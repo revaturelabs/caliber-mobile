@@ -2,12 +2,10 @@ import {StyleSheet} from 'react-native';
 
 const catStyle = StyleSheet.create({
     tab: {
-        backgroundColor:'#F26925'
+        backgroundColor:'#F26925',
     },
     header: {
-        flex: 0.25,
         backgroundColor: 'white',
-        top: 0,
     },
     title: {
         fontSize: 20,
@@ -23,8 +21,8 @@ const catStyle = StyleSheet.create({
         fontWeight: '700',
         color: '#474C55',
         fontStyle: 'italic',
-        marginTop: 5,
-        marginBottom: -2
+        marginTop: -5,
+        marginBottom:2
 
     },
 
@@ -86,15 +84,13 @@ const catStyle = StyleSheet.create({
     },
     addBtn: {
         borderColor:'#F26925',
-        borderWidth: 0,
-        width:65,
-        height:65,  
-        borderRadius:50,
+        width:'95%',
+        height: 30,  
+        borderRadius: 10,
         backgroundColor: '#F26925',
         alignSelf: 'center',
         justifyContent: 'center',
-        position: 'absolute',
-        bottom: 0
+        marginBottom:5
 
         
     },
@@ -108,12 +104,11 @@ const catStyle = StyleSheet.create({
         marginTop: 7,
         marginLeft: 15
     },
-    plusSign: {
+    addCatText: {
         color: 'white',
         fontWeight: '500',
-        fontSize: 50,
-        marginTop:'-20%',
-        textAlign: 'center'
+        fontSize: 16,
+        alignSelf:'center'
     }, 
     inputBar: {
         backgroundColor:'white',
@@ -127,15 +122,17 @@ const catStyle = StyleSheet.create({
         backgroundColor: '#72A4C2',
         borderRadius: 25,
         color: 'white',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     searchContainer: {
         backgroundColor:'white',
-        borderColor: 'white'
+        borderWidth: 0,
+        borderBottomColor: 'white',
+        borderTopColor: 'white',
         
     }, 
     sectionHeaderContainer: {
-        backgroundColor: '#B9B9BA'
+        backgroundColor: '#B9B9BA',
     },
     sectionHeaderLabel: {
         color: '#474C55',
@@ -143,7 +140,7 @@ const catStyle = StyleSheet.create({
         fontWeight: '700',
         marginLeft: 15,
         padding: 2
-    }
+    },
 })
 
 export default catStyle;

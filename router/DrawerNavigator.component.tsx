@@ -19,12 +19,7 @@ const headerOptions: StackHeaderOptions = {
     />
   ),
   headerRight: () => <LogoutComponent />,
-  headerLeft: ({ navigation }) => (
-    <Icon.Button
-      name='ios-menu'
-      size={25}
-      onPress={navigation.openDrawer()}></Icon.Button>
-  ),
+  headerLeft: () => <Icon.Button name='ios-menu' size={25}></Icon.Button>,
 };
 
 export function DrawerNavigator() {
