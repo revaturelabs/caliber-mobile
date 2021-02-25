@@ -7,8 +7,8 @@ import { useNavigation } from '@react-navigation/native';
 
 import { BatchState } from '../store/store';
 import { getBatches } from '../store/actions';
-import batchService from './batch.service';
-import Batch from './batch';
+import Batch from './Batch';
+import batchService from './BatchService';
 
 export default function BatchesComponent() {
   const navigation = useNavigation();
@@ -46,7 +46,7 @@ export default function BatchesComponent() {
   }
 
   useEffect(() => {
-    batchService.getBatchesByTrainerEmail(trainerEmail).then((batchesResp) => {
+    batchService.getBatchesByTrainerEmail(trainerEmail).then((batchesResp: Batch[]) => {
       dispatch(getBatches(batchesResp));
     });
   }, []);

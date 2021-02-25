@@ -1,13 +1,11 @@
-import { auth0SignInButton } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, TouchableHighlight, Image } from 'react-native';
+import { View, Text, TouchableHighlight } from 'react-native';
 import { style } from '../global_styles';
-import { RootState, UserState } from '../store/store';
-import { f, auth, database } from './config';
+import { RootState } from '../store/store';
+import { f, auth, } from './config';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, loginChange } from '../store/actions';
 import { Input } from 'react-native-elements';
-import { useNavigation } from '@react-navigation/native';
 import { Roles } from './user';
 
 interface LoginProp {

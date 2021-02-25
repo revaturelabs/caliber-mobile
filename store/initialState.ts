@@ -1,13 +1,20 @@
 import Batch from '../batches/Batch';
-import { Category } from '../categoriesFeature/Category';
 import { UserInfo, UserInput } from '../user/user';
 import { CaliberState } from './store';
+import { weekCategory } from '../weekCategories/WeekCategory';
+import QcWeek from "../batchWeek/QcWeek";
 
 //add your initial states here and import it in your reducer
 export const initialState: CaliberState = {
+  associates: [],
   user: new UserInfo(),
   userLogin: new UserInput(),
-  batch: new Batch(),
   batches: [],
+  weeks: [],
+  batch: new Batch(),
+  selectedWeek: new QcWeek(),
+  weekCategory: new weekCategory(),
+  weekCategories: [],
   categories: [],
-};
+
+}
