@@ -9,6 +9,8 @@ import { DrawerNavigator } from './DrawerNavigator.component';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LogoutComponent from '../user/Logout';
 import { useNavigation } from '@react-navigation/native';
+import BatchPageComponent from '../batchPage/BatchPageComponent';
+import BatchDetailComponent from '../batches/BatchDetailComponent';
 
 const Stack = createStackNavigator();
 
@@ -50,7 +52,7 @@ export default function BatchStackNavigator(props: any) {
       />
       <Stack.Screen
         name='BatchDetail'
-        component={BatchListComponent}
+        component={BatchPageComponent}
         options={headerOptions}
       />
     </Stack.Navigator>

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
 import { style } from '../global_styles';
 import { RootState } from '../store/store';
-import { f, auth, } from './config';
+import { f, auth } from './config';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, loginChange } from '../store/actions';
 import { Input } from 'react-native-elements';
@@ -23,7 +23,7 @@ export default function LoginComponent({ navigation }: LoginProp) {
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      console.log('auth state changed');
+      // console.log('auth state changed');
       if (user) {
         user.getIdTokenResult().then((token) => {
           const role: Roles = {
@@ -65,7 +65,7 @@ export default function LoginComponent({ navigation }: LoginProp) {
     if (user) {
       //Logged in
       setLoggedin(true);
-      console.log('Logged in', user);
+      // console.log('Logged in', user);
     } else {
       //logged out
       setLoggedin(false);
