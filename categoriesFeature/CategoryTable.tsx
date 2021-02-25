@@ -9,7 +9,7 @@ import categoryService from './CategoryService';
 import { FlatList } from 'react-native-gesture-handler';
 import { SearchBar } from 'react-native-elements';
 import SearchInput, {createFilter} from 'react-native-search-filter';
-import { AlphabetList } from "react-native-section-alphabet-list";
+import { AlphabetList } from 'react-native-section-alphabet-list';
 import catStyle from './categoriesStyles';
 
 interface CategoryTableProp {
@@ -147,7 +147,7 @@ export function CategoryTable({ status }: CategoryTableProp) {
                     <View style={{height: '60%'}}>
                     <AlphabetList
                         data={result}
-                        indexLetterColor={'red'}
+                        indexLetterColor={'rgba(0,0,0,0)'}
                         renderCustomItem={(item: any) => (
                             <CategoryName
                                 skill={item.value}
@@ -170,7 +170,7 @@ export function CategoryTable({ status }: CategoryTableProp) {
                     <View style={catStyle.header}>
                         {/* Toggle instructions */}
                         <Text style={catStyle.instruct}>Click to toggle Active/Stale Categories</Text>
-                        
+
                         <SearchBar
                         placeholder="Enter Skill..."
                         onChangeText={(value) => {
@@ -189,7 +189,7 @@ export function CategoryTable({ status }: CategoryTableProp) {
                     <View style={{height: '60%'}}>
                     <AlphabetList
                         data={result}
-                        indexLetterColor={'red'}
+                        indexLetterColor={'rgba(0,0,0,0)'}
                         renderCustomItem={(item: any) => (
                             <CategoryName
                                 skill={item.value}
