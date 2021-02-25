@@ -61,7 +61,7 @@ function AssociateTableComponent() {
 
   useEffect(() => {
     dispatch(getAssociates(tempAssociates));
-    getQCNotes();
+    // getQCNotes();
   }, []);
 
   /**
@@ -76,13 +76,13 @@ function AssociateTableComponent() {
         week.qcWeekId.toString()
       );
       if (qcnotes) {
-        let val = new AssociateWithFeedback();
-        val.associate = associate;
-        val.qcFeedback = qcnotes;
-        listofassociates.push(val);
+        let value = new AssociateWithFeedback();
+        value.associate = associate.associate;
+        value.qcFeedback = qcnotes;
+        listofassociates.push(value);
       } else {
         let val = new AssociateWithFeedback();
-        val.associate = associate;
+        val.associate = associate.associate;
         listofassociates.push(val);
       }
     });
@@ -162,12 +162,12 @@ function AssociateTableComponent() {
         title='Randomize List'
         buttonStyle={style.button}></Button>
       <TouchableOpacity style={style.tOSF} activeOpacity={0.7}>
-        <Text style={style.fNameSortH} onPress={switchSortingF}>
+        <Text style={style.sortHeader} onPress={switchSortingF}>
           Sort By First Name
         </Text>
         {sortDirection == 'FUp' ? (
           <Icon
-            style={style.iconsf}
+            style={style.iconSort}
             name={iconName}
             type='font-awesome'
             color={iconColor}
@@ -175,23 +175,23 @@ function AssociateTableComponent() {
           />
         ) : sortDirection == 'FDown' ? (
           <Icon
-            style={style.iconsf}
+            style={style.iconSort}
             name={'angle-down'}
             type='font-awesome'
             color={iconColor}
             testID='statusIcon'
           />
         ) : (
-          <Text></Text>
+          <View />
         )}
       </TouchableOpacity>
       <TouchableOpacity style={style.tOSL} activeOpacity={0.7}>
-        <Text style={style.lNameSortH} onPress={switchSortingL}>
+        <Text style={style.sortHeader} onPress={switchSortingL}>
           Sort By Last Name
         </Text>
         {sortDirection == 'LUp' ? (
           <Icon
-            style={style.iconsl}
+            style={style.iconSort}
             name={iconName}
             type='font-awesome'
             color={iconColor}
@@ -199,7 +199,7 @@ function AssociateTableComponent() {
           />
         ) : sortDirection == 'LDown' ? (
           <Icon
-            style={style.iconsl}
+            style={style.iconSort}
             name={'angle-down'}
             type='font-awesome'
             color={iconColor}

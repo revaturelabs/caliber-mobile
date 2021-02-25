@@ -30,7 +30,7 @@ export const style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  logininput: {
+  loginInput: {
     marginBottom: 40,
   },
   input: {
@@ -70,7 +70,7 @@ export const style = StyleSheet.create({
     color: 'black',
     left: perfectSize(5),
   },
-  techstatus: {
+  techStatus: {
     position: 'relative',
     top: perfectSize(-20),
     right: perfectSize(-120),
@@ -85,7 +85,7 @@ export const style = StyleSheet.create({
     borderRadius: perfectSize(5),
     color: REVATUREORANGE,
   },
-  savebutton: {
+  saveButton: {
     marginLeft: 'auto',
     marginRight: 'auto',
     marginBottom: perfectSize(15),
@@ -95,18 +95,26 @@ export const style = StyleSheet.create({
     borderRadius: perfectSize(5),
     color: REVATUREORANGE,
   },
+  /**
+   * Styling for touchable opacity
+   * for sorting first name
+   */
   tOSF: {
     width: perfectSize(120),
     height: perfectSize(50),
     left: perfectSize(30),
   },
+  /**
+   * touchable opacity for sorting
+   * last name
+   */
   tOSL: {
     width: perfectSize(120),
     height: perfectSize(50),
     top: perfectSize(-50),
     left: perfectSize(180),
   },
-  fNameSortH: {
+  sortHeader: {
     fontSize: perfectSize(12),
     textAlign: 'center',
     fontWeight: 'bold',
@@ -118,26 +126,11 @@ export const style = StyleSheet.create({
   title: {
     color: REVATUREORANGE,
   },
-  iconsf: {
+  iconSort: {
     position: 'relative',
     top: perfectSize(-10),
     width: 'fitcontent',
     height: 'fitcontent',
-  },
-  iconsl: {
-    position: 'relative',
-    top: perfectSize(-10),
-    width: 'fitcontent',
-    height: 'fitcontent',
-  },
-  lNameSortH: {
-    fontSize: perfectSize(12),
-    textAlign: 'center',
-    fontWeight: 'bold',
-    color: REVATUREORANGE,
-    position: 'relative',
-    width: perfectSize(120),
-    height: perfectSize(30),
   },
   flatListAssociates: {
     position: 'relative',

@@ -78,7 +78,7 @@ export default function LoginComponent({ navigation }: LoginProp) {
       <Text style={style.caliber}>Caliber</Text>
 
       <View style={style.login}>
-        <View style={style.logininput}>
+        <View style={style.loginInput}>
           <Input
             placeholder={'Email'}
             style={style.input}

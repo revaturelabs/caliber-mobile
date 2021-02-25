@@ -18,11 +18,11 @@ function BatchPageComponent() {
 
   return (
     <View>
-      <WeekSelectionComponent></WeekSelectionComponent>
-      <AddWeek></AddWeek>
-      <AddNoteComponent></AddNoteComponent>
+      {/* <WeekSelectionComponent></WeekSelectionComponent> */}
+      {/* <AddWeek></AddWeek> */}
       {weekCategoryList({ weekId: 0 })}
-      <AssociateTableComponent></AssociateTableComponent>
+      <AddNoteComponent></AddNoteComponent>
+      {/* <AssociateTableComponent></AssociateTableComponent> */}
     </View>
   );
 }
