@@ -137,8 +137,8 @@ export const style = StyleSheet.create({
     top: perfectSize(-35),
   },
   associatesViewComponent: {
-    width: 'fitcontent',
-    height: 'fitcontent',
+    width: 'auto',
+    height: 'auto',
     backgroundColor: 'white',
     marginBottom: perfectSize(10),
   },
