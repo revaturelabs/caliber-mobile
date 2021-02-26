@@ -13,7 +13,7 @@ import {loginChange} from '../store/actions';
 function ForgotPassword() {
     //const [email, setEmail] = useState('');
     // const [loading, setLoading] = useState(false);
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const inputUser = (state: RootState) => state.userReducer.userLogin;
     const newUser = useSelector(inputUser);
 
@@ -33,7 +33,7 @@ function ForgotPassword() {
                         onChangeText={
                             (value) => dispatch(loginChange({...newUser, email:value}))}
                         value={newUser.email}
-                   />
+                    />
                 {/* <Button onPress={submitHandler} title="Send Email" /> */}
                 </View>
             </View>

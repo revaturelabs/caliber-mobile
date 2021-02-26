@@ -63,6 +63,10 @@ export default function LoginComponent({navigation}: LoginProp) {
         }
     }
 
+    function forgotPassword(){
+        navigation.navigate('ForgotPassword');
+    }
+
     f.auth().onAuthStateChanged(function(user:any) {
         if(user){
             //Logged in
@@ -111,7 +115,7 @@ export default function LoginComponent({navigation}: LoginProp) {
                 </TouchableHighlight>
                 
                 <TouchableHighlight
-                    onPress={ForgotPassword }
+                    onPress={() => forgotPassword }
                     style={{backgroundColor: '#fff', height:45, width:200, borderRadius:40, alignItems:'center'}}>
                     <Text style={{alignItems:'center', color:'#72A4C2', fontSize:18, fontWeight:'bold'}}>Forgot password?</Text>
                 </TouchableHighlight>
