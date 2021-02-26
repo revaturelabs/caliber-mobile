@@ -1,25 +1,30 @@
 import React from 'react';
-import { Text, Image } from 'react-native-elements';
+import { Image } from 'react-native-elements';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
 import BatchesComponent from '../batches/batches.component';
-import AssociateTableComponent from '../associate/AssociateTableComponent';
-import UnderDevelopmentComponent from '../UnderDevelopmentComponent';
 import LoginComponent from '../user/Login';
 import BatchPageComponent from '../batchPage/BatchPageComponent';
 import LogoutComponent from '../user/Logout';
 import Test from '../user/Test';
 
 export type StackParams = {
-    Login: undefined;
-    Test: undefined;
-    Home: undefined;
-    Batches: undefined;
+	Login: undefined;
+	Test: undefined;
+	Home: undefined;
+	Batches: undefined;
+	Quarter: [];
+	BatchDetail: undefined;
 };
 
 const headerOptions: StackHeaderOptions = {
-    headerTitle: () => <Image style={{width:165, height:50, margin:30}}source={require('./rev-logo.png')} />,
-    headerRight: () => <LogoutComponent/>,
+	headerTitle: () => (
+		<Image
+			style={{ width: 165, height: 50, margin: 30 }}
+			source={require('./rev-logo.png')}
+		/>
+	),
+	headerRight: () => <LogoutComponent />,
 };
 
 const Stack = createStackNavigator();

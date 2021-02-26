@@ -1,7 +1,7 @@
 import { CaliberState } from './store';
 import * as Actions from './actions';
 
-import Batch from '../batches/batch';
+import Batch from '../batches/Batch';
 import { initialState } from './initialState';
 import { AssociateWithFeedback } from '../associate/AssociateService';
 
@@ -18,6 +18,8 @@ const batchReducer = (
         case Actions.AssociateActions.GetAssociates:
             newState.associates = action.payload as AssociateWithFeedback[];
             console.log(newState.associates);        
+        case Actions.BatchActions.ChangeBatch:
+            newState.batch = action.payload as Batch;
             return newState;
         default:
             return state;

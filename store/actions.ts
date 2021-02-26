@@ -1,13 +1,15 @@
 import { UserInfo, UserInput } from '../user/user';
-import Batch from '../batches/batch';
+import Batch from '../batches/Batch;
 import { AssociateWithFeedback } from '../associate/AssociateService';
 import QcWeek from '../batchWeek/QcWeek';
 import weekReducer from './WeekReducer';
 import { WeekCategoryState } from './store';
-import { weekCategory } from '../weekCategories/WeekCategory'
+import { weekCategory } from '../weekCategories/weekCategory'
+import { Category } from '../categoriesFeature/Category';
 
 export enum BatchActions {
 	GetBatches = 'GET_BATCHES',
+	ChangeBatch = 'CHANGE_BATCH'
 }
 export enum WeekActions {
 	GetWeeks = 'GET_WEEKS',
@@ -49,7 +51,7 @@ export interface UserAction<P> extends AppAction {
 
 export interface BatchAction extends AppAction {
 	type: BatchActions;
-	payload: Batch[];
+	payload: Batch | Batch[];
 }
 
 export interface AssociateAction extends AppAction {
@@ -170,3 +172,10 @@ export function ChangeCategories(categories: Category[]): WeekCategoryAction {
 	};
 	return action;
 };
+export function changeBatch(batch: Batch): BatchAction {
+	const action: BatchAction = {
+		type: BatchActions.ChangeBatch,
+		payload: batch,
+	};
+	return action;
+}

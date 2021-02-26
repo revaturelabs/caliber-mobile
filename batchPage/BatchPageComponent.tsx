@@ -4,7 +4,7 @@ import { View,Text } from "react-native";
 import { useSelector } from 'react-redux';
 import { Associate } from '../associate/AssociateService';
 import AssociateTableComponent from "../associate/AssociateTableComponent";
-import BatchService from '../batches/batch.service';
+import BatchService from '../batches/BatchService';
 import AddNoteComponent from "../batchWeek/AddNoteComponent";
 import AddWeek from "../batchWeek/AddWeek/addWeek.component";
 import WeekSelectionComponent from "../batchWeek/WeekSelectionComponent";
@@ -16,7 +16,6 @@ function BatchPageComponent() {
 
     
     let batch = useSelector((state: RootState) => state.batchReducer.batch);
-
 
     /**
      * Queries the mock API to retrieve all the associates for a given batch.
