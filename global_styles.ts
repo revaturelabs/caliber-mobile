@@ -129,8 +129,8 @@ export const style = StyleSheet.create({
   iconSort: {
     position: 'relative',
     top: perfectSize(-10),
-    width: 'fitcontent',
-    height: 'fitcontent',
+    width: 'auto',
+    height: 'auto',
   },
   flatListAssociates: {
     position: 'relative',

@@ -2,7 +2,7 @@ import Batch from '../batches/Batch';
 import WeekSelectionComponent from '../batchWeek/WeekSelectionComponent';
 import { Category } from '../categoriesFeature/Category';
 import { UserInfo, UserInput } from '../user/user';
-import { weekCategory } from '../weekCategories/WeekCategory';
+import { WeekCategory } from '../weekCategories/weekCategory';
 import { CaliberState } from './store';
 import {
   Associate,
@@ -19,7 +19,7 @@ export const initialState: CaliberState = {
   weeks: [],
   batch: new Batch(),
   selectedWeek: new QcWeek(),
-  weekCategory: new weekCategory(),
+  weekCategory: new WeekCategory(),
   weekCategories: [],
   categories: [],
 };

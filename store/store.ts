@@ -12,7 +12,7 @@ import QcWeek from '../batchWeek/QcWeek';
 import WeekCategoryReducer from './WeekCategoryReducer';
 import { Category } from '../categoriesFeature/Category';
 import categoryReducer from './categoriesFeature/CategoryReducer';
-import { weekCategory } from '../weekCategories/WeekCategory';
+import { WeekCategory } from '../weekCategories/weekCategory';
 
 export interface BatchState {
   batch: Batch;
@@ -35,7 +35,7 @@ export interface CaliberState extends UserState, BatchState, AssociateState {}
 
 export interface WeekCategoryState {
   weekCategories: Category[];
-  weekCategory: weekCategory;
+  weekCategory: WeekCategory;
 }
 
 export interface CaliberState

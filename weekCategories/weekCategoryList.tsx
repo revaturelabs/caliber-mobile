@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { weekCategory } from './weekCategory';
+import { WeekCategory } from './weekCategory';
 import {
   MenuProvider,
   Menu,
@@ -89,7 +89,7 @@ export default function weekCategoryList(qcWeek: weekProp) {
    * qcWeek is what was passed to weekCategoryList function
    */
   function addCategory(newCat: Category) {
-    let weekCat: weekCategory = new weekCategory();
+    let weekCat: WeekCategory = new WeekCategory();
     weekCat.categoryId = newCat.categoryid;
     weekCat.qcWeekId = Number(qcWeek);
     WeekCategoryService.addCategory(weekCat).then(() => {

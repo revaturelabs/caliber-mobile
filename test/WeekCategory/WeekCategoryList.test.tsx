@@ -3,7 +3,7 @@ import 'jest-enzyme';
 import '@testing-library/jest-dom';
 import Enzyme from 'enzyme';
 import React from 'react';
-import { weekCategory } from '../../weekCategories/WeekCategory';
+import { WeekCategory } from '../../weekCategories/weekCategory';
 import { CategoryTable } from '../../categories/categoryTable';
 import weekCategoryService from '../../WeekCategories/WeekCategoryService';
 import { FlatList } from 'react-native';

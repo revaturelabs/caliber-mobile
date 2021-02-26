@@ -2,7 +2,7 @@ import { UserInfo, UserInput } from '../user/user';
 import Batch from '../batches/Batch';
 import { AssociateWithFeedback } from '../associate/AssociateService';
 import QcWeek from '../batchWeek/QcWeek';
-import { weekCategory } from '../weekCategories/WeekCategory';
+import { WeekCategory } from '../weekCategories/weekCategory';
 import { Category } from '../categoriesFeature/Category';
 
 export enum BatchActions {
@@ -78,7 +78,7 @@ export interface WeekAction extends AppAction {
 
 export interface WeekCategoryAction extends AppAction {
   type: WeekCategoryActions;
-  payload: Category[] | weekCategory;
+  payload: Category[] | WeekCategory;
 }
 
 //info of the user that is logged in
@@ -146,7 +146,7 @@ export function addOverallNote(week: QcWeek): WeekAction {
   return action;
 }
 
-export function deleteWeekCategory(category: weekCategory): WeekCategoryAction {
+export function deleteWeekCategory(category: WeekCategory): WeekCategoryAction {
   const action: WeekCategoryAction = {
     type: WeekCategoryActions.DeleteWeekCategory,
     payload: category,
@@ -154,7 +154,7 @@ export function deleteWeekCategory(category: weekCategory): WeekCategoryAction {
   return action;
 }
 
-export function addWeekCategory(category: weekCategory): WeekCategoryAction {
+export function addWeekCategory(category: WeekCategory): WeekCategoryAction {
   const action: WeekCategoryAction = {
     type: WeekCategoryActions.AddWeekCategory,
     payload: category,
