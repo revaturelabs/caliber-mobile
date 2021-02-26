@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { weekCategory } from './WeekCategory';
+import { weekCategory } from './weekCategory';
 import {
   MenuProvider,
   Menu,

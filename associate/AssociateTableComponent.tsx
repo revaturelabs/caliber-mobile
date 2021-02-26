@@ -40,7 +40,7 @@ function AssociateTableComponent(props: AssociateProps) {
     let tempAssociates = [assoc1, assoc2, assoc3, assoc4];
     let dispatch = useDispatch();
     let associates = useSelector((state: RootState) => state.batchReducer.associates);
-    //let batch = useSelector((state: RootState) => state.batchReducer.batch);
+    let batch = useSelector((state: RootState) => state.batchReducer.batch);
     let week = useSelector((state: RootState) => state.weekReducer.selectedWeek);
 
     let iconName: string = 'angle-up';
@@ -57,21 +57,21 @@ function AssociateTableComponent(props: AssociateProps) {
      * Retrievs QC Notes from back end.
      */
     function getQCNotes() {
-        let listofassociates: AssociateWithFeedback[] = [];
+        let listOfAssociates: AssociateWithFeedback[] = [];
         props.assoc.forEach(async (asoc) => {
             let qcnotes: QCFeedback = await AssociateService.getAssociate(asoc, batch, week.qcWeekId.toString());
             if (qcnotes) {
                 let val = new AssociateWithFeedback();
                 val.associate = asoc;
                 val.qcFeedback = qcnotes;
-                listofassociates.push(val);
+                listOfAssociates.push(val);
             } else {
                 let val = new AssociateWithFeedback();
                 val.associate = asoc;
-                listofassociates.push(val);
+                listOfAssociates.push(val);
             }
         })
-        dispatch(getAssociates(listofassociates));
+        dispatch(getAssociates(listOfAssociates));
     }
 
     /**

@@ -91,14 +91,14 @@ const style = StyleSheet.create({
     iconsf: {
         position: "relative",
         top: perfectSize(-10),
-        width: "fitcontent",
-        height: "fitcontent",
+        width: perfectSize(15),
+        height: perfectSize(15),
     },
     iconsl: {
         position: "relative",
         top: perfectSize(-10),
-        width: "fitcontent",
-        height: "fitcontent",
+        width: perfectSize(15),
+        height: perfectSize(15),
     },
     lNameSortH: {
         fontSize: perfectSize(12),
@@ -114,8 +114,8 @@ const style = StyleSheet.create({
         top: perfectSize(-35),
     },
     associatesViewComponent: {
-        width: "fitcontent",
-        height: "fitcontent",
+        width: "auto",
+        height: "auto",
         backgroundColor: 'white',
         marginBottom:perfectSize(10),
     }, container: {
@@ -142,7 +142,7 @@ const style = StyleSheet.create({
     input: {
         borderColor: '#474C55',
         color: '#474C55',
-        backgroundColor: 'B9B9BA',
+        backgroundColor: '#B9B9BA',
         borderRadius: 20,
         height: 46,
         width: 250,
@@ -151,7 +151,6 @@ const style = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold'
     }
-
 })
 
 export default style;

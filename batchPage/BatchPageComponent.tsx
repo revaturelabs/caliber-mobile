@@ -24,6 +24,7 @@ function BatchPageComponent() {
     function getAssociateFromMock() {
         let newAssociateArray:Associate[] = [];
         BatchPageService.getAssociates(batch).then((results:[]) => {
+            console.log(results);
             results.forEach((asoc:any) => {
                 let associate = new Associate();
                 associate.firstName = asoc.firstName;
@@ -31,6 +32,8 @@ function BatchPageComponent() {
                 associate.associateId = asoc.email;
                 newAssociateArray.push(associate);
             })
+        }).catch((err) => {
+            "There is no data";
         });
         return newAssociateArray;
     }
