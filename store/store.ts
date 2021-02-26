@@ -4,18 +4,14 @@ import thunk from 'redux-thunk';
 import batchReducer from './batchReducer';
 import weekReducer from './WeekReducer';
 import userReducer from './userReducer';
-import Batch from '../batches/batch';
+import Batch from '../batches/Batch';
 import { AssociateWithFeedback } from '../associate/AssociateService';
 import QcWeek from '../batchWeek/QcWeek';
 import WeekCategoryReducer from './WeekCategoryReducer'
 import { weekCategory } from '../weekCategories/weekCategory';
 import { Category } from '../categoriesFeature/Category';
 import categoryReducer from './categoriesFeature/CategoryReducer';
-
-
-
 import { AppAction } from './actions';
-import Batch from '../batches/Batch';
 import { UserInput, UserInfo } from '../user/user';
 
 export interface BatchState {

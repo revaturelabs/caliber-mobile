@@ -22,7 +22,7 @@ function BatchPageComponent() {
      */
     function getAssociateFromMock() {
         let newAssociateArray:Associate[] = [];
-        BatchPageService.getAssociates(batch.batchId).then((results:[]) => {
+        BatchPageService.getAssociates(batch).then((results:[]) => {
             console.log(results);
             results.forEach((asoc:any) => {
                 let associate = new Associate();

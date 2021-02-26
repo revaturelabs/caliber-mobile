@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
-import { style } from '../global_styles';
+import style from '../global_styles';
 
 interface Nav {
 	navigation: any;

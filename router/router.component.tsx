@@ -31,7 +31,7 @@ const Stack = createStackNavigator();
 
 export default function RouterComponent(props: any) {
     return (
-        <Stack.Navigator initialRouteName='Login'>
+        <Stack.Navigator initialRouteName='BatchPageComponent'>
             <Stack.Screen
                 name='Login'
                 component={LoginComponent}

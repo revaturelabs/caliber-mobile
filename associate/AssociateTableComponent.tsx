@@ -48,12 +48,7 @@ function AssociateTableComponent(props: AssociateProps) {
 
 
     useEffect(() => {
-        if(props.assoc.length = 0) {
-            dispatch(getAssociates(tempAssociates));
-
-        } else {
-            
-        }
+        dispatch(getAssociates(tempAssociates));
         // getQCNotes();
     }, []);
 
@@ -63,7 +58,7 @@ function AssociateTableComponent(props: AssociateProps) {
     function getQCNotes() {
         let listOfAssociates: AssociateWithFeedback[] = [];
         props.assoc.forEach(async (asoc) => {
-            let qcnotes: QCFeedback = await AssociateService.getAssociate(asoc, batch, week.qcWeekId.toString());
+            let qcnotes: QCFeedback = await AssociateService.getAssociate(asoc, batch.batchId, week.qcWeekId.toString());
             if (qcnotes) {
                 let val = new AssociateWithFeedback();
                 val.associate = asoc;
@@ -94,7 +89,7 @@ function AssociateTableComponent(props: AssociateProps) {
             dispatch(getAssociates(val));
         }
     }
-    
+
 
     /**
      * Switches sorting direction for last name (Button Handler)
@@ -116,15 +111,15 @@ function AssociateTableComponent(props: AssociateProps) {
 
     function handleAllUpdate() {
         associates.forEach((assoc) => {
-            try{
-                AssociateService.updateAssociate(assoc.qcFeedback, { 'notecontent': assoc.qcFeedback.qcNote})
-            } catch(err:any) {
-                AssociateService.replaceAssociate(assoc.qcFeedback, { 'notecontent': assoc.qcFeedback.qcNote, 'technicalstatus': assoc.qcFeedback.qcTechnicalStatus})
+            try {
+                AssociateService.updateAssociate(assoc.qcFeedback, { 'notecontent': assoc.qcFeedback.qcNote })
+            } catch (err: any) {
+                AssociateService.replaceAssociate(assoc.qcFeedback, { 'notecontent': assoc.qcFeedback.qcNote, 'technicalstatus': assoc.qcFeedback.qcTechnicalStatus })
             }
-            try{
-                AssociateService.updateAssociate(assoc.qcFeedback, { 'technicalstatus': assoc.qcFeedback.qcNote})
-            } catch(err:any) {
-                AssociateService.replaceAssociate(assoc.qcFeedback, { 'technicalstatus': assoc.qcFeedback.qcTechnicalStatus, 'notecontent': assoc.qcFeedback.qcNote})
+            try {
+                AssociateService.updateAssociate(assoc.qcFeedback, { 'technicalstatus': assoc.qcFeedback.qcNote })
+            } catch (err: any) {
+                AssociateService.replaceAssociate(assoc.qcFeedback, { 'technicalstatus': assoc.qcFeedback.qcTechnicalStatus, 'notecontent': assoc.qcFeedback.qcNote })
             }
         });
 
