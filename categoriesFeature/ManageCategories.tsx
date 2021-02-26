@@ -25,7 +25,7 @@ export default function ManageCategories() {
     const Tab = createMaterialTopTabNavigator();
     // set local state for currently viewed tab
     const [clicked, setClicked] = useState(false);
-    const [value, onChangeText] = React.useState('');
+    const [textValue, onChangeText] = React.useState('');
     const [toastStatus, setToastStatus] = useState('');
 
     // get category state from store
@@ -97,7 +97,7 @@ export default function ManageCategories() {
                         <TextInput
                             style={catStyle.modalTextInput}
                             onChangeText={text => onChangeText(text)}
-                            value={value}
+                            value={textValue}
                             autoCapitalize='words'
                             autoFocus={true}
                             placeholder='Enter Category...'
@@ -107,8 +107,8 @@ export default function ManageCategories() {
                         {/* Button that adds a category */}
                         <TouchableOpacity 
                             style={catStyle.modalActionBtn}
-                            onPress={(value) => {
-                                AddCategory(value.toString());
+                            onPress={() => {
+                                AddCategory(textValue);
                                 setClicked(false);
                             }}
                         >
