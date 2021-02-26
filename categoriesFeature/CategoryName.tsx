@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable, TouchableOpacity, Modal, TextInput } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import ToastNotification from 'react-native-toast-notification';
+//import ToastNotification from 'react-native-toast-notification';
 import catStyle from './categoriesStyles';
 import { getCategories } from '../store/categoriesFeature/CategoryActions';
 import { Category } from './Category';
 import categoryService from './CategoryService';
 import { CategoryState } from '../store/store';
+import CategoryService from './CategoryService';
 
 interface CategoryNameProp {
     skill: string;
@@ -23,11 +24,11 @@ interface CategoryNameProp {
  *  @param: categories - entire category state that will also need to update with new category
  *  @returns: view with a pressable category name
  */
-export function CategoryName({ skill, categoryid, active, categories }: CategoryNameProp) {
+function CategoryName({ skill, categoryid, active, categories }: CategoryNameProp) {
     // create or get state
     const [clicked, setClicked] = useState(false);
     const [value, onChangeText] = useState('');
-    const [toastStatus, setToastStatus] = useState('');
+    //const [toastStatus, setToastStatus] = useState('');
     const category = new Category();
     category.skill = skill;
     category.categoryid = categoryid;
@@ -37,7 +38,7 @@ export function CategoryName({ skill, categoryid, active, categories }: Category
     return (
         <React.Fragment>
             {/* Conditional rendering for toast notifications for edit categories */}
-            <React.Fragment>
+            {/* <React.Fragment>
                 {toastStatus === 'success' ? <ToastNotification
                     text='Category updated!'
                     duration={3000}
@@ -48,15 +49,15 @@ export function CategoryName({ skill, categoryid, active, categories }: Category
                     duration={3000}
                 />
                     : <></>}
-            </React.Fragment>
+            </React.Fragment> */}
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
                 {/* has a list of category names (depends on props) */}
-                <Pressable onPress={() => { changeStatus(category, categories) }}>
-                    <Text style={catStyle.skillText}>{category.skill}</Text>
+                <Pressable testID='statusBtn' onPress={() => { changeStatus(category, categories) }}>
+                    <Text testID = 'categoryNameList' style={catStyle.skillText}>{category.skill}</Text>
                 </Pressable>
                 <View>
                     {/* Edit button to open modal for editing */}
-                    <TouchableOpacity style={catStyle.editBtn} onPress={() => setClicked(true)} accessibilityLabel='Edit Category'>
+                    <TouchableOpacity testID='modalBtn' style={catStyle.editBtn} onPress={() => setClicked(true)} accessibilityLabel='Edit Category'>
                         <Text style={catStyle.btnText}>Edit</Text>
                     </TouchableOpacity>
                 </View>
@@ -66,13 +67,14 @@ export function CategoryName({ skill, categoryid, active, categories }: Category
                         // this happens when a user presses the hardware back button
                         onRequestClose={() => {
                             // tiny toast
-                            <ToastNotification
-                                text='Closed without saving.'
-                                duration={3000}
-                            />
+                            // <ToastNotification
+                            //     text='Closed without saving.'
+                            //     duration={3000}
+                            // />
                             setClicked(false);
                         }}
                         transparent
+                        testID='modal'
                     >
                         <View style={catStyle.modal}>
                             {/* Title for modal */}
@@ -92,6 +94,7 @@ export function CategoryName({ skill, categoryid, active, categories }: Category
                             <View style={{ justifyContent: 'space-between' }}>
                                 {/* Button that edits a category */}
                                 <TouchableOpacity
+                                    testID='editBtn'
                                     style={catStyle.modalActionBtn}
                                     onPress={(value) => {
                                         EditCategory(value.toString(), category);
@@ -126,7 +129,7 @@ export function CategoryName({ skill, categoryid, active, categories }: Category
         category.skill = value;
 
         // calls categoryService.addCategory
-        categoryService.updateCategory(category).then((result) => {
+        CategoryService.updateCategory(category).then((result) => {
             // add new category to current categories
             categories.push(result);
 
@@ -134,11 +137,11 @@ export function CategoryName({ skill, categoryid, active, categories }: Category
             dispatch(getCategories(categories));
 
             // tiny toast for success
-            setToastStatus('success');
+            //setToastStatus('success');
 
         }).catch(error => {
             // tiny toast for failure
-            setToastStatus('failure');
+            //setToastStatus('failure');
         });
     }
 
@@ -159,10 +162,12 @@ export function CategoryName({ skill, categoryid, active, categories }: Category
         categories.splice(categories.indexOf(category), 1, category);
 
         // calls categoryService.updateCategory with the category id
-        categoryService.updateCategory(category).then(() => {
+        CategoryService.updateCategory(category).then(() => {
             dispatch(getCategories(categories));
         });
     }
 }
+
+export default CategoryName;
 
 
