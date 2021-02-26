@@ -26,7 +26,7 @@ const Stack = createStackNavigator();
 
 export default function RouterComponent(props: any) {
     return (
-        <Stack.Navigator initialRouteName='BatchPageComponent'>
+        <Stack.Navigator initialRouteName='Login'>
             <Stack.Screen
                 name='Login'
                 component={LoginComponent}
@@ -40,6 +40,11 @@ export default function RouterComponent(props: any) {
             <Stack.Screen
                 name='Batches'
                 component={BatchesComponent}
+                options={headerOptions}
+            />
+            <Stack.Screen
+                name='BatchPageComponent'
+                component={BatchPageComponent}
                 options={headerOptions}
             />
             <Stack.Screen
