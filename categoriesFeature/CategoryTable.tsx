@@ -127,7 +127,8 @@ export function CategoryTable({ status }: CategoryTableProp) {
             {status == true ?
                 // if status is true, return a table of active categories
                 <View>
-                    <View style={catStyle.header}>   
+                    <View style={catStyle.instructView}>   
+                        {/* Search Bar for categories */}
                         <SearchBar
                             placeholder="Enter Skill..."
                             onChangeText={(value) => {
@@ -140,36 +141,35 @@ export function CategoryTable({ status }: CategoryTableProp) {
                             searchIcon={{color: 'white'}}
                             />
                         {/* Toggle instructions */}
-                        <Text style={catStyle.instruct}>Click to toggle Active/Stale Categories</Text>
-                        
-                        </View>
-                        <ScrollView style={{height:'84.5%'}}>
-                            {/* Table items */}
-                            <AlphabetList
-                                data={result}
-                                indexLetterColor={'rgba(0,0,0,0)'}
-                                renderCustomItem={(item: any) => (
-                                    <CategoryName
-                                        skill={item.value}
-                                        categoryid={item.key}
-                                        active={item.active}
-                                        categories={mockCategories}
-                                    ></CategoryName>
-                                )}
-                                renderCustomSectionHeader={(section: any) => (
-                                    <View style={catStyle.sectionHeaderContainer}>
-                                        <Text style={catStyle.sectionHeaderLabel}>{section.title}</Text>
-                                    </View>
-                                )}
-                            />
-                        </ScrollView>
+                        <Text style={catStyle.instructText}>Click to toggle Active/Stale Categories</Text>
                     </View>
+                    <ScrollView style={{height:'84.5%'}}>
+                        {/* Alphabetized list of skills */}
+                        <AlphabetList
+                            data={result}
+                            indexLetterColor={'rgba(0,0,0,0)'}
+                            renderCustomItem={(item: any) => (
+                                <CategoryName
+                                    skill={item.value}
+                                    categoryid={item.key}
+                                    active={item.active}
+                                    categories={mockCategories}
+                                />
+                            )}
+                            renderCustomSectionHeader={(section: any) => (
+                                <View style={catStyle.sectionHeaderContainer}>
+                                    <Text style={catStyle.sectionHeaderLabel}>{section.title}</Text>
+                                </View>
+                            )}
+                        />
+                    </ScrollView>
+                </View>
 
                 :
                 // if status is false, return a table of stale categories
                 <View>
-                    <View style={catStyle.header}>
-
+                    <View style={catStyle.instructView}>
+                        {/* Search Bar for categories */}
                         <SearchBar
                             placeholder="Enter Skill..."
                             onChangeText={(value) => {
@@ -181,12 +181,12 @@ export function CategoryTable({ status }: CategoryTableProp) {
                             containerStyle={catStyle.searchContainer}
                             searchIcon={{color: 'white'}}
                             style={catStyle.searchContainer}
-                    />
-                    {/* Toggle instructions */}
-                    <Text style={catStyle.instruct}>Click to toggle Active/Stale Categories</Text>
+                        />
+                        {/* Toggle instructions */}
+                        <Text style={catStyle.instructText}>Click to toggle Active/Stale Categories</Text>
                     </View>
                     <ScrollView style={{height:'84.5%'}}>
-                        {/* Table items */}
+                        {/* Alphabetized list of skills */}
                         <AlphabetList
                             data={result}
                             indexLetterColor={'rgba(0,0,0,0)'}
@@ -196,7 +196,7 @@ export function CategoryTable({ status }: CategoryTableProp) {
                                     categoryid={item.key}
                                     active={item.active}
                                     categories={mockCategories}
-                                ></CategoryName>
+                                />
                             )}
                             renderCustomSectionHeader={(section: any) => (
                                 <View style={catStyle.sectionHeaderContainer}>
@@ -206,7 +206,6 @@ export function CategoryTable({ status }: CategoryTableProp) {
                         />
                     </ScrollView>
                 </View>
-                    
             }
         </View>
     )

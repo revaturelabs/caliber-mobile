@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import ToastNotification from 'react-native-toast-notification';
-import React, { useEffect, useState } from 'react';
-import { TouchableOpacity, View, Text, StyleSheet, Modal, TextInput, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { TouchableOpacity, View, Text, StyleSheet, Modal, TextInput, Alert, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { CategoryTable } from './CategoryTable';
@@ -9,8 +9,8 @@ import categoryService from './CategoryService';
 import { getCategories } from '../store/categoriesFeature/CategoryActions';
 import { StackParam } from './router/Router';
 import { CategoryState } from '../store/store';
-import { Category } from './Category';
-import catStyle from '../categoriesFeature/categoriesStyles'
+import catStyle from '../categoriesFeature/categoriesStyles';
+import AddBtn from './AddBtn.png';
 
 interface Props {
     route: RouteProp<StackParam, 'ManageCategories'>;
@@ -35,10 +35,12 @@ export default function ManageCategories() {
 
     return (
         <React.Fragment>
+            {/* Conditional rendering for toast notifications for add categories */}
             <React.Fragment>
                 {toastStatus === 'success' ? <ToastNotification
                     text='Category updated!'
                     duration={3000}
+                    isTop={true}
                 />
                     : <></>}
                 {toastStatus === 'failure' ? <ToastNotification
@@ -69,10 +71,11 @@ export default function ManageCategories() {
                     children={() => <CategoryTable status={false} />}
                 />
             </Tab.Navigator>
-            <TouchableOpacity style={catStyle.addBtn} 
+            {/* Add button to be rendered at the bottom of the screen */}
+            <TouchableOpacity 
                 onPress={() => setClicked(true)} 
                 accessibilityLabel='Add Category'>
-                <Text style={catStyle.plusSign}>+</Text>
+                <Image style={catStyle.addBtnPicture} source={AddBtn}/>
             </TouchableOpacity>
 
             {/* If clicked is true, open the modal */}
@@ -91,7 +94,7 @@ export default function ManageCategories() {
                 >
                     <View style={catStyle.modal}>
                         {/* Title for modal */}
-                        <Text style={catStyle.title}>{'Add Category'}</Text>
+                        <Text style={catStyle.modalTitle}>{'Add Category'}</Text>
 
                         {/* Allow user to enter a new category name */}
                         <TextInput
