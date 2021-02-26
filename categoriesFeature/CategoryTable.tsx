@@ -105,7 +105,7 @@ export function CategoryTable({ status }: CategoryTableProp) {
 
     // after every render, check if there is a change in categories
     useEffect(() => {
-        categoryService.getCategories(status.toString()).then((results) => {
+        categoryService.getCategories(status).then((results) => {
             dispatch(getCategories(results));
         })
     }, [dispatch])

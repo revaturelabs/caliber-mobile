@@ -19,11 +19,14 @@ jest.mock('@react-navigation/core', () => {
 
 describe('CategoryName component', () => {
     let wrapper: any;
-    let prop: Category = new Category;
+    let prop: Category = new Category();
+    prop.skill = 'testSkill';
+    prop.categoryid = 1;
+    prop.active = true;
     let props: Category[] = [];
     beforeAll(() => {
         wrapper = Enzyme.mount(
-            <CategoryName category={prop} categories={props}></CategoryName>
+            <CategoryName skill={prop.skill} categoryid={prop.categoryid} active={prop.active} categories={props}></CategoryName>
         )
     });
 

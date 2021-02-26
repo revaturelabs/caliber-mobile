@@ -8,10 +8,6 @@ import {UserInput, UserInfo} from '../user/user'
 import { Category } from '../categoriesFeature/Category';
 import { AppAction } from './actions';
 import Batch from '../batches/batch';
-<<<<<<< HEAD
-=======
-import { UserInfo, UserInput } from '../user/user';
->>>>>>> 82660db3edfb1d4ebcbf6810ceb5ba25f381eded
 
 export interface BatchState {
 	batches: Batch[];
