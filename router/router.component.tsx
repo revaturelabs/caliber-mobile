@@ -7,15 +7,19 @@ import AssociateTableComponent from '../associate/AssociateTableComponent';
 import UnderDevelopmentComponent from '../UnderDevelopmentComponent';
 import LoginComponent from '../user/Login';
 import BatchPageComponent from '../batchPage/BatchPageComponent';
+import LogoutComponent from '../user/Logout';
+import Test from '../user/Test';
 
 export type StackParams = {
     Login: undefined;
+    Test: undefined;
     Home: undefined;
     Batches: undefined;
 };
 
 const headerOptions: StackHeaderOptions = {
     headerTitle: () => <Image style={{width:165, height:50, margin:30}}source={require('./rev-logo.png')} />,
+    headerRight: () => <LogoutComponent/>,
 };
 
 const Stack = createStackNavigator();
@@ -29,17 +33,19 @@ export default function RouterComponent(props: any) {
                 options={headerOptions}
             />
             <Stack.Screen
+                name='Test'
+                component={Test}
+                options={headerOptions}
+            />
+            <Stack.Screen
                 name='Batches'
                 component={BatchesComponent}
                 options={headerOptions}
             />
-            <Stack.Screen 
-                name='BatchPageComponent' 
-                component={BatchPageComponent} 
-            />
-            <Stack.Screen 
-                name='UnderDevelopment' 
-                component={UnderDevelopmentComponent} 
+            <Stack.Screen
+                name='Logout'
+                component={LogoutComponent}
+                options={headerOptions}
             />
         </Stack.Navigator>
     )
