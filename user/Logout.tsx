@@ -1,23 +1,13 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  TouchableHighlight,
-  Image,
-} from 'react-native';
+import { Text, TouchableHighlight } from 'react-native';
 import { logout } from '../test/auth/functions';
 import { useNavigation } from '@react-navigation/native';
-import { style } from '../global_styles';
 
-/**Trial LogoutButton */
+/**LogoutButton */
 
-interface LogoutProp {
-  navigation?: any;
-}
+function LogoutComponent() {
+  const navigation = useNavigation();
 
-function LogoutComponent({ navigation }: LogoutProp) {
   return (
     <TouchableHighlight
       onPress={() => {
