@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUser, loginChange } from '../store/actions';
 import { Input } from 'react-native-elements';
 import { Roles } from './user';
+import ForgotPassword from './ForgotPassword';
 
 interface LoginProp {
     navigation: any;
@@ -110,7 +111,7 @@ export default function LoginComponent({navigation}: LoginProp) {
                 </TouchableHighlight>
                 
                 <TouchableHighlight
-                    // onPress={ forgot password }
+                    onPress={ForgotPassword }
                     style={{backgroundColor: '#fff', height:45, width:200, borderRadius:40, alignItems:'center'}}>
                     <Text style={{alignItems:'center', color:'#72A4C2', fontSize:18, fontWeight:'bold'}}>Forgot password?</Text>
                 </TouchableHighlight>
