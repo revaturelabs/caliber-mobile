@@ -28,7 +28,6 @@ class categoryService {
     }
 
     // PUT function for /categories/{categoryId}
-    // should take in a category object? 
     updateCategory(category: Category): Promise<any>{ 
         console.log('category for put: ', category);
         return axios.put(`${this.URI}/categories` + `/${category.categoryid}`, category).then((result) => {
