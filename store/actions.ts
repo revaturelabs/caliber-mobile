@@ -1,5 +1,5 @@
 import { UserInfo, UserInput } from '../user/user';
-import Batch from '../batches/Batch;
+import Batch from '../batches/Batch';
 import { AssociateWithFeedback } from '../associate/AssociateService';
 import QcWeek from '../batchWeek/QcWeek';
 import weekReducer from './WeekReducer';

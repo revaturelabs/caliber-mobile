@@ -42,14 +42,18 @@ function AssociateTableComponent(props: AssociateProps) {
     let associates = useSelector((state: RootState) => state.batchReducer.associates);
     let batch = useSelector((state: RootState) => state.batchReducer.batch);
     let week = useSelector((state: RootState) => state.weekReducer.selectedWeek);
-
     let iconName: string = 'angle-up';
     let iconColor: string = '#F26925';
     const [sortDirection, setSortDirection] = useState("FUp");
 
 
     useEffect(() => {
-        dispatch(getAssociates(tempAssociates));
+        if(props.assoc.length = 0) {
+            dispatch(getAssociates(tempAssociates));
+
+        } else {
+            
+        }
         // getQCNotes();
     }, []);
 
