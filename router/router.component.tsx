@@ -16,7 +16,7 @@ export type StackParams = {
 
 const headerOptions: StackHeaderOptions = {
     headerTitle: () => <Image style={{width:165, height:50, margin:30}}source={require('./rev-logo.png')} />,
-    headerRight: () => <LogoutComponent/>,
+    headerRight: () => <LogoutComponent />,
 };
 
 const Stack = createStackNavigator();
