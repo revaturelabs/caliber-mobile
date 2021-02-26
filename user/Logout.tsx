@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, Text, TextInput, Button, TouchableHighlight, Image } from 'react-native';
+import { Text,TouchableHighlight} from 'react-native';
 import {logout} from '../test/auth/functions';
 import {style} from '../global_styles';
-import LoginComponent from './Login';
 import { useNavigation } from '@react-navigation/native';
 
 /**LogoutButton */
