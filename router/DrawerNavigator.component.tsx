@@ -18,8 +18,6 @@ const headerOptions: DrawerHeaderOptions = {
       source={require('./rev-logo.png')}
     />
   ),
-  headerRight: () => <LogoutComponent />,
-  headerLeft: () => <Icon.Button name='ios-menu' size={25}></Icon.Button>,
 };
 
 export function DrawerNavigator() {
