@@ -5,7 +5,7 @@ import batchReducer from './batchReducer';
 import userReducer from './userReducer';
 import { AppAction } from './actions';
 import Batch from '../batches/batch';
-import { UserInput, UserInfo } from '../user/user';
+import { UserInfo, UserInput } from '../user/user';
 
 export interface BatchState {
 	batches: Batch[];
