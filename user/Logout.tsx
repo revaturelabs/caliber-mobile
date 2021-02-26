@@ -1,21 +1,24 @@
 import React from 'react';
-import { View, Text, TextInput, Button, TouchableHighlight, Image } from 'react-native';
+import { Text,TouchableHighlight} from 'react-native';
 import {logout} from '../test/auth/functions';
-import { useNavigation } from '@react-navigation/native';
 import {style} from '../global_styles';
+import { useNavigation } from '@react-navigation/native';
+import {getUser} from '../store/actions';
+import {useDispatch} from 'react-redux';
+import {UserInfo} from './user';
 
-/**Trial LogoutButton */
+/**LogoutButton */
 
-interface LogoutProp {
-    navigation?: any;
-}
+function LogoutComponent(){
+    const navigation = useNavigation();
+    const dispatch = useDispatch();
 
-function LogoutComponent({ navigation }: LogoutProp){
     return (
         <TouchableHighlight
             onPress={ () => {
             logout();
-            //navigation.navigate('Login');
+            dispatch(getUser(new UserInfo));
+            navigation.navigate('Login');
         }}
         style={{backgroundColor: '#F26925', height:40, width:133, borderRadius:40, alignItems:'center', marginBottom: 40}}>
         <Text style={{alignItems:'center', padding:8, color:'#fff', fontSize:18, fontWeight:'bold'}}>LOG OUT</Text>
