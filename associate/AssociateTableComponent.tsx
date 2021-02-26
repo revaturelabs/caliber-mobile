@@ -1,4 +1,3 @@
-//Shows associate name, technical status, note (editable)
 import React, { useEffect, useState } from 'react';
 import 'react-native';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
@@ -6,15 +5,9 @@ import { Button, Icon } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
 import style from '../global_styles';
 import { getAssociates } from '../store/actions';
-import {
-  AssociateState,
-  BatchState,
-  ReducerState,
-  WeekState,
-} from '../store/store';
+import { AssociateState, BatchState, WeekState } from '../store/store';
 import AssociateDetail from './AssociateDetail';
 import AssociateService, {
-  Associate,
   AssociateWithFeedback,
   QCFeedback,
 } from './AssociateService';
@@ -26,15 +19,10 @@ import {
   sortAssociateByLastNameReversed,
 } from './sort';
 
-interface AssociateProps {
-  assoc: Associate[];
-}
-
 /**
  * Get Associate needs to do some stuff here.
  */
 
-//let qcFeedback = AssociateService.getAssociate(assoc);
 let assoc1 = new AssociateWithFeedback();
 assoc1.associate.firstName = 'TylerTest';
 assoc1.associate.lastName = 'BetaTest';
@@ -48,6 +36,14 @@ let assoc4 = new AssociateWithFeedback();
 assoc4.associate.firstName = 'MaryTest';
 assoc4.associate.lastName = 'DeltaTest';
 
+/**
+ * This component is to display the associate's first and last name
+ * along with a TextInput for the QC note and technical status icon that
+ * can cycle for the different statuses.
+ * This component also contains the save button that floats at the bottom of the screen
+ * The filters for first and last name and the button for randomizing associates also displays
+ * on this component.
+ */
 function AssociateTableComponent() {
   let tempAssociates = [assoc1, assoc2, assoc3, assoc4];
   let dispatch = useDispatch();
@@ -156,7 +152,7 @@ function AssociateTableComponent() {
       <Button
         onPress={async () => {
           let x = [...associates];
-          await shuffle(x);
+          shuffle(x);
           dispatch(getAssociates(x));
         }}
         title='Randomize List'
@@ -189,7 +185,7 @@ function AssociateTableComponent() {
         <Text style={style.sortHeader} onPress={switchSortingL}>
           Sort By Last Name
         </Text>
-        {sortDirection == 'LUp' ? (
+        {sortDirection === 'LUp' && (
           <Icon
             style={style.iconSort}
             name={iconName}
@@ -197,7 +193,8 @@ function AssociateTableComponent() {
             color={iconColor}
             testID='statusIcon'
           />
-        ) : sortDirection == 'LDown' ? (
+        )}
+        {sortDirection === 'LDown' && (
           <Icon
             style={style.iconSort}
             name={'angle-down'}
@@ -205,8 +202,6 @@ function AssociateTableComponent() {
             color={iconColor}
             testID='statusIcon'
           />
-        ) : (
-          <Text></Text>
         )}
       </TouchableOpacity>
       <FlatList

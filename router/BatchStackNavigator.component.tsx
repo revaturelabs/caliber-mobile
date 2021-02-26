@@ -5,12 +5,9 @@ import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/t
 import BatchListComponent from '../batches/BatchListComponent';
 import QuarterComponent from '../batches/QuarterComponent';
 import YearComponent from '../batches/YearComponent';
-import { DrawerNavigator } from './DrawerNavigator.component';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LogoutComponent from '../user/Logout';
-import { useNavigation } from '@react-navigation/native';
 import BatchPageComponent from '../batchPage/BatchPageComponent';
-import BatchDetailComponent from '../batches/BatchDetailComponent';
 
 const Stack = createStackNavigator();
 

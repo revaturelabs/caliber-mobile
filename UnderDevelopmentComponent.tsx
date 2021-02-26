@@ -1,5 +1,4 @@
 import React from 'react';
-import 'react-native';
 import { View, Text } from 'react-native';
 import { Icon } from 'react-native-elements';
 

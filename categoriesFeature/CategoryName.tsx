@@ -7,13 +7,12 @@ import {
   Modal,
   TextInput,
 } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import ToastNotification from 'react-native-toast-notification';
 import catStyle from './categoriesStyles';
 import { getCategories } from '../store/categoriesFeature/CategoryActions';
 import { Category } from './Category';
 import categoryService from './CategoryService';
-import { CategoryState } from '../store/store';
 
 interface CategoryNameProp {
   skill: string;

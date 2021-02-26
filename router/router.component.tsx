@@ -6,7 +6,6 @@ import LoginComponent from '../user/Login';
 import LogoutComponent from '../user/Logout';
 import { DrawerNavigator } from './DrawerNavigator.component';
 import UnderDevelopmentComponent from '../UnderDevelopmentComponent';
-import { NavigationContext } from '@react-navigation/native';
 
 export type StackParams = {
   Login: undefined;
