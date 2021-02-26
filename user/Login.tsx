@@ -21,7 +21,7 @@ export default function LoginComponent({navigation}: LoginProp) {
     const useUser = useSelector(dispatchUser);
     const dispatch = useDispatch();
 
-    useEffect(() => {
+/*     useEffect(() => {
         auth.onAuthStateChanged((user) => {
             console.log('auth state changed');
             if(user){
@@ -41,14 +41,14 @@ export default function LoginComponent({navigation}: LoginProp) {
                 console.log('not logged in');
             }
         });
-    }, []); 
+    }, []);  */
 
     const loginUser = async(newUser: any) => {
         if(newUser.email != '' && newUser.password != ''){
             try{
                 let email = newUser.email;
                 let password = newUser.password;
-                let user = await auth.signInWithEmailAndPassword(email, password);
+                auth.signInWithEmailAndPassword(email, password);
                 //console.log(user);
                 console.log(useUser);
                 console.log(useUser.role);
