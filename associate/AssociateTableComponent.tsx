@@ -124,23 +124,23 @@ function AssociateTableComponent() {
   }
 
   function handleAllUpdate() {
-    associates.forEach((assoc) => {
+    associates.forEach(async (assoc) => {
       try {
-        AssociateService.updateAssociate(assoc.qcFeedback, {
+        await AssociateService.updateAssociate(assoc.qcFeedback, {
           notecontent: assoc.qcFeedback.qcNote,
         });
       } catch (err: any) {
-        AssociateService.replaceAssociate(assoc.qcFeedback, {
+        await AssociateService.replaceAssociate(assoc.qcFeedback, {
           notecontent: assoc.qcFeedback.qcNote,
           technicalstatus: assoc.qcFeedback.qcTechnicalStatus,
         });
       }
       try {
-        AssociateService.updateAssociate(assoc.qcFeedback, {
+        await AssociateService.updateAssociate(assoc.qcFeedback, {
           technicalstatus: assoc.qcFeedback.qcNote,
         });
       } catch (err: any) {
-        AssociateService.replaceAssociate(assoc.qcFeedback, {
+        await AssociateService.replaceAssociate(assoc.qcFeedback, {
           technicalstatus: assoc.qcFeedback.qcTechnicalStatus,
           notecontent: assoc.qcFeedback.qcNote,
         });
