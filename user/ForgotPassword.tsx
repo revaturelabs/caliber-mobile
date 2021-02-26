@@ -1,32 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { View, Text, Button } from 'react-native';
-import {Input} from "react-native-elements";
-import {style} from "../global_styles";
+import { Input } from "react-native-elements";
+import { style } from "../global_styles";
 
-import {sendPasswordResetEmail} from '../test/auth/functions';
-import { RootState } from '../store/store';
+import { sendPasswordResetEmail } from '../test/auth/functions';
+import { RootState } from '../store/store'
+import { loginChange } from '../store/actions';
 
-import {loginChange} from '../store/actions';
+import { useNavigation } from '@react-navigation/native';
 
 
-function ForgotPassword() {
-    //const [email, setEmail] = useState('');
-    // const [loading, setLoading] = useState(false);
-    // const dispatch = useDispatch();
+function ForgotPassword(props: any) {
     const inputUser = (state: RootState) => state.userReducer.userLogin;
+    console.log(inputUser);
     const newUser = useSelector(inputUser);
+    const dispatch = useDispatch();
+    const nav = useNavigation();
 
-
-    // function submitHandler(){
-    //     setLoading(true);
-    //     sendPasswordResetEmail(newUser.email, "Email Sent!");
-    //     setLoading(false);
-    // }
+    function submitHandler(){
+        try{
+        sendPasswordResetEmail(newUser.email);
+        alert('Email Sent!');}catch(err){alert('Email Not Sent!');} 
+        
+        nav.navigate('Login');
+    }
 
     return (
             <View style={style.login}>
-                <View>
+                <View style={style.logininput}>
                     <Text>Email: </Text>
                     <Input
                         placeholder="Email address"
@@ -34,7 +36,7 @@ function ForgotPassword() {
                             (value) => dispatch(loginChange({...newUser, email:value}))}
                         value={newUser.email}
                    />
-                {/* <Button onPress={submitHandler} title="Send Email" /> */}
+                <Button onPress={submitHandler} title="Send Email" />
                 </View>
             </View>
     );
