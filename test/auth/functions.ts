@@ -17,3 +17,11 @@ export function logout() {
             console.error(err);
         })
 }
+
+export function sendPasswordResetEmail(email: string) {
+    firebase.auth().sendPasswordResetEmail(email).then((res)=>{
+        console.log("Email Sent!")
+    }).catch((err)=>{
+        console.error(err);
+    });
+  } 
