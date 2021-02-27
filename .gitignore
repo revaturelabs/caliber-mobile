@@ -6,6 +6,7 @@
 **/.env
 **/.eslintcache
 .vscode/
+**/caliber-mobile-access-credentials
 
 node_modules/**/*
 .expo/*
