@@ -36,6 +36,12 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
     category.active = active;
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        CategoryService.getCategories(active).then((results) => {
+            dispatch(getCategories(results));
+        });
+    }, [dispatch])
+
     return (
         <React.Fragment>
             {/* Conditional rendering for toast notifications for edit categories */}
@@ -152,12 +158,16 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
      *  @param: categories - entire category state that will also need to update with new category
      */
     function changeStatus(category: Category, categories: Category[]) {
+        console.log(category);
+        console.log(categories);
+        console.log(categories.indexOf(category));
 
         // find category in categories array and replace with new category
-        categories.splice(categories.indexOf(category), 1);
+        //categories.splice(categories.indexOf(category), 1);
         // change category status
-        if (category.active) {
+        if (category.active == true) {
             category.active = false;
+            console.log(category);
         } else {
             category.active = true;
         }

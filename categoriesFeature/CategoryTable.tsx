@@ -15,6 +15,7 @@ import CategoryService from './CategoryService';
 
 interface CategoryTableProp {
     cats: Category[];
+    status: boolean;
 }
 
 /**
@@ -22,14 +23,15 @@ interface CategoryTableProp {
  *  @param: status - local state that allows table to show categories conditionally
  *  @returns: view that has a table of either active or stale categories
  */
-export function CategoryTable({ cats }: CategoryTableProp) {
+export function CategoryTable({ cats, status }: CategoryTableProp) {
     const dispatch = useDispatch();
     let [search, searchSet] = useState('');
 
     // after every render, check if there is a change in categories
     useEffect(() => {
-        CategoryService.getCategories()
-        dispatch(getCategories(cats));
+        CategoryService.getCategories(status).then((results) => {
+            dispatch(getCategories(results));
+        });
     }, [dispatch])
     
     // filters the data

@@ -81,12 +81,12 @@ export default function ManageCategories() {
                         {/* Active Categories Table */}
                         <Tab.Screen
                             name="Active"
-                            children={() => <CategoryTable cats={activeCat} />}
+                            children={() => <CategoryTable cats={activeCat} status={true} />}
                         />
                         {/* Stale Categories Table */}
                         <Tab.Screen
                             name="Inactive"
-                            children={() => <CategoryTable cats={staleCat} />}
+                            children={() => <CategoryTable cats={staleCat} status={false}/>}
                         />
                     </Tab.Navigator>
                     {/* Add button to be rendered at the bottom of the screen */}
