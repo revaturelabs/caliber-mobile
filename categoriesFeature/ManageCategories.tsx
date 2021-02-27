@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { CategoryTable } from './CategoryTable';
 import categoryService from './CategoryService';
-import { getCategories } from '../store/categoriesFeature/CategoryActions';
+import { GetActive, GetStale } from '../store/categoriesFeature/CategoryActions';
 import { CategoryState } from '../store/store';
 import catStyle from '../categoriesFeature/categoriesStyles';
 import AddBtn from './AddBtn.png';

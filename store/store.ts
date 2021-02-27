@@ -3,38 +3,47 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import batchReducer from './batchReducer';
 import userReducer from './userReducer';
-import categoryReducer from './categoriesFeature/CategoryReducer';
-import {UserInput, UserInfo} from '../user/user'
-import { Category } from '../categoriesFeature/Category';
 import { AppAction } from './actions';
-import Batch from '../batches/batch';
-
-export interface BatchState {
-	batches: Batch[];
-}
+import { UserInfo, UserInput } from '../user/user';
+import { Category } from '../categoriesFeature/Category';
+import categoryReducer from './categoriesFeature/CategoryReducer';
 
 export interface UserState {
 	user: UserInfo;
 	userLogin: UserInput;
 }
-
 export interface CategoryState {
-    categories: Category[];
+	activeCat: Category[];
+	staleCat: Category[];
 }
-export interface CaliberState extends UserState, CategoryState, BatchState {}
+export interface CaliberState extends UserState, CategoryState { }
+
+export interface CaliberState
+	extends UserState,
+	CategoryState { }
+
+export interface CaliberState
+	extends UserState,
+	CategoryState { }
 // <> is generics: Generic arguments allow us to define the type of a thing at runtime instead of when we write it,
 // creating a reusable object.
+
+export interface CaliberState extends UserState, CategoryState { }
 
 //add your reducer to the object
 const rootReducer = combineReducers({
 	userReducer,
 	batchReducer,
+	categoryReducer,
 });
 
-//user userSelector(state: RootState => state.yourReducer.yourPayload)
-export type RootState = ReturnType<typeof rootReducer>;
+/**
+ * Example of how to use ReducerState
+ * let variableName = useSelector(state: RootState => state.reducerName.payloadName)
+ */
+export type ReducerState = ReturnType<typeof rootReducer>;
 
-const store: Store<RootState, AppAction> = createStore(
+const store: Store<ReducerState, AppAction> = createStore(
 	rootReducer,
 	composeWithDevTools(applyMiddleware(thunk))
 );

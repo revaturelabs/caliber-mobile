@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, SectionList, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategories } from '../store/categoriesFeature/CategoryActions';
+import { GetActive, GetStale } from '../store/categoriesFeature/CategoryActions';
 import { CategoryState } from '../store/store';
 import { Category } from './Category';
 import CategoryName  from './CategoryName';
@@ -30,7 +30,7 @@ export function CategoryTable({ cats, status }: CategoryTableProp) {
     // after every render, check if there is a change in categories
     useEffect(() => {
         CategoryService.getCategories(status).then((results) => {
-            dispatch(getCategories(results));
+            dispatch(GetActive(results));
         });
     }, [dispatch])
     
@@ -67,6 +67,7 @@ export function CategoryTable({ cats, status }: CategoryTableProp) {
                         <Text style={catStyle.instructText}>Click to toggle Active/Stale Categories</Text>
                     </View>
                     <ScrollView style={{height:'84.5%'}}>
+                        
                         {/* Alphabetized list of skills */}
                         <AlphabetList
                             data={result}

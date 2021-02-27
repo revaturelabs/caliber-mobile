@@ -7,6 +7,6 @@ import { CaliberState } from "./store";
 export const initialState: CaliberState = {
     user: new UserInfo(),
     userLogin: new UserInput(),
-    batches: [],
-    categories: []
+    activeCat: [],
+    staleCat: []
 }

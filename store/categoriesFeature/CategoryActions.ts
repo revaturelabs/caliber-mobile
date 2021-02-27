@@ -1,8 +1,10 @@
 import {Category} from '../../categoriesFeature/Category';
 import { AppAction } from '../actions';
+import { CategoryState } from '../store';
 
 export enum CategoryActions {
-    GetCategories = 'GET_CATEGORIES'
+    GetActive = 'GET_ACTIVE',
+    GetStale = 'GET_STALE'
 }
 
 
@@ -11,9 +13,17 @@ export interface CategoryAction<P> extends AppAction {
     payload: P | P[];
 }
 
-export function getCategories(categories: Category[]): CategoryAction<Category[]> {
+export function GetActive(categories: Category[]): CategoryAction<Category[]> {
     const action: CategoryAction<Category[]> = {
-        type: CategoryActions.GetCategories,
+        type: CategoryActions.GetActive,
+        payload: categories
+    };
+    return action;
+}
+
+export function GetStale(categories: Category[]): CategoryAction<Category[]> {
+    const action: CategoryAction<Category[]> = {
+        type: CategoryActions.GetStale,
         payload: categories
     };
     return action;

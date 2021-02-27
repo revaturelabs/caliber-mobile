@@ -6,7 +6,7 @@ import CategoryService from '../categoriesFeature/CategoryService';
 import { CategoryState } from '../store/store';
 import ManageCategories from '../categoriesFeature/ManageCategories';
 import LoginComponent from '../user/Login';
-import { getCategories } from '../store/categoriesFeature/CategoryActions';
+import { GetActive, GetStale } from '../store/categoriesFeature/CategoryActions';
 import { Category } from '../categoriesFeature/Category';
 
 export type StackParam = {
@@ -18,15 +18,16 @@ const Stack = createStackNavigator();
 export function Router() {
   // get category state from store
   const dispatch = useDispatch();
+  console.log('router');
 
-  useEffect(() => {
-      async function getCategoryFunc() {
-          const categories = await CategoryService.getCategories();
-          console.log(categories);
-          dispatch(getCategories(categories));
-      }
-      getCategoryFunc();
-  }, [])
+  // useEffect(() => {
+  //     async function getCategoryFunc() {
+  //         const categories = await CategoryService.getCategories();
+  //         console.log(categories);
+  //         dispatch(GetActive(categories));
+  //     }
+  //     getCategoryFunc();
+  // }, [])
 
   return (
     <NavigationContainer>

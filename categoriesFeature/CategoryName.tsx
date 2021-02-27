@@ -3,18 +3,18 @@ import { View, Text, Pressable, TouchableOpacity, Modal, TextInput } from 'react
 import { useDispatch, useSelector } from 'react-redux';
 //import ToastNotification from 'react-native-toast-notification';
 import catStyle from './categoriesStyles';
-import { getCategories } from '../store/categoriesFeature/CategoryActions';
+import { GetActive, GetStale } from '../store/categoriesFeature/CategoryActions';
 import { Category } from './Category';
 import categoryService from './CategoryService';
 import { CategoryState } from '../store/store';
 import CategoryService from './CategoryService';
-import { useNavigation } from '@react-navigation/native';
+import { getActionFromState, useNavigation } from '@react-navigation/native';
 
 interface CategoryNameProp {
     skill: string;
     categoryid: number;
     active: boolean;
-    categories: Category[];
+    categories: Category[]
 }
 
 /**
@@ -30,17 +30,19 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
     const [clicked, setClicked] = useState(false);
     const [value, onChangeText] = useState('');
     //const [toastStatus, setToastStatus] = useState('');
-    const category = new Category();
-    category.skill = skill;
-    category.categoryid = categoryid;
-    category.active = active;
     const dispatch = useDispatch();
+    const nav = useNavigation();
+
+    let category = new Category();
+    category.skill = skill;
+    category.active = active;
+    category.categoryid = categoryid;
+
 
     useEffect(() => {
-        CategoryService.getCategories(active).then((results) => {
-            dispatch(getCategories(results));
-        });
-    }, [dispatch])
+        console.log('line 41');
+        nav.navigate('Manage Categories');
+    }, [])
 
     return (
         <React.Fragment>
@@ -59,7 +61,7 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
             </React.Fragment> */}
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
                 {/* has a list of category names (depends on props) */}
-                <Pressable testID='statusBtn' onPress={() => { changeStatus(category, categories) }}>
+                <Pressable testID='statusBtn' onPress={() => { changeStatus(category) }}>
                     <Text testID = 'categoryNameList' style={catStyle.skillText}>{category.skill}</Text>
                 </Pressable>
                 <View>
@@ -94,7 +96,7 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
                                 value={value}
                                 autoCapitalize='words'
                                 autoFocus={true}
-                                placeholder={skill}
+                                placeholder={category.skill}
                                 placeholderTextColor='#474C55'
                             />
                             
@@ -138,10 +140,9 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
         // calls categoryService.addCategory
         CategoryService.updateCategory(category).then((result) => {
             // add new category to current categories
-            categories.push(result);
 
             // dispatch new categories
-            dispatch(getCategories(categories));
+            //dispatch(GetActive(categories));
 
             // tiny toast for success
             //setToastStatus('success');
@@ -157,24 +158,25 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
      *  @param: category - the specific category whose status is changing
      *  @param: categories - entire category state that will also need to update with new category
      */
-    function changeStatus(category: Category, categories: Category[]) {
-        console.log(category);
-        console.log(categories);
-        console.log(categories.indexOf(category));
+    function changeStatus(category: Category) {
 
         // find category in categories array and replace with new category
         //categories.splice(categories.indexOf(category), 1);
         // change category status
         if (category.active == true) {
             category.active = false;
-            console.log(category);
         } else {
             category.active = true;
         }
 
         // calls categoryService.updateCategory with the category id
         CategoryService.updateCategory(category).then(() => {
-            dispatch(getCategories(categories));
+            CategoryService.getCategories(true).then((results) => {
+                dispatch(GetActive(results));
+                CategoryService.getCategories(false).then((results) => {
+                    dispatch(GetStale(results));
+                })
+            })
         });
     }
 }
