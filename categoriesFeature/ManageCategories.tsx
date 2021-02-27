@@ -23,15 +23,15 @@ interface Props {
  *  @returns: view that has tabs of active/stale categories 
  *  and a button that adds a category
  */
-export default function ManageCategories(data: Props) {
+export default function ManageCategories() {
     const Tab = createMaterialTopTabNavigator();
     // set local state for currently viewed tab
     const [clicked, setClicked] = useState(false);
     const [textValue, onChangeText] = React.useState('');
     const [toastStatus, setToastStatus] = useState('');
     const [rend, setRend] = useState(false);
-    const array: Category[] = [];
-    const [categories, setCategories] = useState(array);
+    // const array: Category[] = [];
+    // const [categories, setCategories] = useState(array);
     const [activeCat, setActive] = useState([]);
     const [staleCat, setStale] = useState([]);
     const dispatch = useDispatch();
@@ -42,23 +42,12 @@ export default function ManageCategories(data: Props) {
         async function getCategoryFunc() {
             const active = await CategoryService.getCategories(true);
             const stale = await CategoryService.getCategories(false);
-            //separate categories into active and inactive arrays
-            // if (categories) {
-            //     await categories.forEach((category: Category) => {
-            //         if (category.active === true) {
-            //             activeCat.push(category);
-
-            //         } else {
-            //             staleCat.push(category);
-            //         }
-            //     });
-            console.log(stale);
             setActive(active);
             setStale(stale);
             setRend(true);
         }
         getCategoryFunc();
-    }, [])
+    }, [setActive, setStale])
 
     return (
         <React.Fragment>
@@ -166,13 +155,17 @@ export default function ManageCategories(data: Props) {
      *  @param: value is a string that is what the user inputs for a new category
      */
     function AddCategory(value: string) {
-        // calls categoryService.addCategory
-        categoryService.addCategory(value).then((result) => {
+        // calls categoryService.addCategory then getCategory to update the page
+        CategoryService.addCategory(value).then((result) => {
+            CategoryService.getCategories(true).then((results) => {
+                setActive(results);
+            })
+            
             // add new category to current categories
-            categories.push(result);
+            //categories.push(result);
 
             // dispatch new categories
-            dispatch(getCategories(categories));
+            //dispatch(getCategories(categories));
 
             // call toast function with result
             //setToastStatus('success');

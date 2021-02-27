@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Pressable, TouchableOpacity, Modal, TextInput } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 //import ToastNotification from 'react-native-toast-notification';
@@ -8,6 +8,7 @@ import { Category } from './Category';
 import categoryService from './CategoryService';
 import { CategoryState } from '../store/store';
 import CategoryService from './CategoryService';
+import { useNavigation } from '@react-navigation/native';
 
 interface CategoryNameProp {
     skill: string;
@@ -151,15 +152,15 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
      *  @param: categories - entire category state that will also need to update with new category
      */
     function changeStatus(category: Category, categories: Category[]) {
+
+        // find category in categories array and replace with new category
+        categories.splice(categories.indexOf(category), 1);
         // change category status
         if (category.active) {
             category.active = false;
         } else {
             category.active = true;
         }
-
-        // find category in categories array and replace with new category
-        categories.splice(categories.indexOf(category), 1, category);
 
         // calls categoryService.updateCategory with the category id
         CategoryService.updateCategory(category).then(() => {

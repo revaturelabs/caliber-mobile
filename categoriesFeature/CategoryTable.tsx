@@ -23,10 +23,6 @@ interface CategoryTableProp {
  *  @returns: view that has a table of either active or stale categories
  */
 export function CategoryTable({ cats }: CategoryTableProp) {
-    // get category state from store
-    const categorySelector = (state: CategoryState) => state.categories;
-    const categories = useSelector(categorySelector);
-    const newCategories = { ...categories };
     const dispatch = useDispatch();
     let [search, searchSet] = useState('');
 
@@ -46,7 +42,6 @@ export function CategoryTable({ cats }: CategoryTableProp) {
         let [value, key, active] = [filteredData[element].skill, filteredData[element].categoryid, filteredData[element].active]
         result.push({value, key, active})
     }
-    console.log(result);
 
     return (
         <View>
