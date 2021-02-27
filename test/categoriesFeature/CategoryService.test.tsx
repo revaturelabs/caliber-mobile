@@ -1,5 +1,6 @@
 import axios from 'axios';
-import categoryService from '../categoryService';
+import { Category } from '../../categoriesFeature/Category';
+import categoryService from '../../categoriesFeature/CategoryService';
 
 describe('categoryService class', () => {
     test('getCategories returns proper data', async () => {
@@ -19,7 +20,7 @@ describe('categoryService class', () => {
         let active = true;
         let obj = {data: []};
         axios.post = jest.fn().mockResolvedValue(obj);
-        await categoryService.addCategory(skill, active).then((result)=>{
+        await categoryService.addCategory(skill).then((result)=>{
             returnValues = result;
         });
         expect(axios.post).toHaveBeenCalledTimes(1);
@@ -28,10 +29,11 @@ describe('categoryService class', () => {
 
     test('updateCategory returns proper data', async () => {
         let returnValues;
-        let id = 1;
+        let cat = new Category();
+        cat.categoryid = 1;
         let obj = {data:[]};
         axios.put = jest.fn().mockResolvedValue(obj);
-        await categoryService.updateCategory(id).then((result) => {
+        await categoryService.updateCategory(cat).then((result) => {
             returnValues = result;
         });
         expect(axios.put).toHaveBeenCalledTimes(1);
