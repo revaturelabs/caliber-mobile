@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableHighlight, Image } from 'react-native';
 import {style} from '../global_styles';
 import { ReducerState } from '../store/store';
-import {f, auth} from './config';
+import {auth} from './config';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginChange } from '../store/actions';
+import { getUser, loginChange } from '../store/actions';
+import { Roles } from './user';
 
 interface LoginProp {
     navigation: any;
@@ -13,6 +14,7 @@ interface LoginProp {
 export default function LoginComponent({navigation}: LoginProp) {
     const [loggedIn, setLoggedin] = useState(false);
     const inputUser = (state: ReducerState) => state.userReducer.userLogin;
+    
     const newUser = useSelector(inputUser);
     const dispatch = useDispatch();
 
@@ -31,23 +33,33 @@ export default function LoginComponent({navigation}: LoginProp) {
             alert('Missing email or password');
         }
     }
-
-    f.auth().onAuthStateChanged(function(user:any) {
-        if(user){
-            //Logged in
-            setLoggedin(true);
-            console.log('Logged in', user);
-    }else{
-      //logged out
-        setLoggedin(false);
-        console.log('Logged out');
-        }
-    });
-
+    useEffect(()=>{
+        auth.onIdTokenChanged(function(user:any) {
+            if(user){
+                //Logged in
+                setLoggedin(true);
+                user.getIdTokenResult().then((token: any) => {
+                    console.log(token);
+                    const role = {
+                        ROLE_QC: token.claims.ROLE_QC,
+                        ROLE_VP: token.claims.ROLE_VP,
+                        ROLE_TRAINER: token.claims.ROLE_TRAINER
+                    };
+                    const tokenTemp = token.token;
+                    dispatch(getUser({email: user.email, token: tokenTemp, role: role}));
+                }).catch((err: any) => console.log(err));
+                
+                console.log('Logged in', user);
+        }else{
+          //logged out
+            setLoggedin(false);
+            console.log('Logged out');
+            }
+        });
+    },[]);
+    
     return (
         <View style={style.container}>
-
-
             <Text style={style.caliber}>Caliber</Text>
 
             <View style={style.login}>

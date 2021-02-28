@@ -4,9 +4,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
 import BatchesComponent from '../batches/batches.component';
 import LoginComponent from '../user/Login';
-import Test from '../user/Test';
 import LogoutComponent from '../user/Logout';
 import ForgotPassword from '../user/ForgotPassword';
+import Icon from 'react-native-vector-icons/Ionicons';
+import Home from '../user/Home';
 
 export type StackParams = {
     Login: undefined;
@@ -17,7 +18,10 @@ export type StackParams = {
 
 const headerOptions: StackHeaderOptions = {
     headerTitle: () => <Image style={{width:165, height:50, margin:30}}source={require('./rev-logo.png')} />,
-    //headerRight: () => <LogoutComponent />,
+    headerRight: () => <LogoutComponent />,
+    headerLeft: () => <Icon.Button name='ios-menu' size={25} backgroundColor='#72A4C2'
+    // onPress={() => navigation.openDrawer()}
+    ></Icon.Button>,
 };
 
 const Stack = createStackNavigator();
@@ -31,8 +35,8 @@ export default function RouterComponent(props: any) {
                 options={headerOptions}
             />
             <Stack.Screen
-                name='Test'
-                component={Test}
+                name='Home'
+                component={Home}
                 options={headerOptions}
             />
             <Stack.Screen
