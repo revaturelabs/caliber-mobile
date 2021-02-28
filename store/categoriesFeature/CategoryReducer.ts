@@ -5,8 +5,7 @@ import * as Action from '../actions';
 import * as Actions from './CategoryActions'
 
 const categoryReducer = (state: CaliberState = initialState, action: Action.AppAction): CaliberState => {
-    const newState = {...state}; 
-    console.log('reducer');
+    const newState = {...state};
 
     switch (action.type) {    
         case Actions.CategoryActions.GetActive:

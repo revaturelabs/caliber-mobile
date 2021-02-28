@@ -23,34 +23,23 @@ interface Props {
  *  and a button that adds a category
  */
 export default function ManageCategories() {
-    console.log('manage categories');
     const Tab = createMaterialTopTabNavigator();
     // set local state for currently viewed tab
     const [clicked, setClicked] = useState(false);
     const [textValue, onChangeText] = React.useState('');
-    const [toastStatus, setToastStatus] = useState('');
     const [rend, setRend] = useState(false);
     // const array: Category[] = [];
     // const [categories, setCategories] = useState(array);
     const dispatch = useDispatch();
     const array: Category[] = [];
     const [activeCat, setActive] = useState(array);
-    const [staleCat, setStale] = useState(array);
     const nav = useNavigation();
     // let activeCat: Category[] = [];
     // let staleCat: Category[] = [];
 
 
     useEffect(() => {
-        console.log(40);
-        async function getCategoryFunc() {
-            const active = await CategoryService.getCategories(true);
-            const stale = await CategoryService.getCategories(false);
-            dispatch(GetActive(active));
-            dispatch(GetStale(stale));
-            setRend(true);
-        }
-        getCategoryFunc();
+        setRend(true);
     }, [])
 
     

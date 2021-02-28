@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetActive, GetStale } from '../store/categoriesFeature/CategoryActions';
 import store, { CategoryState } from '../store/store';
 import { Category } from './Category';
-import CategoryName  from './CategoryName';
+import CategoryName from './CategoryName';
 import categoryService from './CategoryService';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { SearchBar } from 'react-native-elements';
-import SearchInput, {createFilter} from 'react-native-search-filter';
+import SearchInput, { createFilter } from 'react-native-search-filter';
 import { AlphabetList } from 'react-native-section-alphabet-list';
 import catStyle from './categoriesStyles';
 import CategoryService from './CategoryService';
@@ -34,14 +34,14 @@ export function CategoryTable({ status }: CategoryTableProp) {
     const [rend, setRend] = useState(0);
     const activeState = useSelector((state: CategoryState) => state.activeCat);
     const staleState = useSelector((state: CategoryState) => state.staleCat);
-    
+
     // after every render, check if there is a change in categories
     useEffect(() => store.subscribe(async () => {
         const active = await CategoryService.getCategories(true);
         const stale = await CategoryService.getCategories(false);
         setActive(active);
         setStale(stale);
-        }), [store, store.getState().categoryReducer]);
+    }), [store, store.getState().categoryReducer]);
 
     const result = new Array();
     if (status) {
@@ -50,10 +50,10 @@ export function CategoryTable({ status }: CategoryTableProp) {
         const filteredData = activeCat.filter(createFilter(search, KEYS_TO_FILTERS));
 
         // destructures array into [value: 'skill, key: categoryid, active: boolean] for AlphabetList
-        
-        for(let element in filteredData) {
+
+        for (let element in filteredData) {
             let [value, key, active] = [filteredData[element].skill, filteredData[element].categoryid, filteredData[element].active]
-            result.push({value, key, active})
+            result.push({ value, key, active })
         }
     } else {
         // filters the data
@@ -62,9 +62,9 @@ export function CategoryTable({ status }: CategoryTableProp) {
 
         // destructures array into [value: 'skill, key: categoryid, active: boolean] for AlphabetList
 
-        for(let element in filteredData) {
+        for (let element in filteredData) {
             let [value, key, active] = [filteredData[element].skill, filteredData[element].categoryid, filteredData[element].active]
-            result.push({value, key, active})
+            result.push({ value, key, active })
         }
     }
 
@@ -77,7 +77,7 @@ export function CategoryTable({ status }: CategoryTableProp) {
             {status == true ?
                 // if status is true, return a table of active categories
                 <View>
-                    <View style={catStyle.instructView}>   
+                    <View style={catStyle.instructView}>
                         {/* Search Bar for categories */}
                         <SearchBar
                             placeholder="Enter Skill..."
@@ -88,13 +88,13 @@ export function CategoryTable({ status }: CategoryTableProp) {
                             inputStyle={catStyle.inputBar}
                             inputContainerStyle={catStyle.inputContainer}
                             containerStyle={catStyle.searchContainer}
-                            searchIcon={{color: 'white'}}
-                            />
+                            searchIcon={{ color: 'white' }}
+                        />
                         {/* Toggle instructions */}
                         <Text style={catStyle.instructText}>Click to toggle Active/Stale Categories</Text>
                     </View>
-                    <ScrollView style={{height:'84.5%'}}>
-                        
+                    <ScrollView style={{ height: '84.5%' }}>
+
                         {/* Alphabetized list of skills */}
                         <AlphabetList
                             data={result}
@@ -130,13 +130,13 @@ export function CategoryTable({ status }: CategoryTableProp) {
                             inputStyle={catStyle.inputBar}
                             inputContainerStyle={catStyle.inputContainer}
                             containerStyle={catStyle.searchContainer}
-                            searchIcon={{color: 'white'}}
+                            searchIcon={{ color: 'white' }}
                             style={catStyle.searchContainer}
                         />
                         {/* Toggle instructions */}
                         <Text style={catStyle.instructText}>Click to toggle Active/Stale Categories</Text>
                     </View>
-                    <ScrollView style={{height:'84.5%'}}>
+                    <ScrollView style={{ height: '84.5%' }}>
                         {/* Alphabetized list of skills */}
                         <AlphabetList
                             data={result}

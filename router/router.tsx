@@ -21,7 +21,6 @@ export function Router() {
   console.log('router');
 
   useEffect(() => {
-    console.log(40);
     async function getCategoryFunc() {
         const active = await CategoryService.getCategories(true);
         const stale = await CategoryService.getCategories(false);

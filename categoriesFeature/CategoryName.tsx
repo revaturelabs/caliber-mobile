@@ -29,6 +29,7 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
     // create or get state
     const [clicked, setClicked] = useState(false);
     const [value, onChangeText] = useState('');
+    const [rend, setRend] = useState(false);
     //const [toastStatus, setToastStatus] = useState('');
     const dispatch = useDispatch();
     const nav = useNavigation();
@@ -37,6 +38,10 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
     category.skill = skill;
     category.active = active;
     category.categoryid = categoryid;
+
+    useEffect(() => {
+        setRend(true);
+    }, [])
 
     return (
         <React.Fragment>
