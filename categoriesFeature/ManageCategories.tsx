@@ -9,6 +9,8 @@ import catStyle from '../categoriesFeature/categoriesStyles';
 import AddBtn from './AddBtn.png';
 import CategoryService from './CategoryService';
 import { StackParam } from '../router/router';
+import { GetActive, GetStale } from '../store/categoriesFeature/CategoryActions';
+import { Category } from './Category';
 
 interface Props {
     route: RouteProp<StackParam, 'ManageCategories'>;
@@ -29,24 +31,28 @@ export default function ManageCategories() {
     const [rend, setRend] = useState(false);
     // const array: Category[] = [];
     // const [categories, setCategories] = useState(array);
-    const [activeCat, setActive] = useState([]);
-    const [staleCat, setStale] = useState([]);
     const dispatch = useDispatch();
+    const array: Category[] = [];
+    const [activeCat, setActive] = useState(array);
+    const [staleCat, setStale] = useState(array);
     const nav = useNavigation();
     // let activeCat: Category[] = [];
     // let staleCat: Category[] = [];
+
 
     useEffect(() => {
         console.log(40);
         async function getCategoryFunc() {
             const active = await CategoryService.getCategories(true);
             const stale = await CategoryService.getCategories(false);
-            setActive(active);
-            setStale(stale);
+            dispatch(GetActive(active));
+            dispatch(GetStale(stale));
             setRend(true);
         }
         getCategoryFunc();
-    }, [setActive, setStale])
+    }, [])
+
+    
 
     return (
         <React.Fragment>
@@ -80,12 +86,12 @@ export default function ManageCategories() {
                         {/* Active Categories Table */}
                         <Tab.Screen
                             name="Active"
-                            children={() => <CategoryTable cats={activeCat} status={true} />}
+                            children={() => <CategoryTable status={true} />}
                         />
                         {/* Stale Categories Table */}
                         <Tab.Screen
                             name="Inactive"
-                            children={() => <CategoryTable cats={staleCat} status={false}/>}
+                            children={() => <CategoryTable status={false}/>}
                         />
                     </Tab.Navigator>
                     {/* Add button to be rendered at the bottom of the screen */}

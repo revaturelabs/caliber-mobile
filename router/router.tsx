@@ -20,14 +20,16 @@ export function Router() {
   const dispatch = useDispatch();
   console.log('router');
 
-  // useEffect(() => {
-  //     async function getCategoryFunc() {
-  //         const categories = await CategoryService.getCategories();
-  //         console.log(categories);
-  //         dispatch(GetActive(categories));
-  //     }
-  //     getCategoryFunc();
-  // }, [])
+  useEffect(() => {
+    console.log(40);
+    async function getCategoryFunc() {
+        const active = await CategoryService.getCategories(true);
+        const stale = await CategoryService.getCategories(false);
+        dispatch(GetActive(active));
+        dispatch(GetStale(stale));
+    }
+    getCategoryFunc();
+}, [])
 
   return (
     <NavigationContainer>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, SectionList, ScrollView, Button } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetActive, GetStale } from '../store/categoriesFeature/CategoryActions';
-import { CategoryState } from '../store/store';
+import store, { CategoryState } from '../store/store';
 import { Category } from './Category';
 import CategoryName  from './CategoryName';
 import categoryService from './CategoryService';
@@ -16,7 +16,6 @@ import { nav } from 'aws-amplify';
 import { useNavigation } from '@react-navigation/core';
 
 interface CategoryTableProp {
-    cats: Category[];
     status: boolean;
 }
 
@@ -25,27 +24,52 @@ interface CategoryTableProp {
  *  @param: status - local state that allows table to show categories conditionally
  *  @returns: view that has a table of either active or stale categories
  */
-export function CategoryTable({ cats, status }: CategoryTableProp) {
+export function CategoryTable({ status }: CategoryTableProp) {
     const dispatch = useDispatch();
     let [search, searchSet] = useState('');
     const nav = useNavigation();
-
+    const array: Category[] = [];
+    const [activeCat, setActive] = useState(array);
+    const [staleCat, setStale] = useState(array);
+    const [rend, setRend] = useState(0);
+    const activeState = useSelector((state: CategoryState) => state.activeCat);
+    const staleState = useSelector((state: CategoryState) => state.staleCat);
+    
     // after every render, check if there is a change in categories
     useEffect(() => {
-        CategoryService.getCategories(status).then((results) => {
-            dispatch(GetActive(results));
-        });
-    }, [dispatch])
-    
-    // filters the data
-    const KEYS_TO_FILTERS = ['skill'];
-    const filteredData = cats.filter(createFilter(search, KEYS_TO_FILTERS));
+        console.log(40);
+        async function getCategoryFunc() {
+            const active = await CategoryService.getCategories(true);
+            const stale = await CategoryService.getCategories(false);
+            setActive(active);
+            setStale(stale);
+        }
+        getCategoryFunc();
+    }, [store.getState().categoryReducer])
 
-    // destructures array into [value: 'skill, key: categoryid, active: boolean] for AlphabetList
     const result = new Array();
-    for(let element in filteredData) {
-        let [value, key, active] = [filteredData[element].skill, filteredData[element].categoryid, filteredData[element].active]
-        result.push({value, key, active})
+    if (status) {
+        // filters the data
+        const KEYS_TO_FILTERS = ['skill'];
+        const filteredData = activeCat.filter(createFilter(search, KEYS_TO_FILTERS));
+
+        // destructures array into [value: 'skill, key: categoryid, active: boolean] for AlphabetList
+        
+        for(let element in filteredData) {
+            let [value, key, active] = [filteredData[element].skill, filteredData[element].categoryid, filteredData[element].active]
+            result.push({value, key, active})
+        }
+    } else {
+        // filters the data
+        const KEYS_TO_FILTERS = ['skill'];
+        const filteredData = staleCat.filter(createFilter(search, KEYS_TO_FILTERS));
+
+        // destructures array into [value: 'skill, key: categoryid, active: boolean] for AlphabetList
+
+        for(let element in filteredData) {
+            let [value, key, active] = [filteredData[element].skill, filteredData[element].categoryid, filteredData[element].active]
+            result.push({value, key, active})
+        }
     }
 
     function goHome() {
@@ -54,7 +78,7 @@ export function CategoryTable({ cats, status }: CategoryTableProp) {
 
     return (
         <View>
-            {cats[0] && cats[0].active == true ?
+            {status == true ?
                 // if status is true, return a table of active categories
                 <View>
                     <View style={catStyle.instructView}>   
@@ -84,7 +108,7 @@ export function CategoryTable({ cats, status }: CategoryTableProp) {
                                     skill={item.value}
                                     categoryid={item.key}
                                     active={item.active}
-                                    categories={cats}
+                                    categories={activeCat}
                                 />
                             )}
                             renderCustomSectionHeader={(section: any) => (
@@ -126,7 +150,7 @@ export function CategoryTable({ cats, status }: CategoryTableProp) {
                                     skill={item.value}
                                     categoryid={item.key}
                                     active={item.active}
-                                    categories={cats}
+                                    categories={staleCat}
                                 />
                             )}
                             renderCustomSectionHeader={(section: any) => (

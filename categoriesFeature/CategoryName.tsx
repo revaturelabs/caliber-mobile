@@ -42,7 +42,7 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
     useEffect(() => {
         console.log('42');
         setUpdate(new Category());
-    }, [setUpdate])
+    }, [])
 
     return (
         <React.Fragment>
@@ -64,9 +64,9 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
                 <Pressable testID='statusBtn' onPress={() => {
                     changeStatus(category);
                     if (active == true) {
-                        nav.navigate('Inactive');
-                    } else {
                         nav.navigate('Active');
+                    } else {
+                        nav.navigate('Inactive');
                     }
                 }}>
                     <Text testID='categoryNameList' style={catStyle.skillText}>{category.skill}</Text>
@@ -112,7 +112,7 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
                                 <TouchableOpacity
                                     testID='editBtn'
                                     style={catStyle.modalActionBtn}
-                                    onPress={(value) => {
+                                    onPress={() => {
                                         EditCategory(value.toString(), category);
                                         setClicked(false);
                                     }}
