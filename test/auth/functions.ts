@@ -18,7 +18,7 @@ export function logout() {
         })
 }
 
-export function sendPasswordResetEmail(email: string, successMsg: string) {
+export function sendPasswordResetEmail(email: string) {
     firebase.auth().sendPasswordResetEmail(email).then((res)=>{
         console.log("Email Sent!")
     }).catch((err)=>{

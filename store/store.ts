@@ -61,7 +61,6 @@ const rootReducer = combineReducers({
   userReducer,
   batchReducer,
   weekReducer,
-  WeekCategoryReducer,
   categoryReducer,
 });
 
