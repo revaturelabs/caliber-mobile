@@ -36,16 +36,12 @@ export function CategoryTable({ status }: CategoryTableProp) {
     const staleState = useSelector((state: CategoryState) => state.staleCat);
     
     // after every render, check if there is a change in categories
-    useEffect(() => {
-        console.log(40);
-        async function getCategoryFunc() {
-            const active = await CategoryService.getCategories(true);
-            const stale = await CategoryService.getCategories(false);
-            setActive(active);
-            setStale(stale);
-        }
-        getCategoryFunc();
-    }, [store.getState().categoryReducer])
+    useEffect(() => store.subscribe(async () => {
+        const active = await CategoryService.getCategories(true);
+        const stale = await CategoryService.getCategories(false);
+        setActive(active);
+        setStale(stale);
+        }), [store, store.getState().categoryReducer]);
 
     const result = new Array();
     if (status) {

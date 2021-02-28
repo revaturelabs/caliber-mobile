@@ -29,7 +29,6 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
     // create or get state
     const [clicked, setClicked] = useState(false);
     const [value, onChangeText] = useState('');
-    const [update, setUpdate] = useState(new Category());
     //const [toastStatus, setToastStatus] = useState('');
     const dispatch = useDispatch();
     const nav = useNavigation();
@@ -38,11 +37,6 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
     category.skill = skill;
     category.active = active;
     category.categoryid = categoryid;
-
-    useEffect(() => {
-        console.log('42');
-        setUpdate(new Category());
-    }, [])
 
     return (
         <React.Fragment>
@@ -114,6 +108,11 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
                                     style={catStyle.modalActionBtn}
                                     onPress={() => {
                                         EditCategory(value.toString(), category);
+                                        if (active == true) {
+                                            nav.navigate('Active');
+                                        } else {
+                                            nav.navigate('Inactive');
+                                        }
                                         setClicked(false);
                                     }}
                                 >
@@ -144,19 +143,14 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
         // update skill name
         category.skill = value;
 
-        // calls categoryService.addCategory
-        CategoryService.updateCategory(category).then((result) => {
-            // add new category to current categories
-
-            // dispatch new categories
-            //dispatch(GetActive(categories));
-
-            // tiny toast for success
-            //setToastStatus('success');
-
-        }).catch(error => {
-            // tiny toast for failure
-            //setToastStatus('failure');
+        // calls categoryService.updateCategory with the category id
+        CategoryService.updateCategory(category).then(() => {
+            CategoryService.getCategories(true).then((results) => {
+                dispatch(GetActive(results));
+                CategoryService.getCategories(false).then((results) => {
+                    dispatch(GetStale(results));
+                })
+            })
         });
     }
 
@@ -185,7 +179,6 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
                 })
             })
         });
-        setUpdate(category);
     }
 }
 

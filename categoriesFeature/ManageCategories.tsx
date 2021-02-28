@@ -11,6 +11,7 @@ import CategoryService from './CategoryService';
 import { StackParam } from '../router/router';
 import { GetActive, GetStale } from '../store/categoriesFeature/CategoryActions';
 import { Category } from './Category';
+import store from '../store/store';
 
 interface Props {
     route: RouteProp<StackParam, 'ManageCategories'>;
