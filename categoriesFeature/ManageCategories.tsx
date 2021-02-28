@@ -1,17 +1,13 @@
-import { RouteProp } from '@react-navigation/native';
+import { RouteProp, useNavigation } from '@react-navigation/core';
 //import ToastNotification from 'react-native-toast-notification';
 import React, { useEffect, useState } from 'react';
-import { TouchableOpacity, View, Text, StyleSheet, Modal, TextInput, Alert, Image } from 'react-native';
+import { TouchableOpacity, View, Text, StyleSheet, Modal, TextInput, Alert, Image, Button } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { CategoryTable } from './CategoryTable';
-import categoryService from './CategoryService';
-import { GetActive, GetStale } from '../store/categoriesFeature/CategoryActions';
-import { CategoryState } from '../store/store';
 import catStyle from '../categoriesFeature/categoriesStyles';
 import AddBtn from './AddBtn.png';
 import CategoryService from './CategoryService';
-import { Category } from './Category';
 import { StackParam } from '../router/router';
 
 interface Props {
@@ -24,6 +20,7 @@ interface Props {
  *  and a button that adds a category
  */
 export default function ManageCategories() {
+    console.log('manage categories');
     const Tab = createMaterialTopTabNavigator();
     // set local state for currently viewed tab
     const [clicked, setClicked] = useState(false);
@@ -35,10 +32,12 @@ export default function ManageCategories() {
     const [activeCat, setActive] = useState([]);
     const [staleCat, setStale] = useState([]);
     const dispatch = useDispatch();
+    const nav = useNavigation();
     // let activeCat: Category[] = [];
     // let staleCat: Category[] = [];
 
     useEffect(() => {
+        console.log(40);
         async function getCategoryFunc() {
             const active = await CategoryService.getCategories(true);
             const stale = await CategoryService.getCategories(false);
@@ -95,6 +94,7 @@ export default function ManageCategories() {
                         accessibilityLabel='Add Category'>
                         <Image style={catStyle.addBtnPicture} source={AddBtn} />
                     </TouchableOpacity>
+                    <Button title='refresh' onPress={() => refresh()}></Button>
                 </React.Fragment>
             )}
 
@@ -149,6 +149,10 @@ export default function ManageCategories() {
             )}
         </React.Fragment>
     )
+
+    function refresh() {
+        nav.navigate('Manage Categories');
+    }
 
     /**
      *  This component opens a modal when 'Add Category' TouchableOpacity is clicked

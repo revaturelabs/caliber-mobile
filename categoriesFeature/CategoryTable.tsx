@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, SectionList, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, SectionList, ScrollView, Button } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetActive, GetStale } from '../store/categoriesFeature/CategoryActions';
 import { CategoryState } from '../store/store';
@@ -12,6 +12,8 @@ import SearchInput, {createFilter} from 'react-native-search-filter';
 import { AlphabetList } from 'react-native-section-alphabet-list';
 import catStyle from './categoriesStyles';
 import CategoryService from './CategoryService';
+import { nav } from 'aws-amplify';
+import { useNavigation } from '@react-navigation/core';
 
 interface CategoryTableProp {
     cats: Category[];
@@ -26,6 +28,7 @@ interface CategoryTableProp {
 export function CategoryTable({ cats, status }: CategoryTableProp) {
     const dispatch = useDispatch();
     let [search, searchSet] = useState('');
+    const nav = useNavigation();
 
     // after every render, check if there is a change in categories
     useEffect(() => {
@@ -43,6 +46,10 @@ export function CategoryTable({ cats, status }: CategoryTableProp) {
     for(let element in filteredData) {
         let [value, key, active] = [filteredData[element].skill, filteredData[element].categoryid, filteredData[element].active]
         result.push({value, key, active})
+    }
+
+    function goHome() {
+        nav.navigate('Manage Categories');
     }
 
     return (

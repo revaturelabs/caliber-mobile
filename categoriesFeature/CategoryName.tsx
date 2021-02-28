@@ -29,6 +29,7 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
     // create or get state
     const [clicked, setClicked] = useState(false);
     const [value, onChangeText] = useState('');
+    const [update, setUpdate] = useState(new Category());
     //const [toastStatus, setToastStatus] = useState('');
     const dispatch = useDispatch();
     const nav = useNavigation();
@@ -38,11 +39,10 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
     category.active = active;
     category.categoryid = categoryid;
 
-
     useEffect(() => {
-        console.log('line 41');
-        nav.navigate('Manage Categories');
-    }, [])
+        console.log('42');
+        setUpdate(new Category());
+    }, [setUpdate])
 
     return (
         <React.Fragment>
@@ -61,8 +61,15 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
             </React.Fragment> */}
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
                 {/* has a list of category names (depends on props) */}
-                <Pressable testID='statusBtn' onPress={() => { changeStatus(category) }}>
-                    <Text testID = 'categoryNameList' style={catStyle.skillText}>{category.skill}</Text>
+                <Pressable testID='statusBtn' onPress={() => {
+                    changeStatus(category);
+                    if (active == true) {
+                        nav.navigate('Inactive');
+                    } else {
+                        nav.navigate('Active');
+                    }
+                }}>
+                    <Text testID='categoryNameList' style={catStyle.skillText}>{category.skill}</Text>
                 </Pressable>
                 <View>
                     {/* Edit button to open modal for editing */}
@@ -99,7 +106,7 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
                                 placeholder={category.skill}
                                 placeholderTextColor='#474C55'
                             />
-                            
+
                             <View style={{ justifyContent: 'space-between' }}>
                                 {/* Button that edits a category */}
                                 <TouchableOpacity
@@ -178,6 +185,7 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
                 })
             })
         });
+        setUpdate(category);
     }
 }
 
