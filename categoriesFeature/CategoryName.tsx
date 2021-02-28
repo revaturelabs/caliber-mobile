@@ -76,7 +76,9 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
                         <Text style={catStyle.btnText}>Edit</Text>
                     </TouchableOpacity>
                 </View>
-                {clicked == true && (
+            </View>
+            {clicked == true && (
+                <View testID= 'modal'>
                     <Modal
                         animationType='slide'
                         // this happens when a user presses the hardware back button
@@ -89,7 +91,6 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
                             setClicked(false);
                         }}
                         transparent
-                        testID='modal'
                     >
                         <View style={catStyle.modal}>
                             {/* Title for modal */}
@@ -135,9 +136,9 @@ function CategoryName({ skill, categoryid, active, categories }: CategoryNamePro
                             </View>
                         </View>
                     </Modal>
-                )}
-            </View>
-        </React.Fragment>
+                </View>
+            )}
+        </React.Fragment >
     )
 
     /**

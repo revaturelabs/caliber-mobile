@@ -90,7 +90,6 @@ export default function ManageCategories() {
                         accessibilityLabel='Add Category'>
                         <Image style={catStyle.addBtnPicture} source={AddBtn} />
                     </TouchableOpacity>
-                    <Button title='refresh' onPress={() => refresh()}></Button>
                 </React.Fragment>
             )}
 
@@ -146,26 +145,16 @@ export default function ManageCategories() {
         </React.Fragment>
     )
 
-    function refresh() {
-        nav.navigate('Manage Categories');
-    }
-
     /**
      *  This component opens a modal when 'Add Category' TouchableOpacity is clicked
      *  @param: value is a string that is what the user inputs for a new category
      */
     function AddCategory(value: string) {
         // calls categoryService.addCategory then getCategory to update the page
-        CategoryService.addCategory(value).then((result) => {
+        CategoryService.addCategory(value).then(() => {
             CategoryService.getCategories(true).then((results) => {
-                setActive(results);
+                dispatch(GetActive(results));
             })
-            
-            // add new category to current categories
-            //categories.push(result);
-
-            // dispatch new categories
-            //dispatch(getCategories(categories));
 
             // call toast function with result
             //setToastStatus('success');

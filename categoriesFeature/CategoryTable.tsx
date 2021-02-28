@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, SectionList, ScrollView, Button } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetActive, GetStale } from '../store/categoriesFeature/CategoryActions';
 import store, { CategoryState } from '../store/store';
 import { Category } from './Category';
 import CategoryName from './CategoryName';
-import categoryService from './CategoryService';
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { SearchBar } from 'react-native-elements';
 import SearchInput, { createFilter } from 'react-native-search-filter';
 import { AlphabetList } from 'react-native-section-alphabet-list';
@@ -81,7 +79,7 @@ export function CategoryTable({ status }: CategoryTableProp) {
                         {/* Search Bar for categories */}
                         <SearchBar
                             placeholder="Enter Skill..."
-                            onChangeText={(value) => {
+                            onChangeText={(value: any) => {
                                 searchSet(value);
                             }}
                             value={search}
@@ -123,7 +121,7 @@ export function CategoryTable({ status }: CategoryTableProp) {
                         {/* Search Bar for categories */}
                         <SearchBar
                             placeholder="Enter Skill..."
-                            onChangeText={(value) => {
+                            onChangeText={(value: any) => {
                                 searchSet(value);
                             }}
                             value={search}
