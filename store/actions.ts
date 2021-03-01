@@ -2,8 +2,8 @@ import { UserInfo, UserInput } from '../user/user';
 import Batch from '../batches/batch';
 import { AssociateWithFeedback } from '../associate/AssociateService';
 import QcWeek from '../batchWeek/QcWeek';
-import { Category } from '../categoriesFeature/Category';
 import { WeekCategory } from '../weekCategories/weekCategory';
+import { Category } from '../categoriesFeature/Category';
 
 export enum BatchActions {
   GetBatches = 'GET_BATCHES',
@@ -180,9 +180,9 @@ export function getWeekCategories(categories: Category[]): WeekCategoryAction {
 }
 
 export function ChangeCategories(categories: Category[]): WeekCategoryAction {
-	const action: WeekCategoryAction ={
-		type: WeekCategoryActions.ChangeWeekCategories,
-		payload: categories
-	};
-	return action;
-};
+  const action: WeekCategoryAction = {
+    type: WeekCategoryActions.ChangeWeekCategories,
+    payload: categories,
+  };
+  return action;
+}

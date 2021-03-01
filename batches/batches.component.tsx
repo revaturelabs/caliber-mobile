@@ -10,6 +10,7 @@ import Batch from './batch';
 import batchService from './BatchService';
 
 export default function BatchesComponent() {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const batches = useSelector((state: BatchState) => state.batches);
   const [filter, setFilter] = useState('');

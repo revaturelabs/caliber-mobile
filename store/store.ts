@@ -60,8 +60,8 @@ export interface CaliberState extends UserState, BatchState, WeekState {}
 const rootReducer = combineReducers({
   userReducer,
   batchReducer,
-  weekReducer,
-  WeekCategoryReducer,
+  //weekReducer,
+  //WeekCategoryReducer,
   categoryReducer,
 });
 
