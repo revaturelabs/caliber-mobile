@@ -1,6 +1,13 @@
 //import ToastNotification from 'react-native-toast-notification';
 import React, { useEffect, useState } from 'react';
-import { TouchableOpacity, View, Text, Modal, TextInput, Image } from 'react-native';
+import { 
+    TouchableOpacity, 
+    View, 
+    Text, 
+    Modal, 
+    TextInput, 
+    Image 
+} from 'react-native';
 import { useDispatch } from 'react-redux';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import CategoryTable from './CategoryTable';
@@ -11,7 +18,7 @@ import { GetActive } from '../store/categoriesFeature/CategoryActions';
 
 /**
  *  This component encloses the entire Manage Categories feature
- *  @returns: view that has tabs of active/stale categories 
+ *  @returns: view that has tabs of active/stale categories
  *  and a button that adds a category
  */
 export default function ManageCategories() {

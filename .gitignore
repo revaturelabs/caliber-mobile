@@ -1,3 +1,4 @@
+
 **/node_modules/
 **/coverage/
 **/*.log
@@ -6,7 +7,11 @@
 **/.env
 **/.eslintcache
 .vscode/
+<<<<<<< HEAD
 **/caliber-mobile-access-credentials
+=======
+.idea
+>>>>>>> bad97080de8e30c4b5848c558ffffb0255b92b2c
 
 node_modules/**/*
 .expo/*
