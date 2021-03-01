@@ -9,8 +9,10 @@ import { AppAction } from './actions';
 import { UserInfo, UserInput } from '../user/user';
 import { AssociateWithFeedback } from '../associate/AssociateService';
 import QcWeek from '../batchWeek/QcWeek';
+import WeekCategoryReducer from './WeekCategoryReducer';
 import { Category } from '../categoriesFeature/Category';
 import categoryReducer from './categoriesFeature/CategoryReducer';
+import { WeekCategory } from '../weekCategories/weekCategory';
 
 export interface BatchState {
   batch: Batch;
@@ -33,6 +35,7 @@ export interface CaliberState extends UserState, BatchState, AssociateState {}
 
 export interface WeekCategoryState {
   weekCategories: Category[];
+  weekCategory: WeekCategory;
 }
 
 export interface CaliberState
@@ -57,7 +60,8 @@ export interface CaliberState extends UserState, BatchState, WeekState {}
 const rootReducer = combineReducers({
   userReducer,
   batchReducer,
-  weekReducer,
+  //weekReducer,
+  //WeekCategoryReducer,
   categoryReducer,
 });
 

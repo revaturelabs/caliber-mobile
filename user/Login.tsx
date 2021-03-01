@@ -25,7 +25,7 @@ export default function LoginComponent({navigation}: LoginProp) {
                 let password = newUser.password;
                 auth.signInWithEmailAndPassword(email, password);
                 //'Test' will be changed to 'Home'
-                navigation.navigate('Test');
+                navigation.navigate('Home');
             } catch(error){
                 console.log(error);
             }
@@ -56,7 +56,7 @@ export default function LoginComponent({navigation}: LoginProp) {
             console.log('Logged out');
             }
         });
-    },[]);
+    },[]); 
     
     return (
         <View style={style.container}>
