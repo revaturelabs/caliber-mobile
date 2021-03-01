@@ -159,13 +159,13 @@ function AssociateTableComponent() {
             <TouchableOpacity style={style.tOSF} activeOpacity={.7}>
                 <Text style={style.fNameSortH} onPress={switchSortingF}>Sort By First Name</Text>
                 {sortDirection == "FUp" ? <Icon
-                    style={style.iconsf}
+                    style={style.iconSort}
                     name={iconName}
                     type='font-awesome'
                     color={iconColor}
                     testID='statusIcon' /> : sortDirection == "FDown" ?
                         <Icon
-                            style={style.iconsf}
+                            style={style.iconSort}
                             name={'angle-down'}
                             type='font-awesome'
                             color={iconColor}
@@ -174,13 +174,13 @@ function AssociateTableComponent() {
             <TouchableOpacity style={style.tOSL} activeOpacity={.7}>
                 <Text style={style.lNameSortH} onPress={switchSortingL}>Sort By Last Name</Text>
                 {sortDirection == "LUp" ? <Icon
-                    style={style.iconsl}
+                    style={style.iconSort}
                     name={iconName}
                     type='font-awesome'
                     color={iconColor}
                     testID='statusIcon' /> : sortDirection == "LDown" ?
                         <Icon
-                            style={style.iconsl}
+                            style={style.iconSort}
                             name={'angle-down'}
                             type='font-awesome'
                             color={iconColor}

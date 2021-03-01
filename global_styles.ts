@@ -88,13 +88,8 @@ const style = StyleSheet.create({
     title: {
         color: REVATUREORANGE
     },
-    iconsf: {
-        position: "relative",
-        top: perfectSize(-10),
-        width: perfectSize(15),
-        height: perfectSize(15),
-    },
-    iconsl: {
+    iconSort: {
+        left:perfectSize(50),
         position: "relative",
         top: perfectSize(-10),
         width: perfectSize(15),
