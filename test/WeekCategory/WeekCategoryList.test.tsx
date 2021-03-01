@@ -5,65 +5,95 @@
 import 'react-native';
 import 'jest-enzyme';
 import '@testing-library/jest-dom';
-import Enzyme, { mount, shallow } from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
 import React from 'react';
 import { FlatList } from 'react-native';
-import WeekCategoryList from '../../weekCategories/WeekCategoryList';
+import { WeekCategoryList } from '../../weekCategories/WeekCategoryList';
 import categoryService from '../../categoriesFeature/CategoryService';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import weekCategoryService from '../../weekCategories/WeekCategoryService';
 import { getWeekCategories } from '../../store/actions';
+import { Category } from '../../categoriesFeature/Category';
+import { exp } from 'react-native-reanimated';
 
 
 
-const mockGetWeekCat = jest.spyOn(weekCategoryService, 'getCategory');
-const mockGetCat = jest.spyOn(categoryService,'getCategories');
 
 
 describe('tests for weekCategoryList', () => {
-    const initialState = {
-            WeekCategoryReducer: {
-                weekCategories: [],
-                categories: []
-            },
-            categoryReducer: {
-                categories: []
-            }
 
-        }
-    const mockStore = configureStore();
-    let store:any ,wrapper:any;
-
-    beforeEach(()=>{
-        store = mockStore(initialState);
-        const wrapper = mount(
-            <Provider store={store}>
-                <WeekCategoryList weekId={0}></WeekCategoryList>
-            </Provider>
-        );
+    test('that the component renders', () => {
+        let testWeekList: Category[] = [];
+        let testActiveList: Category[] = [];
+        let testFunction = jest.fn();
+        let wrapper = shallow(
+            <WeekCategoryList weekId={0} weekCategoriesAsCategory={testWeekList} addCategory={testFunction} activeCategories={testActiveList} />
+        )
+        expect(wrapper.length).toEqual(1);
     })
-    
 
-    test('that nothing is displayed if there are no categories for the week', () => {
-        const categories = [{ categoryid: 0, skill: 'React', active: true }, { categoryid: 1, skill: 'TypeScript', active: true }, { categoryid: 2, skill: 'Redux', active: true }];
-        let testList: any = [];
-        mockGetWeekCat.mockResolvedValue(testList);
-        mockGetCat.mockResolvedValue(categories);        
-        const flatList = wrapper.find(FlatList).first();
-        expect(flatList.props().data).toEqual(testList);
+
+
+    test('that a certain text is displayed if there are no categories for the week', () => {
+        let testWeekList: Category[] = [];
+        let testActiveList: Category[] = [];
+        let testFunction = jest.fn();
+        let wrapper = shallow(
+            <WeekCategoryList weekId={0} weekCategoriesAsCategory={testWeekList} addCategory={testFunction} activeCategories={testActiveList} />
+        )
+        const noCatsText = wrapper.findWhere((node) => {
+            return node.prop('testID') === 'noCats'
+        });
+        expect(noCatsText).toExist();
+        expect(noCatsText.dive().text()).toBe('No Categories For This Week');
     });
 
     test('that categories are displayed if there are categories for the week', () => {
-        let testList: any = [{ categoryid: 5, skill: 'Fun', active: true }];
-        const categories = [{ categoryid: 0, skill: 'React', active: true }, { categoryid: 1, skill: 'TypeScript', active: true }, { categoryid: 2, skill: 'Redux', active: true }]
-        mockGetWeekCat.mockResolvedValue(testList);
-        mockGetCat.mockResolvedValue(categories);
-        const flatList = wrapper.find(FlatList).first();
-        console.log(flatList.props().data)
-        expect(flatList.props().data).toEqual(testList);
+        let testWeekList: Category[] = [{categoryid:1,skill:'Test1',active:true},{categoryid:2,skill:'Test2',active:true},{categoryid:3,skill:'Test3',active:true},{categoryid:4,skill:'Test4',active:true},{categoryid:5,skill:'Test5',active:true}];
+        let testActiveList: Category[] = [];
+        let testFunction = jest.fn();
+        let wrapper = shallow(
+            <WeekCategoryList weekId={0} weekCategoriesAsCategory={testWeekList} addCategory={testFunction} activeCategories={testActiveList} />
+        )
+        const list = wrapper.findWhere((node) => {
+            return node.prop('testID') === 'listOfWeekCats'
+        });
+        
+        expect(list).toExist();
+        expect(list.props().data).toBe(testWeekList); 
 
     });
+
+    test('that menu displays categories when there are categories', ()=>{
+        let testWeekList: Category[] = [];
+        let testActiveList: Category[] = [{categoryid:1,skill:'Test1',active:true},{categoryid:2,skill:'Test2',active:true},{categoryid:3,skill:'Test3',active:true},{categoryid:4,skill:'Test4',active:true},{categoryid:5,skill:'Test5',active:true}];
+        let testFunction = jest.fn();
+        let wrapper = shallow(
+            <WeekCategoryList weekId={0} weekCategoriesAsCategory={testWeekList} addCategory={testFunction} activeCategories={testActiveList} />
+        )
+        const list = wrapper.findWhere((node) => {
+            return node.prop('testID') === 'listOfActiveCats'
+        });
+        
+        expect(list).toExist();
+        expect(list.props().data).toBe(testActiveList); 
+    })
+
+    test('that menu displays message when there are no categories', ()=>{
+        let testWeekList: Category[] = [];
+        let testActiveList: Category[] = [];
+        let testFunction = jest.fn();
+        let wrapper = shallow(
+            <WeekCategoryList weekId={0} weekCategoriesAsCategory={testWeekList} addCategory={testFunction} activeCategories={testActiveList} />
+        )
+        const testText = wrapper.findWhere((node) => {
+            return node.prop('testID') === 'noActiveCats'
+        });
+        
+        expect(testText).toExist();
+        expect(testText.dive().text()).toBe('No Active Categories'); 
+    })
 
 
 
