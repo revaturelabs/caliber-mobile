@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
-import { View, Text, Pressable } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Pressable, Button } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import Stylesheet from 'react-native';
 import { getCategories } from '../store/categoriesFeature/CategoryActions';
 import { Category } from './Category';
 import categoryService from './CategoryService';
-import { CategoryState } from '../store/store';
-import { Button } from '@material-ui/core';
-import {openModal} from './ManageCategories';
+import {OpenModal} from './ManageCategories';
 
 interface CategoryNameProp {
-    category: Category;
+    skill: string;
+    categoryid: number;
+    active: boolean;
     categories: Category[];
 }
 
@@ -20,16 +20,23 @@ interface CategoryNameProp {
  *  @param: categories - entire category state that will also need to update with new category
  *  @returns: view with a pressable category name
  */
-export function CategoryName({ category, categories }: CategoryNameProp) {
+export function CategoryName({ skill, categoryid, active, categories }: CategoryNameProp) {
+    const [clicked, setClicked] = useState({action: '', isClicked: false});
+    const category = new Category();
+    category.skill = skill;
+    category.categoryid = categoryid;
+    category.active = active;
+
     return (
-        <View>
+        <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-between'}}>
             {/* has a list of category names (depends on props) */}
             <Pressable onPress={()=> {changeStatus(category, categories)}}>
                 <Text>{category.skill}</Text>
             </Pressable>
-            <Pressable onPress={()=> openModal('Edit Category')}>
-                <Text>Edit Category</Text>
-            </Pressable>
+            <View>
+                <Button title="Edit Category" onPress={()=> setClicked({action:'edit', isClicked: true})} accessibilityLabel='Edit Category' />
+            </View>
+            {clicked.isClicked == true && (<OpenModal action={'Edit Category'} category={category}/>)}
         </View>
     )
 }
@@ -56,5 +63,4 @@ export function changeStatus(category: Category, categories: Category[]) {
     categoryService.updateCategory(category).then(() => {
         dispatch(getCategories(categories));
     }); 
-
 }

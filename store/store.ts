@@ -3,13 +3,17 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import batchReducer from './batchReducer';
 import userReducer from './userReducer';
+
 import WeekCategoryReducer from './WeekCategoryReducer'
-import { weekCategory } from '../weekCategories/weekCategory';
-import categoryReducer from './categoriesFeature/CategoryReducer';
-import {UserInput, UserInfo} from '../user/user'
-import { Category } from '../categoriesFeature/Category';
 import { AppAction } from './actions';
 import Batch from '../batches/batch';
+import { UserInput, UserInfo } from '../user/user';
+import { weekCategory } from '../weekCategories/weekCategory';
+import categoryReducer from './categoriesFeature/CategoryReducer';
+import { Category } from '../categoriesFeature/Category';
+
+
+
 
 export interface BatchState {
 	batches: Batch[];
@@ -20,10 +24,13 @@ export interface UserState {
 	userLogin: UserInput;
 }
 
+
 export interface WeekCategoryState{
 	weekCategories: weekCategory[];
 	weekCategory: weekCategory;
 }
+
+export interface CaliberState extends UserState, BatchState, WeekCategoryState {}
 
 
 export interface CategoryState {

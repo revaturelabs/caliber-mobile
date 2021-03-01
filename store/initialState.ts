@@ -11,5 +11,6 @@ export const initialState: CaliberState = {
     batches: [],
     weekCategory: new weekCategory(),
     weekCategories: [],
-    categories: []
+    categories:[],
+
 }

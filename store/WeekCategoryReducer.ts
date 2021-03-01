@@ -1,5 +1,5 @@
 import { Category } from '../categoriesFeature/Category';
-import { weekCategory } from '../weekCategories/weekCategory';
+
 import * as Actions from './actions';
 import { initialState } from './initialState';
 import { CaliberState } from './store';

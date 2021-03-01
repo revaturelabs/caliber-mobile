@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import weekCategoryList from './weekCategories/weekCategoryList';
+import weekCategoryList from './weekCategories/WeekCategoryList';
 
 export default function Test(){
     return(
