@@ -12,13 +12,6 @@ import QcWeek from '../batchWeek/QcWeek';
 
 //add your initial states here and import it in your reducer
 export const initialState: CaliberState = {
-<<<<<<< HEAD
-    user: new UserInfo(),
-    userLogin: new UserInput(),
-    activeCat: [],
-    staleCat: []
-}
-=======
   associates: [],
   user: new UserInfo(),
   userLogin: new UserInput(),
@@ -29,5 +22,6 @@ export const initialState: CaliberState = {
   weekCategory: new WeekCategory(),
   weekCategories: [],
   categories: [],
+  activeCat: [],
+  staleCat: []
 };
->>>>>>> bad97080de8e30c4b5848c558ffffb0255b92b2c

@@ -13,15 +13,6 @@ interface LoginProp {
   navigation: any;
 }
 
-<<<<<<< HEAD
-export default function LoginComponent({navigation}: LoginProp) {
-    const [loggedIn, setLoggedin] = useState(false);
-    const inputUser = (state: RootState) => state.userReducer.userLogin;
-    const newUser = useSelector(inputUser);
-    const dispatchUser = (state: RootState) => state.userReducer.user;
-    const useUser = useSelector(dispatchUser);
-    const dispatch = useDispatch();
-=======
 export default function LoginComponent({ navigation }: LoginProp) {
   const [loggedIn, setLoggedin] = useState(false);
   const inputUser = (state: ReducerState) => state.userReducer.userLogin;
@@ -29,7 +20,6 @@ export default function LoginComponent({ navigation }: LoginProp) {
   const dispatchUser = (state: ReducerState) => state.userReducer.user;
   const useUser = useSelector(dispatchUser);
   const dispatch = useDispatch();
->>>>>>> bad97080de8e30c4b5848c558ffffb0255b92b2c
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
