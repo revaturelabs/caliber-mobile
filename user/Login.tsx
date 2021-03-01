@@ -86,7 +86,6 @@ export default function LoginComponent({ navigation }: LoginProp) {
           />
         </View>
       </View>
-
       <View>
         <TouchableHighlight
           onPress={() => loginUser(newUser)}

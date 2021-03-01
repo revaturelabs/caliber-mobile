@@ -15,8 +15,7 @@ import { addWeekCategory, getWeekCategories } from '../store/actions';
 import categoryService from '../categoriesFeature/CategoryService';
 import { ReducerState } from '../store/store';
 import { Category } from '../categoriesFeature/Category';
-import { getCategories } from '../store/categoriesFeature/CategoryActions';
-
+import { GetActive } from '../store/categoriesFeature/CategoryActions';
 //need to import category class/interface from ./categories
 
 interface weekProp {
@@ -76,7 +75,7 @@ export default function weekCategoryList(qcWeek: weekProp) {
         }
       });
       //from other team
-      dispatch(getCategories(availableCats));
+      dispatch(GetActive(availableCats));
     })
     .catch((err) => {
       console.log(err);

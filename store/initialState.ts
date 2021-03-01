@@ -16,4 +16,6 @@ export const initialState: CaliberState = {
   weekCategory: new WeekCategory(),
   weekCategories: [],
   categories: [],
+  activeCat: [],
+  staleCat: []
 };

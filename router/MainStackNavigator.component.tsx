@@ -18,7 +18,7 @@ interface MenuProp {
   navigation: any;
 }
 
-const loginOptions = {
+const loginHeaderOptions = {
   headerTitle: () => (
     <Image
       style={{ width: 165, height: 50, margin: 30 }}
@@ -35,7 +35,7 @@ function generalHeaderOptions(navigation: any) {
         source={require('./rev-logo.png')}
       />
     ),
-    headerRight: () => (
+    headerLeft: () => (
       <Icon.Button
         name='ios-menu'
         size={25}
@@ -52,7 +52,7 @@ const loginStackNavigator = ({ navigation }: MenuProp) => {
       <Stack.Screen
         name='Login'
         component={LoginComponent}
-        options={loginOptions}
+        options={loginHeaderOptions}
       />
 
       <Stack.Screen
