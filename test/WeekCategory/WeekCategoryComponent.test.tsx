@@ -19,28 +19,31 @@ describe('tests for weekCategory.component', () => {
 
     test('that category displays correctly', () => {
 
-        const wrapper = shallow(<CategoryButton />);
+    
+
+        const wrapper = shallow(
+            <CategoryButton weekID={0} skill={'test'} catID={0}></CategoryButton>
+        );
+
         expect(wrapper.debug().length).toBeGreaterThan(0);
-        console.log(wrapper.debug());
     });
 
     test('that the button calls deleteCategory from categoryService and refreshes list', () => {
-        const testCat = ' '
-        const wrapper = Enzyme.mount(
-            <CategoryButton data={testCat}></CategoryButton> 
+        const testCat = { skill: 'Test', categoryid: 0 };
+
+        const wrapper = shallow(
+            <CategoryButton weekID={0} skill={'test'} catID={0}></CategoryButton>
         );
         weekCategoryService.deleteCategory = jest.fn();
-        useDispatch = jest.fn();
+        //useDispatch = jest.fn();
 
         const button = wrapper.findWhere((node) => node.prop('testID') === 'button').first();
-         button.simulate('click');
+        button.simulate('click');
+        expect(weekCategoryService.deleteCategory).toBeCalledTimes(1);
+        expect (useDispatch).toBeCalledTimes(1);
 
 
-    //     expect(weekCategoryService.deleteCategory()).toBeCalledTimes(1);
-    //     expect (useDispatch).toBeCalledTimes(1);
 
 
-
-       
-     });
+    });
 });

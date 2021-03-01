@@ -40,7 +40,7 @@ export function WeekCategoryList(props: weekProp) {
           data={props.weekCategoriesAsCategory}
           horizontal={true}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (<WeekCategoryComponent data={item}></WeekCategoryComponent>)} />
+          renderItem={({ item }) => (<WeekCategoryComponent weekID={props.weekId} skill={item.skill} catID = {item.categoryid}></WeekCategoryComponent>)} />
       </View>
 
       <View style={styles.menuContainer}>
