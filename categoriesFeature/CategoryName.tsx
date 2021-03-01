@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Pressable, TouchableOpacity, Modal, TextInput } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 //import ToastNotification from 'react-native-toast-notification';
 import catStyle from './categoriesStyles';
 import { GetActive, GetStale } from '../store/categoriesFeature/CategoryActions';
 import { Category } from './Category';
-import categoryService from './CategoryService';
-import { CategoryState } from '../store/store';
 import CategoryService from './CategoryService';
-import { getActionFromState, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 interface CategoryNameProp {
     skill: string;
     categoryid: number;
     active: boolean;
-    categories: Category[]
 }
 
 /**
@@ -25,7 +22,7 @@ interface CategoryNameProp {
  *  @param: categories - entire category state that will also need to update with new category
  *  @returns: view with a pressable category name
  */
-function CategoryName({ skill, categoryid, active, categories }: CategoryNameProp) {
+function CategoryName({ skill, categoryid, active }: CategoryNameProp) {
     // create or get state
     const [clicked, setClicked] = useState(false);
     const [value, onChangeText] = useState('');

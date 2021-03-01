@@ -28,11 +28,10 @@ describe('CategoryName component', () => {
     prop.skill = 'testSkill';
     prop.categoryid = 1;
     prop.active = true;
-    let props: Category[] = [];
 
     beforeAll(() => {
         wrapper = Enzyme.mount(
-            <Provider store={store}><CategoryName skill={prop.skill} categoryid={prop.categoryid} active={prop.active} categories={props}></CategoryName></Provider>
+            <Provider store={store}><CategoryName skill={prop.skill} categoryid={prop.categoryid} active={prop.active}></CategoryName></Provider>
         )
     });
 
@@ -44,30 +43,16 @@ describe('CategoryName component', () => {
 
     test('that modal opens when edit button is pressed', () => {
         const clickedValue = true;
-        reactModule.useState = jest.fn(initialClickedValue => [
-            clickedValue,
-            () => {}
-        ])
+        // reactModule.useState = jest.fn(initialClickedValue => [
+        //     clickedValue,
+        //     () => {}
+        // ])
         //const modal = wrapper.findWhere((node: any) => node.prop('testID') === 'modal').first();
         const modalBtn = wrapper.findWhere((node: any) => node.prop('testID') === 'modalBtn').first();
         //modalBtn.first().simulate('click');
         //expect(modal.first()).toExist();
         expect(modalBtn.first()).toExist();
     });
-
-    // test('that text color is correct when status is active', () => {
-    //     prop.active = true;
-    //     prop.skill = 'React';
-    //     let containerStyle = wrapper.get(0).style;
-    //     expect(containerStyle).toHaveProperty('color', '#F26925');  
-    // });
-
-    // test('that text color is correct when status is inactive', () => {
-    //     prop.active = false;
-    //     prop.skill = 'React';
-    //     let inactiveSkillColor = wrapper.get(0).style;
-    //     expect(inactiveSkillColor).toHaveProperty('color', '#474C55');
-    // });
 });
 
 describe('EditCategory function', () => {
@@ -76,18 +61,17 @@ describe('EditCategory function', () => {
     prop.skill = 'testSkill';
     prop.categoryid = 1;
     prop.active = true;
-    let props: Category[] = [];
 
     beforeAll(() => {
         wrapper = Enzyme.mount(
-            <Provider store={store}><CategoryName skill={prop.skill} categoryid={prop.categoryid} active={prop.active} categories={props}></CategoryName></Provider>
+            <Provider store={store}><CategoryName skill={prop.skill} categoryid={prop.categoryid} active={prop.active}></CategoryName></Provider>
         )
     });
     
     test('that EditCategory is called when button is pushed', () => {
         const EditCategory = jest.fn();
-        // const myComponent = mount(<Provider store={store}><CategoryName skill={prop.skill} categoryid={prop.categoryid} active={prop.active} categories={props} /></Provider>);
-        // myComponent.setState(true);
+        const myComponent = mount(<Provider store={store}><CategoryName skill={prop.skill} categoryid={prop.categoryid} active={prop.active} /></Provider>);
+        myComponent.setState(true);
         const editBtn = wrapper.findWhere((node: any) => node.prop('testID') === 'editBtn').first();
         editBtn.simulate('click');
         expect(EditCategory).toHaveBeenCalled();
@@ -100,10 +84,9 @@ describe('changeStatus function', () => {
     prop.skill = 'testSkill';
     prop.categoryid = 1;
     prop.active = true;
-    let props: Category[] = [];
     beforeAll(() => {
         wrapper = Enzyme.mount(
-            <Provider store={store}><CategoryName skill={prop.skill} categoryid={prop.categoryid} active={prop.active} categories={props}></CategoryName></Provider>
+            <Provider store={store}><CategoryName skill={prop.skill} categoryid={prop.categoryid} active={prop.active}></CategoryName></Provider>
         )
     });
     test('that it calls categoryService.updateCategory with the category', async () => {

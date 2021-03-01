@@ -1,21 +1,13 @@
-import { RouteProp, useNavigation } from '@react-navigation/core';
 //import ToastNotification from 'react-native-toast-notification';
 import React, { useEffect, useState } from 'react';
-import { TouchableOpacity, View, Text, StyleSheet, Modal, TextInput, Alert, Image, Button } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { TouchableOpacity, View, Text, Modal, TextInput, Image } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { CategoryTable } from './CategoryTable';
+import CategoryTable from './CategoryTable';
 import catStyle from '../categoriesFeature/categoriesStyles';
 import AddBtn from './AddBtn.png';
 import CategoryService from './CategoryService';
-import { StackParam } from '../router/router';
-import { GetActive, GetStale } from '../store/categoriesFeature/CategoryActions';
-import { Category } from './Category';
-import store from '../store/store';
-
-interface Props {
-    route: RouteProp<StackParam, 'ManageCategories'>;
-}
+import { GetActive } from '../store/categoriesFeature/CategoryActions';
 
 /**
  *  This component encloses the entire Manage Categories feature
@@ -27,22 +19,14 @@ export default function ManageCategories() {
     // set local state for currently viewed tab
     const [clicked, setClicked] = useState(false);
     const [textValue, onChangeText] = React.useState('');
-    const [rend, setRend] = useState(false);
-    // const array: Category[] = [];
-    // const [categories, setCategories] = useState(array);
+    const [rend, setRend] = useState(true);
     const dispatch = useDispatch();
-    const array: Category[] = [];
-    const [activeCat, setActive] = useState(array);
-    const nav = useNavigation();
-    // let activeCat: Category[] = [];
-    // let staleCat: Category[] = [];
-
 
     useEffect(() => {
         setRend(true);
     }, [])
 
-    
+
 
     return (
         <React.Fragment>
@@ -81,7 +65,7 @@ export default function ManageCategories() {
                         {/* Stale Categories Table */}
                         <Tab.Screen
                             name="Inactive"
-                            children={() => <CategoryTable status={false}/>}
+                            children={() => <CategoryTable status={false} />}
                         />
                     </Tab.Navigator>
                     {/* Add button to be rendered at the bottom of the screen */}
@@ -92,7 +76,6 @@ export default function ManageCategories() {
                     </TouchableOpacity>
                 </React.Fragment>
             )}
-
             {/* If clicked is true, open the modal */}
             {clicked == true && (
                 <Modal
