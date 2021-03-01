@@ -8,39 +8,52 @@ import WeekCategoryService from '../../weekCategories/WeekCategoryService';
 import React from 'react';
 import CategoryService from '../../categoriesFeature/CategoryService';
 import { WeekCategoryList } from '../../weekCategories/WeekCategoryList';
+import { Category } from '../../categoriesFeature/Category';
+import { weekCategory } from '../../weekCategories/weekCategory';
+
+
 
 const mockStore = configureMockStore();
-const initialState={
-    WeekCategoryReducer:{
-        weekCategories:[],
-        weekCategory:[],
+const initialState = {
+    WeekCategoryReducer: {
+        weekCategories: [],
+        weekCategory: [],
     },
-    categoryReducer:{
-        categories:[]
+    categoryReducer: {
+        categories: []
     }
 }
-let store:any;
+let store: any;
 
 
-describe('Tests for WeekCategoryListContianer.tsx',()=>{
-    beforeEach(()=>{
+describe('Tests for WeekCategoryListContianer.tsx', () => {
+    beforeEach(() => {
         store = mockStore(initialState);
     })
 
-    test('That weekCategories in state is changed',()=>{
-        
-        
-        WeekCategoryService.getCategory = jest.fn().mockReturnValue([{ categoryid: 1, skill: 'Test1', active: true }, { categoryid: 2, skill: 'Test2', active: true }])
-        CategoryService.getCategories = jest.fn().mockReturnValue([{ categoryid: 1, skill: 'Test1', active: true }, { categoryid: 2, skill: 'Test2', active: true }, { categoryid: 3, skill: 'Test3', active: true }])
+    test('test', () => {
+        const testCat: Category = { skill: 'test', active: true, categoryid: 0 };
+        const testWeek = 0;
+        const mockAddCat = jest.spyOn("../../weekCategories/WeekCategoryListContainer", 'addCategory')
+        const mockCreateActiveList = jest.spyOn("../../weekCategories/WeekCategoryListContainer", 'createActiveList');
+        const mockCreateCatList = jest.spyOn("../../weekCategories/WeekCategoryListContainer", 'craeteCatList');
         const wrapper = shallow(
             <redux.Provider store={store}>
                 <WeekCategoryListContainer weekId={0}></WeekCategoryListContainer>
             </redux.Provider>
-        );
-        const component = wrapper.dive();
-        console.log(component.simulate)
-        
+        )
+
+        expect(mockAddCat).toHaveBeenCalledTimes(1)
+
+
+
+
+
+
+
 
     })
+
+
 
 })

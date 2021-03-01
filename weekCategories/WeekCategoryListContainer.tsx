@@ -27,7 +27,7 @@ export default function WeekCategoryListContainer(qcWeek: weekProp) {
 
 
   //get list of all catgories from this week from db
-  function createCatList() {
+   function createCatList() {
     let weekCategoriesAsCategory: Category[];
     weekCategoryService.getCategory(qcWeek.weekId).then((results) => {
       categoryService.getCategories().then((allCats: Category[]) => {
@@ -80,6 +80,7 @@ export default function WeekCategoryListContainer(qcWeek: weekProp) {
 
     });
   };
+  
   let weekCategoriesAsCategory:Category[] = createCatList();
   let activeCategoriesList:Category[] = createActiveList();
 
