@@ -25,9 +25,9 @@ export function DrawerNavigator() {
     <View>
       <HeaderComponent heading='Caliber' navigation={navigator} />
       <Drawer.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
+        // screenOptions={{
+        //   headerShown: false,
+        // }}
         drawerContent={(props) => (
           <HeaderComponent {...props} heading='Caliber' />
         )}>

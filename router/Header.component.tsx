@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import React from 'react';
 import { Text, View } from 'react-native';
 import { Image } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -11,10 +11,7 @@ interface HeaderComponentProps {
 export function HeaderComponent(props: HeaderComponentProps) {
   return (
     <View>
-      <Icon.Button
-        name='ios-menu'
-        size={25}
-        onPress={props.navigation.toggleDrawer()}></Icon.Button>
+      <Icon.Button name='ios-menu' size={25}></Icon.Button>
       <Text>{props.heading}</Text>
       <Image
         style={{ width: 165, height: 50, margin: 30 }}

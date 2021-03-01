@@ -8,6 +8,7 @@ import { DrawerNavigator } from './DrawerNavigator.component';
 import UnderDevelopmentComponent from '../UnderDevelopmentComponent';
 import { HeaderComponent } from './Header.component';
 import { NavigationContainer } from '@react-navigation/native';
+import { View } from 'react-native';
 
 export type StackParams = {
   Login: undefined;
@@ -30,18 +31,19 @@ const Stack = createStackNavigator();
 
 export default function RouterComponent(props: any) {
   return (
-    <Stack.Navigator
-      initialRouteName='Caliber'
-      screenOptions={{
-        headerShown: false,
-      }}>
-      <Stack.Screen name='Login' component={LoginComponent} />
-      <Stack.Screen name='Header' component={HeaderComponent}></Stack.Screen>
-      <Stack.Screen name='Drawer' component={DrawerNavigator} />
-      <Stack.Screen
-        name='Under Development'
-        component={UnderDevelopmentComponent}
-      />
-    </Stack.Navigator>
+    <View>
+      <Stack.Navigator
+        initialRouteName='Caliber'
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Stack.Screen name='Login' component={LoginComponent} />
+        <Stack.Screen name='Cailber' component={DrawerNavigator} />
+        <Stack.Screen
+          name='Under Development'
+          component={UnderDevelopmentComponent}
+        />
+      </Stack.Navigator>
+    </View>
   );
 }
