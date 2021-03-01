@@ -22,7 +22,7 @@ function BatchPageComponent() {
      */
     function getAssociateFromMock() {
         let newAssociateArray:Associate[] = [];
-        BatchPageService.getAssociates(batch).then((results:[]) => {
+        BatchPageService.getAssociates(batch).then((results) => {
             console.log(results);
             results.forEach((asoc:any) => {
                 let associate = new Associate();
@@ -32,7 +32,7 @@ function BatchPageComponent() {
                 newAssociateArray.push(associate);
             })
         }).catch((err) => {
-            "There is no data";
+            console.log("There is no data");
         });
         return newAssociateArray;
     }

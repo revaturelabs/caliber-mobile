@@ -91,6 +91,15 @@ export function getUser(user: UserInfo): UserAction<UserInfo> {
 	return action;
 }
 
+//forgot password email
+// export function forgotPassword(user: UserInput): UserAction<UserInput> {
+// 	const action: UserAction<UserInput> = {
+// 		type: UserActions.LoginChange,
+// 		payload: user,
+// 	};
+// 	return action;
+// }
+
 //user input
 export function loginChange(user: UserInput): UserAction<UserInput> {
 	const action: UserAction<UserInput> = {

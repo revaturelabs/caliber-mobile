@@ -13,13 +13,13 @@ interface LoginProp {
 	navigation: any;
 }
 
-export default function LoginComponent({ navigation }: LoginProp) {
-	const [loggedIn, setLoggedin] = useState(false);
-	const inputUser = (state: RootState) => state.userReducer.userLogin;
-	const newUser = useSelector(inputUser);
-	const dispatchUser = (state: RootState) => state.userReducer.user;
-	const useUser = useSelector(dispatchUser);
-	const dispatch = useDispatch();
+export default function LoginComponent({navigation}: LoginProp) {
+    const [loggedIn, setLoggedin] = useState(false);
+    const inputUser = (state: RootState) => state.userReducer.userLogin;
+    const newUser = useSelector(inputUser);
+    const dispatchUser = (state: RootState) => state.userReducer.user;
+    const useUser = useSelector(dispatchUser);
+    const dispatch = useDispatch();
 
 	useEffect(() => {
 		auth.onAuthStateChanged((user) => {
@@ -130,28 +130,32 @@ export default function LoginComponent({ navigation }: LoginProp) {
 					</Text>
 				</TouchableHighlight>
 
-				<TouchableHighlight
-					// onPress={ forgot password }
-					style={{
-						backgroundColor: '#fff',
-						height: 45,
-						width: 200,
-						borderRadius: 40,
-						alignItems: 'center',
-					}}
-				>
-					<Text
-						style={{
-							alignItems: 'center',
-							color: '#72A4C2',
-							fontSize: 18,
-							fontWeight: 'bold',
-						}}
-					>
-						Forgot password?
-					</Text>
-				</TouchableHighlight>
-			</View>
-		</View>
-	);
+                <View>
+                    <Input
+                        placeholder={'Password'}
+                        style={style.input}
+                        onChangeText={(value) => dispatch(loginChange({...newUser, password: value}))}
+                        secureTextEntry
+                        value={newUser.password}
+                    />
+                </View>
+
+            </View>
+
+            <View>
+                <TouchableHighlight
+                    onPress={ () => loginUser(newUser) }
+                    style={{backgroundColor: '#F26925', height:45, width:200, borderRadius:40, alignItems:'center', marginBottom: 40}}>
+                    <Text style={{alignItems:'center', padding:8, color:'#fff', fontSize:18, fontWeight:'bold'}}>LOG IN {'>'}</Text>
+                </TouchableHighlight>
+                
+                <TouchableHighlight
+                    onPress={()=>{navigation.navigate('ForgotPassword')}}
+                    style={{backgroundColor: '#fff', height:45, width:200, borderRadius:40, alignItems:'center'}}>
+                    <Text style={{alignItems:'center', color:'#72A4C2', fontSize:18, fontWeight:'bold'}}>Forgot password?</Text>
+                </TouchableHighlight>
+            </View>
+
+        </View>
+    )
 }

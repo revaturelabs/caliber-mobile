@@ -26,7 +26,7 @@ describe("BatchesComponent Test(s)", () => {
         {
           id: 65,
           batchId: "TR-1131",
-          name: "Mock Batch 65",
+          name: "Mock Batch 65",    
           startDate: "2021-04-09",
           endDate: "2021-06-18",
           skill: "Java React",

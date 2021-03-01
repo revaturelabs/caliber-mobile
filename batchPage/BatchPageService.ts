@@ -11,7 +11,8 @@ class BatchPageService {
     }
 
     async getAssociates(batchID:string):Promise<[]> {
-        return axios.get(this.URI+"/batch/"+batchID+"/associates",{withCredentials: true}).then(result => result.data).catch((err) => {console.error(err)});
+        batchID ="TR-1004";
+        return axios.get(this.URI+"/batch/"+batchID,{withCredentials: true}).then(result => result.data).catch((err) => {console.error(err)});
     }
 }
 

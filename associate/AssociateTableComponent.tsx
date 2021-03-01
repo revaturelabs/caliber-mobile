@@ -48,17 +48,18 @@ function AssociateTableComponent(props: AssociateProps) {
 
 
     useEffect(() => {
-        dispatch(getAssociates(tempAssociates));
-        // getQCNotes();
+        // dispatch(getAssociates(tempAssociates));
+        getQCNotes();
     }, []);
 
     /**
      * Retrievs QC Notes from back end.
      */
-    function getQCNotes() {
+    async function getQCNotes() {
         let listOfAssociates: AssociateWithFeedback[] = [];
-        props.assoc.forEach(async (asoc) => {
-            let qcnotes: QCFeedback = await AssociateService.getAssociate(asoc, batch.batchId, week.qcWeekId.toString());
+        await props.assoc.forEach(async (asoc) => {
+            //let qcnotes: QCFeedback = await AssociateService.getAssociate(asoc, batch.batchId, week.qcWeekId.toString());
+            let qcnotes: QCFeedback = new QCFeedback();
             if (qcnotes) {
                 let val = new AssociateWithFeedback();
                 val.associate = asoc;
