@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableHighlight, Image } from 'react-native';
 import {style} from '../global_styles';
 import { RootState, UserState } from '../store/store';
-import {f, auth, database} from './config';
+import {f, auth} from './config';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, loginChange } from '../store/actions';
 import { Input } from 'react-native-elements';
@@ -17,7 +17,7 @@ export default function LoginComponent({navigation}: LoginProp) {
     const [loggedIn, setLoggedin] = useState(false);
     const inputUser = (state: RootState) => state.userReducer.userLogin;
     const newUser = useSelector(inputUser);
-    const dispatchUser = (state: RootState) => state.userReducer.user
+    const dispatchUser = (state: RootState) => state.userReducer.user;
     const useUser = useSelector(dispatchUser);
     const dispatch = useDispatch();
 
@@ -110,7 +110,7 @@ export default function LoginComponent({navigation}: LoginProp) {
                 </TouchableHighlight>
                 
                 <TouchableHighlight
-                    // onPress={ forgot password }
+                    onPress={()=>{navigation.navigate('ForgotPassword')}}
                     style={{backgroundColor: '#fff', height:45, width:200, borderRadius:40, alignItems:'center'}}>
                     <Text style={{alignItems:'center', color:'#72A4C2', fontSize:18, fontWeight:'bold'}}>Forgot password?</Text>
                 </TouchableHighlight>

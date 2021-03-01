@@ -1,4 +1,3 @@
-//import firebase from 'firebase/app';
 import {auth} from '../../user/config';
 
 export function login (email: string, password: string) {
@@ -6,7 +5,7 @@ export function login (email: string, password: string) {
         console.log('i logged In');
         console.log('store should include user info if state monitor is working');
     }).catch(err=>{
-        //console.error(err);
+        console.log(err);
     })
 }
 
@@ -15,7 +14,7 @@ export function logout() {
             console.log('I logged out :-)');
             console.log('store should remove user info from state');
         }).catch((err) => {
-            //console.error(err);
+            console.log(err);
         })
 }
 
@@ -23,6 +22,6 @@ export function sendPasswordResetEmail(email: string) {
     auth.sendPasswordResetEmail(email).then((res)=>{
         console.log("Email Sent!")
     }).catch((err)=>{
-        //console.error(err);
+        console.log(err);
     });
   } 
