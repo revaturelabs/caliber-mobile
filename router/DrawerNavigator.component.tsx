@@ -23,17 +23,12 @@ const headerOptions: DrawerHeaderOptions = {
 export function DrawerNavigator() {
   return (
     <View>
-      <HeaderComponent heading='Caliber' navigation={navigator} />
-      <Drawer.Navigator
-        // screenOptions={{
-        //   headerShown: false,
-        // }}
-        drawerContent={(props) => (
-          <HeaderComponent {...props} heading='Caliber' />
-        )}>
+      {/* <HeaderComponent heading='Caliber' navigation={navigator} /> */}
+      <Drawer.Navigator>
         <Drawer.Screen
           name='Home'
-          component={BatchStackNavigator}></Drawer.Screen>
+          component={BatchStackNavigator}
+          options={headerOptions}></Drawer.Screen>
         <Drawer.Screen
           name='QC Audit'
           component={BatchStackNavigator}></Drawer.Screen>

@@ -33,22 +33,21 @@ const headerOptions: StackHeaderOptions = {
 
 export default function BatchStackNavigator(props: any) {
   return (
-    <View>
-      <HeaderComponent heading='Batches' navigation={navigator} />
-      <Stack.Navigator
-        initialRouteName='Year'
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <Stack.Screen name='Year' component={YearComponent} />
-        <Stack.Screen name='Quarter' component={QuarterComponent} />
-        <Stack.Screen name='Batches' component={BatchListComponent} />
-        <Stack.Screen
-          name='BatchDetail'
-          component={BatchPageComponent}
-          options={headerOptions}
-        />
-      </Stack.Navigator>
-    </View>
+    <Stack.Navigator
+      initialRouteName='Year'
+      // screenOptions={{
+      //   headerShown: false,
+      // }}
+    >
+      {/* <HeaderComponent heading='Batches' navigation={navigator} /> */}
+      <Stack.Screen name='Year' component={YearComponent} />
+      <Stack.Screen name='Quarter' component={QuarterComponent} />
+      <Stack.Screen name='Batches' component={BatchListComponent} />
+      <Stack.Screen
+        name='BatchDetail'
+        component={BatchPageComponent}
+        options={headerOptions}
+      />
+    </Stack.Navigator>
   );
 }

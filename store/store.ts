@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import batchReducer from './batchReducer';
 import weekReducer from './WeekReducer';
 import userReducer from './userReducer';
-import Batch from '../batches/Batch';
+import Batch from '../batches/batch';
 import { AppAction } from './actions';
 import { UserInfo, UserInput } from '../user/user';
 import { AssociateWithFeedback } from '../associate/AssociateService';

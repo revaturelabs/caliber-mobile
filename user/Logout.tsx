@@ -1,17 +1,9 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  TouchableHighlight,
-  Image,
-} from 'react-native';
-import { logout } from '../test/auth/functions';
-import { useNavigation } from '@react-navigation/native';
-import { style } from '../global_styles';
+import { Text,TouchableHighlight} from 'react-native';
+import {logout} from '../test/auth/functions';
+import {UserInfo} from './user';
 
-/**Trial LogoutButton */
+/**LogoutButton */
 
 interface LogoutProp {
   navigation?: any;

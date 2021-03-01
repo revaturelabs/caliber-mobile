@@ -1,9 +1,9 @@
 import { UserInfo, UserInput } from '../user/user';
-import Batch from '../batches/Batch';
+import Batch from '../batches/batch';
 import { AssociateWithFeedback } from '../associate/AssociateService';
 import QcWeek from '../batchWeek/QcWeek';
-import { WeekCategory } from '../weekCategories/weekCategory';
 import { Category } from '../categoriesFeature/Category';
+import { WeekCategory } from '../weekCategories/weekCategory';
 
 export enum BatchActions {
   GetBatches = 'GET_BATCHES',
@@ -90,6 +90,15 @@ export function getUser(user: UserInfo): UserAction<UserInfo> {
   return action;
 }
 
+//forgot password email
+// export function forgotPassword(user: UserInput): UserAction<UserInput> {
+// 	const action: UserAction<UserInput> = {
+// 		type: UserActions.LoginChange,
+// 		payload: user,
+// 	};
+// 	return action;
+// }
+
 //user input
 export function loginChange(user: UserInput): UserAction<UserInput> {
   const action: UserAction<UserInput> = {
@@ -171,9 +180,9 @@ export function getWeekCategories(categories: Category[]): WeekCategoryAction {
 }
 
 export function ChangeCategories(categories: Category[]): WeekCategoryAction {
-  const action: WeekCategoryAction = {
-    type: WeekCategoryActions.ChangeWeekCategories,
-    payload: categories,
-  };
-  return action;
-}
+	const action: WeekCategoryAction ={
+		type: WeekCategoryActions.ChangeWeekCategories,
+		payload: categories
+	};
+	return action;
+};

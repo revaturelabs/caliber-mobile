@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 
-import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { getAssociates } from '../store/actions';
+import { ReducerState } from '../store/store';
+import { View, Text } from 'react-native';
 import AssociateTableComponent from '../associate/AssociateTableComponent';
 import AddNoteComponent from '../batchWeek/AddNoteComponent';
 import AddWeek from '../batchWeek/AddWeek/addWeek.component';
 import WeekSelectionComponent from '../batchWeek/WeekSelectionComponent';
-import { getAssociates } from '../store/actions';
-import { ReducerState } from '../store/store';
 import weekCategoryList from '../weekCategories/weekCategoryList';
 import BatchPageService from './BatchPageService';
 
