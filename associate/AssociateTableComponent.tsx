@@ -119,6 +119,11 @@ function AssociateTableComponent() {
     }
   }
 
+  /**
+   * Updates all of the associates with their new notes and
+   * technical statuses. Is used on the save button that
+   * is stickied to the bottom of the screen.
+   */
   function handleAllUpdate() {
     associates.forEach(async (assoc) => {
       try {

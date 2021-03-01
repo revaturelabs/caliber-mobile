@@ -6,6 +6,8 @@ import LogoutComponent from '../user/Logout';
 import { Image } from 'react-native-elements';
 import { DrawerHeaderOptions } from '@react-navigation/drawer/lib/typescript/src/types';
 import UnderDevelopmentComponent from '../UnderDevelopmentComponent';
+import { View } from 'react-native';
+import { HeaderComponent } from './Header.component';
 
 const Drawer = createDrawerNavigator();
 
@@ -20,24 +22,31 @@ const headerOptions: DrawerHeaderOptions = {
 
 export function DrawerNavigator() {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen
-        name='Home'
-        component={BatchStackNavigator}
-        options={headerOptions}></Drawer.Screen>
-      <Drawer.Screen
-        name='QC Audit'
-        component={BatchStackNavigator}
-        options={headerOptions}></Drawer.Screen>
-      <Drawer.Screen
-        name='Reports'
-        component={UnderDevelopmentComponent}
-        options={headerOptions}></Drawer.Screen>
-      <Drawer.Screen
-        name='Management'
-        component={ManageCategories}
-        options={headerOptions}></Drawer.Screen>
-      <Drawer.Screen name='Logout' component={LogoutComponent}></Drawer.Screen>
-    </Drawer.Navigator>
+    <View>
+      <HeaderComponent heading='Caliber' navigation={navigator} />
+      <Drawer.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+        drawerContent={(props) => (
+          <HeaderComponent {...props} heading='Caliber' />
+        )}>
+        <Drawer.Screen
+          name='Home'
+          component={BatchStackNavigator}></Drawer.Screen>
+        <Drawer.Screen
+          name='QC Audit'
+          component={BatchStackNavigator}></Drawer.Screen>
+        <Drawer.Screen
+          name='Reports'
+          component={UnderDevelopmentComponent}></Drawer.Screen>
+        <Drawer.Screen
+          name='Management'
+          component={ManageCategories}></Drawer.Screen>
+        <Drawer.Screen
+          name='Logout'
+          component={LogoutComponent}></Drawer.Screen>
+      </Drawer.Navigator>
+    </View>
   );
 }

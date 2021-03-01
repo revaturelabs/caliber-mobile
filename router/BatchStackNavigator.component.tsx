@@ -8,6 +8,8 @@ import YearComponent from '../batches/YearComponent';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LogoutComponent from '../user/Logout';
 import BatchPageComponent from '../batchPage/BatchPageComponent';
+import { View } from 'react-native';
+import { HeaderComponent } from './Header.component';
 
 const Stack = createStackNavigator();
 
@@ -31,27 +33,22 @@ const headerOptions: StackHeaderOptions = {
 
 export default function BatchStackNavigator(props: any) {
   return (
-    <Stack.Navigator initialRouteName='Year'>
-      <Stack.Screen
-        name='Year'
-        component={YearComponent}
-        options={headerOptions}
-      />
-      <Stack.Screen
-        name='Quarter'
-        component={QuarterComponent}
-        options={headerOptions}
-      />
-      <Stack.Screen
-        name='Batches'
-        component={BatchListComponent}
-        options={headerOptions}
-      />
-      <Stack.Screen
-        name='BatchDetail'
-        component={BatchPageComponent}
-        options={headerOptions}
-      />
-    </Stack.Navigator>
+    <View>
+      <HeaderComponent heading='Batches' navigation={navigator} />
+      <Stack.Navigator
+        initialRouteName='Year'
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Stack.Screen name='Year' component={YearComponent} />
+        <Stack.Screen name='Quarter' component={QuarterComponent} />
+        <Stack.Screen name='Batches' component={BatchListComponent} />
+        <Stack.Screen
+          name='BatchDetail'
+          component={BatchPageComponent}
+          options={headerOptions}
+        />
+      </Stack.Navigator>
+    </View>
   );
 }
