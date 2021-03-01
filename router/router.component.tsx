@@ -9,6 +9,7 @@ import LoginComponent from '../user/Login';
 import BatchPageComponent from '../batchPage/BatchPageComponent';
 import Test from '../user/Test';
 import LogoutComponent from '../user/Logout';
+import ForgotPassword from '../user/ForgotPassword';
 
 export type StackParams = {
     Login: undefined;
@@ -19,7 +20,7 @@ export type StackParams = {
 
 const headerOptions: StackHeaderOptions = {
     headerTitle: () => <Image style={{width:165, height:50, margin:30}}source={require('./rev-logo.png')} />,
-    headerRight: () => <LogoutComponent/>,
+    headerRight: () => <LogoutComponent />,
 };
 
 const Stack = createStackNavigator();
@@ -53,6 +54,11 @@ export default function RouterComponent(props: any) {
             <Stack.Screen
                 name='Logout'
                 component={LogoutComponent}
+                options={headerOptions}
+            />
+            <Stack.Screen
+                name='ForgotPassword'
+                component={ForgotPassword}
                 options={headerOptions}
             />
         </Stack.Navigator>
