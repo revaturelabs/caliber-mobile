@@ -36,7 +36,7 @@ jest.mock('../../user/config', () => ({
  * test login 
  */
 test('Logging in user', async () => {
-    await login('example@gmail.com', 'smth');
+    login('example@gmail.com', 'smth');
     expect(auth.signInWithEmailAndPassword).toBeCalledWith('example@gmail.com', 'smth');
 }); 
 
@@ -44,7 +44,7 @@ test('Logging in user', async () => {
  * test logout
  */
 test('Logout user', async () => {
-    await logout();
+    logout();
     expect(auth.signOut).toBeCalled();
 })
 
@@ -52,6 +52,6 @@ test('Logout user', async () => {
  * test reset password link
  */
 test('Sending password reset link to email', async () => {
-    await sendPasswordResetEmail('example@gmail.com');
+    sendPasswordResetEmail('example@gmail.com');
     expect(auth.sendPasswordResetEmail).toBeCalledWith('example@gmail.com');
 })

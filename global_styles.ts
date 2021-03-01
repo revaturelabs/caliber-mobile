@@ -46,6 +46,7 @@ export const style = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 40,
   },
+
   loginInput: {
     marginBottom: 40,
     borderBottomColor: '#fff',
