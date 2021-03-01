@@ -6,6 +6,7 @@ import BatchesComponent from '../batches/batches.component';
 import LoginComponent from '../user/Login';
 import Test from '../user/Test';
 import LogoutComponent from '../user/Logout';
+import weekCategoryList from '../weekCategories/WeekCategoryList';
 
 export type StackParams = {
     Login: undefined;
@@ -42,6 +43,11 @@ export default function RouterComponent(props: any) {
             <Stack.Screen
                 name='Logout'
                 component={LogoutComponent}
+                options={headerOptions}
+            />
+            <Stack.Screen
+                name='WeekCatList'
+                component={weekCategoryList}
                 options={headerOptions}
             />
         </Stack.Navigator>

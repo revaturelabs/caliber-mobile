@@ -5,6 +5,7 @@ import Test from '../test';
 
 import ManageCategories from '../categories/manageCategories'
 import LoginComponent from '../user/Login';
+import weekCategoryList from '../weekCategories/WeekCategoryList';
   
 export type StackParam = {
   ManageCategories: undefined;
@@ -21,6 +22,7 @@ export function Router() {
           <Stack.Screen name='Assess Batch' component={} /> */}
           {/* <Stack.Screen name='Quality Audit' component={} />
           <Stack.Screen name='Reports' component={} /> */}
+          <Stack.Screen name='WeekCatList' component={weekCategoryList}/>
         </Stack.Navigator>
     );
   }

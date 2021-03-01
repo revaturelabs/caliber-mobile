@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { weekCategory } from '../weekCategories/weekCategory';
 import {
@@ -8,7 +8,7 @@ import {
   MenuOptions,
   MenuOption,
 } from 'react-native-popup-menu';
-import WeekCategoryService from './WeekCategoryService';
+import weekCategoryService from './WeekCategoryService';
 import { useDispatch, useSelector } from 'react-redux';
 import WeekCategoryComponent from './WeekCategoryComponent';
 import { addWeekCategory, getWeekCategories } from '../store/actions';
@@ -40,7 +40,7 @@ export default function weekCategoryList(qcWeek: weekProp) {
 
   //get list of all catgories from this week from db
   let weekCategoriesAsCategory: Category[] = []
-  WeekCategoryService.getCategory(qcWeek.weekId).then((results) => {
+  weekCategoryService.getCategory(qcWeek.weekId).then((results) => {
     categoryService.getCategories().then((allCats:Category[])=>{
       let thisWeekCats: Category[] = []
       allCats.forEach((allCatElement) => {
@@ -77,7 +77,7 @@ export default function weekCategoryList(qcWeek: weekProp) {
  */
 function addCategory(newCat: Category) {
   let weekCat: weekCategory = {categoryId: newCat.categoryid, qcWeekId: qcWeek.weekId};
-  WeekCategoryService.addCategory(weekCat).then(() => {
+  weekCategoryService.addCategory(weekCat).then(() => {
     dispatch(addWeekCategory(weekCat));
     
   });

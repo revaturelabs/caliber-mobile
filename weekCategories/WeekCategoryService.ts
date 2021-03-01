@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { weekCategory } from './WeekCategory';
+import { weekCategory } from './weekCategory';
 
 class weekCategoryService {
     private URI: string;
