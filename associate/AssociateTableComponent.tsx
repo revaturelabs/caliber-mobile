@@ -70,18 +70,15 @@ function AssociateTableComponent() {
             associate.associateId = asoc.email;
             newAssociateArray.push(associate);
         })
-        console.log(newAssociateArray);
         return newAssociateArray;
     }
-    
+
     /**
      * Retrievs QC Notes from back end.
      */
     function getQCNotes(results: any) {
-        console.log(results);
         let listOfAssociates: AssociateWithFeedback[] = [];
         results.forEach((asoc: any) => {
-            console.log(asoc)
             // let qcnotes: QCFeedback = await AssociateService.getAssociate(asoc, batch.batchId, week.qcWeekId.toString());
             let qcnotes: QCFeedback = new QCFeedback();
             if (qcnotes) {
@@ -94,7 +91,6 @@ function AssociateTableComponent() {
                 val.associate = asoc;
                 listOfAssociates.push(val);
             }
-            console.log(listOfAssociates);
         })
         dispatch(getAssociates(listOfAssociates));
     }
