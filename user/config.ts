@@ -14,6 +14,6 @@ const config = {
 // Initialize Firebase
 firebase.initializeApp(config);
 
-export const f = firebase;
 export const auth = firebase.auth();
 
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
