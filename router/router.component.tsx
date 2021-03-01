@@ -7,6 +7,7 @@ import LoginComponent from '../user/Login';
 import BatchPageComponent from '../batchPage/BatchPageComponent';
 import LogoutComponent from '../user/Logout';
 import ForgotPassword from '../user/ForgotPassword';
+import Test from '../user/Test';
 
 export type StackParams = {
 	Login: undefined;

@@ -4,6 +4,7 @@ import 'react-native';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
+import BatchPageService from '../batchPage/BatchPageService';
 import style from '../global_styles';
 import { getAssociates } from '../store/actions';
 import { RootState } from '../store/store';
@@ -11,9 +12,6 @@ import AssociateDetail from './AssociateDetail';
 import AssociateService, { Associate, AssociateWithFeedback, QCFeedback } from './AssociateService';
 import { shuffle, sortAssociateByFirstName, sortAssociateByFirstNameReversed, sortAssociateByLastName, sortAssociateByLastNameReversed } from './sort';
 
-interface AssociateProps {
-    assoc: Associate[];
-}
 
 /**
  * Get Associate needs to do some stuff here.
@@ -36,7 +34,7 @@ assoc4.associate.lastName = "DeltaTest"
 
 
 
-function AssociateTableComponent(props: AssociateProps) {
+function AssociateTableComponent() {
     let tempAssociates = [assoc1, assoc2, assoc3, assoc4];
     let dispatch = useDispatch();
     let associates = useSelector((state: RootState) => state.batchReducer.associates);
@@ -49,16 +47,42 @@ function AssociateTableComponent(props: AssociateProps) {
 
     useEffect(() => {
         // dispatch(getAssociates(tempAssociates));
-        getQCNotes();
+        let mockResult;
+        async function asyncThis() {
+            mockResult = await getAssociateFromMock();
+            console.log(mockResult);
+            getQCNotes(mockResult);
+        }
+        asyncThis();
     }, []);
 
     /**
+     * Queries the mock API to retrieve all the associates for a given batch.
+     */
+    async function getAssociateFromMock() {
+        let newAssociateArray: Associate[] = [];
+        let serviceResult;
+        serviceResult = await BatchPageService.getAssociates(batch);
+        serviceResult.forEach((asoc: any) => {
+            let associate = new Associate();
+            associate.firstName = asoc.firstName;
+            associate.lastName = asoc.lastName;
+            associate.associateId = asoc.email;
+            newAssociateArray.push(associate);
+        })
+        console.log(newAssociateArray);
+        return newAssociateArray;
+    }
+    
+    /**
      * Retrievs QC Notes from back end.
      */
-    async function getQCNotes() {
+    function getQCNotes(results: any) {
+        console.log(results);
         let listOfAssociates: AssociateWithFeedback[] = [];
-        await props.assoc.forEach(async (asoc) => {
-            //let qcnotes: QCFeedback = await AssociateService.getAssociate(asoc, batch.batchId, week.qcWeekId.toString());
+        results.forEach((asoc: any) => {
+            console.log(asoc)
+            // let qcnotes: QCFeedback = await AssociateService.getAssociate(asoc, batch.batchId, week.qcWeekId.toString());
             let qcnotes: QCFeedback = new QCFeedback();
             if (qcnotes) {
                 let val = new AssociateWithFeedback();
@@ -70,6 +94,7 @@ function AssociateTableComponent(props: AssociateProps) {
                 val.associate = asoc;
                 listOfAssociates.push(val);
             }
+            console.log(listOfAssociates);
         })
         dispatch(getAssociates(listOfAssociates));
     }

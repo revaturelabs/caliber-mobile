@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { View,Text } from "react-native";
+import { View, Text } from "react-native";
 import { useSelector } from 'react-redux';
 import { Associate } from '../associate/AssociateService';
 import AssociateTableComponent from "../associate/AssociateTableComponent";
@@ -14,29 +14,6 @@ import BatchPageService from './BatchPageService';
 
 function BatchPageComponent() {
 
-    
-    let batch = useSelector((state: RootState) => state.batchReducer.batch);
-
-    /**
-     * Queries the mock API to retrieve all the associates for a given batch.
-     */
-    function getAssociateFromMock() {
-        let newAssociateArray:Associate[] = [];
-        BatchPageService.getAssociates(batch).then((results) => {
-            console.log(results);
-            results.forEach((asoc:any) => {
-                let associate = new Associate();
-                associate.firstName = asoc.firstName;
-                associate.lastName = asoc.lastName;
-                associate.associateId = asoc.email;
-                newAssociateArray.push(associate);
-            })
-        }).catch((err) => {
-            console.log("There is no data");
-        });
-        return newAssociateArray;
-    }
-
     useEffect(() => {
     }, []);
 
@@ -45,10 +22,10 @@ function BatchPageComponent() {
             <WeekSelectionComponent></WeekSelectionComponent>
             <AddWeek></AddWeek>
             <AddNoteComponent></AddNoteComponent>
-            {weekCategoryList({weekId:0})}
-            <AssociateTableComponent assoc = {getAssociateFromMock()}></AssociateTableComponent>
+            {weekCategoryList({ weekId: 0 })}
+            <AssociateTableComponent></AssociateTableComponent>
         </View>
- 
+
     );
 }
 

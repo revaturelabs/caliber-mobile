@@ -6,13 +6,13 @@ class BatchPageService {
 
     private URI: string;
     constructor() {
-        // URL of the express server
-        this.URI = 'https://aosczl5fvf.execute-api.us-west-2.amazonaws.com/default';
+        // URL of the API server that stores our Lambdas.
+        this.URI = 'https://7tu8pm3exl.execute-api.us-east-1.amazonaws.com/default';
     }
 
     async getAssociates(batchID:string):Promise<[]> {
         batchID ="TR-1004";
-        return axios.get(this.URI+"/batch/"+batchID,{withCredentials: true}).then(result => result.data).catch((err) => {console.error(err)});
+        return axios.get(this.URI+"/qc"+"/batches/"+batchID).then(result => result.data).catch((err) => {console.error(err)});
     }
 }
 
