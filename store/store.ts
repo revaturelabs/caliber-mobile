@@ -51,8 +51,6 @@ export interface CaliberState
     CategoryState,
     BatchState,
     WeekCategoryState {}
-// <> is generics: Generic arguments allow us to define the type of a thing at runtime instead of when we write it,
-// creating a reusable object.
 
 export interface CaliberState extends UserState, BatchState, WeekState {}
 
@@ -60,8 +58,8 @@ export interface CaliberState extends UserState, BatchState, WeekState {}
 const rootReducer = combineReducers({
   userReducer,
   batchReducer,
-  //weekReducer,
-  //WeekCategoryReducer,
+  weekReducer,
+  WeekCategoryReducer,
   categoryReducer,
 });
 

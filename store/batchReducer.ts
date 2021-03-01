@@ -18,7 +18,6 @@ const batchReducer = (
       newState.batch = action.payload as Batch;
     case Actions.AssociateActions.GetAssociates:
       newState.associates = action.payload as AssociateWithFeedback[];
-      console.log(newState.associates);
       return newState;
     default:
       return state;
