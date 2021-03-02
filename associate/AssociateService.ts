@@ -27,6 +27,14 @@ class AssociateService {
       .then((result) => result.data)
       .catch((err) => {
         console.log('caught!');
+        let qcFeedback = new QCFeedback();
+        qcFeedback.associateId = a.associateId;
+        qcFeedback.batchId = batch;
+        qcFeedback.weekId = Number(week);
+        this.putAssociate(qcFeedback, {
+            notecontent: qcFeedback.qcNote,
+            technicalstatus: qcFeedback.qcTechnicalStatus,
+          }, token);
         console.error(err);
       });
   }
