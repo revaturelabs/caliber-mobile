@@ -1,5 +1,10 @@
+import React from 'react';
+import { useEffect, useState } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { enableScreens } from 'react-native-screens';
+import { Image } from 'react-native-elements';
+import { createStackNavigator } from '@react-navigation/stack';
+
 import Home from '../user/Home';
 import ForgotPassword from '../user/ForgotPassword';
 import UnderDevelopmentComponent from '../UnderDevelopmentComponent';
@@ -12,10 +17,7 @@ import {
   GetStale,
 } from '../store/categoriesFeature/CategoryActions';
 import { ReducerState } from '../store/store';
-import { createStackNavigator } from '@react-navigation/stack';
-import { Image } from 'react-native-elements';
 import LoginComponent from '../user/Login';
-import { useEffect, useState } from 'react';
 
 enableScreens();
 

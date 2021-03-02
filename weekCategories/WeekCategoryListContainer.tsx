@@ -20,7 +20,9 @@ export default function WeekCategoryListContainer() {
   const weekCategories = useSelector(weekCatSelector);
   const weekIDSelector = (state: ReducerState) => state.weekReducer.selectedWeek;
   const weekId = useSelector(weekIDSelector);
-
+  // authorizer state
+  const currentUser = useSelector((state: ReducerState) => state.userReducer.user);
+  const token = currentUser.token;
   const dispatch = useDispatch();
 
 
@@ -35,7 +37,7 @@ export default function WeekCategoryListContainer() {
       if (results == []) {
         return ([]);
       } else {
-        categoryService.getCategories().then((allCats: Category[]) => {
+        categoryService.getCategories(token).then((allCats: Category[]) => {
           let thisWeekCats: Category[] = []
           allCats.forEach((allCatElement) => {
             results.forEach((catid) => {
@@ -61,7 +63,7 @@ export default function WeekCategoryListContainer() {
    * @return an array of type Category[]
    */
   function createActiveList() {
-    categoryService.getCategories(true).then((results) => {
+    categoryService.getCategories(token,true).then((results) => {
       let availableCats: Category[] = []
       if (results != availableCats) {
         results.forEach((element: Category) => {
