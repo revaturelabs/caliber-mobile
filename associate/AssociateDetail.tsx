@@ -30,11 +30,6 @@ function AssociateDetail(props: AssociateProps) {
   //Should we be able to view their note?
   const [viewNote, setViewNote] = useState(false);
 
-  useEffect(()=> {
-    console.log(`associate: ${JSON.stringify(props.associate)}`);
-    console.log(`qcfeedback: ${JSON.stringify(props.qcFeedback)}`);
-  },[]);
-
   /**
    * When the Technical Status component is pressed, should cycle through 0-4
    *  Update both the state and the database.

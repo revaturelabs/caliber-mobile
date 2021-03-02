@@ -11,6 +11,7 @@ import { ReducerState } from '../store/store';
 import style from '../global_styles';
 import AssociateService, { AssociateWithFeedback } from '../associate/AssociateService';
 import { Icon } from 'react-native-elements';
+import { ScrollView } from 'react-native-gesture-handler';
 
 function BatchPageComponent() {
   let associates = useSelector(
@@ -44,23 +45,25 @@ function BatchPageComponent() {
   }
 
   return (
-    <View>
-      <WeekSelectionComponent></WeekSelectionComponent>
-      <AddWeek></AddWeek>
-      {weekCategoryList({ weekId: 0 })}
-      <AddNoteComponent></AddNoteComponent>
-      <AssociateTableComponent></AssociateTableComponent>
-      <Button
-        raised
-        titleStyle={style.title}
-        buttonStyle={style.button}
-        title='Save All'
-        type='outline'
-        icon={<Icon name='save' type='fontawesome' color='#F26925' />}
-        onPress={handleAllUpdate}
-        testID='saveNote'
-      />
-    </View>
+    <ScrollView
+      stickyHeaderIndices={[4]}
+      invertStickyHeaders={true}>
+        <WeekSelectionComponent/>
+        <AddWeek/>
+        {weekCategoryList({ weekId: 0 })}
+        <AddNoteComponent/>
+        <AssociateTableComponent/>
+        <Button
+          raised
+          titleStyle={style.title}
+          buttonStyle={{ ...style.button }}
+          title='Save All'
+          type='outline'
+          icon={<Icon name='save' type='fontawesome' color='#F26925' />}
+          onPress={handleAllUpdate}
+          testID='saveNote'
+        />
+        </ScrollView>
   );
 }
 
