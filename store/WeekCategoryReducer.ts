@@ -4,9 +4,8 @@ import { initialState } from './initialState';
 import { CaliberState } from './store';
 
 const WeekCategoryReducer = (
-  
-  state: CaliberState = initialState,
   action: Actions.AppAction,
+  state: CaliberState = initialState
 ): CaliberState => {
   const newState = { ...state };
 
