@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Category } from '../categoriesFeature/Category';
 import { addWeekCategory, categoriesMenuOptions, getWeekCategories } from '../store/actions';
 import { WeekCategory } from './weekCategory';
-import { WeekCategoryList } from '../weekCategories/weekCategoryList';
+import { WeekCategoryList } from '../weekCategories/WeekCategoryList';
 import weekCategoryService from '../weekCategories/WeekCategoryService';
 import { ReducerState } from '../store/store';
 import categoryService from '../categoriesFeature/CategoryService';
@@ -19,7 +19,7 @@ export default function WeekCategoryListContainer() {
   const weekCatSelector = (state: ReducerState) => state.WeekCategoryReducer.weekCategories;
   const weekCategories = useSelector(weekCatSelector);
   const weekIDSelector = (state: ReducerState) => state.weekReducer.selectedWeek;
-  const weekId = useSelector(weekIDSelector);
+  const week = useSelector(weekIDSelector);
   // authorizer state
   const currentUser = useSelector((state: ReducerState) => state.userReducer.user);
   const token = currentUser.token;
@@ -33,7 +33,7 @@ export default function WeekCategoryListContainer() {
  */
   function createCatList() {
     let weekCategoriesAsCategoryTemp: Category[];
-    weekCategoryService.getCategory(weekId.qcWeekId).then((results) => {
+    weekCategoryService.getCategory(week.qcWeekId, week.batchId).then((results) => {
       if (results == []) {
         return ([]);
       } else {
@@ -88,8 +88,8 @@ export default function WeekCategoryListContainer() {
  */
   function addCategory(newCat: Category) {
     if (newCat.categoryid != -1) {
-      let weekCat: WeekCategory = { categoryId: newCat.categoryid, qcWeekId: weekId.qcWeekId };
-      weekCategoryService.addCategory(weekCat).then(() => {
+      let weekCat: WeekCategory = { categoryId: newCat.categoryid, qcWeekId: week.qcWeekId };
+      weekCategoryService.addCategory(weekCat, week.batchId, week.qcWeekId).then(() => {
         dispatch(addWeekCategory(weekCat));
 
       });
@@ -102,7 +102,7 @@ export default function WeekCategoryListContainer() {
 
   return (
     <View>
-      <WeekCategoryList weekId={weekId.qcWeekId} weekCategoriesAsCategory={weekCategoriesAsCategory} addCategory={addCategory} activeCategories={activeCategoriesList} />
+      <WeekCategoryList week={week} weekCategoriesAsCategory={weekCategoriesAsCategory} addCategory={addCategory} activeCategories={activeCategoriesList} />
     </View>
   )
 

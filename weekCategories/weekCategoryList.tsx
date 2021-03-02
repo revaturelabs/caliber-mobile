@@ -9,10 +9,11 @@ import {
 } from 'react-native-popup-menu';
 import WeekCategoryComponent from './WeekCategoryComponent';
 import { Category } from '../categoriesFeature/Category';
+import QcWeek from '../batchWeek/QcWeek';
 
 
 interface WeekProp {
-  weekId: number,
+  week: QcWeek,
   weekCategoriesAsCategory: Category[],
   addCategory:Function,
   activeCategories:Category[],
@@ -38,14 +39,14 @@ export function WeekCategoryList(props: WeekProp) {
           data={props.weekCategoriesAsCategory}
           horizontal={true}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (<WeekCategoryComponent weekID={props.weekId} skill={item.skill} catID = {item.categoryid}></WeekCategoryComponent>)} />
+          renderItem={({ item }) => (<WeekCategoryComponent weekID={props.week.qcWeekId} skill={item.skill} catID = {item.categoryid} batchId={props.week.batchId}></WeekCategoryComponent>)} />
       </View>
 
       <View style={styles.menuContainer}>
 
         <MenuProvider  style={styles.menu}>
 
-          <Menu onSelect={value => { props.addCategory(value, props.weekId); } }>
+          <Menu onSelect={value => { props.addCategory(value, props.week.qcWeekId); } }>
 
             <MenuTrigger text='+' customStyles={triggerStyles}/>
 
