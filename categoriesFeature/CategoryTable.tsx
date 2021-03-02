@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, SectionList } from 'react-native';
+import { View, Text, StyleSheet, SectionList, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../store/categoriesFeature/CategoryActions';
 import { CategoryState } from '../store/store';
 import { Category } from './Category';
 import { CategoryName } from './CategoryName';
 import categoryService from './CategoryService';
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { SearchBar } from 'react-native-elements';
 import SearchInput, {createFilter} from 'react-native-search-filter';
-import { AlphabetList } from "react-native-section-alphabet-list";
+import { AlphabetList } from 'react-native-section-alphabet-list';
+import catStyle from './categoriesStyles';
 
 interface CategoryTableProp {
     status: boolean;
@@ -122,16 +123,12 @@ export function CategoryTable({ status }: CategoryTableProp) {
     console.log(result);
 
     return (
-        <>
+        <View>
             {status == true ?
                 // if status is true, return a table of active categories
                 <View>
-                    {/* Table header */}
-                    <Text style={styles.textColor}>Active Categories</Text>
-
-                    {/* Toggle instructions */}
-                    <Text style={styles.textColor}>Click to toggle Active/Stale Categories</Text>
-
+                    <View style={catStyle.header}>
+                        
                     {/* Table items */}
                     <SearchBar
                         placeholder="Enter Skill..."
@@ -139,11 +136,21 @@ export function CategoryTable({ status }: CategoryTableProp) {
                             searchSet(value);
                         }}
                         value={search}
+                        inputStyle={catStyle.inputBar}
+                        inputContainerStyle={catStyle.inputContainer}
+                        containerStyle={catStyle.searchContainer}
+                        searchIcon={{color: 'white'}}
                     />
-
+                    <TouchableOpacity style={catStyle.addBtn}>
+                        <Text style={catStyle.addCatText}>Add Category</Text>
+                    </TouchableOpacity>
+                    {/* Toggle instructions */}
+                    <Text style={catStyle.instruct}>Click to toggle Active/Stale Categories</Text>
+                    
+                    </View>
                     <AlphabetList
                         data={result}
-                        indexLetterColor={'red'}
+                        indexLetterColor={'rgba(0,0,0,0)'}
                         renderCustomItem={(item: any) => (
                             <CategoryName
                                 skill={item.value}
@@ -152,28 +159,38 @@ export function CategoryTable({ status }: CategoryTableProp) {
                                 categories={newCategories}
                             ></CategoryName>
                         )}
+                        renderCustomSectionHeader={(section: any) => (
+                            <View style={catStyle.sectionHeaderContainer}>
+                                <Text style={catStyle.sectionHeaderLabel}>{section.title}</Text>
+                            </View>
+                        )}
                     />
-                </View>
+                    </View>
                 :
                 // if status is false, return a table of stale categories
                 <View>
-                    {/* Table header */}
-                    <Text style={styles.textColor}>Stale Categories</Text>
+                    <View style={catStyle.header}>
 
-                    {/* Toggle instructions */}
-                    <Text style={styles.textColor}>Click to toggle Active/Stale Categories</Text>
-                    
-                    {/* Table items */}
-                    <SearchBar
-                        placeholder="Enter Skill..."
-                        onChangeText={(value) => {
-                            searchSet(value);
-                        }}
-                        value={search}
+                        <SearchBar
+                            placeholder="Enter Skill..."
+                            onChangeText={(value) => {
+                                searchSet(value);
+                            }}
+                            value={search}
+                            inputStyle={catStyle.inputBar}
+                            inputContainerStyle={catStyle.inputContainer}
+                            containerStyle={catStyle.searchContainer}
+                            searchIcon={{color: 'white'}}
+                            style={catStyle.searchContainer}
                     />
+                    {/* Toggle instructions */}
+                    <Text style={catStyle.instruct}>Click to toggle Active/Stale Categories</Text>
+                    </View>
+
+                    {/* Table items */}
                     <AlphabetList
                         data={result}
-                        indexLetterColor={'red'}
+                        indexLetterColor={'rgba(0,0,0,0)'}
                         renderCustomItem={(item: any) => (
                             <CategoryName
                                 skill={item.value}
@@ -182,17 +199,15 @@ export function CategoryTable({ status }: CategoryTableProp) {
                                 categories={newCategories}
                             ></CategoryName>
                         )}
+                        renderCustomSectionHeader={(section: any) => (
+                            <View style={catStyle.sectionHeaderContainer}>
+                                <Text style={catStyle.sectionHeaderLabel}>{section.title}</Text>
+                            </View>
+                        )}
                     />
-                </View>
+                    </View>
+                    
             }
-        </>
+        </View>
     )
 }
-
-
-
-const styles = StyleSheet.create({
-    textColor: {
-        color: 'black',
-    }
-})

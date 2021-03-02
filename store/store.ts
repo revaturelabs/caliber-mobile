@@ -4,49 +4,50 @@ import thunk from 'redux-thunk';
 import batchReducer from './batchReducer';
 import weekReducer from './WeekReducer';
 import userReducer from './userReducer';
-import { AppAction, AssociateActions } from './actions';
-import Batch from '../batches/batch';
+import Batch from '../batches/Batch';
+import { AppAction } from './actions';
 import { UserInfo, UserInput } from '../user/user';
 import { AssociateWithFeedback } from '../associate/AssociateService';
 import QcWeek from '../batchWeek/QcWeek';
-import WeekCategoryReducer from './WeekCategoryReducer'
-import { weekCategory } from '../weekCategories/WeekCategory';
 import { Category } from '../categoriesFeature/Category';
 import categoryReducer from './categoriesFeature/CategoryReducer';
 
-
-
-
 export interface BatchState {
-	batches: Batch[];
+  batch: Batch;
+  batches: Batch[];
 }
 
 export interface WeekState {
-	weeks: QcWeek[];
-	selectedWeek: QcWeek;
+  weeks: QcWeek[];
+  selectedWeek: QcWeek;
 }
 
 export interface UserState {
-	user: UserInfo;
-	userLogin: UserInput;
+  user: UserInfo;
+  userLogin: UserInput;
 }
 export interface AssociateState {
-	associates: AssociateWithFeedback[];
+  associates: AssociateWithFeedback[];
 }
-export interface CaliberState extends UserState, BatchState,AssociateState {}
+export interface CaliberState extends UserState, BatchState, AssociateState {}
 
-export interface WeekCategoryState{
-	weekCategories: Category[];
-	weekCategory: weekCategory;
+export interface WeekCategoryState {
+  weekCategories: Category[];
 }
 
-export interface CaliberState extends UserState, BatchState, WeekCategoryState {}
-
+export interface CaliberState
+  extends UserState,
+    BatchState,
+    WeekCategoryState {}
 
 export interface CategoryState {
-    categories: Category[];
+  categories: Category[];
 }
-export interface CaliberState extends UserState, CategoryState, BatchState, WeekCategoryState {}
+export interface CaliberState
+  extends UserState,
+    CategoryState,
+    BatchState,
+    WeekCategoryState {}
 // <> is generics: Generic arguments allow us to define the type of a thing at runtime instead of when we write it,
 // creating a reusable object.
 
@@ -54,19 +55,21 @@ export interface CaliberState extends UserState, BatchState, WeekState {}
 
 //add your reducer to the object
 const rootReducer = combineReducers({
-	userReducer,
-	batchReducer,
-	weekReducer,
-	WeekCategoryReducer,
-	categoryReducer
+  userReducer,
+  batchReducer,
+  weekReducer,
+  categoryReducer,
 });
 
-//user userSelector(state: RootState => state.yourReducer.yourPayload)
-export type RootState = ReturnType<typeof rootReducer>;
+/**
+ * Example of how to use ReducerState
+ * let variableName = useSelector(state: RootState => state.reducerName.payloadName)
+ */
+export type ReducerState = ReturnType<typeof rootReducer>;
 
-const store: Store<RootState, AppAction> = createStore(
-	rootReducer,
-	composeWithDevTools(applyMiddleware(thunk))
+const store: Store<ReducerState, AppAction> = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk))
 );
 
 export default store;

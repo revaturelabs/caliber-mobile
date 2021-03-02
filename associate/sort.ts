@@ -79,7 +79,7 @@ export function sortAssociateByLastNameReversed(associates: AssociateWithFeedbac
     associates.sort((a, b) => {
         if (a.associate.lastName.length >= b.associate.lastName.length) {
             for (let i = 0; i < b.associate.lastName.length; i++) {
-                let check = (a.associate.lastName.charCodeAt(i)) - (b.associate.lastName.charCodeAt(i));
+                let check = (b.associate.lastName.charCodeAt(i)) - (a.associate.lastName.charCodeAt(i));
                 if (check != 0) {
                     return check;
                 }
