@@ -21,7 +21,7 @@ interface MenuProp {
   navigation: any;
 }
 
-const loginHeaderOptions = {
+export const loginHeaderOptions = {
   headerTitle: () => (
     <Image
       style={{ width: 165, height: 50, margin: 30 }}
@@ -30,7 +30,7 @@ const loginHeaderOptions = {
   ),
 };
 
-function generalHeaderOptions(navigation: any) {
+export function generalHeaderOptions(navigation: any) {
   return {
     headerTitle: () => (
       <Image
