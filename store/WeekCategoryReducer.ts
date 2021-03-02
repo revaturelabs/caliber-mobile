@@ -21,6 +21,9 @@ const WeekCategoryReducer = (
     case Actions.WeekCategoryActions.GetWeekCategories:
       newState.weekCategories = action.payload as Category[];
       return newState;
+    case Actions.WeekCategoryActions.CategoriesMenuOptions:
+      newState.categories = action.payload as Category[];
+      return newState;
     default:
       return state;
   }
