@@ -161,10 +161,6 @@ function AssociateTableComponent() {
     return (
         <View style={style.associatesViewComponent}>
             <Button
-                onPress={() => {
-                    alert(JSON.stringify(associates));
-                }}></Button>
-            <Button
                 onPress={async () => {
                     let x = [...associates];
                     shuffle(x);
