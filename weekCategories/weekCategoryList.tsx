@@ -49,19 +49,19 @@ export function WeekCategoryList(props: weekProp) {
 
           <Menu onSelect={value => { props.addCategory(value, props.weekId); } }>
 
-            <MenuTrigger text='+' />
+            <MenuTrigger text='+' customStyles={triggerStyles}/>
 
             <MenuOptions>
-              {props.activeCategories.length != 0 && (
+              {props.activeCategories.length != 0 ? (
                 <FlatList
                 testID= 'listOfActiveCats'
                 data={props.activeCategories}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) => (
-                  <MenuOption value={Number(item.categoryid)} text={String(item.skill)} />
+                  <MenuOption  value={Number(item.categoryid)} text={String(item.skill)} />
                 )}
                 style={{ height: 100 }} />
-              )}:{<Text testID = 'noActiveCats'>No Active Categories</Text>}
+              ):  <MenuOption style={{flexWrap:'wrap', flex:1}} value = {-1} text={'No Categories Available'} />}
               
               
             </MenuOptions>
@@ -89,13 +89,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height:100,
     marginLeft:10,
-    
-
   },
   menuContainer:{
-    width:'10%',
+    width:'27%',
     height:100,
     alignContent:'flex-start',
-  }
+    
+    
+  },
 
 })
+const triggerStyles = {
+  triggerText: {
+    fontSize:15
+  },
+
+};

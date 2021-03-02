@@ -71,11 +71,14 @@ export default function WeekCategoryListContainer() {
  * qcWeek is what was passed to weekCategoryList function
  */
   function addCategory(newCat: Category) {
-    let weekCat: weekCategory = { categoryId: newCat.categoryid, qcWeekId: weekId.qcWeekId };
-    weekCategoryService.addCategory(weekCat).then(() => {
-      dispatch(addWeekCategory(weekCat));
+    if (newCat.categoryid != -1) {
+      let weekCat: weekCategory = { categoryId: newCat.categoryid, qcWeekId: weekId.qcWeekId };
+      weekCategoryService.addCategory(weekCat).then(() => {
+        dispatch(addWeekCategory(weekCat));
 
-    });
+      });
+    }
+
   };
 
   let weekCategoriesAsCategory: Category[] = createCatList();
