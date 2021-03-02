@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Category } from '../categoriesFeature/Category';
 import { addWeekCategory, getWeekCategories } from '../store/actions';
-import { weekCategory } from './weekCategory';
-import { WeekCategoryList } from './weekCategoryList';
+import { weekCategory } from './WeekCategory';
+import { WeekCategoryList } from '../weekCategories/weekCategoryList';
 import weekCategoryService from '../weekCategories/WeekCategoryService';
 import { RootState } from '../store/store';
 import categoryService from '../categoriesFeature/CategoryService';
@@ -18,7 +18,6 @@ import { getCategories } from '../store/categoriesFeature/CategoryActions';
 export default function WeekCategoryListContainer() {
   const weekCatSelector = (state: RootState) => state.WeekCategoryReducer.weekCategories;
   const weekCategories = useSelector(weekCatSelector);
-  //categories is from another team so this will be error until the store is done
   const weekIDSelector = (state: RootState) => state.weekReducer.selectedWeek;
   const weekId = useSelector(weekIDSelector);
 
@@ -67,7 +66,6 @@ export default function WeekCategoryListContainer() {
         });
       }
 
-      //from other team
       dispatch(getCategories(availableCats));
       return (availableCats);
     });

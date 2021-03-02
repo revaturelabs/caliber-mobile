@@ -1,15 +1,10 @@
-
-
 import WeekCategoryListContainer from '../../weekCategories/WeekCategoryListContainer';
 import configureMockStore from 'redux-mock-store'
-import { mount, render, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import * as redux from "react-redux";
-import WeekCategoryService from '../../weekCategories/WeekCategoryService';
 import React from 'react';
-import CategoryService from '../../categoriesFeature/CategoryService';
-import { WeekCategoryList } from '../../weekCategories/WeekCategoryList';
 import { Category } from '../../categoriesFeature/Category';
-import { weekCategory } from '../../weekCategories/weekCategory';
+
 
 
 

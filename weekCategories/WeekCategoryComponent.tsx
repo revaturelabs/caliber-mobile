@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { deleteWeekCategory } from '../store/actions';
-import { weekCategory } from './weekCategory';
+import { weekCategory } from './WeekCategory';
 import WeekCategoryService from './WeekCategoryService';
 
 interface catProp {
@@ -11,6 +11,11 @@ interface catProp {
   catID: number
 }
 
+/**
+ * Display the name of a category and a button that deletes category from list when clicked
+ * 
+ * @param {props} any - The category to be displayed
+ */
 export default function CategoryButton(props: catProp) {
   var [categoryContext, setCategoryContext] = useState(props.skill);
   const dispatch = useDispatch();
