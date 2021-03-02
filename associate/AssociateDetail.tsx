@@ -98,7 +98,6 @@ function AssociateDetail(this: any, props: AssociateProps) {
           numberOfLines={4}
           scrollEnabled
           spellCheck={true}
-          onChangeText={(text: string) => setQcNote(text)}
           testID='qcNote'
         />
       )}
@@ -116,8 +115,7 @@ function AssociateDetail(this: any, props: AssociateProps) {
           spellCheck={true}
           onChangeText={(text: string) => {
             setQcNote(text)
-            setLocalText(text);
-          }
+            props.qcFeedback.notecontent = text}
           }
           testID='qcNote'
         />
