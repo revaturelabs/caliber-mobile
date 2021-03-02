@@ -5,7 +5,7 @@ import { deleteWeekCategory } from '../store/actions';
 import { weekCategory } from './WeekCategory';
 import WeekCategoryService from './WeekCategoryService';
 
-interface catProp {
+interface CatProp {
   weekID: number,
   skill: string,
   catID: number
@@ -16,13 +16,12 @@ interface catProp {
  * 
  * @param {props} any - The category to be displayed
  */
-export default function CategoryButton(props: catProp) {
-  var [categoryContext, setCategoryContext] = useState(props.skill);
+export default function CategoryButton(props: CatProp) {
   const dispatch = useDispatch();
   const weekCat: weekCategory = { qcWeekId: props.weekID, categoryId: props.catID }
   return (
     <View style={[styles.screenContainer]}>
-      <Text style={styles.myFontColor}>{categoryContext + "  "}
+      <Text style={styles.myFontColor}>{props.skill + "  "}
         <TouchableOpacity testID='button' onPress={() => {
           WeekCategoryService.deleteCategory(String(props.catID)).then(() => {
             dispatch(deleteWeekCategory(weekCat));
