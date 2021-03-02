@@ -5,7 +5,7 @@ import AssociateTableComponent from '../associate/AssociateTableComponent';
 import AddNoteComponent from '../batchWeek/AddNoteComponent';
 import AddWeek from '../batchWeek/AddWeek/addWeek.component';
 import WeekSelectionComponent from '../batchWeek/WeekSelectionComponent';
-import weekCategoryList from '../weekCategories/weekCategoryList';
+import weekCategoryList from '../weekCategories/WeekCategoryList';
 
 function BatchPageComponent() {
   return (

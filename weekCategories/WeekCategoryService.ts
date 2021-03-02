@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { WeekCategory } from './weekCategory';
+import { WeekCategory } from './WeekCategory';
 
-class weekCategoryService {
+class WeekCategoryService {
     private URI: string;
     constructor() {
         this.URI = 'https://localhost:3000/';
@@ -30,4 +30,4 @@ class weekCategoryService {
     }
 }
 
-export default new weekCategoryService();
+export default new WeekCategoryService();

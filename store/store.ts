@@ -11,7 +11,7 @@ import QcWeek from '../batchWeek/QcWeek';
 import WeekCategoryReducer from './WeekCategoryReducer';
 import { Category } from '../categoriesFeature/Category';
 import categoryReducer from './categoriesFeature/CategoryReducer';
-import { WeekCategory } from '../weekCategories/weekCategory';
+import { WeekCategory } from '../weekCategories/WeekCategory';
 import weekReducer from './WeekReducer'
 
 export interface BatchState {

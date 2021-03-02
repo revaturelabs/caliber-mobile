@@ -2,7 +2,7 @@ import { UserInfo, UserInput } from '../user/user';
 import Batch from '../batches/batch';
 import { AssociateWithFeedback } from '../associate/AssociateService';
 import QcWeek from '../batchWeek/QcWeek';
-import { WeekCategory } from '../weekCategories/weekCategory';
+import { WeekCategory } from '../weekCategories/WeekCategory';
 import { Category } from '../categoriesFeature/Category';
 
 export enum BatchActions {
@@ -23,7 +23,6 @@ export enum WeekCategoryActions {
   DeleteWeekCategory = 'DELETE_WEEK_CATEGORY',
   AddWeekCategory = 'ADD_WEEK_CATETGORY',
   GetWeekCategories = 'GET_WEEK_CATEGORIES',
-  ChangeWeekCategories = 'CHANGE_WEEK_CATEGORIES',
 }
 
 export enum AssociateActions {
@@ -174,14 +173,6 @@ export function addWeekCategory(category: WeekCategory): WeekCategoryAction {
 export function getWeekCategories(categories: Category[]): WeekCategoryAction {
   const action: WeekCategoryAction = {
     type: WeekCategoryActions.GetWeekCategories,
-    payload: categories,
-  };
-  return action;
-}
-
-export function ChangeCategories(categories: Category[]): WeekCategoryAction {
-  const action: WeekCategoryAction = {
-    type: WeekCategoryActions.ChangeWeekCategories,
     payload: categories,
   };
   return action;
