@@ -2,11 +2,11 @@ import React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Category } from '../categoriesFeature/Category';
-import { addWeekCategory, CategoriesMenuOptions, getWeekCategories } from '../store/actions';
+import { addWeekCategory, categoriesMenuOptions, getWeekCategories } from '../store/actions';
 import { WeekCategory } from './weekCategory';
 import { WeekCategoryList } from '../weekCategories/weekCategoryList';
 import weekCategoryService from '../weekCategories/WeekCategoryService';
-import  { ReducerState }  from '../store/store';
+import { ReducerState } from '../store/store';
 import categoryService from '../categoriesFeature/CategoryService';
 
 
@@ -32,29 +32,34 @@ export default function WeekCategoryListContainer() {
   function createCatList() {
     let weekCategoriesAsCategoryTemp: Category[];
     weekCategoryService.getCategory(weekId.qcWeekId).then((results) => {
-      categoryService.getCategories().then((allCats: Category[]) => {
-        let thisWeekCats: Category[] = []
-        allCats.forEach((allCatElement) => {
-          results.forEach((catid) => {
-            if (allCatElement.categoryid == catid.categoryId) {
-              thisWeekCats.push(allCatElement);
-            }
+      if (results == []) {
+        return ([]);
+      } else {
+        categoryService.getCategories().then((allCats: Category[]) => {
+          let thisWeekCats: Category[] = []
+          allCats.forEach((allCatElement) => {
+            results.forEach((catid) => {
+              if (allCatElement.categoryid == catid.categoryId) {
+                thisWeekCats.push(allCatElement);
+              }
+            });
+            weekCategoriesAsCategoryTemp = thisWeekCats;
+            dispatch(getWeekCategories(thisWeekCats));
+            return (weekCategoriesAsCategoryTemp);
           });
-          weekCategoriesAsCategoryTemp = thisWeekCats;
-          dispatch(getWeekCategories(thisWeekCats));
-          return (weekCategoriesAsCategoryTemp);
         });
-      });
+      }
+
     })
     return ([]);
   }
 
 
-/**
- * Create a list of categories that are active and not already in the week
- * 
- * @return an array of type Category[]
- */
+  /**
+   * Create a list of categories that are active and not already in the week
+   * 
+   * @return an array of type Category[]
+   */
   function createActiveList() {
     categoryService.getCategories(true).then((results) => {
       let availableCats: Category[] = []
@@ -65,7 +70,7 @@ export default function WeekCategoryListContainer() {
           }
         });
       }
-      dispatch(CategoriesMenuOptions(availableCats));
+      dispatch(categoriesMenuOptions(availableCats));
       return (availableCats);
     });
     return ([]);
