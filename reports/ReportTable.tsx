@@ -3,7 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import { Table, TableWrapper, Row, Col, Cols, Cell} from 'react-native-table-component';
 import { useDispatch, useSelector } from 'react-redux';
 import {getAssociates} from '../store/actions';
-import { RootState } from '../store/store';
+import { AssociateState, BatchState, WeekState } from '../store/store';
 import AssociateService, { Associate, AssociateWithFeedback, QCFeedback} from '../associate/AssociateService';
 import {sortAssociateByLastName} from '../associate/sort';
 import style from '../global_styles';
@@ -14,9 +14,9 @@ interface ReportProps {
 
 export function ReportsTable(props: ReportProps) {
     let dispatch = useDispatch();
-    let associates = useSelector((state: RootState) => state.batchReducer.associates);
-    let batch = useSelector((state: RootState) => state.batchReducer.batch); //batch does not exist on CalState?
-    let week = useSelector((state: RootState) => state.weekReducer.selectedWeek);
+    let associates = useSelector((state: AssociateState) => state.associates);
+    let batch = useSelector((state: BatchState) => state.batch);
+    let week = useSelector((state: WeekState) => state.selectedWeek);
 
 
     let report = [];
