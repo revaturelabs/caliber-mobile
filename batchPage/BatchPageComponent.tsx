@@ -6,11 +6,12 @@ import AssociateTableComponent from '../associate/AssociateTableComponent';
 import AddNoteComponent from '../batchWeek/AddNoteComponent';
 import AddWeek from '../batchWeek/AddWeek/addWeek.component';
 import WeekSelectionComponent from '../batchWeek/WeekSelectionComponent';
-import weekCategoryList from '../weekCategories/weekCategoryList';
+import {WeekCategoryList} from '../weekCategories/weekCategoryList';
 import { ReducerState } from '../store/store';
 import style from '../global_styles';
 import AssociateService, { AssociateWithFeedback } from '../associate/AssociateService';
 import { Icon } from 'react-native-elements';
+import WeekCategoryListContainer from '../weekCategories/WeekCategoryListContainer';
 
 function BatchPageComponent() {
   let associates = useSelector(
@@ -47,7 +48,7 @@ function BatchPageComponent() {
     <View>
       <WeekSelectionComponent></WeekSelectionComponent>
       <AddWeek></AddWeek>
-      {weekCategoryList({ weekId: 0 })}
+      <WeekCategoryListContainer/>
       <AddNoteComponent></AddNoteComponent>
       <AssociateTableComponent></AssociateTableComponent>
       <Button
