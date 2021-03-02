@@ -3,12 +3,7 @@ import { Dimensions } from "react-native";
 const screenWidth = Dimensions.get("window").width;
 import {View, Text} from 'react-native';
 import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart
+  PieChart
 } from "react-native-chart-kit";
 
 

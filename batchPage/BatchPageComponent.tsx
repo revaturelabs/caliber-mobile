@@ -1,12 +1,11 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { useSelector } from 'react-redux';
 import AssociateTableComponent from '../associate/AssociateTableComponent';
 import AddNoteComponent from '../batchWeek/AddNoteComponent';
 import AddWeek from '../batchWeek/AddWeek/addWeek.component';
 import WeekSelectionComponent from '../batchWeek/WeekSelectionComponent';
-import {WeekCategoryList} from '../weekCategories/weekCategoryList';
 import { ReducerState } from '../store/store';
 import style from '../global_styles';
 import AssociateService, { AssociateWithFeedback } from '../associate/AssociateService';

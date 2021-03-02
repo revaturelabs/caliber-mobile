@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity} from 'react-native';
-import { Table, TableWrapper, Row, Col, Cols, Cell} from 'react-native-table-component';
+import { View, ScrollView} from 'react-native';
+import { Table, Row} from 'react-native-table-component';
 import { useDispatch, useSelector } from 'react-redux';
 import {getAssociates} from '../store/actions';
 import { AssociateState, BatchState, UserState, WeekState } from '../store/store';
