@@ -22,6 +22,5 @@ describe('Tests for WeekCategoryListContianer.tsx', () => {
         store = mockStore(initialState);
     })
 
-    test('test', () => {
-    })
+    
 })
