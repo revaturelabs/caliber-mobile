@@ -3,6 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { enableScreens } from 'react-native-screens';
 import LoginComponent from '../user/Login';
 import {
+  BatchStack,
   loginStackNavigator,
   LogoutStack,
   managementStack,
@@ -10,7 +11,10 @@ import {
 } from './MainStackNavigator.component';
 import BatchStackNavigator from './BatchStackNavigator.component';
 import CategoryService from '../categoriesFeature/CategoryService';
-import { GetActive, GetStale } from '../store/categoriesFeature/CategoryActions';
+import {
+  GetActive,
+  GetStale,
+} from '../store/categoriesFeature/CategoryActions';
 import { useDispatch } from 'react-redux';
 
 enableScreens();
