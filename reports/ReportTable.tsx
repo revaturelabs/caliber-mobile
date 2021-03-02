@@ -3,7 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import { Table, TableWrapper, Row, Col, Cols, Cell} from 'react-native-table-component';
 import { useDispatch, useSelector } from 'react-redux';
 import {getAssociates} from '../store/actions';
-import { AssociateState, BatchState, WeekState } from '../store/store';
+import { AssociateState, BatchState, UserState, WeekState } from '../store/store';
 import AssociateService, { Associate, AssociateWithFeedback, QCFeedback} from '../associate/AssociateService';
 import {sortAssociateByLastName} from '../associate/sort';
 import style from '../global_styles';
@@ -17,6 +17,8 @@ export function ReportsTable(props: ReportProps) {
     let associates = useSelector((state: AssociateState) => state.associates);
     let batch = useSelector((state: BatchState) => state.batch);
     let week = useSelector((state: WeekState) => state.selectedWeek);
+    let user = useSelector((state: UserState) => state.user);
+
 
 
     let report = [];
@@ -25,7 +27,7 @@ export function ReportsTable(props: ReportProps) {
     function getQCNotes() {
         let listofassociates: AssociateWithFeedback[] = [];
         props.assoc.forEach(async (asoc) => {
-            let qcnotes: QCFeedback = await AssociateService.getAssociate(asoc, batch.batchId, week.qcWeekId.toString());
+            let qcnotes: QCFeedback = await AssociateService.getAssociate(asoc, batch.batchId, week.qcWeekId.toString(),user.token);
             if (qcnotes) {
                 let val = new AssociateWithFeedback();
                 val.associate = asoc;
@@ -41,10 +43,9 @@ export function ReportsTable(props: ReportProps) {
     }
 
     function createTable() {
-        //setSortDirection("LDown");
             let val = [...associates];
             sortAssociateByLastName(val);
-            getAssociates(val);
+            dispatch(getAssociates(val));
 
         for (let i = 1; i <= 8; i++) {
             let assocRow = [];

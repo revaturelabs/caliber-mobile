@@ -17,7 +17,7 @@ export const style = StyleSheet.create({
     height: perfectSize(150),
     backgroundColor:"white",
     borderWidth:perfectSize(1),
-    borderColor:REVATUREORANGE,
+    borderColor:REVATURE_ORANGE,
     marginBottom:perfectSize(15),
   },
   container: {
