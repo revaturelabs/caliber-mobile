@@ -4,10 +4,9 @@ import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
 import BatchPageService from '../batchPage/BatchPageService';
-import { QcNote } from '../batchWeek/batchWeekService';
 import style from '../global_styles';
 import { getAssociates } from '../store/actions';
-import { AssociateState, BatchState, ReducerState, WeekState } from '../store/store';
+import { ReducerState } from '../store/store';
 import AssociateDetail from './AssociateDetail';
 import AssociateService, {
     Associate,
@@ -130,35 +129,6 @@ function AssociateTableComponent() {
         }
     }
 
-    /**
-     * Updates all of the associates with their new notes and
-     * technical statuses. Is used on the save button that
-     * is stickied to the bottom of the screen.
-     */
-    function handleAllUpdate() {
-        associates.forEach(async (assoc) => {
-            try {
-                await AssociateService.updateAssociate(assoc.qcFeedback, {
-                    notecontent: assoc.qcFeedback.notecontent,
-                }, token);
-            } catch (err: any) {
-                await AssociateService.putAssociate(assoc.qcFeedback, {
-                    notecontent: assoc.qcFeedback.notecontent,
-                    technicalstatus: assoc.qcFeedback.technicalstatus,
-                }, token);
-            }
-            try {
-                await AssociateService.updateAssociate(assoc.qcFeedback, {
-                    technicalstatus: assoc.qcFeedback.notecontent,
-                }, token);
-            } catch (err: any) {
-                await AssociateService.putAssociate(assoc.qcFeedback, {
-                    technicalstatus: assoc.qcFeedback.technicalstatus,
-                    notecontent: assoc.qcFeedback.notecontent,
-                }, token);
-            }
-        });
-    }
     return (
         <View style={style.associatesViewComponent}>
             <Button
@@ -230,16 +200,6 @@ function AssociateTableComponent() {
                     />
                 )}
                 keyExtractor={(item) => item.associate.firstName}
-            />
-            <Button
-                raised
-                titleStyle={style.title}
-                buttonStyle={style.button}
-                title='Save All'
-                type='outline'
-                icon={<Icon name='save' type='fontawesome' color='#F26925' />}
-                onPress={handleAllUpdate}
-                testID='saveNote'
             />
         </View>
     );
