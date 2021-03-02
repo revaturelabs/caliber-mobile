@@ -1,13 +1,10 @@
 import React from 'react';
-import { Image } from 'react-native-elements';
 import { createStackNavigator } from '@react-navigation/stack';
-import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
 import BatchListComponent from '../batches/BatchListComponent';
 import QuarterComponent from '../batches/QuarterComponent';
 import YearComponent from '../batches/YearComponent';
-import Icon from 'react-native-vector-icons/Ionicons';
-import LogoutComponent from '../user/Logout';
 import BatchPageComponent from '../batchPage/BatchPageComponent';
+import { generalHeaderOptions, MenuProp } from './MainStackNavigator.component';
 
 const Stack = createStackNavigator();
 
@@ -18,39 +15,35 @@ export type StackParams = {
   BatchDetail: undefined;
 };
 
-const headerOptions: StackHeaderOptions = {
-  headerTitle: () => (
-    <Image
-      style={{ width: 165, height: 50, margin: 30 }}
-      source={require('./rev-logo.png')}
-    />
-  ),
-  headerRight: () => <LogoutComponent />,
-  headerLeft: () => <Icon.Button name='ios-menu' size={25}></Icon.Button>,
-};
-
-export default function BatchStackNavigator(props: any) {
+/**
+ * This has the StackNavigator for the batches component. The screens are:
+ * valid years -> quarters -> batches -> associates from chosen batch
+ *
+ * @param navigation - the navigation prop to allow the drawer button in the header
+ * to open the DrawerNavigator
+ */
+export default function BatchStackNavigator({ navigation }: MenuProp) {
   return (
     <Stack.Navigator initialRouteName='Year'>
       <Stack.Screen
         name='Year'
         component={YearComponent}
-        options={headerOptions}
+        options={generalHeaderOptions(navigation)}
       />
       <Stack.Screen
         name='Quarter'
         component={QuarterComponent}
-        options={headerOptions}
+        options={generalHeaderOptions(navigation)}
       />
       <Stack.Screen
         name='Batches'
         component={BatchListComponent}
-        options={headerOptions}
+        options={generalHeaderOptions(navigation)}
       />
       <Stack.Screen
         name='BatchDetail'
         component={BatchPageComponent}
-        options={headerOptions}
+        options={generalHeaderOptions(navigation)}
       />
     </Stack.Navigator>
   );

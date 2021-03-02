@@ -2,17 +2,17 @@ import { combineReducers, applyMiddleware, createStore, Store } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import batchReducer from './batchReducer';
-import weekReducer from './WeekReducer';
 import userReducer from './userReducer';
 import { AppAction } from './actions';
 import { UserInfo, UserInput } from '../user/user';
-import { Category } from '../categoriesFeature/Category';
-import categoryReducer from './categoriesFeature/CategoryReducer';
-import Batch from '../batches/batch';
 import { AssociateWithFeedback } from '../associate/AssociateService';
 import QcWeek from '../batchWeek/QcWeek';
 import WeekCategoryReducer from './WeekCategoryReducer';
+import { Category } from '../categoriesFeature/Category';
+import categoryReducer from './categoriesFeature/CategoryReducer';
 import { WeekCategory } from '../weekCategories/weekCategory';
+import weekReducer from './WeekReducer'
+import Batch from '../batches/batch';
 
 export interface BatchState {
   batch: Batch;
@@ -40,26 +40,27 @@ export interface WeekCategoryState {
 export interface CategoryState {
 	activeCat: Category[];
 	staleCat: Category[];
+  render: boolean;
 }
-export interface CaliberState extends UserState, CategoryState { }
-
 export interface CaliberState
 	extends UserState,
 	CategoryState { }
 
 export interface CaliberState
-	extends UserState,
-	CategoryState { }
-// <> is generics: Generic arguments allow us to define the type of a thing at runtime instead of when we write it,
-// creating a reusable object.
+  extends UserState,
+    CategoryState,
+    BatchState,
+    WeekCategoryState {}
 
 export interface CaliberState extends UserState, CategoryState { }
 
 //add your reducer to the object
 const rootReducer = combineReducers({
-	userReducer,
-	batchReducer,
-	categoryReducer,
+  userReducer,
+  batchReducer,
+  weekReducer,
+  WeekCategoryReducer,
+  categoryReducer,
 });
 
 /**
@@ -69,8 +70,8 @@ const rootReducer = combineReducers({
 export type ReducerState = ReturnType<typeof rootReducer>;
 
 const store: Store<ReducerState, AppAction> = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(thunk))
+	rootReducer,
+	composeWithDevTools(applyMiddleware(thunk))
 );
 
 export default store;
