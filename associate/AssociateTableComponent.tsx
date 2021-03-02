@@ -62,7 +62,7 @@ function AssociateTableComponent() {
   async function getAssociateFromMock() {
     let newAssociateArray: Associate[] = [];
     let serviceResult;
-    serviceResult = await BatchPageService.getAssociates(batch.batchId);
+    serviceResult = await BatchPageService.getAssociates(batch.batchId, token);
     serviceResult.forEach((asoc: any) => {
       let associate = new Associate();
       associate.firstName = asoc.firstName;
@@ -76,20 +76,30 @@ function AssociateTableComponent() {
   /**
    * Retrieves QC Notes from back end.
    */
-  function getQCNotes(results: any) {
+  function getQCNotes(results: Associate[]) {
     let listofassociates: AssociateWithFeedback[] = [];
     console.log(results);
-    results.forEach(async (associate: any) => {
-      let qcNote = await AssociateService.getAssociate(
+    results.forEach(async (associate: Associate) => {
+      let qcFeedback = new QCFeedback();
+      try {
+        qcFeedback = await AssociateService.getAssociate(
         associate,
         batch.batchId,
         String(week.weekNumber),
-        token
-      );
+        token);
+      } catch {
+        qcFeedback.associateId = associate.associateId;
+        qcFeedback.batchId = batch.batchId;
+        qcFeedback.weekId = week.weekNumber;
+        await AssociateService.putAssociate(qcFeedback, {
+            notecontent: qcFeedback.qcNote,
+            technicalstatus: qcFeedback.qcTechnicalStatus,
+          }, token);
+      }
       let value = new AssociateWithFeedback();
       value.associate = associate;
-      if (qcNote) {
-        value.qcFeedback = qcNote;
+      if (qcFeedback) {
+        value.qcFeedback = qcFeedback;
       }
       listofassociates.push(value);
       dispatch(getAssociates(listofassociates));
@@ -142,7 +152,7 @@ function AssociateTableComponent() {
           notecontent: assoc.qcFeedback.qcNote,
         }, token);
       } catch (err: any) {
-        await AssociateService.replaceAssociate(assoc.qcFeedback, {
+        await AssociateService.putAssociate(assoc.qcFeedback, {
           notecontent: assoc.qcFeedback.qcNote,
           technicalstatus: assoc.qcFeedback.qcTechnicalStatus,
         }, token);
@@ -152,7 +162,7 @@ function AssociateTableComponent() {
           technicalstatus: assoc.qcFeedback.qcNote,
         }, token);
       } catch (err: any) {
-        await AssociateService.replaceAssociate(assoc.qcFeedback, {
+        await AssociateService.putAssociate(assoc.qcFeedback, {
           technicalstatus: assoc.qcFeedback.qcTechnicalStatus,
           notecontent: assoc.qcFeedback.qcNote,
         }, token);

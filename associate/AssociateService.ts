@@ -9,7 +9,7 @@ class AssociateService {
   private URI: string;
   constructor() {
     // URI for the API Gateway
-    this.URI = 'https://7tu8pm3exl.execute-api.us-east-1.amazonaws.com/default';
+    this.URI = 'https://x9ofuwde2l.execute-api.us-east-1.amazonaws.com/default/qc';
   }
 
   async getAssociate(
@@ -18,6 +18,7 @@ class AssociateService {
     week: string,
     token: string
   ): Promise<QCFeedback> {
+    console.log(`getting associate: token ${token}`);
     return axios
       .get(
         this.URI + '/batches/' + batch + '/weeks/' + week + '/associates/' + a.associateId,
@@ -25,19 +26,21 @@ class AssociateService {
       )
       .then((result) => result.data)
       .catch((err) => {
+        console.log('caught!');
         console.error(err);
       });
   }
 
-  async replaceAssociate(
+  async putAssociate(
     qcfeedback: QCFeedback,
     updateObject: Object,
     token: string
   ): Promise<QCFeedback> {
+    console.log(`putting associate: token ${token}`);
     return axios
       .put(
         this.URI + '/batches/' + qcfeedback.batchId + '/weeks/' + qcfeedback.weekId + '/associates/' + qcfeedback.associateId,
-        updateObject,
+        JSON.stringify(updateObject),
         { headers: {'Authorization': `Bearer ${token}`}}
       )
       .then((result) => result.data)
