@@ -9,9 +9,9 @@ import { getAssociates } from '../store/actions';
 import { ReducerState } from '../store/store';
 import AssociateDetail from './AssociateDetail';
 import AssociateService, {
-  Associate,
-  AssociateWithFeedback,
-  QCFeedback,
+    Associate,
+    AssociateWithFeedback,
+    QCFeedback,
 } from './AssociateService';
 import {
     shuffle,
@@ -103,12 +103,12 @@ function AssociateTableComponent() {
             setSortDirection('FDown');
             let val = [...associates];
             sortAssociateByFirstName(val);
-            getAssociates(val);
+            dispatch(getAssociates(val));
         } else {
             setSortDirection('FUp');
             let val = [...associates];
             sortAssociateByFirstNameReversed(val);
-            getAssociates(val);
+            dispatch(getAssociates(val));
         }
     }
 
@@ -120,12 +120,12 @@ function AssociateTableComponent() {
             setSortDirection('LDown');
             let val = [...associates];
             sortAssociateByLastName(val);
-            getAssociates(val);
+            dispatch(getAssociates(val));
         } else {
             setSortDirection('LUp');
             let val = [...associates];
             sortAssociateByLastNameReversed(val);
-            getAssociates(val);
+            dispatch(getAssociates(val));
         }
     }
 
