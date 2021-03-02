@@ -12,6 +12,14 @@ const designResolution = {
 const perfectSize = create(designResolution); 
 
 export const style = StyleSheet.create({
+  overallText: {
+    width: perfectSize(500),
+    height: perfectSize(150),
+    backgroundColor:"white",
+    borderWidth:perfectSize(1),
+    borderColor:REVATUREORANGE,
+    marginBottom:perfectSize(15),
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
