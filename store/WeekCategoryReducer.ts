@@ -1,5 +1,3 @@
-import { Category } from '../categoriesFeature/Category';
-
 import * as Actions from './actions';
 import { initialState } from './initialState';
 import { CaliberState } from './store';
@@ -18,9 +16,6 @@ const WeekCategoryReducer = (state: CaliberState = initialState, action: Actions
               );
               return newState;
         case Actions.WeekCategoryActions.GetWeekCategories:
-            newState.weekCategories = action.payload;
-            return newState;
-        case Actions.WeekCategoryActions.ChangeWeekCategories:
             newState.weekCategories = action.payload;
             return newState;
         default:

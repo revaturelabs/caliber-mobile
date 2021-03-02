@@ -31,25 +31,16 @@ describe('tests for weekCategory.component', () => {
     });
 
     test('that the button calls deleteCategory from categoryService and refreshes list', () => {
-        const testCat = { skill: 'Test', categoryid: 0 };
-
-
         const wrapper = shallow(
             <redux.Provider store={store}>
                 <CategoryButton weekID={0} skill={'test'} catID={0}></CategoryButton>
             </redux.Provider>
         );
         weekCategoryService.deleteCategory = jest.fn();
-        
         const button = wrapper.findWhere((node) => {
             console.log(node.getElements())
              return node.prop('testID') === 'button'}
             ).first();
         button.simulate('touch');
-
-
-
-
-
     });
 });

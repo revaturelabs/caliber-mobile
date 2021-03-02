@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Category } from '../categoriesFeature/Category';
 import { addWeekCategory, getWeekCategories } from '../store/actions';
 import { weekCategory } from './WeekCategory';
-import { WeekCategoryList } from '../weekCategories/weekCategoryList';
+import { WeekCategoryList } from '../weekCategories/WeekCategoryList';
 import weekCategoryService from '../weekCategories/WeekCategoryService';
 import { RootState } from '../store/store';
 import categoryService from '../categoriesFeature/CategoryService';
@@ -30,19 +30,19 @@ export default function WeekCategoryListContainer() {
  * @return an array of type Category[]
  */
   function createCatList() {
-    let weekCategoriesAsCategory: Category[];
+    let weekCategoriesAsCategoryTemp: Category[];
     weekCategoryService.getCategory(weekId.qcWeekId).then((results) => {
       categoryService.getCategories().then((allCats: Category[]) => {
         let thisWeekCats: Category[] = []
         allCats.forEach((allCatElement) => {
           results.forEach((catid) => {
             if (allCatElement.categoryid == catid.categoryId) {
-              thisWeekCats.push(allCatElement as Category);
-            };
+              thisWeekCats.push(allCatElement);
+            }
           });
-          weekCategoriesAsCategory = thisWeekCats;
+          weekCategoriesAsCategoryTemp = thisWeekCats;
           dispatch(getWeekCategories(thisWeekCats));
-          return (weekCategoriesAsCategory);
+          return (weekCategoriesAsCategoryTemp);
         });
       });
     })
@@ -62,10 +62,9 @@ export default function WeekCategoryListContainer() {
         results.forEach(element => {
           if (weekCategories.includes({ categoryId: element.categoryid, qcWeekId: weekId.qcWeekId }) == false) {
             availableCats.push(element);
-          };
+          }
         });
       }
-
       dispatch(getCategories(availableCats));
       return (availableCats);
     });
@@ -89,7 +88,7 @@ export default function WeekCategoryListContainer() {
       });
     }
 
-  };
+  }
 
   let weekCategoriesAsCategory: Category[] = createCatList();
   let activeCategoriesList: Category[] = createActiveList();
