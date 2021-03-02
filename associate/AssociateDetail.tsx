@@ -8,6 +8,7 @@ import TechnicalStatus from './TechnicalStatus';
 import style from '../global_styles';
 import { ReducerState } from '../store/store';
 import { useSelector } from 'react-redux';
+import AssociateService from './AssociateService';
 
 interface AssociateProps {
   associate: Associate;
@@ -51,6 +52,22 @@ function AssociateDetail(props: AssociateProps) {
     associateService.updateAssociate(props.qcFeedback, { technicalstatus: newStatus }, token);
   }
 
+/**
+ * Handles the update of the note on blur;
+ */
+  async function handleNoteUpdate(text:string) {
+            try {
+            await AssociateService.updateAssociate(props.qcFeedback, {
+                notecontent: text,
+            }, token);
+        } catch (err: any) {
+            await AssociateService.putAssociate(props.qcFeedback, {
+                notecontent: text,
+                technicalstatus: props.qcFeedback.technicalstatus,
+            }, token);
+        }
+}
+
   return (
     <View style={style.notesCard}>
       <Text testID='firstName' style={style.noteName}>
@@ -73,6 +90,7 @@ function AssociateDetail(props: AssociateProps) {
       {viewNote && user.role.ROLE_TRAINER && (
         <Input
           disabled
+          onBlur = {(text: string) => handleNoteUpdate(text)}
           placeholder='Insert note here'
           defaultValue={qcNote}
           multiline
