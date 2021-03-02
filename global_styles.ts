@@ -171,6 +171,10 @@ export const style = StyleSheet.create({
     backgroundColor: 'white',
     marginBottom: perfectSize(10),
   },
+  stickyComponent: {
+    position: 'absolute',
+    bottom: 0,
+  }
 });
 
 export default style;

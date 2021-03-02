@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { useSelector } from 'react-redux';
 import AssociateTableComponent from '../associate/AssociateTableComponent';
@@ -45,23 +45,25 @@ function BatchPageComponent() {
   }
 
   return (
-    <View>
-      <WeekSelectionComponent></WeekSelectionComponent>
-      <AddWeek></AddWeek>
-      <WeekCategoryListContainer/>
-      <AddNoteComponent></AddNoteComponent>
-      <AssociateTableComponent></AssociateTableComponent>
-      <Button
-        raised
-        titleStyle={style.title}
-        buttonStyle={style.button}
-        title='Save All'
-        type='outline'
-        icon={<Icon name='save' type='fontawesome' color='#F26925' />}
-        onPress={handleAllUpdate}
-        testID='saveNote'
-      />
-    </View>
+    <ScrollView
+      stickyHeaderIndices={[4]}
+      invertStickyHeaders={true}>
+        <WeekSelectionComponent/>
+        <AddWeek/>
+        <WeekCategoryListContainer/>
+        <AddNoteComponent/>
+        <AssociateTableComponent/>
+        <Button
+          raised
+          titleStyle={style.title}
+          buttonStyle={{ ...style.button }}
+          title='Save All'
+          type='outline'
+          icon={<Icon name='save' type='fontawesome' color='#F26925' />}
+          onPress={handleAllUpdate}
+          testID='saveNote'
+        />
+        </ScrollView>
   );
 }
 
