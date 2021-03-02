@@ -18,7 +18,6 @@ class AssociateService {
     week: string,
     token: string
   ): Promise<QCFeedback> {
-    console.log(`getting associate: token ${token}`);
     return axios
       .get(
         this.URI + '/batches/' + batch + '/weeks/' + week + '/associates/' + a.associateId,
@@ -26,14 +25,13 @@ class AssociateService {
       )
       .then((result) => result.data)
       .catch((err) => {
-        console.log('caught!');
         let qcFeedback = new QCFeedback();
-        qcFeedback.associateId = a.associateId;
-        qcFeedback.batchId = batch;
-        qcFeedback.weekId = Number(week);
+        qcFeedback.associateid = a.associateId;
+        qcFeedback.batchid = batch;
+        qcFeedback.weeknumber = Number(week);
         this.putAssociate(qcFeedback, {
-            notecontent: qcFeedback.qcNote,
-            technicalstatus: qcFeedback.qcTechnicalStatus,
+            notecontent: qcFeedback.notecontent,
+            technicalstatus: qcFeedback.technicalstatus,
           }, token);
         console.error(err);
       });
@@ -44,10 +42,9 @@ class AssociateService {
     updateObject: Object,
     token: string
   ): Promise<QCFeedback> {
-    console.log(`putting associate: token ${token}`);
     return axios
       .put(
-        this.URI + '/batches/' + qcfeedback.batchId + '/weeks/' + qcfeedback.weekId + '/associates/' + qcfeedback.associateId,
+        this.URI + '/batches/' + qcfeedback.batchid + '/weeks/' + qcfeedback.weeknumber + '/associates/' + qcfeedback.associateid,
         JSON.stringify(updateObject),
         { headers: {'Authorization': `Bearer ${token}`}}
       )
@@ -62,9 +59,11 @@ class AssociateService {
     updateObject: Object,
     token: string
   ): Promise<QCFeedback> {
+    console.log(`calling update with ${JSON.stringify(qcfeedback)}`);
+    console.log(token);
     return axios
       .patch(
-        this.URI + '/batches/' + qcfeedback.batchId + '/weeks/' + qcfeedback.weekId + '/associates/' + qcfeedback.associateId,
+        this.URI + '/batches/' + qcfeedback.batchid + '/weeks/' + qcfeedback.weeknumber + '/associates/' + qcfeedback.associateid,
         updateObject,
         { headers: {'Authorization': `Bearer ${token}`}}
       )
@@ -77,11 +76,11 @@ class AssociateService {
 export default new AssociateService();
 
 export class QCFeedback {
-  batchId: string = '';
-  weekId: number = 0;
-  associateId: string = '';
-  qcNote: string = '';
-  qcTechnicalStatus: number = 0;
+  batchid: string = '';
+  weeknumber: number = 0;
+  associateid: string = '';
+  notecontent: string = '';
+  technicalstatus: number = 0;
 }
 
 export class Associate {
