@@ -15,7 +15,8 @@ class AssociateService {
   async getAssociate(
     a: Associate,
     batch: string,
-    week: string
+    week: string,
+    token: string
   ): Promise<QCFeedback> {
     return axios
       .get(
@@ -25,16 +26,19 @@ class AssociateService {
           '/weeks/' +
           week +
           '/associates/' +
-          a.associateId
+          a.associateId,
+          { headers: {'Authorization': `Bearer ${token}`}}
       )
       .then((result) => result.data)
       .catch((err) => {
         console.error(err);
       });
   }
+
   async replaceAssociate(
     qcfeedback: QCFeedback,
-    updateObject: Object
+    updateObject: Object,
+    token: string
   ): Promise<QCFeedback> {
     return axios
       .put(
@@ -45,16 +49,19 @@ class AssociateService {
           qcfeedback.weekId +
           '/associates/' +
           qcfeedback.associateId,
-        updateObject
+        updateObject,
+        { headers: {'Authorization': `Bearer ${token}`}}
       )
       .then((result) => result.data)
       .catch((err) => {
         console.error(err);
       });
   }
+
   async updateAssociate(
     qcfeedback: QCFeedback,
-    updateObject: Object
+    updateObject: Object,
+    token: string
   ): Promise<QCFeedback> {
     return axios
       .patch(
@@ -65,7 +72,8 @@ class AssociateService {
           qcfeedback.weekId +
           '/associates/' +
           qcfeedback.associateId,
-        updateObject
+        updateObject,
+        { headers: {'Authorization': `Bearer ${token}`}}
       )
       .then((result) => result.data)
       .catch((err) => {

@@ -5,7 +5,7 @@ import { Button, Icon } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
 import style from '../global_styles';
 import { getAssociates } from '../store/actions';
-import { AssociateState, BatchState, WeekState } from '../store/store';
+import { AssociateState, BatchState, WeekState, ReducerState } from '../store/store';
 import AssociateDetail from './AssociateDetail';
 import AssociateService, {
   AssociateWithFeedback,
@@ -51,6 +51,9 @@ function AssociateTableComponent() {
   let batch = useSelector((state: BatchState) => state.batch);
   let week = useSelector((state: WeekState) => state.selectedWeek);
 
+  const curentUser = useSelector((state: ReducerState) => state.userReducer.user);
+  const token = curentUser.token; 
+
   let iconName: string = 'angle-up';
   let iconColor: string = '#F26925';
   const [sortDirection, setSortDirection] = useState('FUp');
@@ -69,7 +72,8 @@ function AssociateTableComponent() {
       let qcnotes: QCFeedback = await AssociateService.getAssociate(
         associate.associate,
         batch.batchId,
-        week.qcWeekId.toString()
+        week.qcWeekId.toString(),
+        token
       );
       if (qcnotes) {
         let value = new AssociateWithFeedback();
@@ -124,22 +128,22 @@ function AssociateTableComponent() {
       try {
         await AssociateService.updateAssociate(assoc.qcFeedback, {
           notecontent: assoc.qcFeedback.qcNote,
-        });
+        }, token);
       } catch (err: any) {
         await AssociateService.replaceAssociate(assoc.qcFeedback, {
           notecontent: assoc.qcFeedback.qcNote,
           technicalstatus: assoc.qcFeedback.qcTechnicalStatus,
-        });
+        }, token);
       }
       try {
         await AssociateService.updateAssociate(assoc.qcFeedback, {
           technicalstatus: assoc.qcFeedback.qcNote,
-        });
+        }, token);
       } catch (err: any) {
         await AssociateService.replaceAssociate(assoc.qcFeedback, {
           technicalstatus: assoc.qcFeedback.qcTechnicalStatus,
           notecontent: assoc.qcFeedback.qcNote,
-        });
+        }, token);
       }
     });
   }

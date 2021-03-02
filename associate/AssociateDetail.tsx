@@ -25,6 +25,7 @@ function AssociateDetail(props: AssociateProps) {
     props.qcFeedback.qcTechnicalStatus
   );
   let user = useSelector((state: ReducerState) => state.userReducer.user);
+  const token = user.token; 
 
   //Should we be able to view their note?
   const [viewNote, setViewNote] = useState(false);
@@ -42,7 +43,7 @@ function AssociateDetail(props: AssociateProps) {
      * Every time this button is pressed the database will update with the correct feedback.
      */
     setQcTechnicalStatus(newStatus);
-    associateService.updateAssociate(props.qcFeedback, { qcStatus: newStatus });
+    associateService.updateAssociate(props.qcFeedback, { qcStatus: newStatus }, token);
   }
 
   return (
