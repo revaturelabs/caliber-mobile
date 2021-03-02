@@ -48,7 +48,7 @@ function AssociateDetail(props: AssociateProps) {
      * Every time this button is pressed the database will update with the correct feedback.
      */
     setQcTechnicalStatus(newStatus);
-    associateService.updateAssociate(props.qcFeedback, { qcStatus: newStatus }, token);
+    associateService.updateAssociate(props.qcFeedback, { technicalstatus: newStatus }, token);
   }
 
   return (
