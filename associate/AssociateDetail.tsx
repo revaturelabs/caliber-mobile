@@ -27,7 +27,7 @@ function AssociateDetail(this: any, props: AssociateProps) {
     props.qcFeedback.technicalstatus
   );
   let user = useSelector((state: ReducerState) => state.userReducer.user);
-  const token = user.token; 
+  const token = user.token;
 
   //Should we be able to view their note?
   const [viewNote, setViewNote] = useState(false);
@@ -53,10 +53,12 @@ function AssociateDetail(this: any, props: AssociateProps) {
    */
   async function handleNoteUpdate(text: string) {
     try {
+      console.log("Attempting to patch new note");
       await AssociateService.updateAssociate(props.qcFeedback, {
         notecontent: text,
       }, token);
     } catch (err: any) {
+      console.log("putting new note");
       await AssociateService.putAssociate(props.qcFeedback, {
         notecontent: text,
         technicalstatus: props.qcFeedback.technicalstatus,
@@ -86,7 +88,10 @@ function AssociateDetail(this: any, props: AssociateProps) {
       {viewNote && user.role.ROLE_TRAINER && (
         <Input
           disabled
-          onBlur={(text: string) => handleNoteUpdate(text)}
+          onBlur={() => {
+            handleNoteUpdate(localText)
+            console.log(localText);
+          }}
           placeholder='Insert note here'
           defaultValue={qcNote}
           multiline
@@ -95,7 +100,9 @@ function AssociateDetail(this: any, props: AssociateProps) {
           spellCheck={true}
           onChangeText={(text: string) => {
             setQcNote(text)
-            props.qcFeedback.notecontent = text}
+            setLocalText(text);
+            props.qcFeedback.notecontent = text
+          }
           }
           testID='qcNote'
         />
@@ -114,7 +121,9 @@ function AssociateDetail(this: any, props: AssociateProps) {
           spellCheck={true}
           onChangeText={(text: string) => {
             setQcNote(text)
-            props.qcFeedback.notecontent = text}
+            setLocalText(text);
+            props.qcFeedback.notecontent = text
+          }
           }
           testID='qcNote'
         />

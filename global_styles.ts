@@ -3,13 +3,13 @@ import { StyleSheet } from 'react-native';
 // Importing using require because there is no @types
 const { create, PREDEF_RES } = require('react-native-pixel-perfect');
 
-const REVATUREORANGE = '#F26925';
+const REVATURE_ORANGE = '#F26925';
 
 const designResolution = {
   width: 360,
   height: 640,
 }; // what we're designing for
-const perfectSize = create(designResolution); 
+const perfectSize = create(designResolution);
 
 export const style = StyleSheet.create({
   overallText: {
@@ -17,7 +17,7 @@ export const style = StyleSheet.create({
     height: perfectSize(150),
     backgroundColor:"white",
     borderWidth:perfectSize(1),
-    borderColor:REVATUREORANGE,
+    borderColor:REVATURE_ORANGE,
     marginBottom:perfectSize(15),
   },
   container: {
@@ -39,11 +39,11 @@ export const style = StyleSheet.create({
     alignItems: 'center',
   },
   logoutText: {
-    alignItems:'center', 
-    padding:8, 
-    color:'#fff', 
-    fontSize:18, 
-    fontWeight:'bold'
+    alignItems: 'center',
+    padding: 8,
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 
   logoutBackground: {
@@ -76,7 +76,7 @@ export const style = StyleSheet.create({
     justifyContent: 'center',
     textAlign: 'center',
     borderBottomWidth: 2,
-    borderColor: REVATUREORANGE,
+    borderColor: REVATURE_ORANGE,
     position: 'relative',
     width: perfectSize(345),
     marginLeft: 'auto',
@@ -106,20 +106,20 @@ export const style = StyleSheet.create({
     marginRight: 'auto',
     marginBottom: perfectSize(5),
     width: perfectSize(290),
-    borderColor: REVATUREORANGE,
+    borderColor: REVATURE_ORANGE,
     borderWidth: perfectSize(2),
     borderRadius: perfectSize(5),
-    color: REVATUREORANGE,
+    color: REVATURE_ORANGE,
   },
   saveButton: {
     marginLeft: 'auto',
     marginRight: 'auto',
     marginBottom: perfectSize(15),
     width: perfectSize(290),
-    borderColor: REVATUREORANGE,
+    borderColor: REVATURE_ORANGE,
     borderWidth: perfectSize(2),
     borderRadius: perfectSize(5),
-    color: REVATUREORANGE,
+    color: REVATURE_ORANGE,
   },
   /**
    * Styling for touchable opacity
@@ -147,13 +147,13 @@ export const style = StyleSheet.create({
   sortHeader: {
     fontSize: perfectSize(12),
     fontWeight: 'bold',
-    color: REVATUREORANGE,
+    color: REVATURE_ORANGE,
     position: 'relative',
     width: perfectSize(120),
     height: perfectSize(30),
   },
   title: {
-    color: REVATUREORANGE,
+    color: REVATURE_ORANGE,
   },
   iconSort: {
     position: 'relative',
@@ -171,10 +171,11 @@ export const style = StyleSheet.create({
     backgroundColor: 'white',
     marginBottom: perfectSize(10),
   },
-  stickyComponent: {
-    position: 'absolute',
-    bottom: 0,
-  }
+  underDevelopmentText: {
+    color: REVATURE_ORANGE,
+    textAlign: 'center',
+    fontSize: 48,
+  },
 });
 
 export default style;
