@@ -126,23 +126,26 @@ export const style = StyleSheet.create({
    * for sorting first name
    */
   tOSF: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
     width: perfectSize(120),
     height: perfectSize(50),
-    left: perfectSize(30),
+    left: perfectSize(50),
   },
   /**
    * touchable opacity for sorting
    * last name
    */
   tOSL: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
     width: perfectSize(120),
     height: perfectSize(50),
     top: perfectSize(-50),
-    left: perfectSize(180),
+    left: perfectSize(-80),
   },
   sortHeader: {
     fontSize: perfectSize(12),
-    textAlign: 'center',
     fontWeight: 'bold',
     color: REVATUREORANGE,
     position: 'relative',
