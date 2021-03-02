@@ -11,11 +11,7 @@ import {
 import WeekCategoryComponent from './WeekCategoryComponent';
 import { Category } from '../categoriesFeature/Category';
 
-/**
- * Display a list of current categories for the week and a button to add categories to the week
- * 
- * @param {weekProp} qcWeek - The weekId of the current week
- */
+
 interface weekProp {
   weekId: number,
   weekCategoriesAsCategory: Category[],
@@ -23,7 +19,11 @@ interface weekProp {
   activeCategories:Category[],
 
 }
-
+/**
+ * Display a list of current categories for the week and a button to add categories to the week
+ * 
+ * @param {weekProp} qcWeek - The weekId of the current week
+ */
 export function WeekCategoryList(props: weekProp) {
   return (
     <View style={styles.allContainer}>

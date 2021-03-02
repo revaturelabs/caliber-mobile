@@ -10,7 +10,11 @@ import { RootState } from '../store/store';
 import categoryService from '../categoriesFeature/CategoryService';
 import { getCategories } from '../store/categoriesFeature/CategoryActions';
 
-
+/**
+ * Get all information that weekCategoryList will display then call weekCategoryList
+ * 
+ * 
+ */
 export default function WeekCategoryListContainer() {
   const weekCatSelector = (state: RootState) => state.WeekCategoryReducer.weekCategories;
   const weekCategories = useSelector(weekCatSelector);
@@ -21,7 +25,11 @@ export default function WeekCategoryListContainer() {
   const dispatch = useDispatch();
 
 
-  //get list of all catgories from this week from db
+  /**
+ * Create a list of categories that are already in this week
+ * 
+ * @return an array of type Category[]
+ */
   function createCatList() {
     let weekCategoriesAsCategory: Category[];
     weekCategoryService.getCategory(weekId.qcWeekId).then((results) => {
@@ -43,7 +51,11 @@ export default function WeekCategoryListContainer() {
   }
 
 
-  //create a list of active categories that are not in weekCategories
+/**
+ * Create a list of categories that are active and not already in the week
+ * 
+ * @return an array of type Category[]
+ */
   function createActiveList() {
     categoryService.getCategories('true').then((results) => {
       let availableCats: Category[] = []
