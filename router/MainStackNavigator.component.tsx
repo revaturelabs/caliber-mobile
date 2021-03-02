@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Image } from 'react-native-elements';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -9,6 +9,9 @@ import ForgotPassword from '../user/ForgotPassword';
 import UnderDevelopmentComponent from '../UnderDevelopmentComponent';
 import ManageCategories from '../categoriesFeature/ManageCategories';
 import LogoutComponent from '../user/Logout';
+import CategoryService from '../categoriesFeature/CategoryService';
+import { useDispatch } from 'react-redux';
+import { GetActive, GetStale } from '../store/categoriesFeature/CategoryActions';
 
 enableScreens();
 
@@ -83,6 +86,17 @@ const reportStack = ({ navigation }: MenuProp) => {
 };
 
 const managementStack = ({ navigation }: MenuProp) => {
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    async function getCategoryFunc() {
+        const active = await CategoryService.getCategories(true);
+        const stale = await CategoryService.getCategories(false);
+        dispatch(GetActive(active));
+        dispatch(GetStale(stale));
+    }
+    getCategoryFunc();
+}, [])
   return (
     <Stack.Navigator>
       <Stack.Screen
