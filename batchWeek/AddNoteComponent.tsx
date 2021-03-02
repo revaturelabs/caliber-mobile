@@ -16,6 +16,7 @@ function AddNoteComponent() {
       <Text>Overall Note</Text>
       <TextInput
         multiline
+        placeholder = "Put your overall batch note here"
         style = {style.overallText}
         onChangeText={(value) =>
           dispatch(addOverallNote({ ...week, note: value }))

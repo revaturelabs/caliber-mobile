@@ -13,7 +13,7 @@ const perfectSize = create(designResolution);
 
 export const style = StyleSheet.create({
   overallText: {
-    width: perfectSize(500),
+    width: perfectSize(360),
     height: perfectSize(150),
     backgroundColor:"white",
     borderWidth:perfectSize(1),

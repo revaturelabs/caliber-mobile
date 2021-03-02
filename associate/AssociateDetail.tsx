@@ -15,26 +15,27 @@ interface AssociateProps {
   qcFeedback: QCFeedback;
 }
 
-function AssociateDetail(props: AssociateProps) {
+function AssociateDetail(this: any, props: AssociateProps) {
   /**
    * Using states to store the current qc note/technical status: we can view multiple associate's
    * notes at once, so we should DEFINITELY not be using the redux store
    * This should be initialized to the correct Associate's current feedback, if they have one
    */
+  const [localText, setLocalText] = useState("");
   const [qcNote, setQcNote] = useState(props.qcFeedback.notecontent);
   const [qcTechnicalStatus, setQcTechnicalStatus] = useState(
     props.qcFeedback.technicalstatus
   );
   let user = useSelector((state: ReducerState) => state.userReducer.user);
-  const token = user.token; 
+  const token = user.token;
 
   //Should we be able to view their note?
   const [viewNote, setViewNote] = useState(false);
 
-  useEffect(()=> {
+  useEffect(() => {
     console.log(`associate: ${JSON.stringify(props.associate)}`);
     console.log(`qcfeedback: ${JSON.stringify(props.qcFeedback)}`);
-  },[]);
+  }, []);
 
   /**
    * When the Technical Status component is pressed, should cycle through 0-4
@@ -52,21 +53,21 @@ function AssociateDetail(props: AssociateProps) {
     associateService.updateAssociate(props.qcFeedback, { technicalstatus: newStatus }, token);
   }
 
-/**
- * Handles the update of the note on blur;
- */
-  async function handleNoteUpdate(text:string) {
-            try {
-            await AssociateService.updateAssociate(props.qcFeedback, {
-                notecontent: text,
-            }, token);
-        } catch (err: any) {
-            await AssociateService.putAssociate(props.qcFeedback, {
-                notecontent: text,
-                technicalstatus: props.qcFeedback.technicalstatus,
-            }, token);
-        }
-}
+  /**
+   * Handles the update of the note on blur;
+   */
+  async function handleNoteUpdate(text: string) {
+    try {
+      await AssociateService.updateAssociate(props.qcFeedback, {
+        notecontent: text,
+      }, token);
+    } catch (err: any) {
+      await AssociateService.putAssociate(props.qcFeedback, {
+        notecontent: text,
+        technicalstatus: props.qcFeedback.technicalstatus,
+      }, token);
+    }
+  }
 
   return (
     <View style={style.notesCard}>
@@ -90,7 +91,7 @@ function AssociateDetail(props: AssociateProps) {
       {viewNote && user.role.ROLE_TRAINER && (
         <Input
           disabled
-          onBlur = {(text: string) => handleNoteUpdate(text)}
+          onBlur={(text: string) => handleNoteUpdate(text)}
           placeholder='Insert note here'
           defaultValue={qcNote}
           multiline
@@ -103,13 +104,21 @@ function AssociateDetail(props: AssociateProps) {
       )}
       {viewNote && !user.role.ROLE_TRAINER && (
         <Input
+          onBlur={() => {
+            handleNoteUpdate(localText)
+            console.log(localText);
+          }}
           placeholder='Insert note here'
           defaultValue={qcNote}
           multiline
           numberOfLines={4}
           scrollEnabled
           spellCheck={true}
-          onChangeText={(text: string) => setQcNote(text)}
+          onChangeText={(text: string) => {
+            setQcNote(text)
+            setLocalText(text);
+          }
+          }
           testID='qcNote'
         />
       )}
