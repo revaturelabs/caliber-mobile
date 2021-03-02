@@ -1,6 +1,9 @@
 //import 'jsdom-global/register';
-import React from 'react';
+/**
+ * @jest-environment jsdom
+ */
 
+import React from 'react';
 import 'jest-enzyme';
 import '@testing-library/jest-dom';
 import Enzyme from 'enzyme';
@@ -11,7 +14,6 @@ import CategoryButton from '../../weekCategories/WeekCategoryComponent';
 import * as redux from "react-redux";
 import store from '../../store/store';
 
-
 configure({ adapter: new Adapter() })
 
 
@@ -20,7 +22,9 @@ describe('tests for weekCategory.component', () => {
     test('that category displays correctly', () => {
 
         const wrapper = shallow(
-            <CategoryButton weekID={0} skill={'test'} catID={0}></CategoryButton>
+            <redux.Provider store={store}>
+                <CategoryButton weekID={0} skill={'test'} catID={0}></CategoryButton>
+            </redux.Provider>
         );
 
         expect(wrapper.debug().length).toBeGreaterThan(0);
@@ -31,11 +35,17 @@ describe('tests for weekCategory.component', () => {
 
 
         const wrapper = shallow(
-            <CategoryButton weekID={0} skill={'test'} catID={0}></CategoryButton>
+            <redux.Provider store={store}>
+                <CategoryButton weekID={0} skill={'test'} catID={0}></CategoryButton>
+            </redux.Provider>
         );
         weekCategoryService.deleteCategory = jest.fn();
-        const button = wrapper.findWhere((node) => node.prop('testID') === 'button').first();
-        button.simulate('click');
+        
+        const button = wrapper.findWhere((node) => {
+            console.log(node.getElements())
+             return node.prop('testID') === 'button'}
+            ).first();
+        button.simulate('touch');
 
 
 
