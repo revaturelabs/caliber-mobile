@@ -9,7 +9,7 @@ import AddNoteComponent from "../batchWeek/AddNoteComponent";
 import AddWeek from "../batchWeek/AddWeek/addWeek.component";
 import WeekSelectionComponent from "../batchWeek/WeekSelectionComponent";
 import { RootState } from '../store/store';
-import weekCategoryList from '../weekCategories/weekCategoryList';
+import WeekCategoryListContainer from '../weekCategories/WeekCategoryListContainer';
 import BatchPageService from './BatchPageService';
 
 function BatchPageComponent() {
@@ -22,7 +22,7 @@ function BatchPageComponent() {
             <WeekSelectionComponent></WeekSelectionComponent>
             <AddWeek></AddWeek>
             <AddNoteComponent></AddNoteComponent>
-            {weekCategoryList({ weekId: 0 })}
+            <WeekCategoryListContainer></WeekCategoryListContainer>
             <AssociateTableComponent></AssociateTableComponent>
         </View>
 

@@ -8,18 +8,19 @@ import BatchPageComponent from '../batchPage/BatchPageComponent';
 import LogoutComponent from '../user/Logout';
 import ForgotPassword from '../user/ForgotPassword';
 import Test from '../user/Test';
+import WeekCategoryListContainer from '../weekCategories/WeekCategoryListContainer';
 
 export type StackParams = {
-	Login: undefined;
-	Test: undefined;
-	Home: undefined;
-	Batches: undefined;
-	Quarter: [];
-	BatchDetail: undefined;
+    Login: undefined;
+    Test: undefined;
+    Home: undefined;
+    Batches: undefined;
+    Quarter: [];
+    BatchDetail: undefined;
 };
 
 const headerOptions: StackHeaderOptions = {
-    headerTitle: () => <Image style={{width:165, height:50, margin:30}}source={require('./rev-logo.png')} />,
+    headerTitle: () => <Image style={{ width: 165, height: 50, margin: 30 }} source={require('./rev-logo.png')} />,
     headerRight: () => <LogoutComponent />,
 };
 
@@ -56,6 +57,11 @@ export default function RouterComponent(props: any) {
             <Stack.Screen
                 name='ForgotPassword'
                 component={ForgotPassword}
+                options={headerOptions}
+            />
+            <Stack.Screen
+                name='WeekCatList'
+                component={WeekCategoryListContainer}
                 options={headerOptions}
             />
         </Stack.Navigator>

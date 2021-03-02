@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { deleteWeekCategory } from '../store/actions';
+import { weekCategory } from './weekCategory';
+import WeekCategoryService from './WeekCategoryService';
 
+interface catProp {
+  weekID: number,
+  skill: string,
+  catID: number
+}
 
-
-export default function CategoryButton(props: any) {
-  var [categoryContext, setCategoryContext] = useState(props.data.skill);
+export default function CategoryButton(props: catProp) {
+  var [categoryContext, setCategoryContext] = useState(props.skill);
+  const dispatch = useDispatch();
+  const weekCat: weekCategory = { qcWeekId: props.weekID, categoryId: props.catID }
   return (
     <View style={[styles.screenContainer]}>
       <Text style={styles.myFontColor}>{categoryContext + "  "}
-        <TouchableOpacity onPress={() => {
-          alert("Place holder for dispatching {action:'delete',payload:'" + props.data.categoryid + "'}");
-          setCategoryContext('deleted')
+        <TouchableOpacity testID='button' onPress={() => {
+          WeekCategoryService.deleteCategory(String(props.catID)).then(() => {
+            dispatch(deleteWeekCategory(weekCat));
+          })
         }}>
           <Text style={styles.innerContainer}> x </Text></TouchableOpacity></Text>
     </View>
@@ -24,10 +35,10 @@ var styles = StyleSheet.create({
     opacity: .5,
     borderRadius: 8,
     paddingLeft: 5,
-    margin:1,
-    alignItems:'center',
-    justifyContent:'center',
-    height:30
+    margin: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 30
   },
   innerContainer: {
     backgroundColor: 'lightgrey',
@@ -45,7 +56,7 @@ var styles = StyleSheet.create({
   },
   myFontColor: {
     color: 'blue',
-    
+
   }
 
 

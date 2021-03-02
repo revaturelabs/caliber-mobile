@@ -34,7 +34,7 @@ export interface AssociateState {
 export interface CaliberState extends UserState, BatchState,AssociateState {}
 
 export interface WeekCategoryState{
-	weekCategories: Category[];
+	weekCategories: weekCategory[];
 	weekCategory: weekCategory;
 }
 
