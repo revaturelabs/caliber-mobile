@@ -18,6 +18,7 @@ class AssociateService {
     week: string,
     token: string
   ): Promise<QCFeedback> {
+    console.log(`getting associate: token ${token}`);
     return axios
       .get(
         this.URI + '/batches/' + batch + '/weeks/' + week + '/associates/' + a.associateId,
@@ -42,6 +43,7 @@ class AssociateService {
     updateObject: Object,
     token: string
   ): Promise<QCFeedback> {
+    console.log(`putting associate: token ${token}`);
     return axios
       .put(
         this.URI + '/batches/' + qcfeedback.batchid + '/weeks/' + qcfeedback.weeknumber + '/associates/' + qcfeedback.associateid,

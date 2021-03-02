@@ -27,7 +27,7 @@ function AssociateDetail(this: any, props: AssociateProps) {
     props.qcFeedback.technicalstatus
   );
   let user = useSelector((state: ReducerState) => state.userReducer.user);
-  const token = user.token;
+  const token = user.token; 
 
   //Should we be able to view their note?
   const [viewNote, setViewNote] = useState(false);
@@ -98,6 +98,10 @@ function AssociateDetail(this: any, props: AssociateProps) {
           numberOfLines={4}
           scrollEnabled
           spellCheck={true}
+          onChangeText={(text: string) => {
+            setQcNote(text)
+            props.qcFeedback.notecontent = text}
+          }
           testID='qcNote'
         />
       )}
