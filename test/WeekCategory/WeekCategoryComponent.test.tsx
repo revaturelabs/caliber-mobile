@@ -9,10 +9,18 @@ import '@testing-library/jest-dom';
 import Enzyme from 'enzyme';
 import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+<<<<<<< HEAD
 import weekCategoryService from '../../weekCategories/WeekCategoryService';
 import CategoryButton from '../../weekCategories/WeekCategoryComponent';
 import * as redux from "react-redux";
 import store from '../../store/store';
+=======
+import {weekCategory} from '../../weekCategories/weekCategory';
+import useDispatch from 'react-redux'
+import weekCategoryService from '../../WeekCategories/WeekCategoryService';
+
+
+>>>>>>> 1fd30df632465d3346165af475198d26e3d67592
 
 configure({ adapter: new Adapter() })
 

@@ -2,13 +2,13 @@ import React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Category } from '../categoriesFeature/Category';
-import { addWeekCategory, getWeekCategories } from '../store/actions';
-import { weekCategory } from './WeekCategory';
-import { WeekCategoryList } from '../weekCategories/WeekCategoryList';
+import { addWeekCategory, CategoriesMenuOptions, getWeekCategories } from '../store/actions';
+import { WeekCategory } from './weekCategory';
+import { WeekCategoryList } from '../weekCategories/weekCategoryList';
 import weekCategoryService from '../weekCategories/WeekCategoryService';
-import { RootState } from '../store/store';
+import  { ReducerState }  from '../store/store';
 import categoryService from '../categoriesFeature/CategoryService';
-import { getCategories } from '../store/categoriesFeature/CategoryActions';
+
 
 /**
  * Get all information that weekCategoryList will display then call weekCategoryList
@@ -16,9 +16,9 @@ import { getCategories } from '../store/categoriesFeature/CategoryActions';
  * 
  */
 export default function WeekCategoryListContainer() {
-  const weekCatSelector = (state: RootState) => state.WeekCategoryReducer.weekCategories;
+  const weekCatSelector = (state: ReducerState) => state.WeekCategoryReducer.weekCategories;
   const weekCategories = useSelector(weekCatSelector);
-  const weekIDSelector = (state: RootState) => state.weekReducer.selectedWeek;
+  const weekIDSelector = (state: ReducerState) => state.weekReducer.selectedWeek;
   const weekId = useSelector(weekIDSelector);
 
   const dispatch = useDispatch();
@@ -56,16 +56,16 @@ export default function WeekCategoryListContainer() {
  * @return an array of type Category[]
  */
   function createActiveList() {
-    categoryService.getCategories('true').then((results) => {
+    categoryService.getCategories(true).then((results) => {
       let availableCats: Category[] = []
       if (results != availableCats) {
-        results.forEach(element => {
-          if (weekCategories.includes({ categoryId: element.categoryid, qcWeekId: weekId.qcWeekId }) == false) {
+        results.forEach((element: Category) => {
+          if (weekCategories.includes(element) == false) {
             availableCats.push(element);
           }
         });
       }
-      dispatch(getCategories(availableCats));
+      dispatch(CategoriesMenuOptions(availableCats));
       return (availableCats);
     });
     return ([]);
@@ -81,7 +81,7 @@ export default function WeekCategoryListContainer() {
  */
   function addCategory(newCat: Category) {
     if (newCat.categoryid != -1) {
-      let weekCat: weekCategory = { categoryId: newCat.categoryid, qcWeekId: weekId.qcWeekId };
+      let weekCat: WeekCategory = { categoryId: newCat.categoryid, qcWeekId: weekId.qcWeekId };
       weekCategoryService.addCategory(weekCat).then(() => {
         dispatch(addWeekCategory(weekCat));
 

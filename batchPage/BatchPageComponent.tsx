@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from 'react'
-
-import { View, Text } from "react-native";
-import { useSelector } from 'react-redux';
-import { Associate } from '../associate/AssociateService';
+import React, { useEffect } from 'react'
+import { View } from "react-native";
 import AssociateTableComponent from "../associate/AssociateTableComponent";
-import BatchService from '../batches/BatchService';
 import AddNoteComponent from "../batchWeek/AddNoteComponent";
 import AddWeek from "../batchWeek/AddWeek/addWeek.component";
 import WeekSelectionComponent from "../batchWeek/WeekSelectionComponent";
-import { RootState } from '../store/store';
 import WeekCategoryListContainer from '../weekCategories/WeekCategoryListContainer';
-import BatchPageService from './BatchPageService';
+
 
 function BatchPageComponent() {
 
@@ -29,4 +24,4 @@ function BatchPageComponent() {
     );
 }
 
-export default BatchPageComponent
+export default BatchPageComponent;

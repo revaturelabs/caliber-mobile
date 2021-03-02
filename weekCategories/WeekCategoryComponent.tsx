@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { deleteWeekCategory } from '../store/actions';
-import { weekCategory } from './WeekCategory';
+import { WeekCategory } from './weekCategory';
 import WeekCategoryService from './WeekCategoryService';
 
 interface CatProp {
@@ -18,7 +18,7 @@ interface CatProp {
  */
 export default function CategoryButton(props: CatProp) {
   const dispatch = useDispatch();
-  const weekCat: weekCategory = { qcWeekId: props.weekID, categoryId: props.catID }
+  const weekCat: WeekCategory = { qcWeekId: props.weekID, categoryId: props.catID }
   return (
     <View style={[styles.screenContainer]}>
       <Text style={styles.myFontColor}>{props.skill + "  "}
@@ -34,7 +34,7 @@ export default function CategoryButton(props: CatProp) {
 
 var styles = StyleSheet.create({
 
-  screenContainer: {
+screenContainer: {
     backgroundColor: 'grey',
     opacity: .5,
     borderRadius: 8,
@@ -54,16 +54,12 @@ var styles = StyleSheet.create({
     color: 'red',
     textAlignVertical: 'center',
     textAlign: 'center',
-  },
-  containerwidth: {
+    },
+containerwidth: {
     width: '100%',
-  },
-  myFontColor: {
+    },
+myFontColor: {
     color: 'blue',
-
   }
 
-
-
 });
-
