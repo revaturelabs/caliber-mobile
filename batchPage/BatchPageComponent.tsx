@@ -39,8 +39,8 @@ function BatchPageComponent() {
             technicalstatus: assoc.qcFeedback.technicalstatus
           }, token);
         }
-      };
-    });
+      }
+    })
   }
 
   return (
