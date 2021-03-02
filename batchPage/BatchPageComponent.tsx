@@ -46,8 +46,9 @@ function BatchPageComponent() {
 
   return (
     <ScrollView
-      stickyHeaderIndices={[4]}
-      invertStickyHeaders={true}>
+      stickyHeaderIndices={[5]}
+      invertStickyHeaders={true}
+      >
         <WeekSelectionComponent/>
         <AddWeek/>
         <WeekCategoryListContainer/>
