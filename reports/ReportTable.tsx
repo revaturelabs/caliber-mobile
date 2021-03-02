@@ -25,7 +25,7 @@ export function ReportsTable(props: ReportProps) {
     function getQCNotes() {
         let listofassociates: AssociateWithFeedback[] = [];
         props.assoc.forEach(async (asoc) => {
-            let qcnotes: QCFeedback = await AssociateService.getAssociate(asoc, batch, week.qcWeekId.toString());
+            let qcnotes: QCFeedback = await AssociateService.getAssociate(asoc, batch.batchId, week.qcWeekId.toString());
             if (qcnotes) {
                 let val = new AssociateWithFeedback();
                 val.associate = asoc;
