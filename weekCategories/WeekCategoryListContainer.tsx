@@ -37,9 +37,10 @@ export default function WeekCategoryListContainer() {
    */
   function createCatList(week:QcWeek) {
     let weekCategoriesAsCategoryTemp: Category[];
-    weekCategoryService.getCategory(week.qcWeekId, week.batchId, token).then((results) => {
-      console.log(results)
-      if (results == []) {
+    weekCategoryService.getCategory(week.qcweekid, week.batchid, token).then((results) => {
+      console.log('test: ' + results)
+      console.log(week)
+      if (results.length == 0) {
         return [];
       } else {
         categoryService.getCategories(token).then((allCats: Category[]) => {
@@ -90,8 +91,8 @@ export default function WeekCategoryListContainer() {
    */
   function addCategory(newCat: Category, week:QcWeek) {
     if (newCat.categoryid != -1) {
-      let weekCat: WeekCategory = { categoryId: newCat.categoryid, qcWeekId: week.qcWeekId };
-      weekCategoryService.addCategory(weekCat, week.batchId, week.qcWeekId, token).then(() => {
+      let weekCat: WeekCategory = { categoryId: newCat.categoryid, qcWeekId: week.qcweekid };
+      weekCategoryService.addCategory(weekCat, week.batchid, week.qcweekid, token).then(() => {
         dispatch(addWeekCategory(weekCat));
       });
     }

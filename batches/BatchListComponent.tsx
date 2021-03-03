@@ -5,8 +5,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 
 import { style } from '../global_styles';
-import { changeBatch } from '../store/actions';
+import { changeBatch, changeSelectedWeek } from '../store/actions';
 import { ReducerState } from '../store/store';
+import QcWeek from '../batchWeek/QcWeek';
+import batchWeekService from '../batchWeek/batchWeekService';
 
 /**
  * @typedef {Object} Props
@@ -24,8 +26,8 @@ interface Props {
  * @property {string} info
  */
 interface VisibleBatch {
-  index: number;
-  info: string;
+	index: number;
+	info: string;
 }
 
 /**
@@ -35,6 +37,7 @@ interface VisibleBatch {
  */
 export default function BatchListComponent({ navigation, route }: Props) {
 	const dispatch = useDispatch();
+	const weeks = useSelector((state: ReducerState) => state.weekReducer.weeks);
 	const user = useSelector((state: ReducerState) => state.userReducer.user);
 	const batches = useSelector((state: ReducerState) => state.batchReducer.batches);
 	const [visibleBatches, setVisible] = useState<VisibleBatch[]>([]);
@@ -63,9 +66,8 @@ export default function BatchListComponent({ navigation, route }: Props) {
 				index,
 				info:
 					user.role.ROLE_QC === true || user.role.ROLE_VP === true
-						? `${batch.trainerFirstName + ' ' + batch.trainerLastName}\n${
-								batch.skill
-						  }\n${batch.startDate}`
+						? `${batch.trainerFirstName + ' ' + batch.trainerLastName}\n${batch.skill
+						}\n${batch.startDate}`
 						: `${batch.skill}\n${batch.startDate}`,
 			};
 		});
@@ -80,7 +82,21 @@ export default function BatchListComponent({ navigation, route }: Props) {
 	 * @param {string} index
 	 */
 	function handleBatchSelect(index: string) {
+		let week = new QcWeek();
+		week.batchid = batches[Number(index)].batchId;
 		dispatch(changeBatch(batches[Number(index)]));
+		batchWeekService.getWeeksByBatchId(user.token, week.batchid).then((allWeeks) => {
+			if (allWeeks.length == 0) {
+				batchWeekService.addWeek(user.token, week).then(() => {
+					batchWeekService.getWeeksByBatchId(user.token, week.batchid).then((allWeeks) => {
+						dispatch(changeSelectedWeek(allWeeks[0]));
+					});
+				})
+			} else {
+				dispatch(changeSelectedWeek(allWeeks[0]));
+			}
+
+		});
 		navigation.navigate('BatchDetail');
 	}
 
@@ -122,7 +138,7 @@ export default function BatchListComponent({ navigation, route }: Props) {
 	 * Display a selectable batch
 	 * @param {*} params
 	 * @returns {JSX}
-	 */        
+	 */
 	const batchCard = (params: any) => {
 		return (
 			<Pressable onPress={() => handleBatchSelect(params.item.index)}>
@@ -145,9 +161,8 @@ export default function BatchListComponent({ navigation, route }: Props) {
 					index,
 					info:
 						user.role.ROLE_QC === true || user.role.ROLE_VP === true
-							? `${batch.name} ${batch.skill} ${batch.startDate} - ${
-									batch.trainerFirstName + ' ' + batch.trainerLastName
-							  }`
+							? `${batch.name} ${batch.skill} ${batch.startDate} - ${batch.trainerFirstName + ' ' + batch.trainerLastName
+							}`
 							: `${batch.name} ${batch.skill} ${batch.startDate}`,
 				};
 			});
@@ -167,11 +182,11 @@ export default function BatchListComponent({ navigation, route }: Props) {
 	// Displays a list of batches based on filters
 	return (
 		<View>
-			<View style={{height: 40, flexDirection: 'row', margin: 5}}>
+			<View style={{ height: 40, flexDirection: 'row', margin: 5 }}>
 				<Button
-					color="#F26925" 
-					title='Back' 
-					onPress={()=>navigation.goBack()}/>
+					color="#F26925"
+					title='Back'
+					onPress={() => navigation.goBack()} />
 				<Text style={style.subheading}>
 					{year + ' > ' + route.params.quarter}
 				</Text>

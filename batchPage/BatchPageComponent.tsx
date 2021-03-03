@@ -61,7 +61,7 @@ function BatchPageComponent() {
       <ScrollView>
         <WeekSelectionComponent></WeekSelectionComponent>
         <AddWeek></AddWeek>
-         <WeekCategoryListContainer/> 
+        <WeekCategoryListContainer/> 
         <AddNoteComponent></AddNoteComponent>
         <AssociateTableComponent></AssociateTableComponent>
         <Button
