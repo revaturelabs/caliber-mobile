@@ -27,27 +27,17 @@ class AssociateService {
       .then((result) => result.data)
       .catch((err) => {
         let qcFeedback = new QCFeedback();
-<<<<<<< HEAD
         qcFeedback.associateid = a.associateId;
         qcFeedback.batchid = batch;
         qcFeedback.weeknumber = Number(week);
-        this.putAssociate(qcFeedback, {
-            notecontent: qcFeedback.notecontent,
-            technicalstatus: qcFeedback.technicalstatus,
-          }, token);
-=======
-        qcFeedback.associateId = a.associateId;
-        qcFeedback.batchId = batch;
-        qcFeedback.weekId = Number(week);
         this.putAssociate(
           qcFeedback,
           {
-            notecontent: qcFeedback.qcNote,
-            technicalstatus: qcFeedback.qcTechnicalStatus,
+            notecontent: qcFeedback.notecontent,
+            technicalstatus: qcFeedback.technicalstatus,
           },
           token
         );
->>>>>>> 7054f7bb20ebdc3f5ab07ea434583ffc724af3ff
         console.error(err);
       });
   }
@@ -59,11 +49,7 @@ class AssociateService {
   ): Promise<QCFeedback> {
     return axios
       .put(
-<<<<<<< HEAD
-        this.URI + '/batches/' + qcfeedback.batchid + '/weeks/' + qcfeedback.weeknumber + '/associates/' + qcfeedback.associateid,
-=======
         `${this.URI}/batches/${qcfeedback.batchId}/weeks/${qcfeedback.weekId}/associates/${qcfeedback.associateId}`,
->>>>>>> 7054f7bb20ebdc3f5ab07ea434583ffc724af3ff
         JSON.stringify(updateObject),
         { headers: { Authorization: `Bearer ${token}` } }
       )
@@ -80,11 +66,7 @@ class AssociateService {
   ): Promise<QCFeedback> {
     return axios
       .patch(
-<<<<<<< HEAD
-        this.URI + '/batches/' + qcfeedback.batchid + '/weeks/' + qcfeedback.weeknumber + '/associates/' + qcfeedback.associateid,
-=======
         `${this.URI}/batches/${qcfeedback.batchId}/weeks/${qcfeedback.weekId}/associates/${qcfeedback.associateId}`,
->>>>>>> 7054f7bb20ebdc3f5ab07ea434583ffc724af3ff
         updateObject,
         { headers: { Authorization: `Bearer ${token}` } }
       )
