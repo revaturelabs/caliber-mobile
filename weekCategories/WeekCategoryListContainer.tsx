@@ -12,6 +12,7 @@ import { WeekCategoryList } from '../weekCategories/weekCategoryList';
 import weekCategoryService from '../weekCategories/WeekCategoryService';
 import { ReducerState } from '../store/store';
 import categoryService from '../categoriesFeature/CategoryService';
+import QcWeek from '../batchWeek/QcWeek';
 
 /**
  * Get all information that weekCategoryList will display then call weekCategoryList
@@ -34,7 +35,7 @@ export default function WeekCategoryListContainer() {
    *
    * @return an array of type Category[]
    */
-  function createCatList() {
+  function createCatList(week:QcWeek) {
     let weekCategoriesAsCategoryTemp: Category[];
     weekCategoryService.getCategory(week.qcWeekId, week.batchId, token).then((results) => {
       if (results == []) {
@@ -85,7 +86,7 @@ export default function WeekCategoryListContainer() {
    * @param {Category} newCat - The category to be added to the week
    * qcWeek is what was passed to weekCategoryList function
    */
-  function addCategory(newCat: Category) {
+  function addCategory(newCat: Category, week:QcWeek) {
     if (newCat.categoryid != -1) {
       let weekCat: WeekCategory = { categoryId: newCat.categoryid, qcWeekId: week.qcWeekId };
       weekCategoryService.addCategory(weekCat, week.batchId, week.qcWeekId, token).then(() => {
@@ -94,7 +95,7 @@ export default function WeekCategoryListContainer() {
     }
   }
 
-  let weekCategoriesAsCategory: Category[] = createCatList();
+  let weekCategoriesAsCategory: Category[] = createCatList(week);
   let activeCategoriesList: Category[] = createActiveList();
 
   return (

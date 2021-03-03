@@ -47,7 +47,7 @@ export function WeekCategoryList(props: WeekProp) {
 
         <MenuProvider  style={styles.menu}>
 
-          <Menu onSelect={value => { props.addCategory(value, props.week.qcWeekId); } }>
+          <Menu onSelect={value => { props.addCategory(value, props.week); } }>
 
             <MenuTrigger text='+' customStyles={triggerStyles}/>
 
