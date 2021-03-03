@@ -13,10 +13,10 @@ class WeekCategoryService {
     * @param weekCategory the added weekCategory
     * @return the category that was added
     */
-    addCategory(weekCategory: WeekCategory, batchId: string, weekId: number): Promise<WeekCategory> {
+    addCategory(weekCategory: WeekCategory, batchId: string, weekId: number): Promise<null> {
         return axios
             .post(this.URI + '/batches/' + batchId + '/weeks/' + weekId + '/categories', weekCategory)
-            .then(result => result.data)
+            .then((result) => null)
             .catch(err => err);
     }
 

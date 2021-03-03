@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Category } from '../categoriesFeature/Category';
 import { addWeekCategory, categoriesMenuOptions, getWeekCategories } from '../store/actions';
 import { WeekCategory } from './weekCategory';
-import { WeekCategoryList } from '../weekCategories/WeekCategoryList';
+import { WeekCategoryList } from '../weekCategories/weekCategoryList';
 import weekCategoryService from '../weekCategories/WeekCategoryService';
 import { ReducerState } from '../store/store';
 import categoryService from '../categoriesFeature/CategoryService';
