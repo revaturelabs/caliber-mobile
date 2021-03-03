@@ -4,7 +4,7 @@ import { WeekCategory } from './weekCategory';
 class WeekCategoryService {
     private URI: string;
     constructor() {
-        this.URI = 'https://localhost:3000/';
+        this.URI = ' https://d3e1hb8u20.execute-api.us-east-1.amazonaws.com/default/';
     }
 
     /**
@@ -13,9 +13,9 @@ class WeekCategoryService {
     * @param weekCategory the added weekCategory
     * @return the category that was added
     */
-    addCategory(weekCategory: WeekCategory, batchId: string, weekId: number): Promise<null> {
+    addCategory(weekCategory: WeekCategory, batchId: string, weekId: number ,token:string): Promise<null> {
         return axios
-            .post(this.URI + '/batches/' + batchId + '/weeks/' + weekId + '/categories', weekCategory)
+            .post(this.URI + '/batches/' + batchId + '/weeks/' + weekId + '/categories', weekCategory,{headers: { Authorization: `Bearer ${token}`}})
             .then((result) => null)
             .catch(err => err);
     }
@@ -26,9 +26,9 @@ class WeekCategoryService {
     * @param number the id of the week
     * @return an array of all categories for a given week
     */
-    getCategory(weekId: number, batchId:string): Promise<WeekCategory[]> {
+    getCategory(weekId: number, batchId:string, token:string): Promise<WeekCategory[]> {
         return axios.
-            get(this.URI + '/batches/' + batchId + '/weeks/' + weekId + '/categories')
+            get(this.URI + '/batches/' + batchId + '/weeks/' + weekId + '/categories',{headers: { Authorization: `Bearer ${token}`}})
             .then(result => result.data)
             .catch(err => err);
     }
@@ -39,10 +39,10 @@ class WeekCategoryService {
     * @param  string the id of the category
     * @return nothing
     */
-    deleteCategory(weekId: number, batchId: string, catId: number): Promise<null> {
+    deleteCategory(weekId: number, batchId: string, catId: number, token:string): Promise<null> {
 
         return axios
-            .delete(this.URI + '/batches/' + batchId + '/weeks/' + weekId + '/categories/' + catId)
+            .delete(this.URI + '/batches/' + batchId + '/weeks/' + weekId + '/categories/' + catId,{headers: { Authorization: `Bearer ${token}`}})
             .then((result) => null)
             .catch((err) => err);
     }

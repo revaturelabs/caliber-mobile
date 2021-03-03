@@ -33,7 +33,7 @@ export default function WeekCategoryListContainer() {
  */
   function createCatList() {
     let weekCategoriesAsCategoryTemp: Category[];
-    weekCategoryService.getCategory(week.qcWeekId, week.batchId).then((results) => {
+    weekCategoryService.getCategory(week.qcWeekId, week.batchId, token).then((results) => {
       if (results == []) {
         return ([]);
       } else {
@@ -89,7 +89,7 @@ export default function WeekCategoryListContainer() {
   function addCategory(newCat: Category) {
     if (newCat.categoryid != -1) {
       let weekCat: WeekCategory = { categoryId: newCat.categoryid, qcWeekId: week.qcWeekId };
-      weekCategoryService.addCategory(weekCat, week.batchId, week.qcWeekId).then(() => {
+      weekCategoryService.addCategory(weekCat, week.batchId, week.qcWeekId, token).then(() => {
         dispatch(addWeekCategory(weekCat));
 
       });
@@ -102,7 +102,7 @@ export default function WeekCategoryListContainer() {
 
   return (
     <View>
-      <WeekCategoryList week={week} weekCategoriesAsCategory={weekCategoriesAsCategory} addCategory={addCategory} activeCategories={activeCategoriesList} />
+      <WeekCategoryList week={week} weekCategoriesAsCategory={weekCategoriesAsCategory} addCategory={addCategory} activeCategories={activeCategoriesList} token={token} />
     </View>
   )
 

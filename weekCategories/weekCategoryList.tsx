@@ -17,6 +17,7 @@ interface WeekProp {
   weekCategoriesAsCategory: Category[],
   addCategory:Function,
   activeCategories:Category[],
+  token:string
 
 }
 /**
@@ -39,7 +40,7 @@ export function WeekCategoryList(props: WeekProp) {
           data={props.weekCategoriesAsCategory}
           horizontal={true}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (<WeekCategoryComponent weekID={props.week.qcWeekId} skill={item.skill} catID = {item.categoryid} batchId={props.week.batchId}></WeekCategoryComponent>)} />
+          renderItem={({ item }) => (<WeekCategoryComponent weekID={props.week.qcWeekId} skill={item.skill} catID = {item.categoryid} batchId={props.week.batchId} token ={props.token}></WeekCategoryComponent>)} />
       </View>
 
       <View style={styles.menuContainer}>

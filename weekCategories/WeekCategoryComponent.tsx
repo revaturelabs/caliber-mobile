@@ -9,7 +9,8 @@ interface CatProp {
   weekID: number,
   skill: string,
   catID: number, 
-  batchId: string
+  batchId: string,
+  token:string
 }
 
 /**
@@ -24,7 +25,7 @@ export default function CategoryButton(props: CatProp) {
     <View style={[styles.screenContainer]}>
       <Text style={styles.myFontColor}>{props.skill + "  "}
         <TouchableOpacity testID='button' onPress={() => {
-          WeekCategoryService.deleteCategory(props.weekID, props.batchId, props.catID).then(() => {
+          WeekCategoryService.deleteCategory(props.weekID, props.batchId, props.catID, props.token).then(() => {
             dispatch(deleteWeekCategory(weekCat));
           })
         }}>
