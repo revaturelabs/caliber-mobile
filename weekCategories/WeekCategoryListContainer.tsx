@@ -38,6 +38,7 @@ export default function WeekCategoryListContainer() {
   function createCatList(week:QcWeek) {
     let weekCategoriesAsCategoryTemp: Category[];
     weekCategoryService.getCategory(week.qcWeekId, week.batchId, token).then((results) => {
+      console.log(results)
       if (results == []) {
         return [];
       } else {
@@ -67,6 +68,7 @@ export default function WeekCategoryListContainer() {
   function createActiveList() {
     categoryService.getCategories(token, true).then((results) => {
       let availableCats: Category[] = [];
+      console.log(results)
       if (results != availableCats) {
         results.forEach((element: Category) => {
           if (weekCategories.includes(element) == false) {
