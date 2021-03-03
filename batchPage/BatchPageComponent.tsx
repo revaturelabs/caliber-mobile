@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Icon } from 'react-native-elements';
 import { useSelector } from 'react-redux';
 import AssociateTableComponent from '../associate/AssociateTableComponent';
 import AddNoteComponent from '../batchWeek/AddNoteComponent';
@@ -11,7 +11,6 @@ import style from '../global_styles';
 import AssociateService, {
   AssociateWithFeedback,
 } from '../associate/AssociateService';
-import { Icon } from 'react-native-elements';
 import WeekCategoryListContainer from '../weekCategories/WeekCategoryListContainer';
 
 function BatchPageComponent() {
