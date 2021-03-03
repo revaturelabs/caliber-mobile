@@ -1,6 +1,5 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import BatchHome from '../batches/BatchHome';
 import BatchListComponent from '../batches/BatchListComponent';
 import QuarterComponent from '../batches/QuarterComponent';
 import YearComponent from '../batches/YearComponent';
