@@ -3,7 +3,6 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import batchReducer from './batchReducer';
 import userReducer from './userReducer';
-import Batch from '../batches/batch';
 import { AppAction } from './actions';
 import { UserInfo, UserInput } from '../user/user';
 import { AssociateWithFeedback } from '../associate/AssociateService';
@@ -13,6 +12,7 @@ import { Category } from '../categoriesFeature/Category';
 import categoryReducer from './categoriesFeature/CategoryReducer';
 import { WeekCategory } from '../weekCategories/weekCategory';
 import weekReducer from './WeekReducer';
+import Batch from '../batches/batch';
 
 export interface BatchState {
   batch: Batch;

@@ -130,58 +130,8 @@ function AssociateTableComponent() {
       dispatch(getAssociates(val));
     }
   }
-
-  /**
-   * Updates all of the associates with their new notes and
-   * technical statuses. Is used on the save button that
-   * is stickied to the bottom of the screen.
-   */
-  function handleAllUpdate() {
-    associates.forEach(async (assoc) => {
-      try {
-        await AssociateService.updateAssociate(
-          assoc.qcFeedback,
-          {
-            notecontent: assoc.qcFeedback.qcNote,
-          },
-          token
-        );
-      } catch (err: any) {
-        await AssociateService.putAssociate(
-          assoc.qcFeedback,
-          {
-            notecontent: assoc.qcFeedback.qcNote,
-            technicalstatus: assoc.qcFeedback.qcTechnicalStatus,
-          },
-          token
-        );
-      }
-      try {
-        await AssociateService.updateAssociate(
-          assoc.qcFeedback,
-          {
-            technicalstatus: assoc.qcFeedback.qcNote,
-          },
-          token
-        );
-      } catch (err: any) {
-        await AssociateService.putAssociate(
-          assoc.qcFeedback,
-          {
-            technicalstatus: assoc.qcFeedback.qcTechnicalStatus,
-            notecontent: assoc.qcFeedback.qcNote,
-          },
-          token
-        );
-      }
-    });
-  }
   return (
     <View style={style.associatesViewComponent}>
-      <Button
-        onPress={() => {
-          alert(JSON.stringify(associates));
-        }}></Button>
       <Button
         onPress={async () => {
           let x = [...associates];
@@ -247,16 +197,6 @@ function AssociateTableComponent() {
           />
         )}
         keyExtractor={(item) => item.associate.firstName}
-      />
-      <Button
-        raised
-        titleStyle={style.title}
-        buttonStyle={style.button}
-        title='Save All'
-        type='outline'
-        icon={<Icon name='save' type='fontawesome' color='#F26925' />}
-        onPress={handleAllUpdate}
-        testID='saveNote'
       />
     </View>
   );
