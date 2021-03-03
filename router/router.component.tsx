@@ -21,10 +21,12 @@ function RouterComponent(props: any) {
       if (user) {
         //Logged in
         console.log(user);
+        
         setLoggedin(true);
         user
           .getIdTokenResult()
           .then((token: any) => {
+            
             const role = {
               ROLE_QC: token.claims.ROLE_QC,
               ROLE_VP: token.claims.ROLE_VP,
