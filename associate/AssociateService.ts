@@ -10,7 +10,7 @@ class AssociateService {
   constructor() {
     // URI for the API Gateway
     this.URI =
-      'https://d3e1hb8u20.execute-api.us-east-1.amazonaws.com/default/qc';
+      'https://a737vxhhbh.execute-api.us-east-1.amazonaws.com/default/qc';
   }
 
   async getAssociate(
@@ -27,14 +27,14 @@ class AssociateService {
       .then((result) => result.data)
       .catch((err) => {
         let qcFeedback = new QCFeedback();
-        qcFeedback.associateId = a.associateId;
-        qcFeedback.batchId = batch;
-        qcFeedback.weekId = Number(week);
+        qcFeedback.associateid = a.associateId;
+        qcFeedback.batchid = batch;
+        qcFeedback.weeknumber = Number(week);
         this.putAssociate(
           qcFeedback,
           {
-            notecontent: qcFeedback.qcNote,
-            technicalstatus: qcFeedback.qcTechnicalStatus,
+            notecontent: qcFeedback.notecontent,
+            technicalstatus: qcFeedback.technicalstatus,
           },
           token
         );
@@ -49,7 +49,7 @@ class AssociateService {
   ): Promise<QCFeedback> {
     return axios
       .put(
-        `${this.URI}/batches/${qcfeedback.batchId}/weeks/${qcfeedback.weekId}/associates/${qcfeedback.associateId}`,
+        `${this.URI}/batches/${qcfeedback.batchid}/weeks/${qcfeedback.weeknumber}/associates/${qcfeedback.associateid}`,
         JSON.stringify(updateObject),
         { headers: { Authorization: `Bearer ${token}` } }
       )
@@ -66,7 +66,7 @@ class AssociateService {
   ): Promise<QCFeedback> {
     return axios
       .patch(
-        `${this.URI}/batches/${qcfeedback.batchId}/weeks/${qcfeedback.weekId}/associates/${qcfeedback.associateId}`,
+        `${this.URI}/batches/${qcfeedback.batchid}/weeks/${qcfeedback.weeknumber}/associates/${qcfeedback.associateid}`,
         updateObject,
         { headers: { Authorization: `Bearer ${token}` } }
       )
@@ -79,11 +79,11 @@ class AssociateService {
 export default new AssociateService();
 
 export class QCFeedback {
-  batchId: string = '';
-  weekId: number = 0;
-  associateId: string = '';
-  qcNote: string = '';
-  qcTechnicalStatus: number = 0;
+  batchid: string = '';
+  weeknumber: number = 0;
+  associateid: string = '';
+  notecontent: string = '';
+  technicalstatus: number = 0;
 }
 
 export class Associate {

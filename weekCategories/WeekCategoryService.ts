@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { WeekCategory } from './weekCategory';
+import { WeekCategory } from './WeekCategory';
 
 class WeekCategoryService {
     private URI: string;
     constructor() {
-        this.URI = ' https://d3e1hb8u20.execute-api.us-east-1.amazonaws.com/default/';
+        this.URI = 'https://rtnkp17gz4.execute-api.us-east-1.amazonaws.com/default';
     }
 
     /**
@@ -27,9 +27,9 @@ class WeekCategoryService {
     * @return an array of all categories for a given week
     */
     getCategory(weekId: number, batchId:string, token:string): Promise<WeekCategory[]> {
-        return axios.
-            get(this.URI + '/batches/' + batchId + '/weeks/' + weekId + '/categories',{headers: { Authorization: `Bearer ${token}`}})
-            .then(result => result.data)
+        return axios
+            .get(this.URI + '/batches/' + batchId + '/weeks/' + weekId + '/categories',{headers: { Authorization: `Bearer ${token}`}})
+            .then((result) => result.data)
             .catch(err => err);
     }
 

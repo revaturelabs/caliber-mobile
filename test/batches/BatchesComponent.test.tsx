@@ -76,22 +76,73 @@ describe('BatchesComponent Test(s)', () => {
       ],
     };
 
-    axios.get = jest.fn().mockResolvedValue(obj);
+		axios.get = jest.fn().mockResolvedValue(obj);
 
-    // or you could use the following depending on your use case:
-    // axios.get.mockImplementation(() => Promise.resolve(resp))
-    // we want to test the api gateway that calls the lambda. the lambda will create multiple axios requests. we are mocking the front end request to the api gateway.
+		// or you could use the following depending on your use case:
+		// axios.get.mockImplementation(() => Promise.resolve(resp))
+		// we want to test the api gateway that calls the lambda. the lambda will create multiple axios requests. we are mocking the front end request to the api gateway.
 
-    await batchService
-      .getBatchesByTrainerEmail(trainerEmail)
-      .then((data: any) => (returnValues = data));
-    //we will make one axios request in the front end to the API Gateway
-    expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(returnValues).toBe(obj.data);
-    expect(axios.get).toHaveBeenCalledWith(`${gatewayURI}batches`, {
-      params: { trainerEmail: trainerEmail },
-    });
-  });
+		await batchService
+			.getBatchesByTrainerEmail(trainerEmail)
+			.then((data: any) => (returnValues = data));
+		//we will make one axios request in the front end to the API Gateway
+		expect(axios.get).toHaveBeenCalledTimes(1);
+		expect(returnValues).toBe(obj.data);
+		expect(axios.get).toHaveBeenCalledWith(`${gatewayURI}batch2`, {
+			params: { trainerEmail: trainerEmail },
+		});
+	});
+});
+
+describe('Batch Component Tests', () => {
+	it('BatchHome component did mount', () => {
+		const navigation = jest.fn();
+		expect(
+			shallow(
+				<Provider store={store}>
+					<NavigationContainer>
+						<BatchHome navigation={navigation} />
+					</NavigationContainer>
+				</Provider>
+			)
+		).toMatchSnapshot();
+	});
+
+	it('YearComponent did mount', () => {
+		expect(
+			shallow(
+				<Provider store={store}>
+					<NavigationContainer>
+						<YearComponent />
+					</NavigationContainer>
+				</Provider>
+			)
+		).toMatchSnapshot();
+	});
+
+	it('QuarterComponent did mount', () => {
+		expect(
+			shallow(
+				<Provider store={store}>
+					<NavigationContainer>
+						<QuarterComponent />
+					</NavigationContainer>
+				</Provider>
+			)
+		).toMatchSnapshot();
+	});
+
+	it('BatchListComponent did mount', () => {
+		expect(
+			shallow(
+				<Provider store={store}>
+					<NavigationContainer>
+						<BatchListComponent />
+					</NavigationContainer>
+				</Provider>
+			)
+		).toMatchSnapshot();
+	});
 
   test('the component did mount', () => {
     expect(
