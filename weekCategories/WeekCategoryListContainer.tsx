@@ -13,6 +13,7 @@ import weekCategoryService from '../weekCategories/WeekCategoryService';
 import { ReducerState } from '../store/store';
 import categoryService from '../categoriesFeature/CategoryService';
 import QcWeek from '../batchWeek/QcWeek';
+import style from '../global_styles';
 
 /**
  * Get all information that weekCategoryList will display then call weekCategoryList

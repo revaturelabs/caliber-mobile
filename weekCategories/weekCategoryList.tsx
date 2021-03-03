@@ -10,6 +10,7 @@ import {
 import WeekCategoryComponent from './WeekCategoryComponent';
 import { Category } from '../categoriesFeature/Category';
 import QcWeek from '../batchWeek/QcWeek';
+import style from '../global_styles';
 
 
 interface WeekProp {
@@ -28,11 +29,11 @@ interface WeekProp {
 export function WeekCategoryList(props: WeekProp) {
   return (
     <View style={styles.allContainer}>
-      <Text>Categories: </Text>
+      <Text style = {styles.heading}>Categories: </Text>
 
       <View style={styles.container}>
         {props.weekCategoriesAsCategory.length == 0 && (
-          <Text testID='noCats'>No Categories For This Week</Text>
+          <Text style={styles.text} testID='noCats'>No Categories For This Week</Text>
 
         )}
         <FlatList
@@ -40,7 +41,7 @@ export function WeekCategoryList(props: WeekProp) {
           data={props.weekCategoriesAsCategory}
           horizontal={true}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (<WeekCategoryComponent weekID={props.week.qcWeekId} skill={item.skill} catID = {item.categoryid} batchId={props.week.batchId} token ={props.token}></WeekCategoryComponent>)} />
+          renderItem={({ item }) => (<WeekCategoryComponent weekID={props.week.qcweekid} skill={item.skill} catID = {item.categoryid} batchId={props.week.batchid} token ={props.token}></WeekCategoryComponent>)} />
       </View>
 
       <View style={styles.menuContainer}>
@@ -78,12 +79,17 @@ export function WeekCategoryList(props: WeekProp) {
 
 const styles = StyleSheet.create({
   allContainer:{
+    width:'100%',
     flexDirection: 'row',
+    margin:10
+
   },
   container: {
     flexDirection: 'row',
     maxWidth:'50%',
-    height:'50%'
+    height:'30%',
+    textAlignVertical:'center',
+    
   },
   menu: {
     flexDirection: 'row',
@@ -97,6 +103,12 @@ const styles = StyleSheet.create({
     
     
   },
+  heading:{
+    color: '#474C55',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+ 
 
 })
 const triggerStyles = {
